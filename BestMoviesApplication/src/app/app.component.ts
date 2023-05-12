@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
     <bm-layout>
     </bm-layout>
   `,
-  styles: [``],
+  styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
 
