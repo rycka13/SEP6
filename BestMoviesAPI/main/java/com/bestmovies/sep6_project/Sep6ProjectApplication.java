@@ -1,5 +1,6 @@
 package com.bestmovies.sep6_project;
 
+import com.bestmovies.sep6_project.dao.MovieReaderDao;
 import com.bestmovies.sep6_project.dao.MovieReaderMapper;
 import com.bestmovies.sep6_project.model.Movie;
 import org.apache.ibatis.type.MappedTypes;
@@ -32,8 +33,6 @@ class Helloworld {
 @RequestMapping("/test")
 class TestDb {
     private MovieReaderMapper movieReaderMapper;
-
-    public TestDb(){}
 
     public TestDb(MovieReaderMapper movieReaderMapper) {
         this.movieReaderMapper = movieReaderMapper;
