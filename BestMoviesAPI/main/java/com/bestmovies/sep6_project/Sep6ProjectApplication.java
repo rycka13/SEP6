@@ -3,14 +3,16 @@ package com.bestmovies.sep6_project;
 import com.bestmovies.sep6_project.dao.MovieReaderMapper;
 import com.bestmovies.sep6_project.model.Movie;
 import org.apache.ibatis.type.MappedTypes;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@MappedTypes(Movie.class)
 @SpringBootApplication
+@MapperScan("com.bestmovies.sep6_project.dao")
+@MappedTypes({Movie.class})
 public class Sep6ProjectApplication {
 
     public static void main(String[] args) {

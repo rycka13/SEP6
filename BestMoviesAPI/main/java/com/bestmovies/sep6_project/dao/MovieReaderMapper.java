@@ -3,6 +3,7 @@ package com.bestmovies.sep6_project.dao;
 import com.bestmovies.sep6_project.model.Movie;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
