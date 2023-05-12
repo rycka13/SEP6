@@ -18,7 +18,6 @@ public class Sep6ProjectApplication {
     public static void main(String[] args) {
         SpringApplication.run(Sep6ProjectApplication.class, args);
     }
-
 }
 
 @RestController
@@ -33,6 +32,8 @@ class Helloworld {
 @RequestMapping("/test")
 class TestDb {
     private MovieReaderMapper movieReaderMapper;
+
+    public TestDb(){}
 
     public TestDb(MovieReaderMapper movieReaderMapper) {
         this.movieReaderMapper = movieReaderMapper;

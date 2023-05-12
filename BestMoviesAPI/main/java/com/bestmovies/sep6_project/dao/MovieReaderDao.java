@@ -24,8 +24,5 @@ public class MovieReaderDao {
         catch(Exception exception){
             System.out.println(exception.getStackTrace().toString());
         }
-
-
     }
-
 }
