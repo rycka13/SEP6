@@ -1,9 +1,12 @@
-export class Stars {
-  movieId: number;
-  personId: number;
+import {Movie} from "./movie";
+import {Person} from "./person";
 
-  public constructor(movieId: number, personId: number) {
-    this.movieId = movieId;
-    this.personId = personId;
+export class Stars {
+  movie: Movie;
+  person: Person;
+
+  public constructor(movie: Movie, person: Person) {
+    this.movie = movie;
+    this.person = person;
   }
 }

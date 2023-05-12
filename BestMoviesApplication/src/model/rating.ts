@@ -1,10 +1,12 @@
+import {Movie} from "./movie";
+
 export class Rating {
-  movieId: number;
+  movie: Movie;
   rating: number;
   votes: number;
 
-  public constructor(movieId: number, rating: number, votes: number) {
-    this.movieId = movieId;
+  public constructor(movie: Movie, rating: number, votes: number) {
+    this.movie = movie;
     this.rating = rating;
     this.votes = votes;
   }
