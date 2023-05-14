@@ -17,6 +17,7 @@ import { BmLayoutComponent } from '../components/bm-layout/bm-layout.component';
 import { OverallInformationComponent } from './overall-information/overall-information.component';
 import {OverAllInformationState} from "./overall-information/overall-information.state";
 import {NgxsModule} from "@ngxs/store";
+import {AgGridModule} from "ag-grid-angular";
 
 
 export const states = [
@@ -45,7 +46,8 @@ export const states = [
     NbCardModule,
     NbIconModule,
     NbSpinnerModule,
-    NbListModule
+    NbListModule,
+    AgGridModule,
   ],
   bootstrap: [AppComponent]
 })

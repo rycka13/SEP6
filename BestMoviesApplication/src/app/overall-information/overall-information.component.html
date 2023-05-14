@@ -1,5 +1,4 @@
 <ng-container *ngIf="isFetching$ | async; then dataFetching; else dataFetched"></ng-container>
-
 <ng-template #dataFetched>
   <div class="overall-information"
        *ngIf="{movies: movies$ | async,
@@ -11,12 +10,18 @@
           Best movies
         </nb-card-header>
         <nb-card-body>
-          <nb-list>
-            <nb-list-item
-              *ngFor="let movie of info.bestMovies">
-              {{movie.year}}
-            </nb-list-item>
-          </nb-list>
+          <ag-grid-angular
+            #agGridAngular
+            style="width: 100%; height: 300px"
+            class="ag-theme-alpine"
+            [columnDefs]="columnDefs"
+            [defaultColDef]="defaultColDef"
+            [rowData]="bestMovies$ | async"
+            [rowSelection]="'multiple'"
+            [animateRows]="true"
+            (gridReady)="onGridReady($event)"
+            (cellClicked)="onCellClicked($event)"
+          ></ag-grid-angular>
         </nb-card-body>
       </nb-card>
     </div>
