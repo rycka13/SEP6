@@ -13,4 +13,7 @@
     <select id = "getAll" resultMap = "result">
         SELECT * FROM movies;
     </select>
+    <select id="getMovieById" resultMap="result" parameterType="int">
+        SELECT * FROM movies WHERE id = #{id};
+    </select>
 </mapper>

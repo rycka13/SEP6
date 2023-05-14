@@ -1,12 +1,12 @@
 package com.bestmovies.sep6_project.model;
 
-public class Ratings {
-    private int movieID;
+public class Rating {
+    private Movie movie;
     private double rating;
     private int votes;
 
-    public Ratings(int movieID, double rating, int votes) {
-        this.movieID = movieID;
+    public Rating(int movieID, double rating, int votes) {
+        this.movie = movie;
         this.rating = rating;
         this.votes = votes;
     }
@@ -19,8 +19,8 @@ public class Ratings {
         return votes;
     }
 
-    public int getMovieID() {
-        return movieID;
+    public Movie getMovie() {
+        return movie;
     }
 
     public void setVotes(int votes) {
@@ -31,7 +31,7 @@ public class Ratings {
         this.rating = rating;
     }
 
-    public void setMovieID(int movieID) {
-        this.movieID = movieID;
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
 }

@@ -2,6 +2,7 @@ package com.bestmovies.sep6_project;
 
 import com.bestmovies.sep6_project.dao.MovieDao;
 import com.bestmovies.sep6_project.model.Movie;
+import com.bestmovies.sep6_project.model.Rating;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ class TestDb {
 
     }
     @GetMapping("/all")
-    public List<Movie> greet() throws IOException {
-        return dao.getAllMovies();
+    public List<Rating> greet() throws IOException {
+        return dao.getAllRatings();
     }
 }
