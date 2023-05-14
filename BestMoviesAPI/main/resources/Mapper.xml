@@ -17,5 +17,6 @@
     <mappers>
         <mapper resource = "com/bestmovies/sep6_project/dao/mappers/Movie.xml"/>
         <mapper resource = "com/bestmovies/sep6_project/dao/mappers/Rating.xml"/>
+        <mapper resource = "com/bestmovies/sep6_project/dao/mappers/DirectorMapper.xml"/>
     </mappers>
 </configuration>

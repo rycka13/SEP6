@@ -5,11 +5,14 @@
 <mapper namespace="com.bestmovies.sep6_project.dao.interfaces.IDirectorMapper">
 
     <resultMap id="DirectorResultMap" type="com.bestmovies.sep6_project.model.Director">
+        <result property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="birthYear" column="birth" />
         <association property="movie" column="movie_id" javaType="com.bestmovies.sep6_project.model.Movie" select="com.bestmovies.sep6_project.dao.interfaces.MovieReaderMapper.getMovieById"/>
-        <association property="person" column="person_id" javaType="com.bestmovies.sep6_project.model.Person" select="com.bestmovies.sep6_project.dao.interfaces.MovieReaderMapper.getPersonById"/>
     </resultMap>
 
-    <select id="getAll" resultMap="RatingsResultMap">
-        SELECT * FROM ratings limit 10;
+    <select id="getAll" resultMap="DirectorResultMap">
+        select name, birth, id from people
+            inner join directors d on people.id = d.person_id;
     </select>
 </mapper>
