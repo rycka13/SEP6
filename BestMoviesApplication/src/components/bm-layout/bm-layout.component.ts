@@ -1,33 +1,41 @@
 import { Component } from '@angular/core';
 import { NbSidebarService } from '@nebular/theme';
+import {GENERAL_MENU_ITEMS} from "../../app/constants";
 
 @Component({
   selector: 'bm-layout',
   template:`
       <nb-layout>
           <nb-layout-header fixed>
+            <button
+              nbButton
+              ghost
+              shape="round"
+            (click)="toggle()"
+            >
+              <nb-icon [icon]="isToggled ? 'arrowhead-right-outline' : 'arrowhead-left-outline'"></nb-icon>
+            </button>
               <a href="#" (click)="toggle()"><i class="nb-menu"></i></a>
           </nb-layout-header>
-          <nb-layout-header subheader>
-              <nb-actions>
-                  <nb-action icon="home-outline"></nb-action>
-                  <nb-action icon="search-outline"></nb-action>
-                  <nb-action icon="edit-outline"></nb-action>
-              </nb-actions>
-          </nb-layout-header>
-          <nb-sidebar></nb-sidebar>
-          <nb-layout-column class="colored-column-basic">Layout Content</nb-layout-column>
+          <nb-sidebar>
+            <nb-menu [items]="GENERAL_MENU_ITEMS"></nb-menu>
+          </nb-sidebar>
+          <nb-layout-column class="colored-column-basic">
+            <router-outlet></router-outlet>
+          </nb-layout-column>
       </nb-layout>
   `
 })
 
 export class BmLayoutComponent {
 
-  constructor(private sidebarService: NbSidebarService) {
+  GENERAL_MENU_ITEMS = GENERAL_MENU_ITEMS;
+  isToggled = false;
+  constructor(private sideBarService: NbSidebarService) {
   }
 
   toggle() {
-    this.sidebarService.toggle(true);
-    return false;
+    this.isToggled = !this.isToggled;
+    this.sideBarService.toggle(true);
   }
 }

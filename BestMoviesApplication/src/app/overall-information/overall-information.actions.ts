@@ -1,4 +1,4 @@
-export class OverAllInformationFetch {
+export class OverAllInformationFetchInfo {
   static readonly type = 'Overall Information - Fetching info';
   constructor() {
   }
