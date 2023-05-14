@@ -15,4 +15,11 @@
         select name, birth, id from people
             inner join directors d on people.id = d.person_id;
     </select>
+
+    <select id="getByMovieId" resultMap="DirectorResultMap" parameterType="int">
+        select name, birth, id from people
+            inner join directors d on people.id = d.person_id
+            inner join movies m on d.movie_id = m.id
+        where movie_id = #{id};
+    </select>
 </mapper>

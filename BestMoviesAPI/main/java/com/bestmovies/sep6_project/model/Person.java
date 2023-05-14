@@ -6,6 +6,10 @@ public abstract class Person {
     private String name;
     private int birthYear;
 
+    public Person(){
+
+    }
+
     public Person(Movie movie, int id, String name, int birthYear) {
         this.movie = movie;
         this.id = id;

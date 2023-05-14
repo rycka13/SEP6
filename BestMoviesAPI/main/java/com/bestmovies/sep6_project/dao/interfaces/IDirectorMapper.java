@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IDirectorMapper {
     
-    List<Director> getDirectorsByMovieId(int movieId);
+    List<Director> getByMovieId(int movieId);
 
     List<Director> getAll();
 }
