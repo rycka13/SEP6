@@ -1,31 +1,36 @@
-name: Frontend build
+name: Node.js CI
 
 on:
   push:
-    paths:
-      'BestMoviesApplication/**'
-    branches:
-      - main
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: Install dependencies
-        run: 
-          cd BestMoviesApplication
-          npm install
-
-      - name: Run tests
-        run: npm run test
-
-      - name: Build
-        run: npm run build
+    - name: ls
+      run: ls
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        
+   
+    - name: Install dependencies
+      working-directory: ./BestMoviesApplication
+      run: npm ci
+    - name: Build
+      working-directory: ./BestMoviesApplication
+      run: npm run build --if-present
+    - name: Test
+      working-directory: ./BestMoviesApplication
+      run: npm run test
