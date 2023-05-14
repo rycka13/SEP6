@@ -1,6 +1,6 @@
 package com.bestmovies.sep6_project.model;
 
-public class Person {
+public abstract class Person {
     private Movie movie;
     private int id;
     private String name;
