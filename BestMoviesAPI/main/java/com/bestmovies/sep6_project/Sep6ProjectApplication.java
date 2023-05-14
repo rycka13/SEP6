@@ -1,11 +1,7 @@
 package com.bestmovies.sep6_project;
 
-import com.bestmovies.sep6_project.dao.MovieReaderDao;
-import com.bestmovies.sep6_project.dao.MovieReaderMapper;
+import com.bestmovies.sep6_project.dao.MovieDao;
 import com.bestmovies.sep6_project.model.Movie;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.type.MappedTypes;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +28,7 @@ class Helloworld {
 @RestController
 @RequestMapping("/test")
 class TestDb {
-    MovieReaderDao dao = new MovieReaderDao();
+    MovieDao dao = new MovieDao();
     public TestDb() throws IOException {
 
     }
