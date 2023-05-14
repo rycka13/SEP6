@@ -21,6 +21,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        
+    - name: ls
+      working-directory: ./BestMoviesApplication
+      run: ls
     - name: Install dependencies
       working-directory: ./BestMoviesApplication
       run: npm ci
