@@ -4,7 +4,12 @@ import {OverallInformationSelector} from "./overall-information.selector";
 import {Observable} from "rxjs";
 import {Movie} from "../../model/movie";
 import {Person} from "../../model/person";
-import {OverAllInformationFetchInfo, OverAllInformationReset} from "./overall-information.actions";
+import {
+  OverAllInformationBestMoviesFetch,
+  OverAllInformationFetchInfo,
+  OverAllInformationReset
+} from "./overall-information.actions";
+import {ColDef} from "ag-grid-community";
 
 @Component({
   selector: 'app-overall-information',
@@ -16,19 +21,34 @@ export class OverallInformationComponent implements OnInit, OnDestroy{
   alive = true;
 
   @Select(OverallInformationSelector.isFetching)
-  isFetching$: Observable<boolean> | undefined;
+  isFetching$: Observable<boolean>;
 
   @Select(OverallInformationSelector.movies)
-  movies$: Observable<Movie[]> | undefined;
+  movies$: Observable<Movie[]>;
 
   @Select(OverallInformationSelector.people)
-  people$: Observable<Person[]> | undefined;
+  people$: Observable<Person[]>;
+
+  @Select(OverallInformationSelector.bestMovies)
+  bestMovies$: Observable<Movie[]>;
 
   constructor(private store: Store) {
   }
 
-  ngOnInit() {
-    this.store.dispatch(new OverAllInformationFetchInfo());
+  columnDefs: ColDef[] = [
+    {
+      field: 'name',
+    },
+    {
+      field: 'year'
+    }
+  ]
+  async ngOnInit() {
+    const actionsInParallel = [
+      new OverAllInformationFetchInfo(),
+      new OverAllInformationBestMoviesFetch(),
+    ];
+    this.store.dispatch([...actionsInParallel]);
   }
 
   ngOnDestroy() {

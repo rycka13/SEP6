@@ -9,3 +9,9 @@ export class OverAllInformationReset {
   constructor() {
   }
 }
+
+export class OverAllInformationBestMoviesFetch {
+  static readonly type = 'Overall information - Fetch best movies';
+  constructor() {
+  }
+}

@@ -10,7 +10,7 @@ import {
   NbActionsModule,
   NbSidebarModule,
   NbSidebarService,
-  NbMenuModule, NbCardModule, NbToastrModule, NbIconModule, NbButtonModule
+  NbMenuModule, NbCardModule, NbToastrModule, NbIconModule, NbButtonModule, NbSpinnerModule, NbListModule
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { BmLayoutComponent } from '../components/bm-layout/bm-layout.component';
@@ -43,7 +43,9 @@ export const states = [
     NbActionsModule,
     NbMenuModule,
     NbCardModule,
-    NbIconModule
+    NbIconModule,
+    NbSpinnerModule,
+    NbListModule
   ],
   bootstrap: [AppComponent]
 })

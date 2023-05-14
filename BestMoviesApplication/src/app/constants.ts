@@ -8,15 +8,10 @@ export const PAGE_TITLES = {
   //GENERAL MENU
   OVERALL: 'Overall',
 }
-export const ICONS_PREDEFINED = {
-  MAP: 'map-outline',
-  //socials
-  GITHUB: 'github-outline',
-}
 export const GENERAL_MENU_ITEMS: NbMenuItem[] = [
   {
     title: PAGE_TITLES.OVERALL,
     link: '/',
-    icon: ICONS_PREDEFINED.MAP,
+    icon: 'map-outline',
   }
 ]

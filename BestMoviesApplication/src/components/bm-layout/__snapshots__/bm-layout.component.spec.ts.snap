@@ -25,7 +25,37 @@ exports[`components > bm-layout > bm-layout.component.spec.ts should match snaps
               nbbutton=""
               shape="round"
             >
-              <nb-icon />
+              <nb-icon>
+                <svg
+                  class="eva eva-arrowhead-left-outline"
+                  fill="currentColor"
+                  height="100%"
+                  viewBox="0 0 24 24"
+                  width="100%"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g
+                    data-name="Layer 2"
+                  >
+                    <g
+                      data-name="arrowhead-left"
+                    >
+                      <rect
+                        height="24"
+                        opacity="0"
+                        transform="rotate(90 12 12)"
+                        width="24"
+                      />
+                      <path
+                        d="M11.64 5.23a1 1 0 0 0-1.41.13l-5 6a1 1 0 0 0 0 1.27l4.83 6a1 1 0 0 0 .78.37 1 1 0 0 0 .78-1.63L7.29 12l4.48-5.37a1 1 0 0 0-.13-1.4z"
+                      />
+                      <path
+                        d="M14.29 12l4.48-5.37a1 1 0 0 0-1.54-1.28l-5 6a1 1 0 0 0 0 1.27l4.83 6a1 1 0 0 0 .78.37 1 1 0 0 0 .78-1.63z"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </nb-icon>
             </button>
             <a
               href="#"
@@ -48,7 +78,57 @@ exports[`components > bm-layout > bm-layout.component.spec.ts should match snaps
               <div
                 class="scrollable"
               >
-                <nb-menu />
+                <nb-menu>
+                  <ul
+                    class="menu-items"
+                  >
+                    <li
+                      class="menu-item"
+                      nbmenuitem=""
+                    >
+                      <a
+                        href="http://localhost/"
+                        title="Overall"
+                      >
+                        <nb-icon
+                          class="menu-icon"
+                        >
+                          <svg
+                            class="eva eva-map-outline"
+                            fill="currentColor"
+                            height="100%"
+                            viewBox="0 0 24 24"
+                            width="100%"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g
+                              data-name="Layer 2"
+                            >
+                              <g
+                                data-name="map"
+                              >
+                                <rect
+                                  height="24"
+                                  opacity="0"
+                                  transform="rotate(180 12 12)"
+                                  width="24"
+                                />
+                                <path
+                                  d="M20.41 5.89l-4-1.8H15.59L12 5.7 8.41 4.09h-.05L8.24 4h-.6l-4 1.8a1 1 0 0 0-.64 1V19a1 1 0 0 0 .46.84A1 1 0 0 0 4 20a1 1 0 0 0 .41-.09L8 18.3l3.59 1.61h.05a.85.85 0 0 0 .72 0h.05L16 18.3l3.59 1.61A1 1 0 0 0 20 20a1 1 0 0 0 .54-.16A1 1 0 0 0 21 19V6.8a1 1 0 0 0-.59-.91zM5 7.44l2-.89v10l-2 .89zm4-.89l2 .89v10l-2-.89zm4 .89l2-.89v10l-2 .89zm6 10l-2-.89v-10l2 .89z"
+                                />
+                              </g>
+                            </g>
+                          </svg>
+                        </nb-icon>
+                        <span
+                          class="menu-title"
+                        >
+                          Overall
+                        </span>
+                      </a>
+                    </li>
+                  </ul>
+                </nb-menu>
               </div>
             </div>
           </nb-sidebar>
