@@ -48,6 +48,7 @@ $nb-themes: nb-register-theme((
   color-danger-700: #B71A33,
   color-danger-800: #931030,
   color-danger-900: #7A0A2F,
+  text-hint-color: text-basic-color,
   background-basic-color-1: color-primary-700,
   background-basic-color-2: color-primary-800,
   background-basic-color-3: color-primary-900,
@@ -59,5 +60,7 @@ $nb-themes: nb-register-theme((
   border-basic-color-5: color-primary-1100,
   shadow: 0 0.5rem 1rem 0 rgba(25, 30, 51, 0.24),
   text-disabled-color: color-primary-600,
+  button-ghost-background-color: color-primary-700,
+  button-ghost-basic-text-color: color-primary-600,
 
 ), bm-theme, corporate);
