@@ -1,8 +1,6 @@
+
 module.exports = {
   preset: 'jest-preset-angular',
-  snapshotSerializers: [
-    'jest-snapshot'
-  ],
   moduleFileExtensions: ['ts','html','js','json','mjs'],
   setupFilesAfterEnv: ['<rootDir>/src/test/setup.ts'],
   // transformIgnorePatterns: ['node_modules/']

@@ -1,0 +1,186 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components > bm-layout > bm-layout.component.spec.ts should match snapshot 1`] = `
+<bm-layout
+  sidebarService={[Function NbSidebarService]}
+>
+  <nb-layout
+    class="with-subheader"
+  >
+    <div
+      class="scrollable-container"
+    >
+      <div
+        class="layout"
+      >
+        <nb-layout-header
+          class="fixed"
+          fixed=""
+        >
+          <nav
+            class="fixed"
+          >
+            <a
+              href="#"
+            >
+              <i
+                class="nb-menu"
+              />
+            </a>
+          </nav>
+        </nb-layout-header>
+        <div
+          class="layout-container"
+        >
+          <nb-sidebar
+            class="left expanded"
+          >
+            <div
+              class="main-container main-container-fixed"
+            >
+              <div
+                class="scrollable"
+              />
+            </div>
+          </nb-sidebar>
+          <div
+            class="content"
+          >
+            <nb-layout-header
+              class="subheader"
+              subheader=""
+            >
+              <nav>
+                <nb-actions
+                  class="size-small"
+                >
+                  <nb-action
+                    icon="home-outline"
+                  >
+                    <a
+                      class="icon-container"
+                      href="#"
+                      title=""
+                    >
+                      <nb-icon>
+                        <svg
+                          class="eva eva-home-outline"
+                          fill="currentColor"
+                          height="100%"
+                          viewBox="0 0 24 24"
+                          width="100%"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g
+                            data-name="Layer 2"
+                          >
+                            <g
+                              data-name="home"
+                            >
+                              <rect
+                                height="24"
+                                opacity="0"
+                                width="24"
+                              />
+                              <path
+                                d="M20.42 10.18L12.71 2.3a1 1 0 0 0-1.42 0l-7.71 7.89A2 2 0 0 0 3 11.62V20a2 2 0 0 0 1.89 2h14.22A2 2 0 0 0 21 20v-8.38a2.07 2.07 0 0 0-.58-1.44zM10 20v-6h4v6zm9 0h-3v-7a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v7H5v-8.42l7-7.15 7 7.19z"
+                              />
+                            </g>
+                          </g>
+                        </svg>
+                      </nb-icon>
+                    </a>
+                  </nb-action>
+                  <nb-action
+                    icon="search-outline"
+                  >
+                    <a
+                      class="icon-container"
+                      href="#"
+                      title=""
+                    >
+                      <nb-icon>
+                        <svg
+                          class="eva eva-search-outline"
+                          fill="currentColor"
+                          height="100%"
+                          viewBox="0 0 24 24"
+                          width="100%"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g
+                            data-name="Layer 2"
+                          >
+                            <g
+                              data-name="search"
+                            >
+                              <rect
+                                height="24"
+                                opacity="0"
+                                width="24"
+                              />
+                              <path
+                                d="M20.71 19.29l-3.4-3.39A7.92 7.92 0 0 0 19 11a8 8 0 1 0-8 8 7.92 7.92 0 0 0 4.9-1.69l3.39 3.4a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42zM5 11a6 6 0 1 1 6 6 6 6 0 0 1-6-6z"
+                              />
+                            </g>
+                          </g>
+                        </svg>
+                      </nb-icon>
+                    </a>
+                  </nb-action>
+                  <nb-action
+                    icon="edit-outline"
+                  >
+                    <a
+                      class="icon-container"
+                      href="#"
+                      title=""
+                    >
+                      <nb-icon>
+                        <svg
+                          class="eva eva-edit-outline"
+                          fill="currentColor"
+                          height="100%"
+                          viewBox="0 0 24 24"
+                          width="100%"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g
+                            data-name="Layer 2"
+                          >
+                            <g
+                              data-name="edit"
+                            >
+                              <rect
+                                height="24"
+                                opacity="0"
+                                width="24"
+                              />
+                              <path
+                                d="M19.4 7.34L16.66 4.6A2 2 0 0 0 14 4.53l-9 9a2 2 0 0 0-.57 1.21L4 18.91a1 1 0 0 0 .29.8A1 1 0 0 0 5 20h.09l4.17-.38a2 2 0 0 0 1.21-.57l9-9a1.92 1.92 0 0 0-.07-2.71zM9.08 17.62l-3 .28.27-3L12 9.32l2.7 2.7zM16 10.68L13.32 8l1.95-2L18 8.73z"
+                              />
+                            </g>
+                          </g>
+                        </svg>
+                      </nb-icon>
+                    </a>
+                  </nb-action>
+                </nb-actions>
+              </nav>
+            </nb-layout-header>
+            <div
+              class="columns"
+            >
+              <nb-layout-column
+                class="colored-column-basic"
+              >
+                Layout Content
+              </nb-layout-column>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nb-layout>
+</bm-layout>
+`;
