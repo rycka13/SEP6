@@ -3,17 +3,17 @@ package com.bestmovies.sep6_project;
 import com.bestmovies.sep6_project.dao.MovieReaderDao;
 import com.bestmovies.sep6_project.dao.MovieReaderMapper;
 import com.bestmovies.sep6_project.model.Movie;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.type.MappedTypes;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @SpringBootApplication
-@MapperScan("com.bestmovies.sep6_project.dao")
-@MappedTypes({Movie.class})
 public class Sep6ProjectApplication {
 
     public static void main(String[] args) {
@@ -32,14 +32,12 @@ class Helloworld {
 @RestController
 @RequestMapping("/test")
 class TestDb {
-    private MovieReaderMapper movieReaderMapper;
+    MovieReaderDao dao = new MovieReaderDao();
+    public TestDb() throws IOException {
 
-    public TestDb(MovieReaderMapper movieReaderMapper) {
-        this.movieReaderMapper = movieReaderMapper;
     }
-
     @GetMapping("/all")
-    public List<Movie> greet() {
-        return movieReaderMapper.findAll();
+    public List<Movie> greet() throws IOException {
+        return dao.getAllMovies();
     }
 }

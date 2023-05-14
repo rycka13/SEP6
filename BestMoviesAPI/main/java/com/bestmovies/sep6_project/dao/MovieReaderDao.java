@@ -1,28 +1,27 @@
 package com.bestmovies.sep6_project.dao;
 
+import com.bestmovies.sep6_project.model.Movie;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.Reader;
+import java.util.List;
 
 public class MovieReaderDao {
-    public MovieReaderDao(){
-        String resource = "MovieReaderMapper_RENAMELATER.xml";
-
-        try{
-            InputStream inputStream = Resources.getResourceAsStream(resource);
+    private MovieReaderMapper movieReaderMapper;
+    public MovieReaderDao() throws IOException {
+        String resource = "Mapper.xml";
+            Reader reader = Resources.getResourceAsReader(resource);
             SqlSessionFactory sqlSessionFactory =
-                    new SqlSessionFactoryBuilder().build(inputStream);
-
+                    new SqlSessionFactoryBuilder().build(reader);
             SqlSession session = sqlSessionFactory.openSession();
-
-//            Blog blog = session.selectOne(
-//                    "org.mybatis.example.BlogMapper.selectBlog", 101);
-        }
-        catch(Exception exception){
-            System.out.println(exception.getStackTrace().toString());
-        }
+            movieReaderMapper = session.getMapper(MovieReaderMapper.class);
+    }
+    public List<Movie> getAllMovies(){
+        return movieReaderMapper.getAll();
     }
 }
