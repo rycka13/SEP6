@@ -7,11 +7,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NbThemeModule, NbLayoutModule, NbActionsModule, NbSidebarModule, NbSidebarService} from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { BmLayoutComponent } from '../components/bm-layout/bm-layout.component';
+import { OverallInformationComponent } from './overall-information/overall-information.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BmLayoutComponent
+    BmLayoutComponent,
+    OverallInformationComponent
   ],
   imports: [
     BrowserModule,
