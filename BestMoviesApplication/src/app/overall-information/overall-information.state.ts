@@ -1,6 +1,5 @@
 import {Movie} from "../../model/movie";
 import {Person} from "../../model/person";
-import {Stars} from "../../model/stars";
 import {Action, State, StateContext} from "@ngxs/store";
 import {Injectable} from "@angular/core";
 import {
