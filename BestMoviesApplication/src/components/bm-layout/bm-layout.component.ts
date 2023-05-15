@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NbSidebarService } from '@nebular/theme';
+import {NbMenuService, NbSidebarService} from '@nebular/theme';
 import {GENERAL_MENU_ITEMS} from "../../app/constants";
 
 @Component({
@@ -31,7 +31,11 @@ export class BmLayoutComponent {
 
   GENERAL_MENU_ITEMS = GENERAL_MENU_ITEMS;
   isToggled = false;
-  constructor(private sideBarService: NbSidebarService) {
+  constructor(private sideBarService: NbSidebarService,
+              private menu: NbMenuService) {
+    menu.onItemClick().subscribe(item => {
+      item.item.selected = !item.item.selected;
+    })
   }
 
   toggle() {
