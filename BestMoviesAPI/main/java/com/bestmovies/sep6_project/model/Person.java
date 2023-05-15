@@ -9,6 +9,15 @@ public abstract class Person {
     private int birthYear;
 
     public Person(){}
+    public Person(String name, int birthYear) {
+        this.name = name;
+        this.birthYear = birthYear;
+    }
+    public Person(int id, String name, int birthYear) {
+        this.id = id;
+        this.name = name;
+        this.birthYear = birthYear;
+    }
     public Person(List<Movie> movies, int id, String name, int birthYear) {
         this.movies = movies;
         this.id = id;

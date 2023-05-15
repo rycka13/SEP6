@@ -9,4 +9,7 @@ public interface IDirectorMapper {
     List<Director> getByMovieId(int movieId);
 
     List<Director> getAll();
+    void createDirector(Director director);
+    void updateDirector(Director director);
+    void deleteDirector(int id);
 }
