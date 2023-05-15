@@ -18,6 +18,7 @@ import { OverallInformationComponent } from './overall-information/overall-infor
 import {OverAllInformationState} from "./overall-information/overall-information.state";
 import {NgxsModule} from "@ngxs/store";
 import {AgGridModule} from "ag-grid-angular";
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 export const states = [
@@ -27,7 +28,8 @@ export const states = [
   declarations: [
     AppComponent,
     BmLayoutComponent,
-    OverallInformationComponent
+    OverallInformationComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
