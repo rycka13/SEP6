@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bestmovies.sep6_project.dao.interfaces.IStarReaderMapper">
+
+    <resultMap id="StarResultMap" type="com.bestmovies.sep6_project.model.Star">
+        <result property="id" column="id"/>
+        <result property="name" column="name" javaType="java.lang.String"/>
+        <result property="birthYear" column="birth" javaType="int"/>
+        <collection property="movies" column="id" select="com.bestmovies.sep6_project.dao.interfaces.IMovieReaderMapper.getAllMoviesForStars"/>
+    </resultMap>
+
+    <select id="getAll" resultMap="StarResultMap">
+        SELECT p.id AS id, p.name, p.birth
+        FROM people p
+                 JOIN stars s ON p.id = s.person_id limit 10
+    </select>
+</mapper>

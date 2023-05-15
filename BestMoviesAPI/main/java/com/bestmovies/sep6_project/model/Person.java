@@ -1,27 +1,50 @@
 package com.bestmovies.sep6_project.model;
 
-public class Person {
-    private Movie movie;
-    private Person person;
+import java.util.List;
 
-    public Person(Movie movie, Person person){
-        this.movie = movie;
-        this.person = person;
+public abstract class Person {
+    private List<Movie> movies;  // Change the type to List<Movie> for one-to-many relationship
+    private int id;
+    private String name;
+    private int birthYear;
+
+    public Person(){}
+    public Person(List<Movie> movies, int id, String name, int birthYear) {
+        this.movies = movies;
+        this.id = id;
+        this.name = name;
+        this.birthYear = birthYear;
     }
 
-    public Movie getMovie() {
-        return movie;
+    public List<Movie> getMovies() {
+        return movies;
     }
 
-    public Person getPerson() {
-        return person;
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
     }
 
-    public void setMovie(Movie movie) {
-        this.movie = movie;
+    public int getId() {
+        return id;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getBirthYear() {
+        return birthYear;
+    }
+
+    public void setBirthYear(int birthYear) {
+        this.birthYear = birthYear;
     }
 }

@@ -5,13 +5,6 @@ public class Movie {
     private String title;
     private int year;
 
-    public Movie(int id,String title, int year){
-        this.id = id;
-        this.title = title;
-        this.year = year;
-    }
-
-
     public int getId() {
         return id;
     }

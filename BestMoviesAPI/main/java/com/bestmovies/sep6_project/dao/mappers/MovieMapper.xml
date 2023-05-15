@@ -1,0 +1,32 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.bestmovies.sep6_project.dao.interfaces.IMovieReaderMapper">
+
+    <resultMap id = "result" type = "com.bestmovies.sep6_project.model.Movie">
+        <result property = "id" column = "id"/>
+        <result property = "title" column = "title"/>
+        <result property = "year" column = "year"/>
+    </resultMap>
+
+    <select id = "getAll" resultMap = "result">
+        SELECT * FROM movies;
+    </select>
+    <select id="getMovieById" resultMap="result" parameterType="int">
+        SELECT * FROM movies WHERE id = #{id};
+    </select>
+    <select id="getAllMoviesForDirector" resultMap="result">
+        SELECT m.id, m.title, m.year
+        FROM movies m
+                 JOIN directors d ON m.id = d.movie_id
+        WHERE d.person_id = #{id}
+    </select>
+
+    <select id="getAllMoviesForStars" resultMap="result">
+        SELECT m.id, m.title, m.year
+        FROM movies m
+                 JOIN stars s ON m.id = s.movie_id
+        WHERE s.person_id = #{id}
+    </select>
+</mapper>
