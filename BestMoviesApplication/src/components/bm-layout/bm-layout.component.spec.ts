@@ -37,6 +37,8 @@ describe('components > bm-layout > bm-layout.component.spec.ts', () => {
       NbLayoutModule,
       NbEvaIconsModule,
       NbActionsModule,
+      NbMenuModule,
+
     ],
     declarations: [BmLayoutComponent],
     providers: [NbSidebarService],
