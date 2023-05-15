@@ -1,0 +1,30 @@
+
+@import 'ag-grid-community/styles/ag-grid.css';
+@import 'ag-grid-community/styles/ag-theme-alpine.css';
+
+nb-card-header {
+  text-align: center;
+}
+
+.overall-information {
+  flex-direction: row;
+  display: flex;
+  grid-gap: 1rem;
+
+  .best-movies {
+    width:100%;
+  }
+
+  .general-information {
+    width: 37%;
+
+    nb-card-body {
+      display: grid;
+      gap: 0.4rem;
+    }
+  }
+}
+
+.spinner {
+  color: nb-theme(color-primary-500);
+}

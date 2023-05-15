@@ -1,5 +1,12 @@
 import { BmLayoutComponent } from './bm-layout.component';
-import { NbActionsModule, NbLayoutModule, NbSidebarModule, NbSidebarService, NbThemeModule } from '@nebular/theme';
+import {
+  NbActionsModule, NbIconModule,
+  NbLayoutModule,
+  NbMenuModule,
+  NbSidebarModule,
+  NbSidebarService,
+  NbThemeModule, NbToastrModule, NbToastrService
+} from '@nebular/theme';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from '../../app/app-routing.module';
@@ -8,12 +15,12 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { Spectator } from '@ngneat/spectator';
 import { createComponentFactory, SpectatorFactory } from '@ngneat/spectator/jest';
 import "jest-extended";
-import {toMatchInlineSnapshot} from "jest-snapshot";
+import {NgxsModule} from "@ngxs/store";
+import {OverAllInformationState} from "../../app/overall-information/overall-information.state";
 
 describe('components > bm-layout > bm-layout.component.spec.ts', () => {
   let component: BmLayoutComponent;
   let spectator: Spectator<BmLayoutComponent>;
-
   let createComponent: SpectatorFactory<BmLayoutComponent> = createComponentFactory({
     component: BmLayoutComponent,
     imports: [
@@ -23,6 +30,10 @@ describe('components > bm-layout > bm-layout.component.spec.ts', () => {
       BrowserAnimationsModule,
       NbThemeModule.forRoot({ name: 'bm-theme' }),
       NbSidebarModule.forRoot(),
+      NbMenuModule.forRoot(),
+      NgxsModule.forRoot([OverAllInformationState]),
+      NbToastrModule.forRoot(),
+      NbIconModule,
       NbLayoutModule,
       NbEvaIconsModule,
       NbActionsModule,
