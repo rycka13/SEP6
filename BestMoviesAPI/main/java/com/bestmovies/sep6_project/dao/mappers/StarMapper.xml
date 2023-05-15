@@ -6,19 +6,12 @@
         <result property="id" column="id"/>
         <result property="name" column="name" javaType="java.lang.String"/>
         <result property="birthYear" column="birth" javaType="int"/>
-        <collection property="movies" column="id" select="getAllMovies"/>
+        <collection property="movies" column="id" select="com.bestmovies.sep6_project.dao.interfaces.IMovieReaderMapper.getAllMoviesForStars"/>
     </resultMap>
 
     <select id="getAll" resultMap="StarResultMap">
         SELECT p.id AS id, p.name, p.birth
         FROM people p
                  JOIN stars s ON p.id = s.person_id limit 10
-    </select>
-
-    <select id="getAllMovies" resultMap="com.bestmovies.sep6_project.dao.interfaces.IMovieReaderMapper.result">
-        SELECT m.id, m.title, m.year
-        FROM movies m
-                 JOIN stars s ON m.id = s.movie_id
-        WHERE s.person_id = #{id}
     </select>
 </mapper>

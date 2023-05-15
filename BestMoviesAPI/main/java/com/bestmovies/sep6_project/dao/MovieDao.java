@@ -4,10 +4,7 @@ import com.bestmovies.sep6_project.dao.interfaces.IDirectorMapper;
 import com.bestmovies.sep6_project.dao.interfaces.IMovieReaderMapper;
 import com.bestmovies.sep6_project.dao.interfaces.IStarReaderMapper;
 import com.bestmovies.sep6_project.dao.interfaces.IRatingReaderMapper;
-import com.bestmovies.sep6_project.model.Director;
-import com.bestmovies.sep6_project.model.Movie;
-import com.bestmovies.sep6_project.model.Person;
-import com.bestmovies.sep6_project.model.Rating;
+import com.bestmovies.sep6_project.model.*;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -51,7 +48,7 @@ public class MovieDao {
     public List<Director> getAllDirectors(){
         return directorMapper.getAll();
     }
-    public List<Person> getAllStars(){
+    public List<Star> getAllStars(){
         return starsReaderMapper.getAll();
     }
 }

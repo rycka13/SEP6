@@ -33,7 +33,7 @@ class TestDb {
 
     }
     @GetMapping("/all")
-    public List<Person> greet() throws IOException {
+    public List<Star> greet() throws IOException {
         return dao.getAllStars();
     }
 

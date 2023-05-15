@@ -16,4 +16,17 @@
     <select id="getMovieById" resultMap="result" parameterType="int">
         SELECT * FROM movies WHERE id = #{id};
     </select>
+    <select id="getAllMoviesForDirector" resultMap="result">
+        SELECT m.id, m.title, m.year
+        FROM movies m
+                 JOIN directors d ON m.id = d.movie_id
+        WHERE d.person_id = #{id}
+    </select>
+
+    <select id="getAllMoviesForStars" resultMap="result">
+        SELECT m.id, m.title, m.year
+        FROM movies m
+                 JOIN stars s ON m.id = s.movie_id
+        WHERE s.person_id = #{id}
+    </select>
 </mapper>
