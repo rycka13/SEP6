@@ -49,7 +49,6 @@ export class OverallInformationComponent implements OnInit, OnDestroy{
     this.store.dispatch([...actionsInParallel]);
   }
 
-  // Example load data from server
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -58,15 +57,10 @@ export class OverallInformationComponent implements OnInit, OnDestroy{
     this.gridApi.sizeColumnsToFit();
   }
 
-  // Example of consuming Grid Event
   onCellClicked( e: CellClickedEvent): void {
-    console.log('cellClicked', e);
+    // TODO redirect to the movie overview
   }
 
-  // Example using Grid's API
-  clearSelection(): void {
-    this.agGrid.api.deselectAll();
-  }
   columnDefs: ColDef[] = [
     {
       headerName: 'Id',
