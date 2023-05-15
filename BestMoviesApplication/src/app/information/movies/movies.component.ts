@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {NbSearchService} from "@nebular/theme";
 import {
   OverAllInformationBestMoviesFetch,
@@ -10,6 +10,9 @@ import {OverallInformationSelector} from "src/app/overall-information/overall-in
 import {Observable} from "rxjs";
 import {MoviesState} from "src/app/information/movies/movies.state";
 import {MoviesSelector} from "src/app/information/movies/movies.selector";
+import {Movie} from "src/model/movie";
+import {AgGridAngular} from "ag-grid-angular";
+import {MoviesFetchInfo, MoviesSearchTitle} from "src/app/information/movies/movies.actions";
 
 @Component({
   selector: 'app-movies',
@@ -17,16 +20,17 @@ import {MoviesSelector} from "src/app/information/movies/movies.selector";
   styleUrls: ['./movies.component.scss']
 })
 export class MoviesComponent implements OnInit, OnDestroy{
+  //selectors observable ngxs
   @Select(MoviesSelector.isFetching)
   isFetching$: Observable<boolean>;
 
   @Select(MoviesSelector.movies)
-  movies$: Observable<boolean>;
+  movies$: Observable<Movie[]>;
 
-  value = '';
-
+  //ag grid
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
+  @ViewChild('agGridAngular') agGrid!: AgGridAngular;
 
   alive: boolean = true;
   constructor(private store: Store,
@@ -34,15 +38,14 @@ export class MoviesComponent implements OnInit, OnDestroy{
 
     this.searchService.onSearchSubmit()
       .subscribe((data: any) => {
-        this.value = data.term;
+        this.store.dispatch(new MoviesSearchTitle(data.term));
       })
 
   }
 
   async ngOnInit() {
     const actionsInParallel = [
-      new OverAllInformationFetchInfo(),
-      new OverAllInformationBestMoviesFetch(),
+      new MoviesFetchInfo(),
     ];
     this.store.dispatch([...actionsInParallel]);
   }

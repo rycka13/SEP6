@@ -9,3 +9,10 @@ export class MoviesReset {
   constructor() {
   }
 }
+
+export class MoviesSearchTitle {
+  static readonly type = 'Movies - Search by movie title';
+  constructor(public movieTitle: string) {
+  }
+}
+

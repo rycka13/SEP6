@@ -1,19 +1,33 @@
-<nb-card accent="info">
-  <nb-card-header>
-    <nb-search type="rotate-layout"></nb-search>
-  </nb-card-header>
-  <nb-card-body>
-    <ag-grid-angular
-      #agGridAngular
-      style="width: 100%; height: 300px"
-      class="ag-theme-alpine"
-      [columnDefs]="columnDefs"
-      [defaultColDef]="defaultColDef"
-      [rowData]="bestMovies$ | async"
-      [rowSelection]="'multiple'"
-      [animateRows]="true"
-      (gridReady)="onGridReady($event)"
-      (cellClicked)="onCellClicked($event)"
-    ></ag-grid-angular>
-  </nb-card-body>
-</nb-card>
+<ng-container *ngIf="isFetching$ | async; then dataFetching; else dataFetched">
+</ng-container>
+
+<ng-template #dataFetched>
+  <nb-card
+    accent="info">
+    <nb-card-header>
+      <nb-search type="rotate-layout"></nb-search>
+    </nb-card-header>
+    <nb-card-body>
+      <ag-grid-angular
+        #agGridAngular
+        style="width: 100%; height: 300px"
+        class="ag-theme-alpine"
+        [columnDefs]="columnDefs"
+        [defaultColDef]="defaultColDef"
+        [rowData]="movies$ | async"
+        [rowSelection]="'multiple'"
+        [animateRows]="true"
+        (gridReady)="onGridReady($event)"
+        (cellClicked)="onCellClicked($event)"
+      ></ag-grid-angular>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<ng-template #dataFetching>
+  <nb-spinner
+    [nbSpinner]="true"
+    status="basic"
+    class="spinner">
+  </nb-spinner>
+</ng-template>

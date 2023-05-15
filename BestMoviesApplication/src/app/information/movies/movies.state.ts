@@ -5,7 +5,7 @@ import {Action, State, StateContext} from "@ngxs/store";
 import {Injectable} from "@angular/core";
 import {
   MoviesFetchInfo,
-  MoviesReset
+  MoviesReset, MoviesSearchTitle
 } from "./movies.actions";
 import {current, produce} from "immer";
 import {moviesMock} from "../../../util/mocks/movies_mock";
@@ -14,11 +14,13 @@ import {NbToastrService} from "@nebular/theme";
 
 export interface MoviesStateModel {
   isFetching: boolean;
+  isFiltered: boolean;
   movies: Movie[];
 }
 
 export const defaultsState: MoviesStateModel = {
   isFetching: false,
+  isFiltered: false,
   movies: [],
 }
 
@@ -29,7 +31,7 @@ export const defaultsState: MoviesStateModel = {
 
 @Injectable()
 export class MoviesState {
-  movies: Movie[] = [];
+  allMovies: Movie[] = [];
 
   constructor(
     private toastrService: NbToastrService
@@ -54,7 +56,7 @@ export class MoviesState {
     // here we will call the API, but for now we have the mocks
     //TODO implement api call
     try {
-      this.movies = moviesMock;
+      this.allMovies = moviesMock;
     }
     catch (e) {
       this.toastrService.show('danger', 'Fetching movies went wrong.');
@@ -64,11 +66,48 @@ export class MoviesState {
     newState = produce(currentState, draft => {
       draft.isFetching = false;
       //TODO instead of equal it with mocks, use the apis response
-      draft.movies = this.movies;
+      draft.movies = this.allMovies;
     })
 
     setState(newState);
     currentState = newState;
+  }
+
+  @Action(MoviesSearchTitle)
+  async moviesSearchTitle(
+    { getState, setState }: StateContext<MoviesStateModel>,
+    action: MoviesSearchTitle) {
+
+    let currentState = getState();
+
+    let newState = produce(currentState, draft => {
+      draft.isFetching = true;
+    })
+
+    setState(newState);
+    currentState = newState;
+
+    //TODO implement api call or can be done also from frontend
+    newState = produce(currentState, draft => {
+      console.log(this.allMovies);
+      let movies = this.allMovies;
+      if(movies.length < 0) {
+        this.toastrService.show('', 'There are no movies to search');
+      }
+      else {
+        let filteredMovies = movies.filter((movie: Movie) => {
+          let value = movie.title.toLowerCase().includes(action.movieTitle);
+          return value;
+        });
+        if(filteredMovies.length < 0) {
+          this.toastrService.show('', 'There are no movies that contain ' + action.movieTitle);
+        }
+        draft.movies = filteredMovies;
+      }
+      draft.isFetching = false;
+    })
+
+    setState(newState);
   }
 
   @Action(MoviesReset)

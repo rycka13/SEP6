@@ -8,6 +8,11 @@ export class MoviesSelector {
   }
 
   @Selector([MoviesState])
+  static isFiltered(state: MoviesStateModel) {
+    return state.isFiltered;
+  }
+
+  @Selector([MoviesState])
   static movies(state: MoviesStateModel) {
     return state.movies;
   }
