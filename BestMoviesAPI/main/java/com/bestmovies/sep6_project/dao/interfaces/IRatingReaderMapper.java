@@ -4,6 +4,6 @@ import com.bestmovies.sep6_project.model.Rating;
 
 import java.util.List;
 
-public interface RatingReaderMapper {
+public interface IRatingReaderMapper {
     List<Rating> getAll();
 }

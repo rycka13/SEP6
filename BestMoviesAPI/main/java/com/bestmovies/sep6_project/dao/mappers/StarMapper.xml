@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bestmovies.sep6_project.dao.interfaces.IDirectorMapper">
+<mapper namespace="com.bestmovies.sep6_project.dao.interfaces.IStarReaderMapper">
 
-    <resultMap id="DirectorResultMap" type="com.bestmovies.sep6_project.model.Director">
+    <resultMap id="StarResultMap" type="com.bestmovies.sep6_project.model.Star">
         <result property="id" column="id"/>
         <result property="name" column="name" javaType="java.lang.String"/>
         <result property="birthYear" column="birth" javaType="int"/>
         <collection property="movies" column="id" select="getAllMovies"/>
     </resultMap>
 
-    <select id="getAll" resultMap="DirectorResultMap">
+    <select id="getAll" resultMap="StarResultMap">
         SELECT p.id AS id, p.name, p.birth
         FROM people p
-                 JOIN directors d ON p.id = d.person_id limit 10
+                 JOIN stars s ON p.id = s.person_id limit 10
     </select>
 
     <select id="getAllMovies" resultMap="com.bestmovies.sep6_project.dao.interfaces.IMovieReaderMapper.result">
         SELECT m.id, m.title, m.year
         FROM movies m
-                 JOIN directors d ON m.id = d.movie_id
-        WHERE d.person_id = #{id}
+                 JOIN stars s ON m.id = s.movie_id
+        WHERE s.person_id = #{id}
     </select>
 </mapper>
