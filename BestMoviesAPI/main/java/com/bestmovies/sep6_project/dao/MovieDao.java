@@ -19,7 +19,7 @@ public class MovieDao {
     private IMovieMapper movieMapper;
     private IRatingMapper ratingMapper;
     private IDirectorMapper directorMapper;
-    private IStarMapper starsMapper;
+    private IStarMapper starMapper;
     private SqlSession session;
 
     public MovieDao() throws IOException {
@@ -31,7 +31,7 @@ public class MovieDao {
             movieMapper = session.getMapper(IMovieMapper.class);
             ratingMapper = session.getMapper(IRatingMapper.class);
             directorMapper = session.getMapper(IDirectorMapper.class);
-            starsMapper = session.getMapper(IStarMapper.class);
+            starMapper = session.getMapper(IStarMapper.class);
     }
 
     //Movies
@@ -50,7 +50,7 @@ public class MovieDao {
         return directorMapper.getAll();
     }
     public List<Star> getAllStars(){
-        return starsMapper.getAll();
+        return starMapper.getAll();
     }
     public void createMovie(Movie movie){
         movieMapper.createMovie(movie);
@@ -62,6 +62,30 @@ public class MovieDao {
     }
     public void deleteMovie(int id){
         movieMapper.deleteMovie(id);
+        session.commit();
+    }
+    public void createStar(Star star){
+        starMapper.createStar(star);
+        session.commit();
+    }
+    public void updateStar(Star star){
+        starMapper.updateStar(star);
+        session.commit();
+    }
+    public void deleteStar(int id){
+        starMapper.deleteStar(id);
+        session.commit();
+    }
+    public void createDirector(Director director){
+        directorMapper.createDirector(director);
+        session.commit();
+    }
+    public void updateDirector(Director director){
+        directorMapper.updateDirector(director);
+        session.commit();
+    }
+    public void deleteDirector(int id){
+        directorMapper.deleteDirector(id);
         session.commit();
     }
 }
