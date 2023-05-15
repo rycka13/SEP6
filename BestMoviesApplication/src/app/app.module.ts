@@ -10,7 +10,14 @@ import {
   NbActionsModule,
   NbSidebarModule,
   NbSidebarService,
-  NbMenuModule, NbCardModule, NbToastrModule, NbIconModule, NbButtonModule, NbSpinnerModule, NbListModule
+  NbMenuModule,
+  NbCardModule,
+  NbToastrModule,
+  NbIconModule,
+  NbButtonModule,
+  NbSpinnerModule,
+  NbListModule,
+  NbSearchModule
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { BmLayoutComponent } from '../components/bm-layout/bm-layout.component';
@@ -19,7 +26,6 @@ import {OverAllInformationState} from "./overall-information/overall-information
 import {NgxsModule} from "@ngxs/store";
 import {AgGridModule} from "ag-grid-angular";
 import { NotFoundComponent } from './not-found/not-found.component';
-import { MoviesComponent } from './movies/movies.component';
 
 
 export const states = [
@@ -31,7 +37,6 @@ export const states = [
     BmLayoutComponent,
     OverallInformationComponent,
     NotFoundComponent,
-    MoviesComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +57,7 @@ export const states = [
     NbSpinnerModule,
     NbListModule,
     AgGridModule,
+    NbSearchModule,
   ],
   bootstrap: [AppComponent]
 })
