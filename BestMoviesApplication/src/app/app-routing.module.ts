@@ -5,8 +5,12 @@ import {NotFoundComponent} from "src/app/not-found/not-found.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'overall-information',
     component: OverallInformationComponent
+  },
+  { path: '',
+    redirectTo: '/overall-information',
+    pathMatch: 'full'
   },
   {
     path: '**',
