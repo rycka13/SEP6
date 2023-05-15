@@ -19,6 +19,7 @@ import {OverAllInformationState} from "./overall-information/overall-information
 import {NgxsModule} from "@ngxs/store";
 import {AgGridModule} from "ag-grid-angular";
 import { NotFoundComponent } from './not-found/not-found.component';
+import { MoviesComponent } from './movies/movies.component';
 
 
 export const states = [
@@ -29,7 +30,8 @@ export const states = [
     AppComponent,
     BmLayoutComponent,
     OverallInformationComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    MoviesComponent
   ],
   imports: [
     BrowserModule,
