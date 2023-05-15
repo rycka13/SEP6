@@ -6,6 +6,21 @@
     accent="info">
     <nb-card-header>
       <nb-search type="rotate-layout"></nb-search>
+      <button
+        *ngIf="isFiltered$ | async"
+        nbButton
+        outline
+        status="primary"
+        shape="round"
+        class="reset-button"
+        (click)="resetSearch()"
+      >
+        <nb-icon
+          icon="refresh-outline"
+        >
+        </nb-icon>
+        Reset search
+      </button>
     </nb-card-header>
     <nb-card-body>
       <ag-grid-angular

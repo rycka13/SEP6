@@ -12,7 +12,7 @@ import {MoviesState} from "src/app/information/movies/movies.state";
 import {MoviesSelector} from "src/app/information/movies/movies.selector";
 import {Movie} from "src/model/movie";
 import {AgGridAngular} from "ag-grid-angular";
-import {MoviesFetchInfo, MoviesSearchTitle} from "src/app/information/movies/movies.actions";
+import {MoviesFetchInfo, MoviesSearchReset, MoviesSearchTitle} from "src/app/information/movies/movies.actions";
 
 @Component({
   selector: 'app-movies',
@@ -23,6 +23,9 @@ export class MoviesComponent implements OnInit, OnDestroy{
   //selectors observable ngxs
   @Select(MoviesSelector.isFetching)
   isFetching$: Observable<boolean>;
+
+  @Select(MoviesSelector.isFiltered)
+  isFiltered$: Observable<boolean>;
 
   @Select(MoviesSelector.movies)
   movies$: Observable<Movie[]>;
@@ -85,6 +88,10 @@ export class MoviesComponent implements OnInit, OnDestroy{
     sortable: true,
     filter: true,
   };
+
+  resetSearch() {
+    this.store.dispatch(new MoviesSearchReset());
+  }
 
   ngOnDestroy() {
     this.alive = false;

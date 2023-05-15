@@ -16,3 +16,9 @@ export class MoviesSearchTitle {
   }
 }
 
+export class MoviesSearchReset {
+  static readonly type = 'Movies - Search Reset';
+  constructor() {
+  }
+}
+

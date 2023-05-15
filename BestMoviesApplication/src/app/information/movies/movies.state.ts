@@ -5,7 +5,7 @@ import {Action, State, StateContext} from "@ngxs/store";
 import {Injectable} from "@angular/core";
 import {
   MoviesFetchInfo,
-  MoviesReset, MoviesSearchTitle
+  MoviesReset, MoviesSearchReset, MoviesSearchTitle
 } from "./movies.actions";
 import {current, produce} from "immer";
 import {moviesMock} from "../../../util/mocks/movies_mock";
@@ -41,8 +41,7 @@ export class MoviesState {
 
   @Action(MoviesFetchInfo)
   async moviesFetchInfo(
-    { getState, setState }: StateContext<MoviesStateModel>,
-    action: MoviesFetchInfo) {
+    { getState, setState }: StateContext<MoviesStateModel>) {
 
     let currentState = getState();
 
@@ -105,6 +104,21 @@ export class MoviesState {
         draft.movies = filteredMovies;
       }
       draft.isFetching = false;
+      draft.isFiltered = true;
+    })
+
+    setState(newState);
+  }
+
+  @Action(MoviesSearchReset)
+  async moviesSearchReset(
+    { getState, setState }: StateContext<MoviesStateModel>) {
+
+    let currentState = getState();
+
+    let newState = produce(currentState, draft => {
+      draft.isFiltered = false;
+      draft.movies = this.allMovies;
     })
 
     setState(newState);
@@ -112,8 +126,7 @@ export class MoviesState {
 
   @Action(MoviesReset)
   async moviesReset(
-    { getState, setState }: StateContext<MoviesStateModel>,
-    action: MoviesReset) {
+    { getState, setState }: StateContext<MoviesStateModel>) {
     setState(defaultsState);
   }
 }
