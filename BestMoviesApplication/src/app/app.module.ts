@@ -32,6 +32,7 @@ import {MoviesState} from "src/app/information/movies/movies.state";
 import {PeopleComponent} from "src/app/information/people/people.component";
 import {PeopleState} from "src/app/information/people/people.state";
 import {environment} from "src/environments/environment";
+import {ApiService} from "src/api/api.service";
 
 
 export const STATES = [
@@ -59,6 +60,10 @@ export const COMPONENTS = [
 
 export const PROVIDERS = [
   NbSearchService,
+
+  //Api services
+  ApiService,
+
 ]
 @NgModule({
   declarations: COMPONENTS,
