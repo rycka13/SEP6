@@ -33,7 +33,7 @@ import {PeopleComponent} from "src/app/information/people/people.component";
 import {PeopleState} from "src/app/information/people/people.state";
 
 
-export const states = [
+export const STATES = [
   OverAllInformationState,
   MoviesState,
   PeopleState,
@@ -68,7 +68,7 @@ export const PROVIDERS = [
     AppRoutingModule,
     NbThemeModule.forRoot({name: 'bm-theme'}),
     NbMenuModule.forRoot(),
-    NgxsModule.forRoot(states),
+    NgxsModule.forRoot(STATES),
     NbSidebarModule.forRoot(),
     NbToastrModule.forRoot(),
     NbLayoutModule,
