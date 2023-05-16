@@ -29,7 +29,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import {HttpClientModule} from "@angular/common/http";
 import {MoviesComponent} from "src/app/information/movies/movies.component";
 import {MoviesState} from "src/app/information/movies/movies.state";
-import {PersonsComponent} from "src/app/information/persons/persons.component";
+import {PeopleComponent} from "src/app/information/people/people.component";
 
 
 export const states = [
@@ -48,7 +48,7 @@ export const COMPONENTS = [
 
   //information page
   MoviesComponent,
-  PersonsComponent,
+  PeopleComponent,
 
   //404 not found page
   NotFoundComponent,
