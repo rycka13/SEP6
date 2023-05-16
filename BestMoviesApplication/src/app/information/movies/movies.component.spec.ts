@@ -15,11 +15,11 @@ import {MoviesComponent} from "./movies.component";
 import {RouterTestingModule} from "@angular/router/testing";
 import {defaultsState, MoviesState} from "./movies.state";
 import {BrowserModule} from "@angular/platform-browser";
-import {AppRoutingModule} from "../../../app-routing.module";
+import {AppRoutingModule} from "../../app-routing.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {OverAllInformationState} from "../../../overall-information/overall-information.state";
+import {OverAllInformationState} from "../../overall-information/overall-information.state";
 import {FormsModule} from "@angular/forms";
-import {PROVIDERS} from "../../../app.module";
+import {PROVIDERS} from "../../app.module";
 
 
 describe('app > information > movies > movies.component.spec.ts', () => {

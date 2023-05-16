@@ -27,8 +27,9 @@ import {NgxsModule} from "@ngxs/store";
 import {AgGridModule} from "ag-grid-angular";
 import { NotFoundComponent } from './not-found/not-found.component';
 import {HttpClientModule} from "@angular/common/http";
-import {MoviesComponent} from "src/app/information/pages/movies/movies.component";
-import {MoviesState} from "src/app/information/pages/movies/movies.state";
+import {MoviesComponent} from "src/app/information/movies/movies.component";
+import {MoviesState} from "src/app/information/movies/movies.state";
+import {PersonsComponent} from "src/app/information/persons/persons.component";
 
 
 export const states = [
@@ -38,9 +39,18 @@ export const states = [
 
 export const COMPONENTS = [
   AppComponent,
+
+  //components
   BmLayoutComponent,
+
+  //overall information page
   OverallInformationComponent,
+
+  //information page
   MoviesComponent,
+  PersonsComponent,
+
+  //404 not found page
   NotFoundComponent,
 ]
 
