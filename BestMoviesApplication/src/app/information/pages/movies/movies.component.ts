@@ -1,14 +1,8 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {NbSearchService} from "@nebular/theme";
-import {
-  OverAllInformationBestMoviesFetch,
-  OverAllInformationFetchInfo, OverAllInformationReset
-} from "src/app/overall-information/overall-information.actions";
 import {CellClickedEvent, ColDef, ColumnApi, GridApi, GridReadyEvent} from "ag-grid-community";
 import {Select, Store} from "@ngxs/store";
-import {OverallInformationSelector} from "src/app/overall-information/overall-information.selector";
 import {Observable} from "rxjs";
-import {MoviesState} from "src/app/information/pages/movies/movies.state";
 import {MoviesSelector} from "src/app/information/pages/movies/movies.selector";
 import {Movie} from "src/model/movie";
 import {AgGridAngular} from "ag-grid-angular";
@@ -95,6 +89,6 @@ export class MoviesComponent implements OnInit, OnDestroy{
 
   ngOnDestroy() {
     this.alive = false;
-    this.store.dispatch(new OverAllInformationReset());
+    this.store.dispatch(new MoviesSearchReset());
   }
 }

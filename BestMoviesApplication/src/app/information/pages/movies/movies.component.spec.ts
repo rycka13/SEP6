@@ -1,11 +1,10 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {Spectator} from "@ngneat/spectator";
 import {createComponentFactory, SpectatorFactory} from "@ngneat/spectator/jest";
 import {
-  NbActionsModule, NbButtonModule, NbCardModule,
+  NbActionsModule, NbCardModule,
   NbIconModule,
   NbLayoutModule,
-  NbMenuModule, NbSearchModule, NbSearchService,
+  NbMenuModule, NbSearchModule,
   NbSidebarModule, NbThemeModule,
   NbToastrModule,
 } from "@nebular/theme";
