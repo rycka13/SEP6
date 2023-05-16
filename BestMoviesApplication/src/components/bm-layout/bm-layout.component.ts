@@ -30,11 +30,20 @@ import {GENERAL_MENU_ITEMS} from "../../app/constants";
 export class BmLayoutComponent {
 
   GENERAL_MENU_ITEMS = GENERAL_MENU_ITEMS;
+  selectedItem: any;
   isToggled = false;
   constructor(private sideBarService: NbSidebarService,
               private menu: NbMenuService) {
+
+    //event for menu item clicked
     menu.onItemClick().subscribe(item => {
-      item.item.selected = !item.item.selected;
+      if(this.selectedItem) {
+        menu.getSelectedItem(this.selectedItem.tag).subscribe(item => {
+          item.item.selected = false;
+        })
+      }
+      item.item.selected = true;
+      this.selectedItem = item.item;
     })
   }
 
