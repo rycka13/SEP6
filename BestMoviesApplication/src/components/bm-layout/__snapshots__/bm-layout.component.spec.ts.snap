@@ -5,6 +5,7 @@ exports[`components > bm-layout > bm-layout.component.spec.ts should match snaps
   GENERAL_MENU_ITEMS={[Function Array]}
   isToggled="false"
   menu={[Function NbMenuService]}
+  selectedItem={[Function Object]}
   sideBarService={[Function NbSidebarService]}
 >
   <nb-layout>
