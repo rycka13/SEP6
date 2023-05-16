@@ -65,10 +65,6 @@ export class OverallInformationComponent implements OnInit, OnDestroy{
     {
       headerName: 'Id',
       field: 'id',
-      valueFormatter: params => {
-        console.log(params.value)
-        return params.value;
-      }
     },
     {
       headerName: 'Title',
