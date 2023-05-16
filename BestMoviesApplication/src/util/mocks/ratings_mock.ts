@@ -4,37 +4,37 @@ import {Rating} from "../../model/rating";
 
 export const ratingsMock: Rating[] = [
   {
-    movieID: moviesMock[0].id,
+    movie: moviesMock[0],
     rating: 5.4,
     votes: 12,
   },
   {
-    movieID: moviesMock[1].id,
+    movie: moviesMock[1],
     rating: 6.2,
     votes: 20,
   },
   {
-    movieID: moviesMock[2].id,
+    movie: moviesMock[2],
     rating: 5.6,
     votes: 15,
   },
   {
-    movieID: moviesMock[3].id,
+    movie: moviesMock[3],
     rating: 7.1,
     votes: 8,
   },
   {
-    movieID: moviesMock[4].id,
+    movie: moviesMock[4],
     rating: 6.4,
     votes: 78118,
   },
   {
-    movieID: moviesMock[5].id,
+    movie: moviesMock[5],
     rating: 6.5,
     votes: 258,
   },
   {
-    movieID: moviesMock[6].id,
+    movie: moviesMock[6],
     rating: 7.4,
     votes: 1566
   },

@@ -8,6 +8,7 @@ exports[`app > information > people > people.component.spec.ts should match snap
   agGrid={[Function AgGridAngular]}
   alive={[Function Boolean]}
   columnDefs={[Function Array]}
+  components={[Function Object]}
   defaultColDef={[Function Object]}
   gridApi={[Function GridApi]}
   gridColumnApi={[Function ColumnApi]}
@@ -64,7 +65,7 @@ exports[`app > information > people > people.component.spec.ts should match snap
     <nb-card-body>
       <ag-grid-angular
         class="ag-theme-alpine"
-        style="width: 100%; height: 300px;"
+        style="width: 100%; height: 70vh;"
       >
         <div
           class="ag-root-wrapper ag-layout-normal ag-ltr"
@@ -81,7 +82,7 @@ exports[`app > information > people > people.component.spec.ts should match snap
               tabindex="0"
             />
             <div
-              aria-colcount="3"
+              aria-colcount="4"
               aria-multiselectable="true"
               aria-rowcount="8"
               class="ag-root ag-unselectable ag-layout-normal"
@@ -108,20 +109,20 @@ exports[`app > information > people > people.component.spec.ts should match snap
                     class="ag-header-container"
                     ref="eCenterContainer"
                     role="rowgroup"
-                    style="width: 600px;"
+                    style="width: 800px;"
                   >
                     <div
                       aria-rowindex="1"
                       class="ag-header-row ag-header-row-column"
                       role="row"
-                      style="top: 0px; height: 48px; width: 600px;"
+                      style="top: 0px; height: 48px; width: 800px;"
                     >
                       <div
                         aria-colindex="1"
                         aria-description="Press ENTER to sort. Press CTRL ENTER to open column menu."
                         aria-sort="none"
                         class="ag-header-cell ag-header-cell-sortable ag-focus-managed"
-                        col-id="id"
+                        col-id="movies"
                         role="columnheader"
                         style="width: 200px; left: 0px;"
                         tabindex="-1"
@@ -151,6 +152,147 @@ exports[`app > information > people > people.component.spec.ts should match snap
                             <input
                               class="ag-input-field-input ag-checkbox-input"
                               id="ag-28-input"
+                              ref="eInput"
+                              tabindex="-1"
+                              type="checkbox"
+                            />
+                          </div>
+                        </div>
+                        <div
+                          class="ag-header-cell-comp-wrapper"
+                          ref="eHeaderCompWrapper"
+                          role="presentation"
+                        >
+                          <div
+                            class="ag-cell-label-container"
+                            role="presentation"
+                          >
+                            <span
+                              aria-hidden="true"
+                              class="ag-header-icon ag-header-cell-menu-button"
+                              ref="eMenu"
+                            >
+                              <span
+                                class="ag-icon ag-icon-menu"
+                                role="presentation"
+                                unselectable="on"
+                              />
+                            </span>
+                            <div
+                              class="ag-header-cell-label"
+                              ref="eLabel"
+                              role="presentation"
+                            >
+                              <span
+                                class="ag-header-cell-text"
+                                ref="eText"
+                              >
+                                Movies
+                              </span>
+                              <span
+                                aria-hidden="true"
+                                class="ag-header-icon ag-header-label-icon ag-filter-icon ag-hidden"
+                                ref="eFilter"
+                              >
+                                <span
+                                  class="ag-icon ag-icon-filter"
+                                  role="presentation"
+                                  unselectable="on"
+                                />
+                              </span>
+                              <span
+                                class="ag-sort-indicator-container"
+                                ref="eSortIndicator"
+                              >
+                                <span
+                                  aria-hidden="true"
+                                  class="ag-sort-indicator-icon ag-sort-order ag-hidden"
+                                  ref="eSortOrder"
+                                />
+                                <span
+                                  aria-hidden="true"
+                                  class="ag-sort-indicator-icon ag-sort-ascending-icon ag-hidden"
+                                  ref="eSortAsc"
+                                >
+                                  <span
+                                    class="ag-icon ag-icon-asc"
+                                    role="presentation"
+                                    unselectable="on"
+                                  />
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                  class="ag-sort-indicator-icon ag-sort-descending-icon ag-hidden"
+                                  ref="eSortDesc"
+                                >
+                                  <span
+                                    class="ag-icon ag-icon-desc"
+                                    role="presentation"
+                                    unselectable="on"
+                                  />
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                  class="ag-sort-indicator-icon ag-sort-mixed-icon ag-hidden"
+                                  ref="eSortMixed"
+                                >
+                                  <span
+                                    class="ag-icon ag-icon-none"
+                                    role="presentation"
+                                    unselectable="on"
+                                  />
+                                </span>
+                                <span
+                                  aria-hidden="true"
+                                  class="ag-sort-indicator-icon ag-sort-none-icon ag-hidden"
+                                  ref="eSortNone"
+                                >
+                                  <span
+                                    class="ag-icon ag-icon-none"
+                                    role="presentation"
+                                    unselectable="on"
+                                  />
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        aria-colindex="2"
+                        aria-description="Press ENTER to sort. Press CTRL ENTER to open column menu."
+                        aria-sort="none"
+                        class="ag-header-cell ag-header-cell-sortable ag-focus-managed"
+                        col-id="id"
+                        role="columnheader"
+                        style="width: 200px; left: 200px;"
+                        tabindex="-1"
+                      >
+                        <div
+                          aria-hidden="true"
+                          class="ag-header-cell-resize ag-hidden"
+                          ref="eResize"
+                          role="presentation"
+                        />
+                        <div
+                          aria-hidden="true"
+                          class="ag-labeled ag-label-align-right ag-checkbox ag-input-field ag-header-select-all ag-hidden"
+                          role="presentation"
+                        >
+                          <div
+                            aria-hidden="true"
+                            class="ag-input-field-label ag-label ag-hidden ag-checkbox-label"
+                            ref="eLabel"
+                            role="presentation"
+                          />
+                          <div
+                            class="ag-wrapper ag-input-wrapper ag-checkbox-input-wrapper"
+                            ref="eWrapper"
+                            role="presentation"
+                          >
+                            <input
+                              class="ag-input-field-input ag-checkbox-input"
+                              id="ag-32-input"
                               ref="eInput"
                               tabindex="-1"
                               type="checkbox"
@@ -258,13 +400,13 @@ exports[`app > information > people > people.component.spec.ts should match snap
                         </div>
                       </div>
                       <div
-                        aria-colindex="2"
+                        aria-colindex="3"
                         aria-description="Press ENTER to sort. Press CTRL ENTER to open column menu."
                         aria-sort="none"
                         class="ag-header-cell ag-header-cell-sortable ag-focus-managed"
                         col-id="name"
                         role="columnheader"
-                        style="width: 200px; left: 200px;"
+                        style="width: 200px; left: 400px;"
                         tabindex="-1"
                       >
                         <div
@@ -291,7 +433,7 @@ exports[`app > information > people > people.component.spec.ts should match snap
                           >
                             <input
                               class="ag-input-field-input ag-checkbox-input"
-                              id="ag-32-input"
+                              id="ag-36-input"
                               ref="eInput"
                               tabindex="-1"
                               type="checkbox"
@@ -399,13 +541,13 @@ exports[`app > information > people > people.component.spec.ts should match snap
                         </div>
                       </div>
                       <div
-                        aria-colindex="3"
+                        aria-colindex="4"
                         aria-description="Press ENTER to sort. Press CTRL ENTER to open column menu."
                         aria-sort="none"
                         class="ag-header-cell ag-header-cell-sortable ag-focus-managed"
                         col-id="birth"
                         role="columnheader"
-                        style="width: 200px; left: 400px;"
+                        style="width: 200px; left: 600px;"
                         tabindex="-1"
                       >
                         <div
@@ -432,7 +574,7 @@ exports[`app > information > people > people.component.spec.ts should match snap
                           >
                             <input
                               class="ag-input-field-input ag-checkbox-input"
-                              id="ag-36-input"
+                              id="ag-40-input"
                               ref="eInput"
                               tabindex="-1"
                               type="checkbox"
@@ -573,7 +715,7 @@ exports[`app > information > people > people.component.spec.ts should match snap
                     class="ag-floating-top-container"
                     ref="eContainer"
                     role="presentation"
-                    style="width: 600px;"
+                    style="width: 800px;"
                   />
                 </div>
                 <div
@@ -632,13 +774,13 @@ exports[`app > information > people > people.component.spec.ts should match snap
                           class="ag-center-cols-container"
                           ref="eContainer"
                           role="rowgroup"
-                          style="width: 600px; height: 294px;"
+                          style="width: 800px; height: 294px;"
                         >
                           <div
                             aria-label="Press SPACE to select this row."
                             aria-rowindex="2"
                             class="ag-row-even ag-row-no-focus ag-row-not-inline-editing ag-row ag-row-level-0 ag-row-position-absolute ag-row-first"
-                            comp-id="39"
+                            comp-id="43"
                             role="row"
                             row-id="0"
                             row-index="0"
@@ -646,33 +788,65 @@ exports[`app > information > people > people.component.spec.ts should match snap
                           >
                             <div
                               aria-colindex="1"
-                              class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
-                              col-id="id"
-                              comp-id="40"
+                              class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height"
+                              col-id="movies"
+                              comp-id="44"
                               role="gridcell"
                               style="left: 0px; width: 200px;"
+                              tabindex="-1"
+                            >
+                              <div
+                                class="ag-cell-wrapper"
+                                role="presentation"
+                              >
+                                <span
+                                  class="ag-cell-value"
+                                  role="presentation"
+                                >
+                                  <movies-cell>
+                                    <div>
+                                      <span>
+                                        La tierra de los toros from 2000
+                                      </span>
+                                    </div>
+                                    <div>
+                                      <span>
+                                        Dama de noche from 1993
+                                      </span>
+                                    </div>
+                                  </movies-cell>
+                                </span>
+                              </div>
+                            </div>
+                            <div
+                              aria-colindex="2"
+                              class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
+                              col-id="id"
+                              comp-id="45"
+                              role="gridcell"
+                              style="left: 200px; width: 200px;"
                               tabindex="-1"
                             >
                               1
                             </div>
                             <div
-                              aria-colindex="2"
+                              aria-colindex="3"
                               class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
                               col-id="name"
-                              comp-id="41"
+                              comp-id="46"
                               role="gridcell"
-                              style="left: 200px; width: 200px;"
+                              style="left: 400px; width: 200px;"
                               tabindex="-1"
                             >
                               Fred Astaire
                             </div>
                             <div
-                              aria-colindex="3"
+                              aria-colindex="4"
                               class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
                               col-id="birth"
-                              comp-id="42"
+                              comp-id="47"
                               role="gridcell"
-                              style="left: 400px; width: 200px;"
+                              style="left: 600px; width: 200px;"
                               tabindex="-1"
                             >
                               1899
@@ -682,7 +856,7 @@ exports[`app > information > people > people.component.spec.ts should match snap
                             aria-label="Press SPACE to select this row."
                             aria-rowindex="3"
                             class="ag-row-odd ag-row-no-focus ag-row-not-inline-editing ag-row ag-row-level-0 ag-row-position-absolute"
-                            comp-id="43"
+                            comp-id="48"
                             role="row"
                             row-id="1"
                             row-index="1"
@@ -690,33 +864,65 @@ exports[`app > information > people > people.component.spec.ts should match snap
                           >
                             <div
                               aria-colindex="1"
-                              class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
-                              col-id="id"
-                              comp-id="44"
+                              class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height"
+                              col-id="movies"
+                              comp-id="49"
                               role="gridcell"
                               style="left: 0px; width: 200px;"
+                              tabindex="-1"
+                            >
+                              <div
+                                class="ag-cell-wrapper"
+                                role="presentation"
+                              >
+                                <span
+                                  class="ag-cell-value"
+                                  role="presentation"
+                                >
+                                  <movies-cell>
+                                    <div>
+                                      <span>
+                                        Dama de noche from 1993
+                                      </span>
+                                    </div>
+                                    <div>
+                                      <span>
+                                        Frivolinas from 2014
+                                      </span>
+                                    </div>
+                                  </movies-cell>
+                                </span>
+                              </div>
+                            </div>
+                            <div
+                              aria-colindex="2"
+                              class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
+                              col-id="id"
+                              comp-id="50"
+                              role="gridcell"
+                              style="left: 200px; width: 200px;"
                               tabindex="-1"
                             >
                               2
                             </div>
                             <div
-                              aria-colindex="2"
+                              aria-colindex="3"
                               class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
                               col-id="name"
-                              comp-id="45"
+                              comp-id="51"
                               role="gridcell"
-                              style="left: 200px; width: 200px;"
+                              style="left: 400px; width: 200px;"
                               tabindex="-1"
                             >
                               Lauren Bacall
                             </div>
                             <div
-                              aria-colindex="3"
+                              aria-colindex="4"
                               class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
                               col-id="birth"
-                              comp-id="46"
+                              comp-id="52"
                               role="gridcell"
-                              style="left: 400px; width: 200px;"
+                              style="left: 600px; width: 200px;"
                               tabindex="-1"
                             >
                               1924
@@ -726,7 +932,7 @@ exports[`app > information > people > people.component.spec.ts should match snap
                             aria-label="Press SPACE to select this row."
                             aria-rowindex="4"
                             class="ag-row-even ag-row-no-focus ag-row-not-inline-editing ag-row ag-row-level-0 ag-row-position-absolute"
-                            comp-id="47"
+                            comp-id="53"
                             role="row"
                             row-id="2"
                             row-index="2"
@@ -734,33 +940,65 @@ exports[`app > information > people > people.component.spec.ts should match snap
                           >
                             <div
                               aria-colindex="1"
-                              class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
-                              col-id="id"
-                              comp-id="48"
+                              class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height"
+                              col-id="movies"
+                              comp-id="54"
                               role="gridcell"
                               style="left: 0px; width: 200px;"
+                              tabindex="-1"
+                            >
+                              <div
+                                class="ag-cell-wrapper"
+                                role="presentation"
+                              >
+                                <span
+                                  class="ag-cell-value"
+                                  role="presentation"
+                                >
+                                  <movies-cell>
+                                    <div>
+                                      <span>
+                                        La tierra de los toros from 2000
+                                      </span>
+                                    </div>
+                                    <div>
+                                      <span>
+                                        Dama de noche from 1993
+                                      </span>
+                                    </div>
+                                  </movies-cell>
+                                </span>
+                              </div>
+                            </div>
+                            <div
+                              aria-colindex="2"
+                              class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
+                              col-id="id"
+                              comp-id="55"
+                              role="gridcell"
+                              style="left: 200px; width: 200px;"
                               tabindex="-1"
                             >
                               3
                             </div>
                             <div
-                              aria-colindex="2"
+                              aria-colindex="3"
                               class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
                               col-id="name"
-                              comp-id="49"
+                              comp-id="56"
                               role="gridcell"
-                              style="left: 200px; width: 200px;"
+                              style="left: 400px; width: 200px;"
                               tabindex="-1"
                             >
                               Brigitte Bardot
                             </div>
                             <div
-                              aria-colindex="3"
+                              aria-colindex="4"
                               class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
                               col-id="birth"
-                              comp-id="50"
+                              comp-id="57"
                               role="gridcell"
-                              style="left: 400px; width: 200px;"
+                              style="left: 600px; width: 200px;"
                               tabindex="-1"
                             >
                               1934
@@ -770,7 +1008,7 @@ exports[`app > information > people > people.component.spec.ts should match snap
                             aria-label="Press SPACE to select this row."
                             aria-rowindex="5"
                             class="ag-row-odd ag-row-no-focus ag-row-not-inline-editing ag-row ag-row-level-0 ag-row-position-absolute"
-                            comp-id="51"
+                            comp-id="58"
                             role="row"
                             row-id="3"
                             row-index="3"
@@ -778,33 +1016,65 @@ exports[`app > information > people > people.component.spec.ts should match snap
                           >
                             <div
                               aria-colindex="1"
-                              class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
-                              col-id="id"
-                              comp-id="52"
+                              class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height"
+                              col-id="movies"
+                              comp-id="59"
                               role="gridcell"
                               style="left: 0px; width: 200px;"
+                              tabindex="-1"
+                            >
+                              <div
+                                class="ag-cell-wrapper"
+                                role="presentation"
+                              >
+                                <span
+                                  class="ag-cell-value"
+                                  role="presentation"
+                                >
+                                  <movies-cell>
+                                    <div>
+                                      <span>
+                                        La tierra de los toros from 2000
+                                      </span>
+                                    </div>
+                                    <div>
+                                      <span>
+                                        Dama de noche from 1993
+                                      </span>
+                                    </div>
+                                  </movies-cell>
+                                </span>
+                              </div>
+                            </div>
+                            <div
+                              aria-colindex="2"
+                              class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
+                              col-id="id"
+                              comp-id="60"
+                              role="gridcell"
+                              style="left: 200px; width: 200px;"
                               tabindex="-1"
                             >
                               4
                             </div>
                             <div
-                              aria-colindex="2"
+                              aria-colindex="3"
                               class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
                               col-id="name"
-                              comp-id="53"
+                              comp-id="61"
                               role="gridcell"
-                              style="left: 200px; width: 200px;"
+                              style="left: 400px; width: 200px;"
                               tabindex="-1"
                             >
                               John Belushi
                             </div>
                             <div
-                              aria-colindex="3"
+                              aria-colindex="4"
                               class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
                               col-id="birth"
-                              comp-id="54"
+                              comp-id="62"
                               role="gridcell"
-                              style="left: 400px; width: 200px;"
+                              style="left: 600px; width: 200px;"
                               tabindex="-1"
                             >
                               1949
@@ -814,7 +1084,7 @@ exports[`app > information > people > people.component.spec.ts should match snap
                             aria-label="Press SPACE to select this row."
                             aria-rowindex="6"
                             class="ag-row-even ag-row-no-focus ag-row-not-inline-editing ag-row ag-row-level-0 ag-row-position-absolute"
-                            comp-id="55"
+                            comp-id="63"
                             role="row"
                             row-id="4"
                             row-index="4"
@@ -822,33 +1092,65 @@ exports[`app > information > people > people.component.spec.ts should match snap
                           >
                             <div
                               aria-colindex="1"
-                              class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
-                              col-id="id"
-                              comp-id="56"
+                              class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height"
+                              col-id="movies"
+                              comp-id="64"
                               role="gridcell"
                               style="left: 0px; width: 200px;"
+                              tabindex="-1"
+                            >
+                              <div
+                                class="ag-cell-wrapper"
+                                role="presentation"
+                              >
+                                <span
+                                  class="ag-cell-value"
+                                  role="presentation"
+                                >
+                                  <movies-cell>
+                                    <div>
+                                      <span>
+                                        Kate & Leopold from 2001
+                                      </span>
+                                    </div>
+                                    <div>
+                                      <span>
+                                        Another Time, Another Place from 1983
+                                      </span>
+                                    </div>
+                                  </movies-cell>
+                                </span>
+                              </div>
+                            </div>
+                            <div
+                              aria-colindex="2"
+                              class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
+                              col-id="id"
+                              comp-id="65"
+                              role="gridcell"
+                              style="left: 200px; width: 200px;"
                               tabindex="-1"
                             >
                               5
                             </div>
                             <div
-                              aria-colindex="2"
+                              aria-colindex="3"
                               class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
                               col-id="name"
-                              comp-id="57"
+                              comp-id="66"
                               role="gridcell"
-                              style="left: 200px; width: 200px;"
+                              style="left: 400px; width: 200px;"
                               tabindex="-1"
                             >
                               Ingmar Bergman
                             </div>
                             <div
-                              aria-colindex="3"
+                              aria-colindex="4"
                               class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
                               col-id="birth"
-                              comp-id="58"
+                              comp-id="67"
                               role="gridcell"
-                              style="left: 400px; width: 200px;"
+                              style="left: 600px; width: 200px;"
                               tabindex="-1"
                             >
                               1918
@@ -858,7 +1160,7 @@ exports[`app > information > people > people.component.spec.ts should match snap
                             aria-label="Press SPACE to select this row."
                             aria-rowindex="7"
                             class="ag-row-odd ag-row-no-focus ag-row-not-inline-editing ag-row ag-row-level-0 ag-row-position-absolute"
-                            comp-id="59"
+                            comp-id="68"
                             role="row"
                             row-id="5"
                             row-index="5"
@@ -866,33 +1168,65 @@ exports[`app > information > people > people.component.spec.ts should match snap
                           >
                             <div
                               aria-colindex="1"
-                              class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
-                              col-id="id"
-                              comp-id="60"
+                              class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height"
+                              col-id="movies"
+                              comp-id="69"
                               role="gridcell"
                               style="left: 0px; width: 200px;"
+                              tabindex="-1"
+                            >
+                              <div
+                                class="ag-cell-wrapper"
+                                role="presentation"
+                              >
+                                <span
+                                  class="ag-cell-value"
+                                  role="presentation"
+                                >
+                                  <movies-cell>
+                                    <div>
+                                      <span>
+                                        Let There Be Light from 1980
+                                      </span>
+                                    </div>
+                                    <div>
+                                      <span>
+                                        Another Time, Another Place from 1983
+                                      </span>
+                                    </div>
+                                  </movies-cell>
+                                </span>
+                              </div>
+                            </div>
+                            <div
+                              aria-colindex="2"
+                              class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
+                              col-id="id"
+                              comp-id="70"
+                              role="gridcell"
+                              style="left: 200px; width: 200px;"
                               tabindex="-1"
                             >
                               6
                             </div>
                             <div
-                              aria-colindex="2"
+                              aria-colindex="3"
                               class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
                               col-id="name"
-                              comp-id="61"
+                              comp-id="71"
                               role="gridcell"
-                              style="left: 200px; width: 200px;"
+                              style="left: 400px; width: 200px;"
                               tabindex="-1"
                             >
                               Ingrid Bergman
                             </div>
                             <div
-                              aria-colindex="3"
+                              aria-colindex="4"
                               class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
                               col-id="birth"
-                              comp-id="62"
+                              comp-id="72"
                               role="gridcell"
-                              style="left: 400px; width: 200px;"
+                              style="left: 600px; width: 200px;"
                               tabindex="-1"
                             >
                               1915
@@ -902,7 +1236,7 @@ exports[`app > information > people > people.component.spec.ts should match snap
                             aria-label="Press SPACE to select this row."
                             aria-rowindex="8"
                             class="ag-row-even ag-row-no-focus ag-row-not-inline-editing ag-row ag-row-level-0 ag-row-position-absolute ag-row-last"
-                            comp-id="63"
+                            comp-id="73"
                             role="row"
                             row-id="6"
                             row-index="6"
@@ -910,33 +1244,65 @@ exports[`app > information > people > people.component.spec.ts should match snap
                           >
                             <div
                               aria-colindex="1"
-                              class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
-                              col-id="id"
-                              comp-id="64"
+                              class="ag-cell ag-cell-not-inline-editing ag-cell-auto-height"
+                              col-id="movies"
+                              comp-id="74"
                               role="gridcell"
                               style="left: 0px; width: 200px;"
+                              tabindex="-1"
+                            >
+                              <div
+                                class="ag-cell-wrapper"
+                                role="presentation"
+                              >
+                                <span
+                                  class="ag-cell-value"
+                                  role="presentation"
+                                >
+                                  <movies-cell>
+                                    <div>
+                                      <span>
+                                        Kate & Leopold from 2001
+                                      </span>
+                                    </div>
+                                    <div>
+                                      <span>
+                                        El huésped del sevillano from 1970
+                                      </span>
+                                    </div>
+                                  </movies-cell>
+                                </span>
+                              </div>
+                            </div>
+                            <div
+                              aria-colindex="2"
+                              class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
+                              col-id="id"
+                              comp-id="75"
+                              role="gridcell"
+                              style="left: 200px; width: 200px;"
                               tabindex="-1"
                             >
                               7
                             </div>
                             <div
-                              aria-colindex="2"
+                              aria-colindex="3"
                               class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
                               col-id="name"
-                              comp-id="65"
+                              comp-id="76"
                               role="gridcell"
-                              style="left: 200px; width: 200px;"
+                              style="left: 400px; width: 200px;"
                               tabindex="-1"
                             >
                               Humphrey Bogart
                             </div>
                             <div
-                              aria-colindex="3"
+                              aria-colindex="4"
                               class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
                               col-id="birth"
-                              comp-id="66"
+                              comp-id="77"
                               role="gridcell"
-                              style="left: 400px; width: 200px;"
+                              style="left: 600px; width: 200px;"
                               tabindex="-1"
                             >
                               1899
@@ -1004,7 +1370,7 @@ exports[`app > information > people > people.component.spec.ts should match snap
                     class="ag-sticky-top-container"
                     ref="eContainer"
                     role="presentation"
-                    style="width: 600px;"
+                    style="width: 800px;"
                   />
                 </div>
                 <div
@@ -1046,7 +1412,7 @@ exports[`app > information > people > people.component.spec.ts should match snap
                     class="ag-floating-bottom-container"
                     ref="eContainer"
                     role="presentation"
-                    style="width: 600px;"
+                    style="width: 800px;"
                   />
                 </div>
                 <div
@@ -1082,7 +1448,7 @@ exports[`app > information > people > people.component.spec.ts should match snap
                   <div
                     class="ag-body-horizontal-scroll-container"
                     ref="eContainer"
-                    style="height: 0px; max-height: 0px; min-height: 0px; width: 600px;"
+                    style="height: 0px; max-height: 0px; min-height: 0px; width: 800px;"
                   />
                 </div>
                 <div

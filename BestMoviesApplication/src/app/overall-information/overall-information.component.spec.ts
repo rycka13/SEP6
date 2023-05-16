@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OverallInformationComponent } from './overall-information.component';
-import {BmLayoutComponent} from "../../components/bm-layout/bm-layout.component";
+import {BmLayoutComponent} from "../../core/components/bm-layout/bm-layout.component";
 import {Spectator} from "@ngneat/spectator";
 import {createComponentFactory, SpectatorFactory} from "@ngneat/spectator/jest";
 import {RouterTestingModule} from "@angular/router/testing";
