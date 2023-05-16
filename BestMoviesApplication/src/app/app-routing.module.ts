@@ -8,13 +8,15 @@ import {PeopleComponent} from "src/app/information/people/people.component";
 const routes: Routes = [
   {
     path: 'overall-information',
-    component: OverallInformationComponent
+    title: 'Overall Information',
+    component: OverallInformationComponent,
   },
   {
     path: 'information',
     children: [
       {
         path:'movies',
+        title: 'Information Movies',
         component: MoviesComponent,
       },
       {
@@ -30,6 +32,7 @@ const routes: Routes = [
   },
   {
     path: '**',
+    title: '404 Page not found',
     component: NotFoundComponent
   }
 ];
