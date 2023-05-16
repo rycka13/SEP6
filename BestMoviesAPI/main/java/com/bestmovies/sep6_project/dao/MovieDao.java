@@ -40,7 +40,7 @@ public class MovieDao {
     }
 
     public Movie getMovieById(int id){
-        return movieReaderMapper.getMovieById(id);
+        return movieMapper.getMovieById(id);
     }
 
     //Ratings
