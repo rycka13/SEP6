@@ -1,7 +1,8 @@
-import {Movie} from "./movie";
-import {Person} from "./person";
+import {Movie} from "src/model/movie";
 
 export interface Star {
-  movie: Movie;
-  person: Person;
+  movies: Movie[];
+  id: number;
+  name: string;
+  birth: number;
 }
