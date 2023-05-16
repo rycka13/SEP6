@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import {environment} from "src/environments/environment";
-import {catchError, Observable } from "rxjs";
+import { catchError } from "rxjs/operators";
+import {Observable} from "rxjs";
 
 @Injectable()
 export class ApiService {

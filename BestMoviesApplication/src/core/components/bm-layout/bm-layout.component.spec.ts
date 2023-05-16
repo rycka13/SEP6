@@ -17,6 +17,7 @@ import { createComponentFactory, SpectatorFactory } from '@ngneat/spectator/jest
 import "jest-extended";
 import {NgxsModule} from "@ngxs/store";
 import {OverAllInformationState} from "../../../app/overall-information/overall-information.state";
+import {PROVIDERS} from "../../../app/app.module";
 
 describe('components > bm-layout > bm-layout.component.spec.ts', () => {
   let component: BmLayoutComponent;
@@ -41,7 +42,8 @@ describe('components > bm-layout > bm-layout.component.spec.ts', () => {
 
     ],
     declarations: [BmLayoutComponent],
-    providers: [NbSidebarService],
+    providers: [NbSidebarService,
+      ...PROVIDERS],
   });
 
   beforeEach(() => {
