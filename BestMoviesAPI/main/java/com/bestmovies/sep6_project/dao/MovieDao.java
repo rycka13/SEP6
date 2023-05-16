@@ -38,6 +38,10 @@ public class MovieDao {
         return movieReaderMapper.getAll();
     }
 
+    public Movie getMovieById(int id){
+        return movieReaderMapper.getMovieById(id);
+    }
+
     //Ratings
     public List<Rating> getAllRatings(){
         return ratingReaderMapper.getAll();
@@ -50,5 +54,13 @@ public class MovieDao {
     }
     public List<Star> getAllStars(){
         return starsReaderMapper.getAll();
+    }
+
+    public Director getDirectorById(int id) {
+        return new Director();
+    }
+
+    public Star getStarById(int id) {
+        return new Star();
     }
 }

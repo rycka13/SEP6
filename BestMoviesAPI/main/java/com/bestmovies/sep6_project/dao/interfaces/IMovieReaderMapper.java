@@ -7,5 +7,6 @@ import java.util.List;
 public interface IMovieReaderMapper {
 
     List<Movie> getAll();
-    List<Movie> getMovieById();
+
+    Movie getMovieById(int id);
 }
