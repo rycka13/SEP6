@@ -7,7 +7,7 @@ import {
   updateSelectedParentAtIndex,
   updateSelectedChildAtIndexOfParent,
   PARENT_IDS,
-} from "../../../app/constants";
+} from "src/app/constants";
 
 @Component({
   selector: 'bm-layout',

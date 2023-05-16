@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {NbSearchService} from "@nebular/theme";
-import {CellClickedEvent, ColDef, ColumnApi, GridApi, GridReadyEvent} from "ag-grid-community";
+import {CellClickedEvent, ColDef, ColumnApi, GridApi, GridReadyEvent, ICellRendererParams} from "ag-grid-community";
 import {Select, Store} from "@ngxs/store";
 import {Observable} from "rxjs";
 import {AgGridAngular} from "ag-grid-angular";
@@ -12,13 +12,14 @@ import {
   PeopleSearchName,
   PeopleSearchReset
 } from "src/app/information/people/people.actions";
+import {MoviesCell} from "src/core/cell-renderers/movies.column.cell";
 
 @Component({
   selector: 'app-people',
   templateUrl: './people.component.html',
   styleUrls: ['./people.component.scss']
 })
-export class PeopleComponent implements OnInit, OnDestroy{
+export class PeopleComponent implements OnInit, OnDestroy {
   //selectors observable ngxs
   @Select(PeopleSelector.isFetching)
   isFetching$: Observable<boolean>;
@@ -35,6 +36,7 @@ export class PeopleComponent implements OnInit, OnDestroy{
   @ViewChild('agGridAngular') agGrid!: AgGridAngular;
 
   alive: boolean = true;
+
   constructor(private store: Store,
               private searchService: NbSearchService) {
 
@@ -60,11 +62,17 @@ export class PeopleComponent implements OnInit, OnDestroy{
     this.gridApi.sizeColumnsToFit();
   }
 
-  onCellClicked( e: CellClickedEvent): void {
+  onCellClicked(e: CellClickedEvent): void {
     // TODO redirect to the movie overview
   }
 
   columnDefs: ColDef[] = [
+    {
+      headerName: 'Movies',
+      field: 'movies',
+      cellRenderer: 'moviesCell',
+      autoHeight: true,
+    },
     {
       headerName: 'Id',
       field: 'id',
@@ -76,12 +84,17 @@ export class PeopleComponent implements OnInit, OnDestroy{
     {
       headerName: 'Birth',
       field: 'birth'
-    }
+    },
   ]
+
+  components = {
+    moviesCell: MoviesCell,
+  }
 
   public defaultColDef: ColDef = {
     sortable: true,
     filter: true,
+
   };
 
   resetSearch() {

@@ -25,11 +25,12 @@
     <nb-card-body>
       <ag-grid-angular
         #agGridAngular
-        style="width: 100%; height: 300px"
+        style="width: 100%; height: 70vh"
         class="ag-theme-alpine"
         [columnDefs]="columnDefs"
         [defaultColDef]="defaultColDef"
         [rowData]="people$ | async"
+        [components]="components"
         [rowSelection]="'multiple'"
         [animateRows]="true"
         (gridReady)="onGridReady($event)"
