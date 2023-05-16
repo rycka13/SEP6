@@ -1,6 +1,5 @@
 package com.bestmovies.sep6_project.services;
 
-import com.bestmovies.sep6_project.dao.MovieDao;
 import com.bestmovies.sep6_project.model.Movie;
 import com.bestmovies.sep6_project.model.Rating;
 import org.springframework.stereotype.Component;
