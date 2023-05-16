@@ -30,11 +30,13 @@ import {HttpClientModule} from "@angular/common/http";
 import {MoviesComponent} from "src/app/information/movies/movies.component";
 import {MoviesState} from "src/app/information/movies/movies.state";
 import {PeopleComponent} from "src/app/information/people/people.component";
+import {PeopleState} from "src/app/information/people/people.state";
 
 
 export const states = [
   OverAllInformationState,
   MoviesState,
+  PeopleState,
 ]
 
 export const COMPONENTS = [

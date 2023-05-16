@@ -1,23 +1,23 @@
-export class PersonsFetchInfo {
-  static readonly type = 'Persons - Fetching info';
+export class PeopleFetchInfo {
+  static readonly type = 'People - Fetching info';
   constructor() {
   }
 }
 
-export class PersonsReset {
-  static readonly type = 'Persons - Reset';
+export class PeopleReset {
+  static readonly type = 'People - Reset';
   constructor() {
   }
 }
 
-export class PersonsSearchName {
-  static readonly type = 'Persons - Search by person name';
-  constructor(public movieTitle: string) {
+export class PeopleSearchName {
+  static readonly type = 'People - Search by person name';
+  constructor(public personName: string) {
   }
 }
 
-export class PersonsSearchReset {
-  static readonly type = 'Persons - Search Reset';
+export class PeopleSearchReset {
+  static readonly type = 'People - Search Reset';
   constructor() {
   }
 }
