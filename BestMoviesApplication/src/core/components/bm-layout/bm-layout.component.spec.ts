@@ -9,14 +9,14 @@ import {
 } from '@nebular/theme';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from '../../app/app-routing.module';
+import { AppRoutingModule } from '../../../app/app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { Spectator } from '@ngneat/spectator';
 import { createComponentFactory, SpectatorFactory } from '@ngneat/spectator/jest';
 import "jest-extended";
 import {NgxsModule} from "@ngxs/store";
-import {OverAllInformationState} from "../../app/overall-information/overall-information.state";
+import {OverAllInformationState} from "../../../app/overall-information/overall-information.state";
 
 describe('components > bm-layout > bm-layout.component.spec.ts', () => {
   let component: BmLayoutComponent;

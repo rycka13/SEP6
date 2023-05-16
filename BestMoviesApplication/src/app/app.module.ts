@@ -20,7 +20,7 @@ import {
   NbSearchModule, NbSearchService
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { BmLayoutComponent } from '../components/bm-layout/bm-layout.component';
+import { BmLayoutComponent } from '../core/components/bm-layout/bm-layout.component';
 import { OverallInformationComponent } from './overall-information/overall-information.component';
 import {OverAllInformationState} from "./overall-information/overall-information.state";
 import {NgxsModule} from "@ngxs/store";
@@ -32,7 +32,7 @@ import {MoviesState} from "src/app/information/movies/movies.state";
 import {PeopleComponent} from "src/app/information/people/people.component";
 import {PeopleState} from "src/app/information/people/people.state";
 import {environment} from "src/environments/environment";
-import {ApiService} from "src/api/api.service";
+import {ApiService} from "src/core/services/api.service";
 
 
 export const STATES = [

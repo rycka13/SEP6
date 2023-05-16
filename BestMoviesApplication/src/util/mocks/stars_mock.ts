@@ -1,8 +1,8 @@
 import {peopleMock} from "./people_mock";
 import {moviesMock} from "./movies_mock";
-import {Stars} from "../../model/stars";
+import {Star} from "../../model/star";
 
-export const starsMock: Stars[] = [
+export const starsMock: Star[] = [
   {
     movie: moviesMock[0],
     person: peopleMock[0],
