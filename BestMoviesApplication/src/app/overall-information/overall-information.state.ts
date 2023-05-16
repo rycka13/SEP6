@@ -1,6 +1,5 @@
 import {Movie} from "../../model/movie";
 import {Person} from "../../model/person";
-import {Stars} from "../../model/stars";
 import {Action, State, StateContext} from "@ngxs/store";
 import {Injectable} from "@angular/core";
 import {
@@ -51,8 +50,6 @@ export class OverAllInformationState {
 
     let currentState = getState();
 
-    //setting state for isFetching to let application know that date is fetching, so later we can add visual information with this variable
-    //TODO add visual information using isFetching
     let newState = produce(currentState, draft => {
       draft.isFetching = true;
     })

@@ -10,7 +10,14 @@ import {
   NbActionsModule,
   NbSidebarModule,
   NbSidebarService,
-  NbMenuModule, NbCardModule, NbToastrModule, NbIconModule, NbButtonModule, NbSpinnerModule, NbListModule
+  NbMenuModule,
+  NbCardModule,
+  NbToastrModule,
+  NbIconModule,
+  NbButtonModule,
+  NbSpinnerModule,
+  NbListModule,
+  NbSearchModule, NbSearchService
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { BmLayoutComponent } from '../components/bm-layout/bm-layout.component';
@@ -19,22 +26,34 @@ import {OverAllInformationState} from "./overall-information/overall-information
 import {NgxsModule} from "@ngxs/store";
 import {AgGridModule} from "ag-grid-angular";
 import { NotFoundComponent } from './not-found/not-found.component';
+import {HttpClientModule} from "@angular/common/http";
+import {MoviesComponent} from "src/app/information/pages/movies/movies.component";
+import {MoviesState} from "src/app/information/pages/movies/movies.state";
 
 
 export const states = [
-  OverAllInformationState
+  OverAllInformationState,
+  MoviesState,
+]
+
+export const COMPONENTS = [
+  AppComponent,
+  BmLayoutComponent,
+  OverallInformationComponent,
+  MoviesComponent,
+  NotFoundComponent,
+]
+
+export const PROVIDERS = [
+  NbSearchService,
 ]
 @NgModule({
-  declarations: [
-    AppComponent,
-    BmLayoutComponent,
-    OverallInformationComponent,
-    NotFoundComponent
-  ],
+  declarations: COMPONENTS,
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
     NbThemeModule.forRoot({name: 'bm-theme'}),
     NbMenuModule.forRoot(),
     NgxsModule.forRoot(states),
@@ -50,7 +69,9 @@ export const states = [
     NbSpinnerModule,
     NbListModule,
     AgGridModule,
+    NbSearchModule,
   ],
+  providers: PROVIDERS,
   bootstrap: [AppComponent]
 })
 export class AppModule { }
