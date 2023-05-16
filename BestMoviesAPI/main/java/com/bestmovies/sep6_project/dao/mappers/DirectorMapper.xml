@@ -6,7 +6,7 @@
         <result property="id" column="id"/>
         <result property="name" column="name" javaType="java.lang.String"/>
         <result property="birthYear" column="birth" javaType="int"/>
-        <collection property="movies" column="id" select="com.bestmovies.sep6_project.dao.interfaces.IMovieReaderMapper.getAllMoviesForDirector"/>
+        <collection property="movies" column="id" select="com.bestmovies.sep6_project.dao.interfaces.IMovieMapper.getAllMoviesForDirector"/>
     </resultMap>
 
     <select id="getAll" resultMap="DirectorResultMap">
@@ -14,4 +14,18 @@
         FROM people p
                  JOIN directors d ON p.id = d.person_id limit 10
     </select>
+
+    <insert id = "createDirector" parameterType = "com.bestmovies.sep6_project.model.Director" useGeneratedKeys='true' keyProperty='id'>
+        INSERT INTO people (name, birth) VALUES (#{name}, #{birthYear});
+    </insert>
+
+    <update id = "updateDirector" parameterType = "com.bestmovies.sep6_project.model.Director">
+        UPDATE people
+        SET name = #{name}, birth = #{birthYear}
+        WHERE id=#{id};
+    </update>
+
+    <delete id = "deleteDirector" parameterType = "int">
+        DELETE FROM people WHERE id = #{id}
+    </delete>
 </mapper>

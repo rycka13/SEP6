@@ -2,7 +2,7 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace = "com.bestmovies.sep6_project.dao.interfaces.IMovieReaderMapper">
+<mapper namespace = "com.bestmovies.sep6_project.dao.interfaces.IMovieMapper">
 
     <resultMap id = "result" type = "com.bestmovies.sep6_project.model.Movie">
         <result property = "id" column = "id"/>
@@ -29,4 +29,18 @@
                  JOIN stars s ON m.id = s.movie_id
         WHERE s.person_id = #{id}
     </select>
+
+    <insert id = "createMovie" parameterType = "com.bestmovies.sep6_project.model.Movie" useGeneratedKeys='true' keyProperty='id'>
+        INSERT INTO movies (title, year) VALUES (#{title}, #{year});
+    </insert>
+
+    <update id = "updateMovie" parameterType = "com.bestmovies.sep6_project.model.Movie">
+        UPDATE movies
+        SET title = #{title}, year = #{year}
+        WHERE id=#{id};
+    </update>
+
+    <delete id = "deleteMovie" parameterType = "int">
+        DELETE FROM movies WHERE id = #{id}
+    </delete>
 </mapper>

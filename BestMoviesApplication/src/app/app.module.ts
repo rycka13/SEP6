@@ -10,7 +10,14 @@ import {
   NbActionsModule,
   NbSidebarModule,
   NbSidebarService,
-  NbMenuModule, NbCardModule, NbToastrModule, NbIconModule, NbButtonModule, NbSpinnerModule, NbListModule
+  NbMenuModule,
+  NbCardModule,
+  NbToastrModule,
+  NbIconModule,
+  NbButtonModule,
+  NbSpinnerModule,
+  NbListModule,
+  NbSearchModule, NbSearchService
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { BmLayoutComponent } from '../components/bm-layout/bm-layout.component';
@@ -18,24 +25,50 @@ import { OverallInformationComponent } from './overall-information/overall-infor
 import {OverAllInformationState} from "./overall-information/overall-information.state";
 import {NgxsModule} from "@ngxs/store";
 import {AgGridModule} from "ag-grid-angular";
+import { NotFoundComponent } from './not-found/not-found.component';
+import {HttpClientModule} from "@angular/common/http";
+import {MoviesComponent} from "src/app/information/movies/movies.component";
+import {MoviesState} from "src/app/information/movies/movies.state";
+import {PeopleComponent} from "src/app/information/people/people.component";
+import {PeopleState} from "src/app/information/people/people.state";
 
 
-export const states = [
-  OverAllInformationState
+export const STATES = [
+  OverAllInformationState,
+  MoviesState,
+  PeopleState,
+]
+
+export const COMPONENTS = [
+  AppComponent,
+
+  //components
+  BmLayoutComponent,
+
+  //overall information page
+  OverallInformationComponent,
+
+  //information page
+  MoviesComponent,
+  PeopleComponent,
+
+  //404 not found page
+  NotFoundComponent,
+]
+
+export const PROVIDERS = [
+  NbSearchService,
 ]
 @NgModule({
-  declarations: [
-    AppComponent,
-    BmLayoutComponent,
-    OverallInformationComponent
-  ],
+  declarations: COMPONENTS,
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
     NbThemeModule.forRoot({name: 'bm-theme'}),
     NbMenuModule.forRoot(),
-    NgxsModule.forRoot(states),
+    NgxsModule.forRoot(STATES),
     NbSidebarModule.forRoot(),
     NbToastrModule.forRoot(),
     NbLayoutModule,
@@ -48,7 +81,9 @@ export const states = [
     NbSpinnerModule,
     NbListModule,
     AgGridModule,
+    NbSearchModule,
   ],
+  providers: PROVIDERS,
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
-import { NbSidebarService } from '@nebular/theme';
-import {GENERAL_MENU_ITEMS} from "../../app/constants";
+import {NbMenuService, NbSidebarService} from '@nebular/theme';
+import {
+  GENERAL_MENU_ITEMS,
+  getIndexOfChildInsideParent,
+  getIndexOfParent,
+  updateSelectedParentAtIndex,
+  updateSelectedChildAtIndexOfParent,
+  PARENT_IDS,
+} from "../../app/constants";
 
 @Component({
   selector: 'bm-layout',
@@ -30,8 +37,28 @@ import {GENERAL_MENU_ITEMS} from "../../app/constants";
 export class BmLayoutComponent {
 
   GENERAL_MENU_ITEMS = GENERAL_MENU_ITEMS;
+  selectedItem: any;
   isToggled = false;
-  constructor(private sideBarService: NbSidebarService) {
+  constructor(private sideBarService: NbSidebarService,
+              private menu: NbMenuService) {
+
+    let indexOfItem = getIndexOfParent(PARENT_IDS.OVERALL_INFORMATION_ID);
+    this.selectedItem = GENERAL_MENU_ITEMS[indexOfItem];
+    //event for menu item clicked
+    menu.onItemClick().subscribe(item => {
+      if(this.selectedItem) {
+        if(this.selectedItem.parent) {
+          let indexOfItem = getIndexOfChildInsideParent(this.selectedItem.parent.data.id, this.selectedItem.data.id);
+          updateSelectedChildAtIndexOfParent(this.selectedItem.parent.data.id, indexOfItem, false);
+        }
+        else {
+          let indexOfItem = getIndexOfParent(this.selectedItem.data.id);
+          updateSelectedParentAtIndex(indexOfItem, false);
+        }
+      }
+      item.item.selected = true;
+      this.selectedItem = item.item;
+    })
   }
 
   toggle() {
