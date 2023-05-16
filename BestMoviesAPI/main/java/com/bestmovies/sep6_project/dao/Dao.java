@@ -2,9 +2,12 @@ package com.bestmovies.sep6_project.dao;
 
 import com.bestmovies.sep6_project.dao.interfaces.IDirectorMapper;
 import com.bestmovies.sep6_project.dao.interfaces.IMovieMapper;
-import com.bestmovies.sep6_project.dao.interfaces.IStarMapper;
 import com.bestmovies.sep6_project.dao.interfaces.IRatingMapper;
-import com.bestmovies.sep6_project.model.*;
+import com.bestmovies.sep6_project.dao.interfaces.IStarMapper;
+import com.bestmovies.sep6_project.model.Director;
+import com.bestmovies.sep6_project.model.Movie;
+import com.bestmovies.sep6_project.model.Rating;
+import com.bestmovies.sep6_project.model.Star;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -14,7 +17,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.List;
 
-public class MovieDao {
+public class Dao {
 
     private IMovieMapper movieMapper;
     private IRatingMapper ratingMapper;
@@ -22,7 +25,7 @@ public class MovieDao {
     private IStarMapper starMapper;
     private SqlSession session;
 
-    public MovieDao() throws IOException {
+    public Dao() throws IOException {
         String resource = "Mapper.xml";
             Reader reader = Resources.getResourceAsReader(resource);
             SqlSessionFactory sqlSessionFactory =
@@ -86,6 +89,18 @@ public class MovieDao {
     }
     public void deleteDirector(int id){
         directorMapper.deleteDirector(id);
+        session.commit();
+    }
+    public void createRating(Rating rating){
+        ratingMapper.createRating(rating);
+        session.commit();
+    }
+    public void updateRating(Rating rating){
+        ratingMapper.updateRating(rating);
+        session.commit();
+    }
+    public void deleteRating(int id){
+        ratingMapper.deleteRating(id);
         session.commit();
     }
 }

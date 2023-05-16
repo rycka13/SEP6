@@ -13,4 +13,16 @@
     <select id="getAll" resultMap="RatingsResultMap">
         SELECT * FROM ratings;
     </select>
+    <insert id = "createRating" parameterType = "com.bestmovies.sep6_project.model.Rating">
+        INSERT INTO ratings (rating, votes, movie_id)
+        VALUES (#{rating}, #{votes}, #{movie.id});
+    </insert>
+    <update id="updateRating" parameterType = "com.bestmovies.sep6_project.model.Rating">
+        UPDATE ratings
+        SET rating = #{rating}, votes = #{votes}
+        WHERE movie_id=#{movie.id};
+    </update>
+    <delete id = "deleteRating" parameterType = "int">
+        DELETE FROM ratings WHERE movie_id = #{id}
+    </delete>
 </mapper>
