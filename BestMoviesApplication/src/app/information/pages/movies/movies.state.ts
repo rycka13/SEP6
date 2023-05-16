@@ -1,6 +1,6 @@
-import {Movie} from "../../../model/movie";
-import {Person} from "../../../model/person";
-import {Stars} from "../../../model/stars";
+import {Movie} from "../../../../model/movie";
+import {Person} from "../../../../model/person";
+import {Stars} from "../../../../model/stars";
 import {Action, State, StateContext} from "@ngxs/store";
 import {Injectable} from "@angular/core";
 import {
@@ -8,8 +8,8 @@ import {
   MoviesReset, MoviesSearchReset, MoviesSearchTitle
 } from "./movies.actions";
 import {current, produce} from "immer";
-import {moviesMock} from "../../../util/mocks/movies_mock";
-import {peopleMock} from "../../../util/mocks/people_mock";
+import {moviesMock} from "../../../../util/mocks/movies_mock";
+import {peopleMock} from "../../../../util/mocks/people_mock";
 import {NbToastrService} from "@nebular/theme";
 
 export interface MoviesStateModel {
@@ -88,7 +88,6 @@ export class MoviesState {
 
     //TODO implement api call or can be done also from frontend
     newState = produce(currentState, draft => {
-      console.log(this.allMovies);
       let movies = this.allMovies;
       if(movies.length < 0) {
         this.toastrService.show('', 'There are no movies to search');

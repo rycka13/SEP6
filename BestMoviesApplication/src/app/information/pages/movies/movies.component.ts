@@ -8,11 +8,11 @@ import {CellClickedEvent, ColDef, ColumnApi, GridApi, GridReadyEvent} from "ag-g
 import {Select, Store} from "@ngxs/store";
 import {OverallInformationSelector} from "src/app/overall-information/overall-information.selector";
 import {Observable} from "rxjs";
-import {MoviesState} from "src/app/information/movies/movies.state";
-import {MoviesSelector} from "src/app/information/movies/movies.selector";
+import {MoviesState} from "src/app/information/pages/movies/movies.state";
+import {MoviesSelector} from "src/app/information/pages/movies/movies.selector";
 import {Movie} from "src/model/movie";
 import {AgGridAngular} from "ag-grid-angular";
-import {MoviesFetchInfo, MoviesSearchReset, MoviesSearchTitle} from "src/app/information/movies/movies.actions";
+import {MoviesFetchInfo, MoviesSearchReset, MoviesSearchTitle} from "src/app/information/pages/movies/movies.actions";
 
 @Component({
   selector: 'app-movies',
