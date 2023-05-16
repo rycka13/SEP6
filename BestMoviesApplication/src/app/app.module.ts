@@ -31,6 +31,7 @@ import {MoviesComponent} from "src/app/information/movies/movies.component";
 import {MoviesState} from "src/app/information/movies/movies.state";
 import {PeopleComponent} from "src/app/information/people/people.component";
 import {PeopleState} from "src/app/information/people/people.state";
+import {environment} from "src/environments/environment";
 
 
 export const STATES = [
@@ -68,7 +69,9 @@ export const PROVIDERS = [
     AppRoutingModule,
     NbThemeModule.forRoot({name: 'bm-theme'}),
     NbMenuModule.forRoot(),
-    NgxsModule.forRoot(STATES),
+    NgxsModule.forRoot(STATES, {
+      developmentMode: !environment.production,
+    }),
     NbSidebarModule.forRoot(),
     NbToastrModule.forRoot(),
     NbLayoutModule,
