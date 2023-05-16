@@ -27,20 +27,32 @@ import {NgxsModule} from "@ngxs/store";
 import {AgGridModule} from "ag-grid-angular";
 import { NotFoundComponent } from './not-found/not-found.component';
 import {HttpClientModule} from "@angular/common/http";
-import {MoviesComponent} from "src/app/information/pages/movies/movies.component";
-import {MoviesState} from "src/app/information/pages/movies/movies.state";
+import {MoviesComponent} from "src/app/information/movies/movies.component";
+import {MoviesState} from "src/app/information/movies/movies.state";
+import {PeopleComponent} from "src/app/information/people/people.component";
+import {PeopleState} from "src/app/information/people/people.state";
 
 
-export const states = [
+export const STATES = [
   OverAllInformationState,
   MoviesState,
+  PeopleState,
 ]
 
 export const COMPONENTS = [
   AppComponent,
+
+  //components
   BmLayoutComponent,
+
+  //overall information page
   OverallInformationComponent,
+
+  //information page
   MoviesComponent,
+  PeopleComponent,
+
+  //404 not found page
   NotFoundComponent,
 ]
 
@@ -56,7 +68,7 @@ export const PROVIDERS = [
     AppRoutingModule,
     NbThemeModule.forRoot({name: 'bm-theme'}),
     NbMenuModule.forRoot(),
-    NgxsModule.forRoot(states),
+    NgxsModule.forRoot(STATES),
     NbSidebarModule.forRoot(),
     NbToastrModule.forRoot(),
     NbLayoutModule,

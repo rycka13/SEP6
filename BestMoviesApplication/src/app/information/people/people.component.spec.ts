@@ -1,34 +1,34 @@
+import {NgxsModule, Store} from "@ngxs/store";
 import {Spectator} from "@ngneat/spectator";
 import {createComponentFactory, SpectatorFactory} from "@ngneat/spectator/jest";
+import {RouterTestingModule} from "@angular/router/testing";
+import {BrowserModule} from "@angular/platform-browser";
+import {AppRoutingModule} from "../../app-routing.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {
-  NbActionsModule, NbCardModule,
+  NbActionsModule,
+  NbCardModule,
   NbIconModule,
   NbLayoutModule,
   NbMenuModule, NbSearchModule,
-  NbSidebarModule, NbThemeModule,
-  NbToastrModule,
+  NbSidebarModule,
+  NbThemeModule,
+  NbToastrModule
 } from "@nebular/theme";
-import {NgxsModule, Store} from "@ngxs/store";
+import {defaultsState} from "../people/people.state";
 import {NbEvaIconsModule} from "@nebular/eva-icons";
-import {AgGridModule} from "ag-grid-angular";
-import {MoviesComponent} from "./movies.component";
-import {RouterTestingModule} from "@angular/router/testing";
-import {defaultsState, MoviesState} from "./movies.state";
-import {BrowserModule} from "@angular/platform-browser";
-import {AppRoutingModule} from "../../../app-routing.module";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {OverAllInformationState} from "../../../overall-information/overall-information.state";
 import {FormsModule} from "@angular/forms";
-import {PROVIDERS} from "../../../app.module";
+import {AgGridModule} from "ag-grid-angular";
+import {PROVIDERS, STATES} from "../../app.module";
+import {PeopleComponent} from "./people.component";
 
-
-describe('app > information > movies > movies.component.spec.ts', () => {
+describe('app > information > people > people.component.spec.ts', () => {
   let store: Store;
-  let component: MoviesComponent;
-  let spectator: Spectator<MoviesComponent>;
-  const createComponent: SpectatorFactory<MoviesComponent> =
+  let component: PeopleComponent;
+  let spectator: Spectator<PeopleComponent>;
+  const createComponent: SpectatorFactory<PeopleComponent> =
     createComponentFactory({
-      component: MoviesComponent,
+      component: PeopleComponent,
       imports: [
         RouterTestingModule,
         BrowserModule,
@@ -38,8 +38,7 @@ describe('app > information > movies > movies.component.spec.ts', () => {
         NbSidebarModule.forRoot(),
         NbMenuModule.forRoot(),
         NgxsModule.forRoot([
-          OverAllInformationState,
-          MoviesState
+          ...STATES
         ]),
         NbToastrModule.forRoot(),
         NbIconModule,
@@ -66,7 +65,7 @@ describe('app > information > movies > movies.component.spec.ts', () => {
     store = spectator.inject(Store);
 
     store.reset({
-      moviesPage: defaultsState,
+      peoplePage: defaultsState,
     })
   });
 

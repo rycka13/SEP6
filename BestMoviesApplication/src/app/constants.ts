@@ -13,17 +13,22 @@ export const PAGE_GENERAL_TITLES = {
 export const PAGE_INFORMATION_TITLES = {
   //INFORMATION MENU
   MOVIES: 'Movies',
+  PEOPLE: 'People',
 }
-
-
 
 export const INFORMATION_MENU_ITEMS: NbMenuItem[] = [
   {
     title: PAGE_INFORMATION_TITLES.MOVIES,
     link: 'information/movies',
     icon: 'film-outline',
+  },
+  {
+    title: PAGE_INFORMATION_TITLES.PEOPLE,
+    link: 'information/people',
+    icon: 'people-outline',
   }
 ];
+
 export const GENERAL_MENU_ITEMS: NbMenuItem[] = [
   {
     title: PAGE_GENERAL_TITLES.OVERALL,

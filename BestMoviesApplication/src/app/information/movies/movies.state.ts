@@ -1,4 +1,4 @@
-import {Movie} from "../../../../model/movie";
+import {Movie} from "../../../model/movie";
 import {Action, State, StateContext} from "@ngxs/store";
 import {Injectable} from "@angular/core";
 import {
@@ -6,7 +6,7 @@ import {
   MoviesReset, MoviesSearchReset, MoviesSearchTitle
 } from "./movies.actions";
 import {produce} from "immer";
-import {moviesMock} from "../../../../util/mocks/movies_mock";
+import {moviesMock} from "../../../util/mocks/movies_mock";
 import {NbToastrService} from "@nebular/theme";
 
 export interface MoviesStateModel {
