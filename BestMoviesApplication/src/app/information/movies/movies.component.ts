@@ -6,7 +6,12 @@ import {Observable} from "rxjs";
 import {MoviesSelector} from "src/app/information/movies/movies.selector";
 import {Movie} from "src/model/movie";
 import {AgGridAngular} from "ag-grid-angular";
-import {MoviesFetchInfo, MoviesSearchReset, MoviesSearchTitle} from "src/app/information/movies/movies.actions";
+import {
+  MoviesFetchInfo,
+  MoviesReset,
+  MoviesSearchReset,
+  MoviesSearchTitle
+} from "src/app/information/movies/movies.actions";
 
 @Component({
   selector: 'app-movies',
@@ -89,6 +94,6 @@ export class MoviesComponent implements OnInit, OnDestroy{
 
   ngOnDestroy() {
     this.alive = false;
-    this.store.dispatch(new MoviesSearchReset());
+    this.store.dispatch(new MoviesReset());
   }
 }
