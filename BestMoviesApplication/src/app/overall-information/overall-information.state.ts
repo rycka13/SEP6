@@ -64,7 +64,7 @@ export class OverAllInformationState {
       this.people = peopleMock;
     }
     catch (e) {
-      this.toastrService.show('danger', 'Fetching overall information went wrong.');
+      this.toastrService.show('Error...', 'Fetching overall information went wrong.', { status: 'danger'});
       console.log(e);
     }
 
@@ -101,7 +101,7 @@ export class OverAllInformationState {
       this.bestMovies.push(this.movies[1], this.movies[2], this.movies[3]);
     }
     catch (e) {
-      this.toastrService.show('danger', 'Fetching best movies went wrong.');
+      this.toastrService.show('Error...', 'Fetching overall information went wrong.', { status: 'danger'});
       console.log(e);
     }
 
