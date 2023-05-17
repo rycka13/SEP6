@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bestmovies.sep6_project.dao.interfaces.IDirectorMapper">
 
-    <resultMap id="DirectorResultMap" type="com.bestmovies.sep6_project.model.Director">
+    <resultMap id="DirectorResultMap" type="Director">
         <result property="id" column="id"/>
         <result property="name" column="name" javaType="java.lang.String"/>
         <result property="birthYear" column="birth" javaType="int"/>
@@ -12,14 +12,14 @@
     <select id="getAll" resultMap="DirectorResultMap">
         SELECT p.id AS id, p.name, p.birth
         FROM people p
-                 JOIN directors d ON p.id = d.person_id limit 10
+                 JOIN directors d ON p.id = d.person_id limit
     </select>
 
-    <insert id = "createDirector" parameterType = "com.bestmovies.sep6_project.model.Director" useGeneratedKeys='true' keyProperty='id'>
+    <insert id = "createDirector" parameterType = "Director" useGeneratedKeys='true' keyProperty='id'>
         INSERT INTO people (name, birth) VALUES (#{name}, #{birthYear});
     </insert>
 
-    <update id = "updateDirector" parameterType = "com.bestmovies.sep6_project.model.Director">
+    <update id = "updateDirector" parameterType = "Director">
         UPDATE people
         SET name = #{name}, birth = #{birthYear}
         WHERE id=#{id};
