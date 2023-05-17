@@ -19,7 +19,7 @@ public class MovieController{
 
     @RequestMapping(value = "/save", method = RequestMethod.POST, consumes="application/json")
     public void addMovie(@RequestBody Movie movie, HttpServletResponse response){
-        setResponse(response, movieService.createMovie(movie.getId(), movie.getTitle(), movie.getYear()));
+        setResponse(response, movieService.createMovie(movie.getTitle(), movie.getYear()));
     }
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)

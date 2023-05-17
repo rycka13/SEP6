@@ -5,8 +5,8 @@ import com.bestmovies.sep6_project.model.Director;
 import java.util.List;
 
 public interface IDirectorMapper {
-    
-    List<Director> getByMovieId(long movieId);
+
+    Director getByDirectorId(long id);
 
     List<Director> getAll();
     void createDirector(Director director);

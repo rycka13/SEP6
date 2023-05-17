@@ -1,5 +1,6 @@
 package com.bestmovies.sep6_project.services;
 
+import com.bestmovies.sep6_project.dao.interfaces.IRatingMapper;
 import com.bestmovies.sep6_project.model.Movie;
 import com.bestmovies.sep6_project.model.Rating;
 import org.springframework.stereotype.Component;
@@ -8,35 +9,40 @@ import java.util.List;
 
 @Component
 public class RatingService {
-    private MovieDao dao;
-
-    public RatingService(){
-        try {
-            dao = new MovieDao();
-        }
-        catch (Exception e){
-            System.out.println(e.getStackTrace());
-        }
-    }
+    private IRatingMapper ratingMapper;
 
     public List<Rating> getAllRatings(){
-        return dao.getAllRatings();
+        return ratingMapper.getAll();
     }
 
-    public Movie getRatingById(long id) {
-        return dao.getMovieById(id);
+    public Rating getRatingById(long id) {
+        return ratingMapper.getRatingById(id);
     }
 
     public boolean createRating(double rating, Movie movie, int votes) {
+        if(rating > 0 && movie != null && votes > 0){
+            Rating newRating = new Rating(movie, rating, votes);
+            ratingMapper.createRating(newRating);
+            return true;
+        }
 
         return false;
     }
 
-    public boolean editRating(Rating updatedRating, long ratingId) {
-        return true;
+    public boolean editRating(Rating updatedRating, long movieId) {
+        if(updatedRating != null && movieId > 0){
+            updatedRating.getMovie().setId(movieId);
+            ratingMapper.updateRating(updatedRating);
+            return true;
+        }
+        return false;
     }
 
     public boolean deleteRating(long movieId) {
-        return true;
+        if(movieId > 0){
+            ratingMapper.deleteRating(movieId);
+            return true;
+        }
+        return false;
     }
 }

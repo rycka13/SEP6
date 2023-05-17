@@ -10,4 +10,6 @@ public interface IRatingMapper {
     void createRating(Rating rating);
     void updateRating(Rating rating);
     void deleteRating(long id);
+
+    Rating getRatingById(long id);
 }
