@@ -39,7 +39,7 @@ public class MovieDao {
         return movieMapper.getAll();
     }
 
-    public Movie getMovieById(int id){
+    public Movie getMovieById(long id){
         return movieMapper.getMovieById(id);
     }
 
@@ -64,7 +64,7 @@ public class MovieDao {
         movieMapper.updateMovie(movie);
         session.commit();
     }
-    public void deleteMovie(int id){
+    public void deleteMovie(long id){
         movieMapper.deleteMovie(id);
         session.commit();
     }
@@ -76,7 +76,7 @@ public class MovieDao {
         starMapper.updateStar(star);
         session.commit();
     }
-    public void deleteStar(int id){
+    public void deleteStar(long id){
         starMapper.deleteStar(id);
         session.commit();
     }
@@ -88,16 +88,16 @@ public class MovieDao {
         directorMapper.updateDirector(director);
         session.commit();
     }
-    public void deleteDirector(int id){
+    public void deleteDirector(long id){
         directorMapper.deleteDirector(id);
         session.commit();
     }
 
-    public Director getDirectorById(int id) {
+    public Director getDirectorById(long id) {
         return new Director();
     }
 
-    public Star getStarById(int id) {
+    public Star getStarById(long id) {
         return new Star();
     }
 }

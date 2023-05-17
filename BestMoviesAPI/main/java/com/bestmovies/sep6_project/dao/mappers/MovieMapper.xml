@@ -13,7 +13,7 @@
     <select id = "getAll" resultMap = "result">
         SELECT * FROM movies;
     </select>
-    <select id="getMovieById" resultMap="result" parameterType="int">
+    <select id="getMovieById" resultMap="result" parameterType="long">
         SELECT * FROM movies WHERE id = #{id};
     </select>
     <select id="getAllMoviesForDirector" resultMap="result">
@@ -40,7 +40,7 @@
         WHERE id=#{id};
     </update>
 
-    <delete id = "deleteMovie" parameterType = "int">
+    <delete id = "deleteMovie" parameterType = "long">
         DELETE FROM movies WHERE id = #{id}
     </delete>
 </mapper>

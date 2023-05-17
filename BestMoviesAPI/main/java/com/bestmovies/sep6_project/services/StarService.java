@@ -24,20 +24,20 @@ public class StarService {
         return dao.getAllStars();
     }
 
-    public Star getStarById(int id) {
+    public Star getStarById(long id) {
         return dao.getStarById(id);
     }
 
-    public boolean createStar(int id, String name, int birthYear) {
+    public boolean createStar(long id, String name, int birthYear) {
 
         return false;
     }
 
-    public boolean editStar(Star updatedStar, int starId) {
+    public boolean editStar(Star updatedStar, long starId) {
         return true;
     }
 
-    public boolean deleteStar(int starId) {
+    public boolean deleteStar(long starId) {
         return true;
     }
 }

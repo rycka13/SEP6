@@ -1,11 +1,11 @@
 package com.bestmovies.sep6_project.model;
 
 public class Movie {
-    private int id;
+    private long id;
     private String title;
     private int year;
 
-    public Movie(int id, String title, int year){
+    public Movie(long id, String title, int year){
         this.id = id;
         this.title = title;
         this.year = year;
@@ -15,11 +15,11 @@ public class Movie {
         this.year = year;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

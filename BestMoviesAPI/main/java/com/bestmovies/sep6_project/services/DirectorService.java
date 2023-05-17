@@ -24,19 +24,19 @@ public class DirectorService {
         return dao.getAllDirectors();
     }
 
-    public Director getDirectorById(int id) {
+    public Director getDirectorById(long id) {
         return dao.getDirectorById(id);
     }
 
-    public boolean createDirector(int id, String name, int birthYear) {
+    public boolean createDirector(long id, String name, int birthYear) {
         return false;
     }
 
-    public boolean editDirector(Director updatedDirector, int movieId) {
+    public boolean editDirector(Director updatedDirector, long movieId) {
         return true;
     }
 
-    public boolean deleteDirector(int directorId) {
+    public boolean deleteDirector(long directorId) {
         return true;
     }
 }
