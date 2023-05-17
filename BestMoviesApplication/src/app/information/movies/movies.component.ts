@@ -1,99 +1,71 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {NbSearchService} from "@nebular/theme";
-import {CellClickedEvent, ColDef, ColumnApi, GridApi, GridReadyEvent} from "ag-grid-community";
-import {Select, Store} from "@ngxs/store";
-import {Observable} from "rxjs";
-import {MoviesSelector} from "src/app/information/movies/movies.selector";
-import {Movie} from "src/model/movie";
-import {AgGridAngular} from "ag-grid-angular";
-import {
-  MoviesFetchInfo,
-  MoviesReset,
-  MoviesSearchReset,
-  MoviesSearchTitle
-} from "src/app/information/movies/movies.actions";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NbSearchService, NbToastrService } from '@nebular/theme';
+import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { Movie } from 'src/model/movie';
+import { MoviesFetchInfo, MoviesReset, MoviesSearchReset, MoviesSearchTitle } from 'src/app/information/movies/movies.actions';
+import { MoviesSelector } from 'src/app/information/movies/movies.selector';
+import { Select, Store } from '@ngxs/store';
+import { paginate } from 'src/app/constants';
 
 @Component({
   selector: 'app-movies',
   templateUrl: './movies.component.html',
   styleUrls: ['./movies.component.scss']
 })
-export class MoviesComponent implements OnInit, OnDestroy{
-  //selectors observable ngxs
+export class MoviesComponent implements OnInit, OnDestroy {
   @Select(MoviesSelector.isFetching)
   isFetching$: Observable<boolean>;
-
-  @Select(MoviesSelector.isFiltered)
-  isFiltered$: Observable<boolean>;
 
   @Select(MoviesSelector.movies)
   movies$: Observable<Movie[]>;
 
-  //ag grid
-  gridApi: GridApi;
-  gridColumnApi: ColumnApi;
-  @ViewChild('agGridAngular') agGrid!: AgGridAngular;
+  moviesDisplayed: Movie[] = [];
+  pageSize = 5;
+  pageToLoadNext = 1;
+  loading = false;
 
-  alive: boolean = true;
-  constructor(private store: Store,
-              private searchService: NbSearchService) {
-
-    this.searchService.onSearchSubmit()
-      .subscribe((data: any) => {
-        this.store.dispatch(new MoviesSearchTitle(data.term));
-      })
-
+  constructor(
+    private store: Store,
+    private searchService: NbSearchService,
+    private nbToastrService: NbToastrService
+  ) {
+    this.searchService.onSearchSubmit().subscribe((data: any) => {
+      this.store.dispatch(new MoviesSearchTitle(data.term));
+    });
   }
 
-  async ngOnInit() {
-    const actionsInParallel = [
-      new MoviesFetchInfo(),
-    ];
-    this.store.dispatch([...actionsInParallel]);
+  ngOnInit() {
+    this.store.dispatch(new MoviesFetchInfo()).pipe(take(1)).subscribe(() => {
+      this.movies$.subscribe((movies) => {
+        this.moviesDisplayed = paginate(movies, this.pageSize, this.pageToLoadNext);
+      });
+    });
   }
 
-  onGridReady(params: GridReadyEvent) {
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-
-    //TODO adjust autosize
-    this.gridApi.sizeColumnsToFit();
-  }
-
-  onCellClicked( e: CellClickedEvent): void {
-    // TODO redirect to the movie overview
-  }
-
-  columnDefs: ColDef[] = [
-    {
-      headerName: 'Id',
-      field: 'id',
-      valueFormatter: params => {
-        console.log(params.value)
-        return params.value;
-      }
-    },
-    {
-      headerName: 'Title',
-      field: 'title',
-    },
-    {
-      headerName: 'Year',
-      field: 'year'
+  loadNext() {
+    if (this.loading) {
+      return;
     }
-  ]
-
-  public defaultColDef: ColDef = {
-    sortable: true,
-    filter: true,
-  };
+    this.loading = true;
+    this.pageToLoadNext++;
+    this.movies$.pipe(take(1)).subscribe((movies) => {
+      const nextMoviesToDisplay = paginate(movies, this.pageSize, this.pageToLoadNext);
+      this.moviesDisplayed.push(...nextMoviesToDisplay);
+      this.loading = false;
+    });
+  }
 
   resetSearch() {
     this.store.dispatch(new MoviesSearchReset());
   }
 
+  redirectToMovieOverviewPage(movieId: number) {
+    this.nbToastrService.show('Page not implemented yet', 'The page is not implemented yet...', { status: 'primary' });
+    // TODO: Implement movie overview page
+  }
+
   ngOnDestroy() {
-    this.alive = false;
     this.store.dispatch(new MoviesReset());
   }
 }

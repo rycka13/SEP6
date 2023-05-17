@@ -1,42 +1,40 @@
-<ng-container *ngIf="isFetching$ | async; then dataFetching; else dataFetched">
+<ng-container *ngIf="(isFetching$ | async) || this.loading; then dataFetching; else dataFetched">
 </ng-container>
 
 <ng-template #dataFetched>
-  <nb-card
-    accent="info">
-    <nb-card-header>
-      <nb-search type="rotate-layout"></nb-search>
-      <button
-        *ngIf="isFiltered$ | async"
-        nbButton
-        outline
-        status="primary"
-        shape="round"
-        class="reset-button"
-        (click)="resetSearch()"
-      >
-        <nb-icon
-          icon="refresh-outline"
-        >
-        </nb-icon>
-        Reset search
-      </button>
-    </nb-card-header>
-    <nb-card-body>
-      <ag-grid-angular
-        #agGridAngular
-        style="width: 100%; height: 300px"
-        class="ag-theme-alpine"
-        [columnDefs]="columnDefs"
-        [defaultColDef]="defaultColDef"
-        [rowData]="movies$ | async"
-        [rowSelection]="'multiple'"
-        [animateRows]="true"
-        (gridReady)="onGridReady($event)"
-        (cellClicked)="onCellClicked($event)"
-      ></ag-grid-angular>
-    </nb-card-body>
-  </nb-card>
+  <nb-list
+    nbInfiniteList
+    listenWindowScroll
+    [threshold]="500"
+    (bottomThreshold)="loadNext()"
+    class="movie-container"
+  >
+    <nb-list-item *ngFor="let movie of moviesDisplayed">
+      <nb-card size="medium" class="poster-movie">
+        <nb-card-header>
+          <div class="movie-title">{{ movie.title }}</div>
+        </nb-card-header>
+        <nb-card-body class="body-poster-movie">
+          <div class="show-more-button">
+            <button
+              nbButton
+              status="primary"
+              (click)="redirectToMovieOverviewPage(movie.id)"
+            >
+              <nb-icon icon="film-outline"></nb-icon>
+              Show more
+            </button>
+          </div>
+          <img [src]="movie.posterUrl" [alt]="movie.title">
+        </nb-card-body>
+        <nb-card-footer class="movie-year">
+          <div>
+            <span>Year of publication: {{ movie.year }}</span>
+          </div>
+        </nb-card-footer>
+      </nb-card>
+    </nb-list-item>
+  </nb-list>
 </ng-template>
 
 <ng-template #dataFetching>
@@ -46,3 +44,4 @@
     class="spinner">
   </nb-spinner>
 </ng-template>
+
