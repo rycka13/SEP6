@@ -2,19 +2,22 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace = "com.bestmovies.sep6_project.dao.interfaces.IMovieMapper">
+<mapper namespace="com.bestmovies.sep6_project.dao.interfaces.IMovieMapper">
 
-    <resultMap id = "result" type = "Movie">
-        <result property = "id" column = "id"/>
-        <result property = "title" column = "title"/>
-        <result property = "year" column = "year"/>
+    <resultMap id="result" type="Movie">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="year" column="year"/>
     </resultMap>
 
-    <select id = "getAll" resultMap = "result">
-        SELECT * FROM movies;
+    <select id="getAll" resultMap="result">
+        SELECT *
+        FROM movies;
     </select>
     <select id="getMovieById" resultMap="result" parameterType="long">
-        SELECT * FROM movies WHERE id = #{id};
+        SELECT *
+        FROM movies
+        WHERE id = #{id};
     </select>
     <select id="getAllMoviesForDirector" resultMap="result">
         SELECT m.id, m.title, m.year
@@ -30,17 +33,35 @@
         WHERE s.person_id = #{id}
     </select>
 
-    <insert id = "createMovie" parameterType = "Movie" useGeneratedKeys='true' keyProperty='id'>
-        INSERT INTO movies (title, year) VALUES (#{title}, #{year});
+    <select id="getNMoviesByRating" resultMap="result">
+        SELECT m.id as id, m.title, m.year
+        FROM movies m
+                 JOIN ratings r on m.id = r.movie_id
+        WHERE r.rating >= #{rating} limit #{n};
+    </select>
+
+    <select id="getNMoviesByVotes" resultMap="result">
+        SELECT m.id as id, m.title, m.year
+        FROM movies m
+                 JOIN ratings r on m.id = r.movie_id
+        WHERE r.votes >= #{votes} limit #{n};
+    </select>
+
+    <insert id="createMovie" parameterType="Movie" useGeneratedKeys='true' keyProperty='id'>
+        INSERT INTO movies (title, year)
+        VALUES (#{title}, #{year});
     </insert>
 
-    <update id = "updateMovie" parameterType = "Movie">
+    <update id="updateMovie" parameterType="Movie">
         UPDATE movies
-        SET title = #{title}, year = #{year}
-        WHERE id=#{id};
+        SET title = #{title},
+            year  = #{year}
+        WHERE id = #{id};
     </update>
 
-    <delete id = "deleteMovie" parameterType = "long">
-        DELETE FROM movies WHERE id = #{id}
+    <delete id="deleteMovie" parameterType="long">
+        DELETE
+        FROM movies
+        WHERE id = #{id}
     </delete>
 </mapper>
