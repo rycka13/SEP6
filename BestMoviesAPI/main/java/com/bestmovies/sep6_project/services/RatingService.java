@@ -24,7 +24,7 @@ public class RatingService {
         return dao.getAllRatings();
     }
 
-    public Movie getRatingById(int id) {
+    public Movie getRatingById(long id) {
         return dao.getMovieById(id);
     }
 
@@ -33,11 +33,11 @@ public class RatingService {
         return false;
     }
 
-    public boolean editRating(Rating updatedRating, int ratingId) {
+    public boolean editRating(Rating updatedRating, long ratingId) {
         return true;
     }
 
-    public boolean deleteRating(int movieId) {
+    public boolean deleteRating(long movieId) {
         return true;
     }
 }

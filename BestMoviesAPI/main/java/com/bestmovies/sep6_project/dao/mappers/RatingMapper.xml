@@ -22,7 +22,7 @@
         SET rating = #{rating}, votes = #{votes}
         WHERE movie_id=#{movie.id};
     </update>
-    <delete id = "deleteRating" parameterType = "int">
+    <delete id = "deleteRating" parameterType = "long">
         DELETE FROM ratings WHERE movie_id = #{id}
     </delete>
 </mapper>

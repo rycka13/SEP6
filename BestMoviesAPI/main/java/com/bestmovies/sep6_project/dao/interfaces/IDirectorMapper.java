@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface IDirectorMapper {
     
-    List<Director> getByMovieId(int movieId);
+    List<Director> getByMovieId(long movieId);
 
     List<Director> getAll();
     void createDirector(Director director);
     void updateDirector(Director director);
-    void deleteDirector(int id);
+    void deleteDirector(long id);
 }

@@ -27,17 +27,17 @@ public class StarController {
     }
 
     @RequestMapping(value = "/starId/{starId}", method = RequestMethod.PUT, consumes="application/json")
-    public void updateMovie(@RequestBody Star updatedStar, @PathVariable int starId, HttpServletResponse response){
+    public void updateMovie(@RequestBody Star updatedStar, @PathVariable long starId, HttpServletResponse response){
         setResponse(response, starService.editStar(updatedStar ,starId));
     }
 
     @RequestMapping(value = "/starId/{starId}", method = RequestMethod.DELETE)
-    public void deleteStar(@PathVariable int starId, HttpServletResponse response){
+    public void deleteStar(@PathVariable long starId, HttpServletResponse response){
         setResponse(response, starService.deleteStar(starId));
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    Star getStarById(@PathVariable int id){
+    Star getStarById(@PathVariable long id){
         return starService.getStarById(id);
     }
 

@@ -9,5 +9,5 @@ public interface IRatingMapper {
     List<Rating> getAll();
     void createRating(Rating rating);
     void updateRating(Rating rating);
-    void deleteRating(int id);
+    void deleteRating(long id);
 }
