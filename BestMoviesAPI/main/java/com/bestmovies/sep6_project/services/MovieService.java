@@ -22,24 +22,21 @@ public class MovieService {
         return dao.getAllMovies();
     }
 
-    public Movie getMovieById(int id) {
+    public Movie getMovieById(long id) {
         return dao.getMovieById(id);
     }
 
-    public boolean createMovie(int id, String title, int year) {
-        Movie newMovie = new Movie();
-        newMovie.setId(id);
-        newMovie.setTitle(title);
-        newMovie.setYear(year);
+    public boolean createMovie(long id, String title, int year) {
+        Movie newMovie = new Movie(id, title, year);
 
         return false;
     }
 
-    public boolean editMovie(Movie updatedMovie, int movieId) {
+    public boolean editMovie(Movie updatedMovie, long movieId) {
         return true;
     }
 
-    public boolean deleteMovie(int movieId) {
+    public boolean deleteMovie(long movieId) {
         return true;
     }
 }

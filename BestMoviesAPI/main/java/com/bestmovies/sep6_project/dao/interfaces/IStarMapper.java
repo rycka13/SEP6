@@ -8,5 +8,5 @@ public interface IStarMapper {
     List<Star> getAll();
     void createStar(Star star);
     void updateStar(Star star);
-    void deleteStar(int id);
+    void deleteStar(long id);
 }

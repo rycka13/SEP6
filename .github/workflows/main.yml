@@ -1,7 +1,7 @@
 name: GitHub Actions Maven Build
 on:
   pull_request:
-    branches: [ master ]
+    branches: [ "main" ]
     
 jobs:
   build:
@@ -20,9 +20,9 @@ jobs:
       - name: Step 4 - List the current directory
         run: ls -a
       - name: Step 5 - What is in the target folder?
-        run:
+        run: |
           cd target
-          la -a
+          ls -a
           
           
       
