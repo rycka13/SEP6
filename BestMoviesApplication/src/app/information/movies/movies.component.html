@@ -11,7 +11,7 @@
   >
     <nb-list-item *ngFor="let movie of moviesDisplayed">
       <nb-card size="medium" class="poster-movie">
-        <nb-card-header>
+        <nb-card-header class="header-poster-movie">
           <div class="movie-title">{{ movie.title }}</div>
         </nb-card-header>
         <nb-card-body class="body-poster-movie">
@@ -27,9 +27,9 @@
           </div>
           <img [src]="movie.posterUrl" [alt]="movie.title">
         </nb-card-body>
-        <nb-card-footer class="movie-year">
+        <nb-card-footer class="footer-poster-movie">
           <div>
-            <span>Year of publication: {{ movie.year }}</span>
+            <span class="movie-year">Year of publication: {{ movie.year }}</span>
           </div>
         </nb-card-footer>
       </nb-card>
