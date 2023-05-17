@@ -2,13 +2,14 @@ package com.bestmovies.sep6_project.services;
 
 import com.bestmovies.sep6_project.dao.interfaces.IMovieMapper;
 import com.bestmovies.sep6_project.model.Movie;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
 public class MovieService {
-
+    @Autowired
     private IMovieMapper movieMapper;
 
     public List<Movie> getAllMovies(){

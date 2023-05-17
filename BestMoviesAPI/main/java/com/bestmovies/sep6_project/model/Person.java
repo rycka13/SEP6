@@ -3,6 +3,7 @@ package com.bestmovies.sep6_project.model;
 import java.util.List;
 
 public abstract class Person {
+    private Movie addMovie;
     private List<Movie> movies;  // Change the type to List<Movie> for one-to-many relationship
     private long id;
     private String name;
@@ -20,6 +21,13 @@ public abstract class Person {
     }
     public Person(List<Movie> movies, long id, String name, int birthYear) {
         this.movies = movies;
+        this.id = id;
+        this.name = name;
+        this.birthYear = birthYear;
+    }
+
+    public Person(Movie addMovie, long id, String name, int birthYear) {
+        this.addMovie = addMovie;
         this.id = id;
         this.name = name;
         this.birthYear = birthYear;

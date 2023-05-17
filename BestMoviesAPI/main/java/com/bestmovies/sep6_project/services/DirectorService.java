@@ -3,13 +3,14 @@ package com.bestmovies.sep6_project.services;
 import com.bestmovies.sep6_project.dao.interfaces.IDirectorMapper;
 import com.bestmovies.sep6_project.model.Director;
 import com.bestmovies.sep6_project.model.Movie;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
 public class DirectorService {
-
+    @Autowired
     private IDirectorMapper directorMapper;
 
     public List<Director> getAllDirectors(){
@@ -17,7 +18,7 @@ public class DirectorService {
     }
 
     public Director getDirectorById(long id) {
-        return directorMapper.getByDirectorId(id);
+        return directorMapper.getDirectorById(id);
     }
 
     public boolean createDirector(String name, int birthYear) {
