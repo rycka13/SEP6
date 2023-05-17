@@ -7,8 +7,8 @@ import java.util.List;
 public interface IMovieMapper {
 
     List<Movie> getAll();
-    Movie getMovieById(int id);
+    Movie getMovieById(long id);
     void createMovie(Movie movie);
     void updateMovie(Movie movie);
-    void deleteMovie(int id);
+    void deleteMovie(long id);
 }
