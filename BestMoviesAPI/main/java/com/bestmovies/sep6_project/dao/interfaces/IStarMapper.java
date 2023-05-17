@@ -9,4 +9,6 @@ public interface IStarMapper {
     void createStar(Star star);
     void updateStar(Star star);
     void deleteStar(long id);
+
+    Star getStarById(long id);
 }

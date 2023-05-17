@@ -28,18 +28,18 @@ public class RatingController {
         return ratingService.getAllRatings();
     }
 
-    @RequestMapping(value = "/ratingId/{ratingId}", method = RequestMethod.PUT, consumes="application/json")
-    public void updateRating(@RequestBody Rating updatedRating, @PathVariable long ratingId, HttpServletResponse response){
-        setResponse(response, ratingService.editRating(updatedRating ,ratingId));
+    @RequestMapping(value = "/movieId/{movieId}", method = RequestMethod.PUT, consumes="application/json")
+    public void updateRating(@RequestBody Rating updatedRating, @PathVariable long movieId, HttpServletResponse response){
+        setResponse(response, ratingService.editRating(updatedRating ,movieId));
     }
 
-    @RequestMapping(value = "/ratingId/{ratingId}", method = RequestMethod.DELETE)
-    public void deleteRating(@PathVariable long ratingId, HttpServletResponse response){
-        setResponse(response, ratingService.deleteRating(ratingId));
+    @RequestMapping(value = "/movieId/{movieId}", method = RequestMethod.DELETE)
+    public void deleteRating(@PathVariable long movieId, HttpServletResponse response){
+        setResponse(response, ratingService.deleteRating(movieId));
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    Movie getRatingById(@PathVariable long id){
+    Rating getRatingById(@PathVariable long id){
         return ratingService.getRatingById(id);
     }
 

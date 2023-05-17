@@ -18,7 +18,7 @@ public class StarController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST, consumes="application/json")
     public void addStar(@RequestBody Star star, HttpServletResponse response){
-        setResponse(response, starService.createStar(star.getId(), star.getName(), star.getBirthYear()));
+        setResponse(response, starService.createStar(star.getName(), star.getBirthYear()));
     }
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
@@ -26,14 +26,14 @@ public class StarController {
         return starService.getAllStars();
     }
 
-    @RequestMapping(value = "/starId/{starId}", method = RequestMethod.PUT, consumes="application/json")
-    public void updateMovie(@RequestBody Star updatedStar, @PathVariable long starId, HttpServletResponse response){
-        setResponse(response, starService.editStar(updatedStar ,starId));
+    @RequestMapping(value = "/personId/{personId}", method = RequestMethod.PUT, consumes="application/json")
+    public void updateMovie(@RequestBody Star updatedStar, @PathVariable long personId, HttpServletResponse response){
+        setResponse(response, starService.editStar(updatedStar ,personId));
     }
 
-    @RequestMapping(value = "/starId/{starId}", method = RequestMethod.DELETE)
-    public void deleteStar(@PathVariable long starId, HttpServletResponse response){
-        setResponse(response, starService.deleteStar(starId));
+    @RequestMapping(value = "/personId/{personId}", method = RequestMethod.DELETE)
+    public void deleteStar(@PathVariable long personId, HttpServletResponse response){
+        setResponse(response, starService.deleteStar(personId));
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)

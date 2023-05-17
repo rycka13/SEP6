@@ -18,7 +18,7 @@ public class DirectorController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST, consumes="application/json")
     public void addDirector(@RequestBody Director director, HttpServletResponse response){
-        setResponse(response, directorService.createDirector(director.getId(), director.getName(), director.getBirthYear()));
+        setResponse(response, directorService.createDirector(director.getName(), director.getBirthYear()));
     }
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
@@ -26,14 +26,14 @@ public class DirectorController {
         return directorService.getAllDirectors();
     }
 
-    @RequestMapping(value = "/directorId/{directorId}", method = RequestMethod.PUT, consumes="application/json")
-    public void updateMovie(@RequestBody Director updatedDirector, @PathVariable long directorId, HttpServletResponse response){
-        setResponse(response, directorService.editDirector(updatedDirector ,directorId));
+    @RequestMapping(value = "/personId/{personId}", method = RequestMethod.PUT, consumes="application/json")
+    public void updateMovie(@RequestBody Director updatedDirector, @PathVariable long personId, HttpServletResponse response){
+        setResponse(response, directorService.editDirector(updatedDirector ,personId));
     }
 
-    @RequestMapping(value = "/directorId/{directorId}", method = RequestMethod.DELETE)
-    public void deleteDirector(@PathVariable long directorId, HttpServletResponse response){
-        setResponse(response, directorService.deleteDirector(directorId));
+    @RequestMapping(value = "/personId/{personId}", method = RequestMethod.DELETE)
+    public void deleteDirector(@PathVariable long personId, HttpServletResponse response){
+        setResponse(response, directorService.deleteDirector(personId));
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
