@@ -1,23 +1,18 @@
 import { BmLayoutComponent } from './bm-layout.component';
 import {
-  NbActionsModule, NbIconModule,
-  NbLayoutModule,
-  NbMenuModule,
-  NbSidebarModule,
   NbSidebarService,
-  NbThemeModule, NbToastrModule, NbToastrService
 } from '@nebular/theme';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from '../../../app/app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { Spectator } from '@ngneat/spectator';
 import { createComponentFactory, SpectatorFactory } from '@ngneat/spectator/jest';
 import "jest-extended";
+import {NEBULAR_MODULES, PROVIDERS, STATES} from "../../../app/app.module";
 import {NgxsModule} from "@ngxs/store";
-import {OverAllInformationState} from "../../../app/overall-information/overall-information.state";
-import {PROVIDERS} from "../../../app/app.module";
+import {environment} from "../../../environments/environment";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('components > bm-layout > bm-layout.component.spec.ts', () => {
   let component: BmLayoutComponent;
@@ -27,23 +22,16 @@ describe('components > bm-layout > bm-layout.component.spec.ts', () => {
     imports: [
       RouterTestingModule,
       BrowserModule,
+      HttpClientModule,
       AppRoutingModule,
       BrowserAnimationsModule,
-      NbThemeModule.forRoot({ name: 'bm-theme' }),
-      NbSidebarModule.forRoot(),
-      NbMenuModule.forRoot(),
-      NgxsModule.forRoot([OverAllInformationState]),
-      NbToastrModule.forRoot(),
-      NbIconModule,
-      NbLayoutModule,
-      NbEvaIconsModule,
-      NbActionsModule,
-      NbMenuModule,
-
+      NgxsModule.forRoot(STATES, {
+        developmentMode: !environment.production,
+      }),
+      ...NEBULAR_MODULES,
     ],
     declarations: [BmLayoutComponent],
-    providers: [NbSidebarService,
-      ...PROVIDERS],
+    providers: PROVIDERS,
   });
 
   beforeEach(() => {

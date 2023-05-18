@@ -41,12 +41,14 @@ import {StarsService} from "src/api/stars.service";
 import {MoviesCell} from "src/core/cell-renderers/movies.column.cell";
 import { BmSearchComponent } from '../core/components/bm-search/bm-search.component';
 import { MoviesOverviewComponent } from './information/movies/movie-overview/movies-overview.component';
+import {MoviesOverviewState} from "src/app/information/movies/movie-overview/movies-overview.state";
 
 
 export const STATES = [
   OverAllInformationState,
   MoviesState,
   PeopleState,
+  MoviesOverviewState,
 ]
 
 export const CELL_RENDERERS = [
@@ -106,22 +108,19 @@ export const NEBULAR_MODULES = [
   NbFormFieldModule
 ]
 
-export const APP_PRINCIPAL_IMPORTS = {
-  BrowserModule,
-  HttpClientModule,
-  BrowserAnimationsModule,
-  AppRoutingModule,
-  ...NgxsModule.forRoot(STATES, {
-    developmentMode: !environment.production,
-  }),
-}
 @NgModule({
   declarations: [
     COMPONENTS,
     ...CELL_RENDERERS,
   ],
   imports: [
-    APP_PRINCIPAL_IMPORTS,
+    BrowserModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    NgxsModule.forRoot(STATES, {
+      developmentMode: !environment.production,
+    }),
     NEBULAR_MODULES,
   ],
   providers: PROVIDERS,

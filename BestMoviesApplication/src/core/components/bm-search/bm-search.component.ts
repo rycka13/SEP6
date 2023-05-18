@@ -6,8 +6,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
       <div class="search-container">
         <input #searchInput
                (keyup.enter)="search(searchInput.value)"
-               (keyup.backspace)="onReset(searchInput.value, false)"
-                (blur)="onReset(searchInput.value, false); searchInput.value = ''"
+                (blur)="onReset(searchInput.value); searchInput.value = ''"
         nbInput
         >
         <button
@@ -17,7 +16,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
           status="basic"
           shape="round"
           class="reset-button"
-          (click)="onReset('',true)"
+          (click)="onReset(searchInput.value)"
         >
           <nb-icon
             icon="refresh-outline"
@@ -39,13 +38,8 @@ export class BmSearchComponent {
   constructor() {
   }
 
-  onReset(searchInput: string, triggeredByButton: boolean) {
-    if(searchInput && searchInput.length < 3 && !triggeredByButton) {
-      this.resetSearch.emit();
-    }
-    if(triggeredByButton) {
-      this.resetSearch.emit();
-    }
+  onReset(searchInput: string) {
+    this.resetSearch.emit();
 
     //TODO maybe some toastr here that the search was resetted?
   }

@@ -6,6 +6,7 @@ exports[`app > information > movies > movies.component.spec.ts should match snap
   __isFiltered$__selector={[Function Observable]}
   __moviesDisplayed$__selector={[Function Observable]}
   nbToastrService={[Function NbToastrService]}
+  router={[Function Router]}
   store={[Function Store]}
 >
   <nb-card>
@@ -17,8 +18,11 @@ exports[`app > information > movies > movies.component.spec.ts should match snap
         class="movie-container"
         listenwindowscroll=""
         nbinfinitelist=""
+        role="list"
       >
-        <nb-list-item>
+        <nb-list-item
+          role="listitem"
+        >
           <nb-card
             class="poster-movie size-medium"
             size="medium"
@@ -39,8 +43,11 @@ exports[`app > information > movies > movies.component.spec.ts should match snap
                 class="show-more-button"
               >
                 <button
+                  aria-disabled="false"
+                  class="appearance-filled size-medium shape-rectangle icon-start status-primary"
                   nbbutton=""
                   status="primary"
+                  tabindex="0"
                 >
                   <nb-icon
                     icon="film-outline"
@@ -92,7 +99,9 @@ exports[`app > information > movies > movies.component.spec.ts should match snap
             </nb-card-footer>
           </nb-card>
         </nb-list-item>
-        <nb-list-item>
+        <nb-list-item
+          role="listitem"
+        >
           <nb-card
             class="poster-movie size-medium"
             size="medium"
@@ -113,8 +122,11 @@ exports[`app > information > movies > movies.component.spec.ts should match snap
                 class="show-more-button"
               >
                 <button
+                  aria-disabled="false"
+                  class="appearance-filled size-medium shape-rectangle icon-start status-primary"
                   nbbutton=""
                   status="primary"
+                  tabindex="0"
                 >
                   <nb-icon
                     icon="film-outline"
@@ -166,7 +178,9 @@ exports[`app > information > movies > movies.component.spec.ts should match snap
             </nb-card-footer>
           </nb-card>
         </nb-list-item>
-        <nb-list-item>
+        <nb-list-item
+          role="listitem"
+        >
           <nb-card
             class="poster-movie size-medium"
             size="medium"
@@ -187,8 +201,11 @@ exports[`app > information > movies > movies.component.spec.ts should match snap
                 class="show-more-button"
               >
                 <button
+                  aria-disabled="false"
+                  class="appearance-filled size-medium shape-rectangle icon-start status-primary"
                   nbbutton=""
                   status="primary"
+                  tabindex="0"
                 >
                   <nb-icon
                     icon="film-outline"
@@ -240,7 +257,9 @@ exports[`app > information > movies > movies.component.spec.ts should match snap
             </nb-card-footer>
           </nb-card>
         </nb-list-item>
-        <nb-list-item>
+        <nb-list-item
+          role="listitem"
+        >
           <nb-card
             class="poster-movie size-medium"
             size="medium"
@@ -261,8 +280,11 @@ exports[`app > information > movies > movies.component.spec.ts should match snap
                 class="show-more-button"
               >
                 <button
+                  aria-disabled="false"
+                  class="appearance-filled size-medium shape-rectangle icon-start status-primary"
                   nbbutton=""
                   status="primary"
+                  tabindex="0"
                 >
                   <nb-icon
                     icon="film-outline"
@@ -314,7 +336,9 @@ exports[`app > information > movies > movies.component.spec.ts should match snap
             </nb-card-footer>
           </nb-card>
         </nb-list-item>
-        <nb-list-item>
+        <nb-list-item
+          role="listitem"
+        >
           <nb-card
             class="poster-movie size-medium"
             size="medium"
@@ -335,8 +359,11 @@ exports[`app > information > movies > movies.component.spec.ts should match snap
                 class="show-more-button"
               >
                 <button
+                  aria-disabled="false"
+                  class="appearance-filled size-medium shape-rectangle icon-start status-primary"
                   nbbutton=""
                   status="primary"
+                  tabindex="0"
                 >
                   <nb-icon
                     icon="film-outline"

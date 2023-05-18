@@ -26,7 +26,7 @@ export const defaultsState: MovieOverviewStateModel = {
 })
 
 @Injectable()
-export class MoviesState {
+export class MoviesOverviewState {
   constructor(
     private toastrService: NbToastrService,
     private movieService: MoviesService,
@@ -34,8 +34,9 @@ export class MoviesState {
   }
 
   @Action(MovieOverviewFetchInfo)
-  async moviesFetchInfo(
-    {getState, setState}: StateContext<MovieOverviewStateModel>) {
+  async movieOverviewFetchInfo(
+    {getState, setState}: StateContext<MovieOverviewStateModel>,
+    action: MovieOverviewFetchInfo) {
 
     let newState = produce(getState(), draft => {
       draft.isFetching = true;

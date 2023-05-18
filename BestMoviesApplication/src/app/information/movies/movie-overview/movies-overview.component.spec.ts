@@ -4,10 +4,11 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {BrowserModule} from "@angular/platform-browser";
 import {AppRoutingModule} from "../../../app-routing.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {NbSidebarModule, NbThemeModule} from "@nebular/theme";
-import {APP_PRINCIPAL_IMPORTS, NEBULAR_MODULES, PROVIDERS} from "../../../app.module";
-import {Store} from "@ngxs/store";
+import {NEBULAR_MODULES, PROVIDERS, STATES} from "../../../app.module";
 import {defaultsState} from "./movies-overview.state";
+import {NgxsModule, Store} from "@ngxs/store";
+import {environment} from "../../../../environments/environment";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('app > information > movies > movies-overview > movies-overview.component.spec.ts', () => {
   let store: Store;
@@ -18,7 +19,13 @@ describe('app > information > movies > movies-overview > movies-overview.compone
       component: MoviesOverviewComponent,
       imports: [
         RouterTestingModule,
-        APP_PRINCIPAL_IMPORTS,
+        BrowserModule,
+        HttpClientModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        NgxsModule.forRoot(STATES, {
+          developmentMode: !environment.production,
+        }),
         ...NEBULAR_MODULES,
       ],
       declarations: [],

@@ -1,5 +1,3 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { OverallInformationComponent } from './overall-information.component';
 import {BmLayoutComponent} from "../../core/components/bm-layout/bm-layout.component";
 import {Spectator} from "@ngneat/spectator";
@@ -9,19 +7,12 @@ import {BrowserModule} from "@angular/platform-browser";
 import {AppRoutingModule} from "../app-routing.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {
-  NbActionsModule, NbCardModule,
-  NbIconModule,
-  NbLayoutModule,
-  NbMenuModule,
-  NbSidebarModule, NbSidebarService,
-  NbThemeModule,
-  NbToastrModule
+  NbSidebarService,
 } from "@nebular/theme";
+import {NEBULAR_MODULES, PROVIDERS, STATES} from "../app.module";
+import {HttpClientModule} from "@angular/common/http";
 import {NgxsModule} from "@ngxs/store";
-import {OverAllInformationState} from "./overall-information.state";
-import {NbEvaIconsModule} from "@nebular/eva-icons";
-import {FormsModule} from "@angular/forms";
-import {AgGridModule} from "ag-grid-angular";
+import {environment} from "../../environments/environment";
 
 describe('app > overall-information > overall-information.component.spec.ts', () => {
   let component: OverallInformationComponent;
@@ -31,23 +22,16 @@ describe('app > overall-information > overall-information.component.spec.ts', ()
     imports: [
       RouterTestingModule,
       BrowserModule,
+      HttpClientModule,
       AppRoutingModule,
       BrowserAnimationsModule,
-      NbThemeModule.forRoot({ name: 'bm-theme' }),
-      NbSidebarModule.forRoot(),
-      NbMenuModule.forRoot(),
-      NgxsModule.forRoot([OverAllInformationState]),
-      NbToastrModule.forRoot(),
-      NbIconModule,
-      NbLayoutModule,
-      NbEvaIconsModule,
-      NbCardModule,
-      NbActionsModule,
-      FormsModule,
-      AgGridModule,
+      NgxsModule.forRoot(STATES, {
+        developmentMode: !environment.production,
+      }),
+      ...NEBULAR_MODULES,
     ],
     declarations: [BmLayoutComponent],
-    providers: [NbSidebarService],
+    providers: PROVIDERS,
   });
 
   beforeEach(() => {

@@ -1,1 +1,13 @@
-<p>movies-overview works!</p>
+<ng-container *ngIf="isFetching$ | async; then dataFetching; else dataFetched">
+</ng-container>
+<ng-template #dataFetched>
+  Hello, world
+<!--  TODO to be implemented-->
+</ng-template>
+<ng-template #dataFetching>
+  <nb-spinner
+    [nbSpinner]="true"
+    status="basic"
+    class="spinner">
+  </nb-spinner>
+</ng-template>

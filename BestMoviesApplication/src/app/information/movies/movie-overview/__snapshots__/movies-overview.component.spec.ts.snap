@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`app > information > movies > movies-overview > movies-overview.component.spec.ts should match snapshot 1`] = `
+<app-movies-overview
+  route={[Function ActivatedRoute]}
+>
+  <p>
+    movies-overview works!
+  </p>
+</app-movies-overview>
+`;
