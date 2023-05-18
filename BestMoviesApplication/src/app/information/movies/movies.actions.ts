@@ -4,6 +4,12 @@ export class MoviesFetchInfo {
   }
 }
 
+export class MoviesFetchNextPage {
+  static readonly type = 'Movies - Fetch next page';
+  constructor() {
+  }
+}
+
 export class MoviesReset {
   static readonly type = 'Movies - Reset';
   constructor() {

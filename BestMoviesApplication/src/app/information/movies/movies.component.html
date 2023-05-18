@@ -1,4 +1,4 @@
-<ng-container *ngIf="(isFetching$ | async) || this.loading; then dataFetching; else dataFetched">
+<ng-container *ngIf="isFetching$ | async; then dataFetching; else dataFetched">
 </ng-container>
 
 <ng-template #dataFetched>
@@ -8,8 +8,9 @@
     [threshold]="500"
     (bottomThreshold)="loadNext()"
     class="movie-container"
+    *ngIf="moviesDisplayed$ | async as movies"
   >
-    <nb-list-item *ngFor="let movie of moviesDisplayed">
+    <nb-list-item *ngFor="let movie of moviesDisplayed$ | async">
       <nb-card size="medium" class="poster-movie">
         <nb-card-header class="header-poster-movie">
           <div class="movie-title">{{ movie.title }}</div>

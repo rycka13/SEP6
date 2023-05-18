@@ -1,5 +1,6 @@
 import {Selector} from "@ngxs/store";
 import {MoviesState, MoviesStateModel} from "./movies.state";
+import {Movie} from "src/model/movie";
 
 export class MoviesSelector {
   @Selector([MoviesState])
@@ -13,7 +14,22 @@ export class MoviesSelector {
   }
 
   @Selector([MoviesState])
-  static movies(state: MoviesStateModel) {
-    return state.movies;
+  static allMovies(state: MoviesStateModel) {
+    return state.allMovies;
+  }
+
+  @Selector([MoviesState])
+  static moviesDisplayed(state: MoviesStateModel) {
+    return state.moviesDisplayed;
+  }
+
+  @Selector([MoviesState])
+  static pageSize(state: MoviesStateModel) {
+    return state.pageSize;
+  }
+
+  @Selector([MoviesState])
+  static pageToLoadNext(state: MoviesStateModel) {
+    return state.pageToLoadNext;
   }
 }
