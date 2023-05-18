@@ -40,6 +40,7 @@ import {RatingsService} from "src/api/ratings.service";
 import {StarsService} from "src/api/stars.service";
 import {MoviesCell} from "src/core/cell-renderers/movies.column.cell";
 import { BmSearchComponent } from '../core/components/bm-search/bm-search.component';
+import { MoviesOverviewComponent } from './information/movies/movie-overview/movies-overview.component';
 
 
 export const STATES = [
@@ -104,6 +105,7 @@ export const NEBULAR_MODULES = [
   declarations: [
     COMPONENTS,
     ...CELL_RENDERERS,
+    MoviesOverviewComponent,
   ],
   imports: [
     BrowserModule,
