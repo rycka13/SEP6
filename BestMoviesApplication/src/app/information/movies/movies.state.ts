@@ -29,7 +29,7 @@ export const defaultsState: MoviesStateModel = {
   pageToLoadNext: 1,
 }
 
-@State<MoviesStateModel>( {
+@State<MoviesStateModel>({
   name: 'moviesPage',
   defaults: defaultsState,
 })
@@ -37,6 +37,8 @@ export const defaultsState: MoviesStateModel = {
 @Injectable()
 export class MoviesState {
   allMovies: Movie[] = [];
+  initialPageSize: number;
+  initialPageToLoadNext: number;
 
   constructor(
     private toastrService: NbToastrService
@@ -46,12 +48,14 @@ export class MoviesState {
 
   @Action(MoviesFetchInfo)
   async moviesFetchInfo(
-    { getState, setState }: StateContext<MoviesStateModel>) {
+    {getState, setState}: StateContext<MoviesStateModel>) {
 
     let currentState = getState();
 
     let newState = produce(currentState, draft => {
       draft.isFetching = true;
+      this.initialPageSize = draft.pageSize;
+      this.initialPageToLoadNext = draft.pageToLoadNext;
     })
 
     setState(newState);
@@ -61,8 +65,7 @@ export class MoviesState {
     //TODO implement api call
     try {
       this.allMovies = moviesMock;
-    }
-    catch (e) {
+    } catch (e) {
       this.toastrService.show('danger', 'Fetching movies went wrong.');
       console.log(e);
     }
@@ -79,7 +82,7 @@ export class MoviesState {
 
   @Action(MoviesFetchNextPage)
   async moviesFetchNextPage(
-    { getState, setState }: StateContext<MoviesStateModel>,
+    {getState, setState}: StateContext<MoviesStateModel>,
     action: MoviesFetchNextPage) {
 
     let currentState = getState();
@@ -99,8 +102,7 @@ export class MoviesState {
     try {
       pageToLoadNext++;
       moviesToDisplayNext = paginate(this.allMovies, pageSize, pageToLoadNext);
-    }
-    catch (e) {
+    } catch (e) {
       this.toastrService.show('danger', 'Fetching next movies went wrong.');
       console.log(e);
     }
@@ -116,8 +118,39 @@ export class MoviesState {
 
   @Action(MoviesSearchTitle)
   async moviesSearchTitle(
-    { getState, setState }: StateContext<MoviesStateModel>,
+    {getState, setState}: StateContext<MoviesStateModel>,
     action: MoviesSearchTitle) {
+    let currentState = getState();
+
+    let newState = produce(currentState, draft => {
+      draft.isFetching = true;
+    });
+
+    setState(newState);
+    currentState = newState;
+
+    let filteredMovies = this.allMovies.filter((movie: Movie) => {
+      return movie.title.toLowerCase().includes(action.movieTitle);
+    });
+
+    //TODO implement api call or can be done also from frontend
+    newState = produce(currentState, draft => {
+        if (filteredMovies.length < 0) {
+          this.toastrService.show('', 'There are no movies that contain ' + action.movieTitle);
+        } else {
+          draft.allMovies = filteredMovies;
+        }
+        draft.isFetching = false;
+        draft.isFiltered = true;
+      }
+    );
+
+    setState(newState);
+  }
+
+  @Action(MoviesSearchReset)
+  async moviesSearchReset(
+    {getState, setState}: StateContext<MoviesStateModel>) {
 
     let currentState = getState();
 
@@ -128,50 +161,49 @@ export class MoviesState {
     setState(newState);
     currentState = newState;
 
-    //TODO implement api call or can be done also from frontend
     newState = produce(currentState, draft => {
-      let movies = this.allMovies;
-      if(movies.length < 0) {
-        this.toastrService.show('', 'There are no movies to search');
-      }
-      else {
-        let filteredMovies = movies.filter((movie: Movie) => {
-          let value = movie.title.toLowerCase().includes(action.movieTitle);
-          return value;
-        });
-        if(filteredMovies.length < 0) {
-          this.toastrService.show('', 'There are no movies that contain ' + action.movieTitle);
-        }
-        draft.pageToLoadNext = 1;
-        draft.pageSize = 5;
-        draft.moviesDisplayed = paginate(filteredMovies, draft.pageSize, draft.pageToLoadNext);
-      }
       draft.isFetching = false;
-      draft.isFiltered = true;
-    })
-
-    setState(newState);
-  }
-
-  @Action(MoviesSearchReset)
-  async moviesSearchReset(
-    { getState, setState }: StateContext<MoviesStateModel>) {
-
-    let currentState = getState();
-
-    let newState = produce(currentState, draft => {
-      draft.isFiltered = false;
-      draft.pageSize = 5;
-      draft.pageToLoadNext = 1;
+      //TODO instead of equal it with mocks, use the apis response
+      draft.allMovies = this.allMovies;
+      draft.pageSize = this.initialPageSize;
+      draft.pageToLoadNext = this.initialPageToLoadNext;
       draft.moviesDisplayed = paginate(this.allMovies, draft.pageSize, draft.pageToLoadNext);
+      draft.isFiltered = false;
     })
 
     setState(newState);
   }
+
+
+  // @Action(MoviesSearchReset)
+  // async moviesSearchReset(
+  //   {getState, setState}
+  //     :
+  //     StateContext<MoviesStateModel>
+  // ) {
+  //
+  //   let currentState = getState();
+  //   let newState = produce(currentState, draft => {
+  //     draft.isFetching = true;
+  //   })
+  //
+  //   setState(newState);
+  //   setState(resetPageState);
+  //   currentState = getState();
+  //   newState = produce(currentState, draft => {
+  //     draft.isFiltered = false;
+  //     draft.moviesDisplayed = paginate(this.allMovies, draft.pageSize, draft.pageToLoadNext);
+  //   })
+  //
+  //   setState(newState);
+  // }
 
   @Action(MoviesReset)
   async moviesReset(
-    { getState, setState }: StateContext<MoviesStateModel>) {
+    {getState, setState}
+      :
+      StateContext<MoviesStateModel>
+  ) {
     setState(defaultsState);
   }
 }

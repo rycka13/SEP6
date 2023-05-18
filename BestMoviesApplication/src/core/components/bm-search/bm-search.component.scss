@@ -1,0 +1,12 @@
+.search-container {
+  justify-content: space-between;
+  /* display: inline-flex; */
+  display: flex;
+
+  input {
+    width: 25rem;
+    height: 2.5rem;
+    border-radius: 11px 11px;
+    box-shadow: 5px 5px 9px 2px #252c3e;
+  }
+}

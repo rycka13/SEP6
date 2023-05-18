@@ -10,8 +10,7 @@ import {
   MoviesSearchTitle
 } from 'src/app/information/movies/movies.actions';
 import { MoviesSelector } from 'src/app/information/movies/movies.selector';
-import {Select, Selector, Store} from '@ngxs/store';
-import {MoviesState, MoviesStateModel} from "src/app/information/movies/movies.state";
+import {Select, Store} from '@ngxs/store';
 
 @Component({
   selector: 'app-movies',
@@ -39,12 +38,8 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store,
-    private searchService: NbSearchService,
     private nbToastrService: NbToastrService
   ) {
-    this.searchService.onSearchSubmit().subscribe((data: any) => {
-      this.store.dispatch(new MoviesSearchTitle(data.term));
-    });
   }
 
   ngOnInit() {
@@ -55,6 +50,9 @@ export class MoviesComponent implements OnInit, OnDestroy {
     this.store.dispatch(new MoviesFetchNextPage());
   }
 
+  onSearch($event) {
+    this.store.dispatch(new MoviesSearchTitle($event));
+  }
   resetSearch() {
     this.store.dispatch(new MoviesSearchReset());
   }

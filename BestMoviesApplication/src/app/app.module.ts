@@ -17,7 +17,7 @@ import {
   NbButtonModule,
   NbSpinnerModule,
   NbListModule,
-  NbSearchModule, NbSearchService
+  NbSearchModule, NbSearchService, NbInputModule, NbFormFieldModule
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { BmLayoutComponent } from '../core/components/bm-layout/bm-layout.component';
@@ -39,6 +39,7 @@ import {PeopleService} from "src/api/people.service";
 import {RatingsService} from "src/api/ratings.service";
 import {StarsService} from "src/api/stars.service";
 import {MoviesCell} from "src/core/cell-renderers/movies.column.cell";
+import { BmSearchComponent } from '../core/components/bm-search/bm-search.component';
 
 
 export const STATES = [
@@ -56,6 +57,7 @@ export const COMPONENTS = [
 
   //components
   BmLayoutComponent,
+  BmSearchComponent,
 
   //overall information page
   OverallInformationComponent,
@@ -96,11 +98,12 @@ export const NEBULAR_MODULES = [
   NbSearchModule,
   NbThemeModule.forRoot({name: 'bm-theme'}),
   NbMenuModule.forRoot(),
+  NbInputModule,
 ]
 @NgModule({
   declarations: [
     COMPONENTS,
-    ...CELL_RENDERERS
+    ...CELL_RENDERERS,
   ],
   imports: [
     BrowserModule,
@@ -111,6 +114,7 @@ export const NEBULAR_MODULES = [
       developmentMode: !environment.production,
     }),
     NEBULAR_MODULES,
+    NbFormFieldModule,
   ],
   providers: PROVIDERS,
   exports: [
