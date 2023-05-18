@@ -15,11 +15,19 @@ export class DirectorsService {
   PATH_CONTROLLER = 'director';
   ID = 'directorId';
 
-// All other controllers follow the same pattern. For example: if you want to getAll for starts: {URL}/star/getAll,
-//   same for PUT method: {URL}/star/starId/{starId} . It takes 'Star' object instead of 'Movie' object
-  getDirector(directorId): Observable<Director> {
+  getDirectorById(directorId): Observable<Director> {
     return this.apiService.get(`${this.PATH_CONTROLLER}/${this.ID}/${directorId}`)
       .pipe(map(data => data.director));
+  }
+
+  getDirectorsByBirth(birthYear): Observable<Director[]> {
+    return this.apiService.get(`${this.PATH_CONTROLLER}/${this.ID}/birthYear/${birthYear}`)
+      .pipe(map(data => data.directors));
+  }
+
+  getDirectorsByName(name): Observable<Director[]> {
+    return this.apiService.get(`${this.PATH_CONTROLLER}/${this.ID}/name/${name}`)
+      .pipe(map(data => data.directors));
   }
 
   getAll(): Observable<Director[]> {
@@ -27,7 +35,7 @@ export class DirectorsService {
       .pipe(map(data => data.directors));
   }
 
-  saveDirector(director): Observable<Director> {
+  addDirector(director): Observable<void> {
     return this.apiService
       .post(
         `${this.PATH_CONTROLLER}/save`,
@@ -35,17 +43,17 @@ export class DirectorsService {
       ).pipe(map(data => data.director));
   }
 
-  updateDirector(directorId, director): Observable<Director> {
+  updateMovie(updatedDirector, personId): Observable<void> {
     return this.apiService
-      .post(
-        `${this.PATH_CONTROLLER}/${this.ID}/${directorId}`,
-        { director: { body: director } }
+      .put(
+        `${this.PATH_CONTROLLER}/${this.ID}/personId/${personId}`,
+        { director: { body: updatedDirector } }
       ).pipe(map(data => data.director));
   }
 
-  deleteDirector(directorId) {
+  deleteDirector(personId) {
     return this.apiService
-      .delete(`${this.PATH_CONTROLLER}/${this.ID}/${directorId}`);
+      .delete(`${this.PATH_CONTROLLER}/${this.ID}/personId/${personId}`);
   }
 
 }
