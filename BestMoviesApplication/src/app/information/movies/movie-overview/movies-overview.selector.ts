@@ -14,4 +14,19 @@ export class MoviesOverviewSelector {
   static movie(state: MovieOverviewStateModel) {
     return state.movie;
   }
+
+  @Selector([MoviesOverviewState])
+  static rating(state: MovieOverviewStateModel) {
+    return state.rating;
+  }
+
+  @Selector([MoviesOverviewState])
+  static directors(state: MovieOverviewStateModel) {
+    return state.directors;
+  }
+
+  @Selector([MoviesOverviewState])
+  static stars(state: MovieOverviewStateModel) {
+    return state.stars;
+  }
 }

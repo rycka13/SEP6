@@ -23,7 +23,7 @@ import {ratingsMock} from "src/util/mocks/ratings_mock";
 export interface MovieOverviewStateModel {
   isFetching: boolean;
   movie: Movie;
-  ratings: Rating;
+  rating: Rating;
   stars: Star[];
   directors: Director[];
 }
@@ -31,7 +31,7 @@ export interface MovieOverviewStateModel {
 export const defaultsState: MovieOverviewStateModel = {
   isFetching: false,
   movie: null,
-  ratings: null,
+  rating: null,
   stars: [],
   directors: [],
 }
@@ -167,7 +167,7 @@ export class MoviesOverviewState {
     }
 
     newState = produce(getState(), draft => {
-      draft.ratings = rating;
+      draft.rating = rating;
       draft.isFetching = false;
     })
     setState(newState);
