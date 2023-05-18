@@ -22,12 +22,17 @@ export class RatingsService {
       .pipe(map(data => data.rating));
   }
 
+  getRatingByMovieId(movieId): Observable<Rating> {
+    return this.apiService.get(`${this.PATH_CONTROLLER}/byMovieId/${movieId}`)
+      .pipe(map(data => data.rating));
+  }
+
   getAll(): Observable<Rating[]> {
     return this.apiService.get(`${this.PATH_CONTROLLER}/getAll`)
       .pipe(map(data => data.ratings));
   }
 
-  saveRating(rating): Observable<Rating> {
+  addRating(rating): Observable<void> {
     return this.apiService
       .post(
         `${this.PATH_CONTROLLER}/save`,
@@ -35,17 +40,17 @@ export class RatingsService {
       ).pipe(map(data => data.rating));
   }
 
-  updateRating(ratingId, rating): Observable<Rating> {
+  updateRating(movieId, updatedRating): Observable<void> {
     return this.apiService
-      .post(
-        `${this.PATH_CONTROLLER}/${this.ID}/${ratingId}`,
-        { rating: { body: rating } }
+      .put(
+        `${this.PATH_CONTROLLER}/movieId/${movieId}`,
+        { rating: { body: updatedRating } }
       ).pipe(map(data => data.rating));
   }
 
   deleteRating(ratingId) {
     return this.apiService
-      .delete(`${this.PATH_CONTROLLER}/${this.ID}/${ratingId}`);
+      .delete(`${this.PATH_CONTROLLER}/${ratingId}`);
   }
 
 }
