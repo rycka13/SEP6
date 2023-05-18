@@ -63,9 +63,12 @@ export const COMPONENTS = [
   //overall information page
   OverallInformationComponent,
 
-  //information page
+  //information pages
   MoviesComponent,
   PeopleComponent,
+
+  //overview pages
+  MoviesOverviewComponent,
 
   //404 not found page
   NotFoundComponent,
@@ -105,7 +108,6 @@ export const NEBULAR_MODULES = [
   declarations: [
     COMPONENTS,
     ...CELL_RENDERERS,
-    MoviesOverviewComponent,
   ],
   imports: [
     BrowserModule,

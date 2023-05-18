@@ -11,6 +11,7 @@ import {
 } from 'src/app/information/movies/movies.actions';
 import { MoviesSelector } from 'src/app/information/movies/movies.selector';
 import {Select, Store} from '@ngxs/store';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-movies',
@@ -38,6 +39,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store,
+    private router: Router,
     private nbToastrService: NbToastrService
   ) {
   }
@@ -58,8 +60,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   }
 
   redirectToMovieOverviewPage(movieId: number) {
-    this.nbToastrService.show('Page not implemented yet', 'The page is not implemented yet...', { status: 'primary' });
-    // TODO: Implement movie overview page
+    this.router.navigate([`/information/movies/${movieId}`]);
   }
 
   ngOnDestroy() {

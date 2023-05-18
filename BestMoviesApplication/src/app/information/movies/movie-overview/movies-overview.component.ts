@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-movies-overview',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class MoviesOverviewComponent {
 
+  constructor(
+    private route: ActivatedRoute
+  ) {
+    let movieId;
+    this.route.params.subscribe(params => movieId = params['movieId']);
+  }
 }

@@ -4,7 +4,7 @@ export class MovieOverviewFetchInfo {
   }
 }
 
-export class MoviesSearchReset {
+export class MovieOverviewReset {
   static readonly type = 'Movie Overview - Reset';
   constructor() {
   }

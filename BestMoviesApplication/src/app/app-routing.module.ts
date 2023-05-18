@@ -4,6 +4,7 @@ import {OverallInformationComponent} from "./overall-information/overall-informa
 import {NotFoundComponent} from "src/app/not-found/not-found.component";
 import {MoviesComponent} from "src/app/information/movies/movies.component";
 import {PeopleComponent} from "src/app/information/people/people.component";
+import {MoviesOverviewComponent} from "src/app/information/movies/movie-overview/movies-overview.component";
 
 const routes: Routes = [
   {
@@ -18,6 +19,11 @@ const routes: Routes = [
         path:'movies',
         title: 'Information Movies',
         component: MoviesComponent,
+      },
+      {
+        path:'movies/:movieId',
+        title: 'Movie Overview',
+        component: MoviesOverviewComponent,
       },
       {
         path:'people',
