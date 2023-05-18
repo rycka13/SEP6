@@ -3,6 +3,7 @@ package com.bestmovies.sep6_project.services;
 import com.bestmovies.sep6_project.dao.interfaces.IDirectorMapper;
 import com.bestmovies.sep6_project.model.Director;
 import com.bestmovies.sep6_project.model.Movie;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @Component
 public class DirectorService {
 
+    @Autowired
     private IDirectorMapper directorMapper;
 
     public List<Director> getAllDirectors(){

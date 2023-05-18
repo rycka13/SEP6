@@ -11,7 +11,7 @@
     </resultMap>
 
     <select id = "getAll" resultMap = "result">
-        SELECT * FROM movies;
+        SELECT * FROM movies limit 100;
     </select>
     <select id="getMovieById" resultMap="result" parameterType="long">
         SELECT * FROM movies WHERE id = #{id};
