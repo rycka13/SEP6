@@ -1,11 +1,11 @@
 package com.bestmovies.sep6_project.dao.interfaces;
 
 import com.bestmovies.sep6_project.model.Movie;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-
+@Mapper
 public interface IMovieMapper {
-
     List<Movie> getAll();
     Movie getMovieById(long id);
     List<Movie> getNMoviesByRating(double rating, int n);
