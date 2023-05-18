@@ -13,7 +13,6 @@ export class DirectorsService {
   ) {}
 
   PATH_CONTROLLER = 'director';
-  ID = 'directorId';
 
   getDirectorById(directorId): Observable<Director> {
     return this.apiService.get(`${this.PATH_CONTROLLER}/${directorId}`)
@@ -51,7 +50,7 @@ export class DirectorsService {
       ).pipe(map(data => data.director));
   }
 
-  deleteDirector(personId) {
+  deleteDirector(personId): Observable<void> {
     return this.apiService
       .delete(`${this.PATH_CONTROLLER}/personId/${personId}`);
   }

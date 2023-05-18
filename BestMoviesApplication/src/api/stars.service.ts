@@ -13,12 +13,25 @@ export class StarsService {
   ) {}
 
   PATH_CONTROLLER = 'star';
-  ID = 'starId';
-// All other controllers follow the same pattern. For example: if you want to getAll for starts: {URL}/star/getAll,
-//   same for PUT method: {URL}/star/starId/{starId} . It takes 'Star' object instead of 'Movie' object
-  getStar(starId): Observable<Star> {
-    return this.apiService.get(`${this.PATH_CONTROLLER}/${this.ID}/${starId}`)
+
+  getStarById(starId): Observable<Star> {
+    return this.apiService.get(`${this.PATH_CONTROLLER}/${starId}`)
       .pipe(map(data => data.star));
+  }
+
+  getStarsByMovieId(movieId): Observable<Star[]> {
+    return this.apiService.get(`${this.PATH_CONTROLLER}/movieId/${movieId}`)
+      .pipe(map(data => data.stars));
+  }
+
+  getStarsByBirth(year): Observable<Star[]> {
+    return this.apiService.get(`${this.PATH_CONTROLLER}/year/${year}`)
+      .pipe(map(data => data.stars));
+  }
+
+  getStarsByName(name): Observable<Star[]> {
+    return this.apiService.get(`${this.PATH_CONTROLLER}/name/${name}`)
+      .pipe(map(data => data.stars));
   }
 
   getAll(): Observable<Star[]> {
@@ -26,7 +39,7 @@ export class StarsService {
       .pipe(map(data => data.stars));
   }
 
-  saveStar(star): Observable<Star> {
+  addStar(star): Observable<void> {
     return this.apiService
       .post(
         `${this.PATH_CONTROLLER}/save`,
@@ -34,17 +47,25 @@ export class StarsService {
       ).pipe(map(data => data.star));
   }
 
-  updateStar(starId, star): Observable<Star> {
+  addMovieStar(star): Observable<void> {
     return this.apiService
       .post(
-        `${this.PATH_CONTROLLER}/${this.ID}/${starId}`,
+        `${this.PATH_CONTROLLER}/add`,
         { star: { body: star } }
       ).pipe(map(data => data.star));
   }
 
-  deleteStar(starId) {
+  updateStar(personId, updatedStar): Observable<void> {
     return this.apiService
-      .delete(`${this.PATH_CONTROLLER}/${this.ID}/${starId}`);
+      .put(
+        `${this.PATH_CONTROLLER}/personId/${personId}`,
+        { star: { body: updatedStar } }
+      ).pipe(map(data => data.star));
+  }
+
+  deleteStar(starId): Observable<void> {
+    return this.apiService
+      .delete(`${this.PATH_CONTROLLER}/personId/${starId}`);
   }
 
 }
