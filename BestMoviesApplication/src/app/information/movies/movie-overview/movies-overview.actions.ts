@@ -6,13 +6,19 @@ export class MovieOverviewFetchInfo {
 
 export class MovieOverviewFetchStars {
   static readonly type = 'Movie Overview - Fetching stars';
-  constructor() {
+  constructor(public movieId: number) {
   }
 }
 
-export class MovieOverviewFetch {
-  static readonly type = 'Movie Overview - Fetching stars';
-  constructor() {
+export class MovieOverviewFetchDirectors {
+  static readonly type = 'Movie Overview - Fetching directors';
+  constructor(public movieId: number) {
+  }
+}
+
+export class MovieOverviewFetchRatings {
+  static readonly type = 'Movie Overview - Fetching ratings';
+  constructor(public movieId: number) {
   }
 }
 
