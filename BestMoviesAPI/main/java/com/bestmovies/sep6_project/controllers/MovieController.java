@@ -5,7 +5,6 @@ import com.bestmovies.sep6_project.services.MovieService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +18,7 @@ public class MovieController{
 
     @RequestMapping(value = "/save", method = RequestMethod.POST, consumes="application/json")
     public void addMovie(@RequestBody Movie movie, HttpServletResponse response){
-        setResponse(response, movieService.createMovie(movie.getTitle(), movie.getYear()));
+        setResponse(response, movieService.createMovie(movie));
     }
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
@@ -40,6 +39,51 @@ public class MovieController{
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     Movie getMovieById(@PathVariable int id){
         return movieService.getMovieById(id);
+    }
+
+    @RequestMapping(value = "/rating/{rating}/{n}", method = RequestMethod.GET)
+    public List<Movie> getNMoviesByRating(@PathVariable double rating, @PathVariable int n){
+        return movieService.getNMoviesByRating(rating, n);
+    }
+
+    @RequestMapping(value = "/votes/{votes}/{n}", method = RequestMethod.GET)
+    public List<Movie> getNMoviesByVotes(@PathVariable int votes, @PathVariable int n){
+        return movieService.getNMoviesByVotes(votes, n);
+    }
+
+    @RequestMapping(value = "/directorId/{personId}", method = RequestMethod.GET)
+    public List<Movie> getAllMoviesForDirector(@PathVariable int personId){
+        return movieService.getAllMoviesForDirector(personId);
+    }
+
+    @RequestMapping(value = "/starId/{personId}", method = RequestMethod.GET)
+    public List<Movie> getAllMoviesForStar(@PathVariable int personId){
+        return movieService.getAllMoviesForStar(personId);
+    }
+
+    @RequestMapping(value = "/year/{year}/{n}", method = RequestMethod.GET)
+    public List<Movie> getNMoviesByYear(@PathVariable int year, @PathVariable int n){
+        return movieService.getNMoviesByYear(year, n);
+    }
+
+//    @RequestMapping(value = "/year/{year}/{n}", method = RequestMethod.GET)
+//    public List<Movie> getMoviesByYear(@PathVariable int year, @PathVariable int n){
+//        return movieService.getMoviesByYear(year, n);
+//    }
+
+    @RequestMapping(value = "/popular/{n}", method = RequestMethod.GET)
+    public List<Movie> getNMostPopularMovies(@PathVariable int n){
+        return movieService.getNMostPopularMovies(n);
+    }
+
+    @RequestMapping(value = "/rating/{n}", method = RequestMethod.GET)
+    public List<Movie> getNBestRatedMovies(@PathVariable int n){
+        return movieService.getNBestRatedMovies(n);
+    }
+
+    @RequestMapping(value = "/title/{title}", method = RequestMethod.GET)
+    public List<Movie> getNBestRatedMovies(@PathVariable String title){
+        return movieService.getMoviesByTitle(title);
     }
 
     public void setResponse(HttpServletResponse response, boolean success){

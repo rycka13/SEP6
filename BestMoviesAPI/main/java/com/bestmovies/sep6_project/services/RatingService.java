@@ -1,7 +1,6 @@
 package com.bestmovies.sep6_project.services;
 
 import com.bestmovies.sep6_project.dao.interfaces.IRatingMapper;
-import com.bestmovies.sep6_project.model.Movie;
 import com.bestmovies.sep6_project.model.Rating;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,10 +20,9 @@ public class RatingService {
         return ratingMapper.getRatingById(id);
     }
 
-    public boolean createRating(double rating, Movie movie, int votes) {
-        if(rating > 0 && movie != null && votes > 0){
-            Rating newRating = new Rating(movie, rating, votes);
-            ratingMapper.createRating(newRating);
+    public boolean createRating(Rating rating) {
+        if(rating.getRating() > 0 && rating.getMovie() != null && rating.getVotes() > 0){
+            ratingMapper.createRating(rating);
             return true;
         }
 
@@ -46,5 +44,12 @@ public class RatingService {
             return true;
         }
         return false;
+    }
+
+    public Rating getRatingByMovieId(long id){
+        if(id > 0){
+            return ratingMapper.getRatingById(id);
+        }
+        return null;
     }
 }
