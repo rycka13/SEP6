@@ -1,99 +1,68 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {NbSearchService} from "@nebular/theme";
-import {CellClickedEvent, ColDef, ColumnApi, GridApi, GridReadyEvent} from "ag-grid-community";
-import {Select, Store} from "@ngxs/store";
-import {Observable} from "rxjs";
-import {MoviesSelector} from "src/app/information/movies/movies.selector";
-import {Movie} from "src/model/movie";
-import {AgGridAngular} from "ag-grid-angular";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NbSearchService, NbToastrService } from '@nebular/theme';
+import { Observable } from 'rxjs';
+import { Movie } from 'src/model/movie';
 import {
   MoviesFetchInfo,
+  MoviesFetchNextPage,
   MoviesReset,
   MoviesSearchReset,
   MoviesSearchTitle
-} from "src/app/information/movies/movies.actions";
+} from 'src/app/information/movies/movies.actions';
+import { MoviesSelector } from 'src/app/information/movies/movies.selector';
+import {Select, Store} from '@ngxs/store';
 
 @Component({
   selector: 'app-movies',
   templateUrl: './movies.component.html',
   styleUrls: ['./movies.component.scss']
 })
-export class MoviesComponent implements OnInit, OnDestroy{
-  //selectors observable ngxs
+export class MoviesComponent implements OnInit, OnDestroy {
   @Select(MoviesSelector.isFetching)
   isFetching$: Observable<boolean>;
 
   @Select(MoviesSelector.isFiltered)
   isFiltered$: Observable<boolean>;
 
-  @Select(MoviesSelector.movies)
-  movies$: Observable<Movie[]>;
+  @Select(MoviesSelector.allMovies)
+  allMovies$: Observable<Movie[]>;
 
-  //ag grid
-  gridApi: GridApi;
-  gridColumnApi: ColumnApi;
-  @ViewChild('agGridAngular') agGrid!: AgGridAngular;
+  @Select(MoviesSelector.moviesDisplayed)
+  moviesDisplayed$: Observable<Movie[]>;
 
-  alive: boolean = true;
-  constructor(private store: Store,
-              private searchService: NbSearchService) {
+  @Select(MoviesSelector.pageSize)
+  pageSize$: Observable<number>;
 
-    this.searchService.onSearchSubmit()
-      .subscribe((data: any) => {
-        this.store.dispatch(new MoviesSearchTitle(data.term));
-      })
+  @Select(MoviesSelector.pageToLoadNext)
+  pageToLoadNext$: Observable<number>;
 
+  constructor(
+    private store: Store,
+    private nbToastrService: NbToastrService
+  ) {
   }
 
-  async ngOnInit() {
-    const actionsInParallel = [
-      new MoviesFetchInfo(),
-    ];
-    this.store.dispatch([...actionsInParallel]);
+  ngOnInit() {
+    this.store.dispatch(new MoviesFetchInfo());
   }
 
-  onGridReady(params: GridReadyEvent) {
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-
-    //TODO adjust autosize
-    this.gridApi.sizeColumnsToFit();
+  loadNext() {
+    this.store.dispatch(new MoviesFetchNextPage());
   }
 
-  onCellClicked( e: CellClickedEvent): void {
-    // TODO redirect to the movie overview
+  onSearch($event) {
+    this.store.dispatch(new MoviesSearchTitle($event));
   }
-
-  columnDefs: ColDef[] = [
-    {
-      headerName: 'Id',
-      field: 'id',
-      valueFormatter: params => {
-        console.log(params.value)
-        return params.value;
-      }
-    },
-    {
-      headerName: 'Title',
-      field: 'title',
-    },
-    {
-      headerName: 'Year',
-      field: 'year'
-    }
-  ]
-
-  public defaultColDef: ColDef = {
-    sortable: true,
-    filter: true,
-  };
-
   resetSearch() {
     this.store.dispatch(new MoviesSearchReset());
   }
 
+  redirectToMovieOverviewPage(movieId: number) {
+    this.nbToastrService.show('Page not implemented yet', 'The page is not implemented yet...', { status: 'primary' });
+    // TODO: Implement movie overview page
+  }
+
   ngOnDestroy() {
-    this.alive = false;
     this.store.dispatch(new MoviesReset());
   }
 }

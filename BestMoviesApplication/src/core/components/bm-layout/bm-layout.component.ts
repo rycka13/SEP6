@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import {NbMenuService, NbSidebarService} from '@nebular/theme';
 import {
   GENERAL_MENU_ITEMS,
-  getIndexOfChildInsideParent,
-  getIndexOfParent,
-  updateSelectedParentAtIndex,
-  updateSelectedChildAtIndexOfParent,
   PARENT_IDS,
 } from "src/app/constants";
+import {
+  getIndexOfChildInsideParent,
+  getIndexOfParent,
+  updateSelectedChildAtIndexOfParent, updateSelectedParentAtIndex
+} from "src/core/helpers/helpers";
 
 @Component({
   selector: 'bm-layout',
