@@ -11,7 +11,7 @@ export const moviesMock: Movie[] = [
     id: 15724,
     title: 'Dama de noche',
     year: 1993,
-    posterUrl: 'https://image.tmdb.org/t/p/original/dB0CxRwLXJoOrRPUvsJjb2hnPtq.jpg'
+    posterUrl: null
   },
   {
     id: 16906,

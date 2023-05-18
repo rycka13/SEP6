@@ -53,6 +53,7 @@ export const GENERAL_MENU_ITEMS: NbMenuItem[] = [
     title: PAGE_GENERAL_TITLES.INFORMATION,
     icon: 'info-outline',
     children: INFORMATION_MENU_ITEMS,
+    expanded: true,
     data: {
       id: PARENT_IDS.INFORMATION_ID,
     }
