@@ -10,6 +10,7 @@ import java.util.List;
 
 @Component
 public class DirectorService {
+
     @Autowired
     private IDirectorMapper directorMapper;
 
