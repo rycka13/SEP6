@@ -60,7 +60,7 @@ export class MoviesService {
       .pipe(map(data => data.movies));
   }
 
-  saveMovie(movie): Observable<Movie> {
+  addMovie(movie): Observable<void> {
     return this.apiService
       .post(
         `${this.PATH_CONTROLLER}/save`,
@@ -68,15 +68,15 @@ export class MoviesService {
       ).pipe(map(data => data.movie));
   }
 
-  updateMovie(movieId, movie): Observable<Movie> {
+  updateMovie(movieId, movie): Observable<void> {
     return this.apiService
-      .post(
+      .put(
         `${this.PATH_CONTROLLER}/${this.ID}/${movieId}`,
         { movie: { body: movie } }
       ).pipe(map(data => data.movie));
   }
 
-  deleteMovie(movieId) {
+  deleteMovie(movieId): Observable<void> {
     return this.apiService
       .delete(`${this.PATH_CONTROLLER}/${this.ID}/${movieId}`);
   }
