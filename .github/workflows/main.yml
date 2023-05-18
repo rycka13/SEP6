@@ -19,10 +19,8 @@ jobs:
         run: mvn -B package --file pom.xml
       - name: Step 4 - List the current directory
         run: ls -a
-      - name: Step 5 - What is in the target folder?
-        run: |
-          cd target
-          ls -a
+      - name: Step 5 - Run project tests with maven
+        run: mvn clean test
           
           
       
