@@ -6,9 +6,12 @@ import java.util.List;
 
 public interface IStarMapper {
     List<Star> getAll();
+    List<Star> getByMovieId(long movieId);
+    List<Star> getStarsByBirth(int birth);
+    List<Star> getStarsByName(String name);
+    Star getStarById(long id);
     void createStar(Star star);
     void updateStar(Star star);
     void deleteStar(long id);
-
-    Star getStarById(long id);
+    void addMovieStar(Star star);
 }

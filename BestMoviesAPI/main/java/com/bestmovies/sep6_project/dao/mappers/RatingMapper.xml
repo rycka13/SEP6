@@ -13,6 +13,9 @@
     <select id="getAll" resultMap="RatingsResultMap">
         SELECT * FROM ratings;
     </select>
+    <select id="getRatingByMovieId" resultMap="RatingsResultMap">
+        SELECT * FROM ratings where movie_id = #{movie_id}
+    </select>
     <insert id = "createRating" parameterType = "Rating">
         INSERT INTO ratings (rating, votes, movie_id)
         VALUES (#{rating}, #{votes}, #{movie.id});

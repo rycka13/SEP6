@@ -12,11 +12,46 @@
     <select id="getAll" resultMap="StarResultMap">
         SELECT p.id AS id, p.name, p.birth
         FROM people p
-                 JOIN stars s ON p.id = s.person_id limit 10
+                 JOIN stars s ON p.id = s.person_id
+    </select>
+
+    <select id="getStarById" resultMap="StarResultMap">
+        SELECT p.id, p.name, p.birth
+        FROM people p
+                 LEFT JOIN stars s ON p.id = s.person_id
+        WHERE s.person_id = #{id}
+            LIMIT 1;
+    </select>
+
+    <select id="getStarsByBirth" resultMap="StarResultMap">
+        SELECT p.id, p.name, p.birth
+        FROM people p
+                 LEFT JOIN stars s ON p.id = s.person_id
+        WHERE p.birth = #{birth}
+        AND s.person_id IS NOT NULL;
+    </select>
+
+    <select id="getByMovieId" resultMap="StarResultMap">
+        SELECT p.id as id, p.name, p.birth
+        FROM people p
+                 JOIN stars s ON p.id = s.person_id
+                 JOIN movies m ON s.movie_id = m.id
+        WHERE m.id = #{movieId};
+    </select>
+
+    <select id="getStarsByName" resultMap="StarResultMap">
+        SELECT p.id as id, p.name, p.birth
+        FROM people p
+                 JOIN stars s ON p.id = s.person_id
+        WHERE p.name = #{name};
     </select>
 
     <insert id = "createStar" parameterType = "Star" useGeneratedKeys='true' keyProperty='id'>
         INSERT INTO people (name, birth) VALUES (#{name}, #{birthYear});
+    </insert>
+
+    <insert id = "addMovieStar" parameterType = "Star">
+        INSERT INTO stars (movie_id, person_id) VALUES (#{addMovie.id}, #{id});
     </insert>
 
     <update id = "updateStar" parameterType = "Star">

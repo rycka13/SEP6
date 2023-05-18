@@ -12,11 +12,46 @@
     <select id="getAll" resultMap="DirectorResultMap">
         SELECT p.id AS id, p.name, p.birth
         FROM people p
-                 JOIN directors d ON p.id = d.person_id limit
+                 JOIN directors d ON p.id = d.person_id
+    </select>
+
+    <select id="getDirectorById" resultMap="DirectorResultMap">
+        SELECT p.id, p.name, p.birth
+        FROM people p
+                 LEFT JOIN directors d ON p.id = d.person_id
+        WHERE d.person_id = #{id}
+            LIMIT 1;
+    </select>
+
+    <select id="getDirectorsByBirth" resultMap="DirectorResultMap">
+        SELECT p.id, p.name, p.birth
+        FROM people p
+                 LEFT JOIN directors d ON p.id = d.person_id
+        WHERE p.birth = #{birth}
+          AND d.person_id IS NOT NULL;
+    </select>
+
+    <select id="getByMovieId" resultMap="DirectorResultMap">
+        SELECT p.id as id, p.name, p.birth
+        FROM people p
+                 JOIN directors d ON p.id = d.person_id
+                 JOIN movies m ON d.movie_id = m.id
+        WHERE m.id = #{movieId};
+    </select>
+
+    <select id="getDirectorsByName" resultMap="DirectorResultMap">
+        SELECT p.id as id, p.name, p.birth
+        FROM people p
+                 JOIN directors d ON p.id = d.person_id
+        WHERE p.name = #{name};
     </select>
 
     <insert id = "createDirector" parameterType = "Director" useGeneratedKeys='true' keyProperty='id'>
         INSERT INTO people (name, birth) VALUES (#{name}, #{birthYear});
+    </insert>
+
+    <insert id = "addMovieDirector" parameterType = "Director">
+        INSERT INTO directors (movie_id, person_id) VALUES (#{addMovie.id}, #{id});
     </insert>
 
     <update id = "updateDirector" parameterType = "Director">

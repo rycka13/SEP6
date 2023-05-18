@@ -3,12 +3,14 @@ package com.bestmovies.sep6_project.services;
 import com.bestmovies.sep6_project.dao.interfaces.IRatingMapper;
 import com.bestmovies.sep6_project.model.Movie;
 import com.bestmovies.sep6_project.model.Rating;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
 public class RatingService {
+    @Autowired
     private IRatingMapper ratingMapper;
 
     public List<Rating> getAllRatings(){

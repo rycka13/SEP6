@@ -11,6 +11,7 @@ public class Star extends Person {
     public Star(String name, int birthYear){
         super(name, birthYear);
     }
+    public Star(Movie addMovie, long id, String name, int birthYear){super(addMovie, id, name, birthYear);}
     public Star(List<Movie> movies, long id, String name, int birthYear) {
         super(movies, id, name, birthYear);
     }
