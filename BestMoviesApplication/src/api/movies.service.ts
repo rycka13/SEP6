@@ -15,11 +15,44 @@ export class MoviesService {
   PATH_CONTROLLER = 'movie';
   ID = 'movieId';
 
-// All other controllers follow the same pattern. For example: if you want to getAll for starts: {URL}/star/getAll,
-//   same for PUT method: {URL}/star/starId/{starId} . It takes 'Star' object instead of 'Movie' object
-  getMovie(movieId): Observable<Movie> {
-    return this.apiService.get(`${this.PATH_CONTROLLER}/${this.ID}/${movieId}`)
+  getMovieById(movieId): Observable<Movie> {
+    return this.apiService.get(`${this.PATH_CONTROLLER}/${movieId}`)
       .pipe(map(data => data.movie));
+  }
+
+  getNMoviesByRating(rating, n): Observable<Movie[]> {
+    return this.apiService.get(`${this.PATH_CONTROLLER}/rating/${rating}/${n}`)
+      .pipe(map(data => data.movies));
+  }
+
+  getNMoviesByVotes(votes, n): Observable<Movie[]> {
+    return this.apiService.get(`${this.PATH_CONTROLLER}/votes/${votes}/${n}`)
+      .pipe(map(data => data.movies));
+  }
+
+  getAllMoviesForDirector(directorId): Observable<Movie[]> {
+    return this.apiService.get(`${this.PATH_CONTROLLER}/directorId/${directorId}/`)
+      .pipe(map(data => data.movies));
+  }
+
+  getAllMoviesForStar(starId): Observable<Movie[]> {
+    return this.apiService.get(`${this.PATH_CONTROLLER}/starId/${starId}/`)
+      .pipe(map(data => data.movies));
+  }
+
+  getNMoviesByYear(year, n): Observable<Movie[]> {
+    return this.apiService.get(`${this.PATH_CONTROLLER}/year/${year}/${n}`)
+      .pipe(map(data => data.movies));
+  }
+
+  getNMostPopularMovies(n): Observable<Movie[]> {
+    return this.apiService.get(`${this.PATH_CONTROLLER}/popular/${n}/`)
+      .pipe(map(data => data.movies));
+  }
+
+  getMoviesByTitle(title): Observable<Movie[]> {
+    return this.apiService.get(`${this.PATH_CONTROLLER}/title/${title}/`)
+      .pipe(map(data => data.movies));
   }
 
   getAll(): Observable<Movie[]> {
