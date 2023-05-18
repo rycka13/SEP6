@@ -14,6 +14,9 @@
         SELECT *
         FROM movies;
     </select>
+    <select id="getMoviesByTitle" resultMap="result">
+        SELECT * FROM movies WHERE title = #{title};
+    </select>
     <select id="getMovieById" resultMap="result" parameterType="long">
         SELECT *
         FROM movies
@@ -26,7 +29,7 @@
         WHERE d.person_id = #{id}
     </select>
 
-    <select id="getAllMoviesForStars" resultMap="result">
+    <select id="getAllMoviesForStar" resultMap="result">
         SELECT m.id, m.title, m.year
         FROM movies m
                  JOIN stars s ON m.id = s.movie_id
@@ -45,6 +48,28 @@
         FROM movies m
                  JOIN ratings r on m.id = r.movie_id
         WHERE r.votes >= #{votes} limit #{n};
+    </select>
+
+    <select id="getNMoviesByYear" resultMap="result">
+        SELECT * FROM movies WHERE year = #{year} limit #{n};
+    </select>
+
+    <select id="getMoviesByYear" resultMap="result">
+        SELECT * FROM movies WHERE year = #{year};
+    </select>
+    <select id="getNMostPopularMovies" resultMap="result">
+        SELECT m.id, m.title, m.year
+        FROM movies m
+                 JOIN ratings r ON m.id = r.movie_id
+        ORDER BY r.votes DESC
+            LIMIT #{n};
+    </select>
+    <select id="getNBestRatedMovies" resultMap="result">
+        SELECT m.id, m.title, m.year
+        FROM movies m
+                 JOIN ratings r ON m.id = r.movie_id
+        ORDER BY r.rating DESC
+            LIMIT #{n};
     </select>
 
     <insert id="createMovie" parameterType="Movie" useGeneratedKeys='true' keyProperty='id'>
