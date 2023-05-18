@@ -16,17 +16,17 @@ export class DirectorsService {
   ID = 'directorId';
 
   getDirectorById(directorId): Observable<Director> {
-    return this.apiService.get(`${this.PATH_CONTROLLER}/${this.ID}/${directorId}`)
+    return this.apiService.get(`${this.PATH_CONTROLLER}/${directorId}`)
       .pipe(map(data => data.director));
   }
 
   getDirectorsByBirth(birthYear): Observable<Director[]> {
-    return this.apiService.get(`${this.PATH_CONTROLLER}/${this.ID}/birthYear/${birthYear}`)
+    return this.apiService.get(`${this.PATH_CONTROLLER}/birthYear/${birthYear}`)
       .pipe(map(data => data.directors));
   }
 
   getDirectorsByName(name): Observable<Director[]> {
-    return this.apiService.get(`${this.PATH_CONTROLLER}/${this.ID}/name/${name}`)
+    return this.apiService.get(`${this.PATH_CONTROLLER}//name/${name}`)
       .pipe(map(data => data.directors));
   }
 
@@ -46,14 +46,14 @@ export class DirectorsService {
   updateMovie(updatedDirector, personId): Observable<void> {
     return this.apiService
       .put(
-        `${this.PATH_CONTROLLER}/${this.ID}/personId/${personId}`,
+        `${this.PATH_CONTROLLER}/personId/${personId}`,
         { director: { body: updatedDirector } }
       ).pipe(map(data => data.director));
   }
 
   deleteDirector(personId) {
     return this.apiService
-      .delete(`${this.PATH_CONTROLLER}/${this.ID}/personId/${personId}`);
+      .delete(`${this.PATH_CONTROLLER}/personId/${personId}`);
   }
 
 }
