@@ -20,10 +20,9 @@ public class StarService {
         return starMapper.getStarById(id);
     }
 
-    public boolean createStar(String name, int birthYear) {
-        if (name != null && birthYear > 0){
-            Star newStar = new Star(name, birthYear);
-            starMapper.createStar(newStar);
+    public boolean createStar(Star star) {
+        if (star.getName() != null && star.getBirthYear() > 0){
+            starMapper.createStar(star);
             return true;
         }
         return false;
@@ -41,6 +40,35 @@ public class StarService {
     public boolean deleteStar(long personId) {
         if (personId > 0){
             starMapper.deleteStar(personId);
+            return true;
+        }
+        return false;
+    }
+
+    public List<Star> getByMovieId(long movieId){
+        if(movieId > 0){
+            return starMapper.getByMovieId(movieId);
+        }
+        return null;
+    }
+
+    public List<Star> getStarsByBirth(int birth){
+        if(birth > 0){
+            return starMapper.getStarsByBirth(birth);
+        }
+        return null;
+    }
+
+    public List<Star> getStarsByName(String name){
+        if(name != null){
+            return starMapper.getStarsByName(name);
+        }
+        return null;
+    }
+
+    public boolean addMovieStar(Star star){
+        if(star != null){
+            starMapper.addMovieStar(star);
             return true;
         }
         return false;

@@ -18,7 +18,7 @@ public class DirectorController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST, consumes="application/json")
     public void addDirector(@RequestBody Director director, HttpServletResponse response){
-        setResponse(response, directorService.createDirector(director.getName(), director.getBirthYear()));
+        setResponse(response, directorService.createDirector(director));
     }
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
@@ -39,6 +39,16 @@ public class DirectorController {
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     Director getDirectorById(@PathVariable long id){
         return directorService.getDirectorById(id);
+    }
+
+    @RequestMapping(value = "/birthYear/{birthYear}",method = RequestMethod.GET)
+    List<Director> getDirectorsByBirth(@PathVariable int birthYear){
+        return directorService.getDirectorsByBirth(birthYear);
+    }
+
+    @RequestMapping(value = "/name/{name}",method = RequestMethod.GET)
+    List<Director> getDirectorsByName(@PathVariable String name){
+        return directorService.getDirectorsByName(name);
     }
 
     public void setResponse(HttpServletResponse response, boolean success){
