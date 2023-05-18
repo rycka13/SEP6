@@ -103,22 +103,26 @@ export const NEBULAR_MODULES = [
   NbThemeModule.forRoot({name: 'bm-theme'}),
   NbMenuModule.forRoot(),
   NbInputModule,
+  NbFormFieldModule
 ]
+
+export const APP_PRINCIPAL_IMPORTS = {
+  BrowserModule,
+  HttpClientModule,
+  BrowserAnimationsModule,
+  AppRoutingModule,
+  ...NgxsModule.forRoot(STATES, {
+    developmentMode: !environment.production,
+  }),
+}
 @NgModule({
   declarations: [
     COMPONENTS,
     ...CELL_RENDERERS,
   ],
   imports: [
-    BrowserModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    NgxsModule.forRoot(STATES, {
-      developmentMode: !environment.production,
-    }),
+    APP_PRINCIPAL_IMPORTS,
     NEBULAR_MODULES,
-    NbFormFieldModule,
   ],
   providers: PROVIDERS,
   exports: [
