@@ -2,10 +2,10 @@
 
 exports[`app > information > movies > movies-overview > movies-overview.component.spec.ts should match snapshot 1`] = `
 <app-movies-overview
+  __isFetching$__selector={[Function Observable]}
+  __movie$__selector={[Function Observable]}
   route={[Function ActivatedRoute]}
+  store={[Function Store]}
 >
-  <p>
-    movies-overview works!
-  </p>
 </app-movies-overview>
 `;
