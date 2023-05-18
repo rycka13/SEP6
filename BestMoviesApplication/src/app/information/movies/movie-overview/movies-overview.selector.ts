@@ -3,6 +3,7 @@ import {
   MovieOverviewStateModel,
   MoviesOverviewState
 } from "src/app/information/movies/movie-overview/movies-overview.state";
+import {Movie} from "src/model/movie";
 
 export class MoviesOverviewSelector {
   @Selector([MoviesOverviewState])
@@ -28,5 +29,20 @@ export class MoviesOverviewSelector {
   @Selector([MoviesOverviewState])
   static stars(state: MovieOverviewStateModel) {
     return state.stars;
+  }
+
+  @Selector([MoviesOverviewState])
+  static topMovies(state: MovieOverviewStateModel) {
+    return state.topMovies;
+  }
+
+  @Selector([MoviesOverviewState])
+  static topMoviesByRating(state: MovieOverviewStateModel) {
+    return state.topMoviesByRating;
+  }
+
+  @Selector([MoviesOverviewState])
+  static topMoviesByYear(state: MovieOverviewStateModel) {
+    return state.topMoviesByYear;
   }
 }

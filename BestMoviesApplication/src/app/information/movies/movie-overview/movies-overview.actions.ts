@@ -1,3 +1,5 @@
+import {Rating} from "src/model/rating";
+
 export class MovieOverviewFetchInfo {
   static readonly type = 'Movie Overview - Fetching info';
   constructor(public movieId: number) {
@@ -22,6 +24,25 @@ export class MovieOverviewFetchRatings {
   }
 }
 
+export class MovieOverviewFetchBestMoviesTop {
+  static readonly type = 'Movie Overview - Fetching best movies in top';
+  constructor(public top: number) {
+  }
+}
+
+export class MovieOverviewFetchMoviesFromSameYear{
+  static readonly type = 'Movie Overview - Fetching movies from the same year';
+  constructor(public listSize: number,
+              public year: number) {
+  }
+}
+
+export class MovieOverviewFetchSameRatingRange {
+  static readonly type = 'Movie Overview - Fetching movies with same rating range';
+  constructor(public listSize: number,
+              public rating: number) {
+  }
+}
 
 export class MovieOverviewReset {
   static readonly type = 'Movie Overview - Reset';

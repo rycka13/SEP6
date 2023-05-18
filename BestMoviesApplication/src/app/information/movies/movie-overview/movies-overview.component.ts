@@ -35,6 +35,15 @@ export class MoviesOverviewComponent {
   @Select(MoviesOverviewSelector.stars)
   stars$: Observable<Star[]>;
 
+  @Select(MoviesOverviewSelector.topMovies)
+  topMovies$: Observable<Movie[]>;
+
+  @Select(MoviesOverviewSelector.topMoviesByRating)
+  topMoviesByRating$: Observable<Movie[]>;
+
+  @Select(MoviesOverviewSelector.topMoviesByYear)
+  topMoviesByYear$: Observable<Movie[]>;
+
   constructor(
     private route: ActivatedRoute,
     private store: Store,

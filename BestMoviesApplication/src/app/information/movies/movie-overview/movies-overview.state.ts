@@ -3,8 +3,13 @@ import {Action, State, StateContext} from "@ngxs/store";
 import {Injectable} from "@angular/core";
 import {NbToastrService} from "@nebular/theme";
 import {
+  MovieOverviewFetchBestMoviesTop,
   MovieOverviewFetchDirectors,
-  MovieOverviewFetchInfo, MovieOverviewFetchRatings, MovieOverviewFetchStars,
+  MovieOverviewFetchInfo,
+  MovieOverviewFetchMoviesFromSameYear,
+  MovieOverviewFetchRatings,
+  MovieOverviewFetchSameRatingRange,
+  MovieOverviewFetchStars,
   MovieOverviewReset
 } from "src/app/information/movies/movie-overview/movies-overview.actions";
 import {produce} from "immer";
@@ -24,6 +29,9 @@ export interface MovieOverviewStateModel {
   isFetching: boolean;
   movie: Movie;
   rating: Rating;
+  topMovies: Movie[];
+  topMoviesByRating: Movie[];
+  topMoviesByYear: Movie[];
   stars: Star[];
   directors: Director[];
 }
@@ -32,6 +40,9 @@ export const defaultsState: MovieOverviewStateModel = {
   isFetching: false,
   movie: null,
   rating: null,
+  topMovies: [],
+  topMoviesByRating: [],
+  topMoviesByYear: [],
   stars: [],
   directors: [],
 }
@@ -172,6 +183,100 @@ export class MoviesOverviewState {
     })
     setState(newState);
   }
+
+  @Action(MovieOverviewFetchBestMoviesTop)
+  async movieOverviewFetchBestMoviesTop(
+    {getState, setState}: StateContext<MovieOverviewStateModel>,
+    action: MovieOverviewFetchBestMoviesTop) {
+
+    let newState = produce(getState(), draft => {
+      draft.isFetching = true;
+    })
+    setState(newState);
+
+    let topMovies: Movie[];
+    try {
+
+      //mock
+      topMovies.push(moviesMock[4],moviesMock[5],moviesMock[6], moviesMock[7]);
+
+      //real data
+      // this.movieService.getNMostPopularMovies(action.top)
+      //   .subscribe((moviesPredicate: Movie[]) => topMovies = moviesPredicate);
+    }
+    catch (e) {
+      console.log(e);
+    }
+
+    newState = produce(getState(), draft => {
+      draft.topMovies = topMovies;
+      draft.isFetching = false;
+    })
+    setState(newState);
+  }
+
+  @Action(MovieOverviewFetchSameRatingRange)
+  async movieOverviewFetchSameRatingRange(
+    {getState, setState}: StateContext<MovieOverviewStateModel>,
+    action: MovieOverviewFetchSameRatingRange) {
+
+    let newState = produce(getState(), draft => {
+      draft.isFetching = true;
+    })
+    setState(newState);
+
+    let topMoviesByRating: Movie[];
+    try {
+
+      //mock
+      topMoviesByRating.push(moviesMock[1],moviesMock[2], moviesMock[3], moviesMock[9],moviesMock[10]);
+
+      //real data
+      // this.movieService.getNMoviesByRating(action.rating, action.listSize)
+      //   .subscribe((moviesPredicate: Movie[]) => topMoviesByRating = moviesPredicate);
+    }
+    catch (e) {
+      console.log(e);
+    }
+
+    newState = produce(getState(), draft => {
+      draft.topMoviesByRating = topMoviesByRating;
+      draft.isFetching = false;
+    })
+    setState(newState);
+  }
+
+  @Action(MovieOverviewFetchMoviesFromSameYear)
+  async movieOverviewFetchMoviesFromSameYear(
+    {getState, setState}: StateContext<MovieOverviewStateModel>,
+    action: MovieOverviewFetchMoviesFromSameYear) {
+
+    let newState = produce(getState(), draft => {
+      draft.isFetching = true;
+    })
+    setState(newState);
+
+    let topMoviesByYear: Movie[];
+    try {
+
+      //mock
+      topMoviesByYear.push(moviesMock[1],moviesMock[2],moviesMock[3],moviesMock[4]);
+
+      //real data
+      // this.movieService.getNMoviesByYear(action.year, action.listSize)
+      //   .subscribe((moviesPredicate: Movie[]) => topMoviesByYear = moviesPredicate);
+    }
+    catch (e) {
+      console.log(e);
+    }
+
+    newState = produce(getState(), draft => {
+      draft.topMoviesByYear = topMoviesByYear;
+      draft.isFetching = false;
+    })
+    setState(newState);
+  }
+
   @Action(MovieOverviewReset)
   async moviesReset(
     {getState, setState}
