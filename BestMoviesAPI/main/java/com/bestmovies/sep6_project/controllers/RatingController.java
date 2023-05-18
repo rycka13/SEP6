@@ -20,7 +20,7 @@ public class RatingController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST, consumes="application/json")
     public void addMovie(@RequestBody Rating rating, HttpServletResponse response){
-        setResponse(response, ratingService.createRating(rating.getRating(), rating.getMovie(), rating.getVotes()));
+        setResponse(response, ratingService.createRating(rating));
     }
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
@@ -41,6 +41,11 @@ public class RatingController {
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     Rating getRatingById(@PathVariable long id){
         return ratingService.getRatingById(id);
+    }
+
+    @RequestMapping(value = "/byMovieId/{movieId}", method = RequestMethod.DELETE)
+    public Rating getRatingByMovieId(@PathVariable long movieId){
+        return ratingService.getRatingByMovieId(movieId);
     }
 
     public void setResponse(HttpServletResponse response, boolean success){

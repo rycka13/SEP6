@@ -9,7 +9,7 @@ public interface IMovieMapper {
     List<Movie> getAll();
     Movie getMovieById(long id);
     List<Movie> getNMoviesByRating(double rating, int n);
-    List<Movie> getNMoviesByVotes(double rating, int n);
+    List<Movie> getNMoviesByVotes(int votes, int n);
     List<Movie> getAllMoviesForDirector(long id);
     List<Movie> getAllMoviesForStar(long id);
     List<Movie> getNMoviesByYear(int year, int n);

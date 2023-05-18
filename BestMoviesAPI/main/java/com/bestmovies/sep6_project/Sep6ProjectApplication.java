@@ -15,29 +15,3 @@ public class Sep6ProjectApplication {
         SpringApplication.run(Sep6ProjectApplication.class, args);
     }
 }
-
-@RestController
-class Helloworld {
-    @GetMapping("/")
-    public String greet() {
-        return "Hello!";
-    }
-}
-
-//@RestController
-//@RequestMapping("/test")
-//class TestDb {
-//    MovieDao dao = new MovieDao();
-//    public TestDb() throws IOException {
-//
-//    }
-//    @GetMapping("/all")
-//    public List<Star> greet() throws IOException {
-//        return dao.getAllStars();
-//    }
-//
-//    @GetMapping("/directors")
-//    public List<Director> getDirectors(){
-//        return dao.getAllDirectors();
-//    }
-//}

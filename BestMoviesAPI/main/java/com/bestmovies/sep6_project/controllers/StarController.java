@@ -17,8 +17,8 @@ public class StarController {
     StarService starService;
 
     @RequestMapping(value = "/save", method = RequestMethod.POST, consumes="application/json")
-    public void addStar(@RequestBody Star star, HttpServletResponse response){
-        setResponse(response, starService.createStar(star.getName(), star.getBirthYear()));
+    public void createStar(@RequestBody Star star, HttpServletResponse response){
+        setResponse(response, starService.createStar(star));
     }
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
@@ -39,6 +39,26 @@ public class StarController {
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     Star getStarById(@PathVariable long id){
         return starService.getStarById(id);
+    }
+
+    @RequestMapping(value = "/movieId/{movieId}", method = RequestMethod.GET)
+    public List<Star> getByMovieId(@PathVariable long movieId){
+        return starService.getByMovieId(movieId);
+    }
+
+    @RequestMapping(value = "/year/{year}", method = RequestMethod.GET)
+    public List<Star> getStarsByBirth(@PathVariable int year){
+        return starService.getStarsByBirth(year);
+    }
+
+    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
+    public List<Star> getStarsByName(@PathVariable String name){
+        return starService.getStarsByName(name);
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST, consumes="application/json")
+    public void addMovieStar(@RequestBody Star star, HttpServletResponse response){
+        setResponse(response, starService.addMovieStar(star));
     }
 
     public void setResponse(HttpServletResponse response, boolean success){
