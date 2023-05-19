@@ -125,6 +125,13 @@
                 </configuration>
             </plugin>
         </plugins>
+        <sourceDirectory>BestMoviesAPI/main/java</sourceDirectory>
+        <testSourceDirectory>BestMoviesAPI/test/java</testSourceDirectory>
+        <resources>
+            <resource>
+                <directory>BestMoviesAPI/main/resources</directory>
+            </resource>
+        </resources>
     </build>
 
 </project>
