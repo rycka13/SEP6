@@ -125,7 +125,6 @@
                 </configuration>
             </plugin>
         </plugins>
-        <testSourceDirectory>BestMoviesAPI/test/java</testSourceDirectory>
     </build>
 
 </project>
