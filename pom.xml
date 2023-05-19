@@ -125,7 +125,7 @@
                 </configuration>
             </plugin>
         </plugins>
-        <testSourceDirectory>BestMoviesAPI/test/java/com/bestmovies/sep6_project</testSourceDirectory>
+        <testSourceDirectory>BestMoviesAPI/test/java</testSourceDirectory>
     </build>
 
 </project>
