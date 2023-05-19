@@ -33,15 +33,18 @@ import {PeopleComponent} from "src/app/information/people/people.component";
 import {PeopleState} from "src/app/information/people/people.state";
 import {environment} from "src/environments/environment";
 import {ApiService} from "src/core/services/api.service";
-import {DirectorsService} from "src/api/directors.service";
-import {MoviesService} from "src/api/movies.service";
-import {PeopleService} from "src/api/people.service";
-import {RatingsService} from "src/api/ratings.service";
-import {StarsService} from "src/api/stars.service";
+import {DirectorsService} from "src/api/directors/directors.service";
+import {MoviesService} from "src/api/movies/movies.service";
+import {RatingsService} from "src/api/ratings/ratings.service";
+import {StarsService} from "src/api/stars/stars.service";
 import {MoviesCell} from "src/core/cell-renderers/movies.column.cell";
 import { BmSearchComponent } from '../core/components/bm-search/bm-search.component';
 import { MoviesOverviewComponent } from './information/movies/movie-overview/movies-overview.component';
 import {MoviesOverviewState} from "src/app/information/movies/movie-overview/movies-overview.state";
+import {DirectorService} from "src/api/directors/director.service";
+import {MovieService} from "src/api/movies/movie.service";
+import {RatingService} from "src/api/ratings/rating.service";
+import {StarService} from "src/api/stars/star.service";
 
 
 export const STATES = [
@@ -81,10 +84,14 @@ export const PROVIDERS = [
 
   //Api services
   ApiService,
+  DirectorService,
   DirectorsService,
+  MovieService,
   MoviesService,
-  PeopleService,
+  // PeopleService,
+  RatingService,
   RatingsService,
+  StarService,
   StarsService
 ]
 

@@ -76,6 +76,10 @@ export class MoviesOverviewComponent implements OnInit, OnDestroy{
           return this.store.dispatch([...initialActions]).pipe(
             switchMap(() => {
               let movie = this.store.selectSnapshot(MoviesOverviewSelector.movie);
+              console.log(movie);
+
+              let isFetching = this.store.selectSnapshot(MoviesOverviewSelector.isFetching);
+              console.log("is fetching? " + isFetching);
               let rating = this.store.selectSnapshot(MoviesOverviewSelector.rating);
 
               if (movie && rating) {
