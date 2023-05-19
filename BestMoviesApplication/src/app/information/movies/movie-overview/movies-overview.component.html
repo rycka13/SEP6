@@ -7,12 +7,12 @@
       <div class="title-and-year">
         <h1>
           <span>
-            {{ movieInformation.movie.title }}
+            {{ movieInformation?.movie?.title }}
           </span>
         </h1>
         <ul>
           <li>
-            Year of publication: {{ movieInformation.movie.year}}
+            Year of publication: {{ movieInformation?.movie?.year}}
           </li>
         </ul>
       </div>
@@ -31,10 +31,10 @@
       <div class="left-content">
         <nb-card size="medium" class="poster-movie-overview">
           <nb-card-body class="body-poster-movie">
-            <img *ngIf="movieInformation.movie.posterUrl"
-                 [src]="movieInformation.movie.posterUrl" [alt]="movieInformation.movie.title">
-            <img *ngIf="!movieInformation.movie.posterUrl"
-                 src="../../../assets/no-poster-available.jpg" [alt]="movieInformation.movie.title">
+            <img *ngIf="movieInformation?.movie?.posterUrl"
+                 [src]="movieInformation?.movie?.posterUrl" [alt]="movieInformation?.movie?.title">
+            <img *ngIf="!movieInformation?.movie?.posterUrl"
+                 src="../../../assets/no-poster-available.jpg" [alt]="movieInformation?.movie?.title">
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu ullamcorper dui. Ut suscipit urna et neque luctus, in malesuada lacus euismod. Mauris porttitor pellentesque placerat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce gravida vel lorem vitae mollis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu ullamcorper dui. Ut suscipit urna et neque luctus, in malesuada lacus euismod. Mauris porttitor pellentesque placerat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce gravida vel lorem vitae mollis.
             </p>
@@ -114,7 +114,7 @@
               icon="arrow-forward-outline"
               pack="eva"
             ></nb-icon>
-            Top movies by year {{ movieInformation.movie.year }}
+            Top movies by year {{ movieInformation?.movie?.year }}
           </h6>
           <nb-list *ngIf="topMoviesByYear$ | async as topMoviesByRating">
             <nb-list-item *ngFor="let movie of topMoviesByRating"

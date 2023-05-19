@@ -2,10 +2,214 @@
 
 exports[`app > information > movies > movies-overview > movies-overview.component.spec.ts should match snapshot 1`] = `
 <app-movies-overview
+  TOP_SIZE_LIST={[Function Number]}
+  __directors$__selector={[Function Observable]}
   __isFetching$__selector={[Function Observable]}
   __movie$__selector={[Function Observable]}
+  __rating$__selector={[Function Observable]}
+  __stars$__selector={[Function Observable]}
+  __topMovies$__selector={[Function Observable]}
+  __topMoviesByRating$__selector={[Function Observable]}
+  __topMoviesByYear$__selector={[Function Observable]}
+  alive={[Function Boolean]}
+  nbToastrService={[Function NbToastrService]}
   route={[Function ActivatedRoute]}
+  router={[Function Router]}
   store={[Function Store]}
 >
+  <nb-card>
+    <nb-card-header>
+      <div
+        class="title-and-year"
+      >
+        <h1>
+          <span>
+          </span>
+        </h1>
+        <ul>
+          <li>
+             Year of publication:  
+          </li>
+        </ul>
+      </div>
+      <div
+        class="rating"
+      >
+        <h3>
+           Rating 6.2 
+        </h3>
+        <h6>
+           Votes: 20 
+        </h6>
+      </div>
+    </nb-card-header>
+    <nb-card-body
+      class="grid-container"
+    >
+      <div
+        class="left-content"
+      >
+        <nb-card
+          class="poster-movie-overview size-medium"
+          size="medium"
+        >
+          <nb-card-body
+            class="body-poster-movie"
+          >
+            <img
+              alt="null"
+              src="../../../assets/no-poster-available.jpg"
+            />
+            <p>
+               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu ullamcorper dui. Ut suscipit urna et neque luctus, in malesuada lacus euismod. Mauris porttitor pellentesque placerat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce gravida vel lorem vitae mollis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu ullamcorper dui. Ut suscipit urna et neque luctus, in malesuada lacus euismod. Mauris porttitor pellentesque placerat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce gravida vel lorem vitae mollis. 
+            </p>
+          </nb-card-body>
+        </nb-card>
+        <div
+          class="border"
+        />
+        <nb-card
+          class="directors-stars"
+        >
+          <nb-card-header>
+            <h3>
+               Directors and actors 
+            </h3>
+          </nb-card-header>
+          <nb-card-body>
+            <ul>
+            </ul>
+            <ul>
+            </ul>
+          </nb-card-body>
+        </nb-card>
+      </div>
+      <nb-card
+        class="sidebar"
+      >
+        <nb-card-header>
+          <h5>
+             Lists of top 5 movies you might be interested
+          </h5>
+        </nb-card-header>
+        <nb-card-body>
+          <h6>
+            <nb-icon
+              icon="arrow-forward-outline"
+              pack="eva"
+            >
+              <svg
+                class="eva eva-arrow-forward-outline"
+                fill="currentColor"
+                height="100%"
+                viewBox="0 0 24 24"
+                width="100%"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  data-name="Layer 2"
+                >
+                  <g
+                    data-name="arrow-forward"
+                  >
+                    <rect
+                      height="24"
+                      opacity="0"
+                      transform="rotate(-90 12 12)"
+                      width="24"
+                    />
+                    <path
+                      d="M5 13h11.86l-3.63 4.36a1 1 0 0 0 1.54 1.28l5-6a1.19 1.19 0 0 0 .09-.15c0-.05.05-.08.07-.13A1 1 0 0 0 20 12a1 1 0 0 0-.07-.36c0-.05-.05-.08-.07-.13a1.19 1.19 0 0 0-.09-.15l-5-6A1 1 0 0 0 14 5a1 1 0 0 0-.64.23 1 1 0 0 0-.13 1.41L16.86 11H5a1 1 0 0 0 0 2z"
+                    />
+                  </g>
+                </g>
+              </svg>
+            </nb-icon>
+             Top movies of all time 
+          </h6>
+          <nb-list
+            role="list"
+          >
+          </nb-list>
+          <h6>
+            <nb-icon
+              icon="arrow-forward-outline"
+              pack="eva"
+            >
+              <svg
+                class="eva eva-arrow-forward-outline"
+                fill="currentColor"
+                height="100%"
+                viewBox="0 0 24 24"
+                width="100%"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  data-name="Layer 2"
+                >
+                  <g
+                    data-name="arrow-forward"
+                  >
+                    <rect
+                      height="24"
+                      opacity="0"
+                      transform="rotate(-90 12 12)"
+                      width="24"
+                    />
+                    <path
+                      d="M5 13h11.86l-3.63 4.36a1 1 0 0 0 1.54 1.28l5-6a1.19 1.19 0 0 0 .09-.15c0-.05.05-.08.07-.13A1 1 0 0 0 20 12a1 1 0 0 0-.07-.36c0-.05-.05-.08-.07-.13a1.19 1.19 0 0 0-.09-.15l-5-6A1 1 0 0 0 14 5a1 1 0 0 0-.64.23 1 1 0 0 0-.13 1.41L16.86 11H5a1 1 0 0 0 0 2z"
+                    />
+                  </g>
+                </g>
+              </svg>
+            </nb-icon>
+             Top movies by rating 6.2 
+          </h6>
+          <nb-list
+            role="list"
+          >
+          </nb-list>
+          <h6>
+            <nb-icon
+              icon="arrow-forward-outline"
+              pack="eva"
+            >
+              <svg
+                class="eva eva-arrow-forward-outline"
+                fill="currentColor"
+                height="100%"
+                viewBox="0 0 24 24"
+                width="100%"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  data-name="Layer 2"
+                >
+                  <g
+                    data-name="arrow-forward"
+                  >
+                    <rect
+                      height="24"
+                      opacity="0"
+                      transform="rotate(-90 12 12)"
+                      width="24"
+                    />
+                    <path
+                      d="M5 13h11.86l-3.63 4.36a1 1 0 0 0 1.54 1.28l5-6a1.19 1.19 0 0 0 .09-.15c0-.05.05-.08.07-.13A1 1 0 0 0 20 12a1 1 0 0 0-.07-.36c0-.05-.05-.08-.07-.13a1.19 1.19 0 0 0-.09-.15l-5-6A1 1 0 0 0 14 5a1 1 0 0 0-.64.23 1 1 0 0 0-.13 1.41L16.86 11H5a1 1 0 0 0 0 2z"
+                    />
+                  </g>
+                </g>
+              </svg>
+            </nb-icon>
+             Top movies by year  
+          </h6>
+          <nb-list
+            role="list"
+          >
+          </nb-list>
+        </nb-card-body>
+      </nb-card>
+    </nb-card-body>
+  </nb-card>
 </app-movies-overview>
 `;
