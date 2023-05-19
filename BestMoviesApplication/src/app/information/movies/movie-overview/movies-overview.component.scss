@@ -42,7 +42,30 @@ nb-card {
     }
 
     .rating {
+      display: inline-flex;
+      gap: 20px;
+      .item-in-rating {
+        cursor: pointer;
+        .title-rating {
+          font-weight: bold;
+          margin-bottom: 0px;
+        }
 
+        .info-rating {
+          margin-top: 0px;
+          margin-bottom:0px;
+        }
+
+        .votes-rating {
+          margin-top: 0px;
+          font-style: italic;
+          font-weight: lighter;
+          text-align: center;
+        }
+        .info-your-rating {
+          text-align: center;
+        }
+      }
     }
   }
 

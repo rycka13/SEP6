@@ -17,7 +17,7 @@ import {
   NbButtonModule,
   NbSpinnerModule,
   NbListModule,
-  NbSearchModule, NbSearchService, NbInputModule, NbFormFieldModule
+  NbSearchModule, NbSearchService, NbInputModule, NbFormFieldModule, NbTooltipModule
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { BmLayoutComponent } from '../core/components/bm-layout/bm-layout.component';
@@ -105,7 +105,8 @@ export const NEBULAR_MODULES = [
   NbThemeModule.forRoot({name: 'bm-theme'}),
   NbMenuModule.forRoot(),
   NbInputModule,
-  NbFormFieldModule
+  NbFormFieldModule,
+  NbTooltipModule
 ]
 
 @NgModule({
