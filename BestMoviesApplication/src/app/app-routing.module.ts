@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {ExtraOptions, RouterModule, Routes} from '@angular/router';
 import {OverallInformationComponent} from "./overall-information/overall-information.component";
 import {NotFoundComponent} from "src/app/not-found/not-found.component";
 import {MoviesComponent} from "src/app/information/movies/movies.component";
@@ -43,8 +43,12 @@ const routes: Routes = [
   }
 ];
 
+const routerOptions: ExtraOptions = {
+  onSameUrlNavigation: 'reload'
+};
+
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, routerOptions)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

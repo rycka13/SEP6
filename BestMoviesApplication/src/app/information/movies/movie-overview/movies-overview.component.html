@@ -4,22 +4,29 @@
   <nb-card
     *ngIf="movie$ | async as movie">
     <nb-card-header>
-      <h1>
+      <div class="title-and-year">
+        <h1>
           <span>
             {{ movie.title }}
           </span>
-      </h1>
-      <ul>
-        <li>
-          Year of publication: {{ movie.year}}
-        </li>
-        <!--          <li>-->
-        <!--            •-->
-        <!--          </li>-->
-        <!--          <li>-->
-        <!--            Something else-->
-        <!--          </li>-->
-      </ul>
+        </h1>
+        <ul>
+          <li>
+            Year of publication: {{ movie.year}}
+          </li>
+        </ul>
+      </div>
+
+<!--      TODO do rating with stars-->
+      <div class="rating"
+        *ngIf="rating$ | async as rating">
+        <h3>
+          Rating {{rating.rating}}
+        </h3>
+        <h6>
+          Votes: {{rating.votes}}
+        </h6>
+      </div>
     </nb-card-header>
     <nb-card-body class="grid-container">
       <div class="left-content">
@@ -68,24 +75,21 @@
               </li>
             </ul>
           </nb-card-body>
-
         </nb-card>
-
-        <div class="list-of-reviews">
-
-        </div>
       </div>
-      <div class="sidebar">
-        <div class="list-best-movies">
-          dadada
-        </div>
-        <div class="top-five-movies-same-year">
-          ada
-        </div>
-        <div class="movies-same-rating-range">
-          adadasdada
-        </div>
-      </div>
+      <nb-card class="sidebar">
+        <nb-card-header>
+          <h5> Lists of top {{TOP_SIZE_LIST}} movies you might be interested</h5>
+        </nb-card-header>
+        <nb-card-body>
+          <nb-list *ngIf="topMovies$ | async as topMovies">
+            <nb-list-item *ngFor="let movie of topMovies"
+            (click)="redirectToMovieOverviewPage(movie.id)">
+              {{ movie.title }} from {{ movie.year }}
+            </nb-list-item>
+          </nb-list>
+        </nb-card-body>
+      </nb-card>
     </nb-card-body>
   </nb-card>
   <!--  TODO to be implemented-->

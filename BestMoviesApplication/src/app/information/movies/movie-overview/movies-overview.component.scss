@@ -1,41 +1,48 @@
 nb-card {
   nb-card-header {
-    display: block;
-    padding: 25px 0px 0px 25px;
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 25px 0px 25px;
     font: inherit;
     vertical-align: baseline;
 
-    h1 {
-      margin-bottom: 0px;
-      word-break: break-word;
-      font-size: 3rem;
-      line-height: 3.125rem;
+    .title-and-year {
+      h1 {
+        margin-bottom: 0px;
+        word-break: break-word;
+        font-size: 3rem;
+        line-height: 3.125rem;
 
-      span {
+        span {
+          margin: 0px;
+          padding: 0px;
+          border: 0px;
+          font: inherit;
+          vertical-align: baseline;
+        }
+      }
+
+      ul {
+        display: flex;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.875rem;
+        font-weight: 400;
+        padding: 0px 0px 18px 0px;
         margin: 0px;
-        padding: 0px;
-        border: 0px;
-        font: inherit;
-        vertical-align: baseline;
+        font-style: italic;
+        gap: 10px;
+
+        li {
+          display: inline-block;
+          color: inherit;
+          vertical-align: middle;
+
+        }
       }
     }
 
-    ul {
-      display: flex;
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 0.875rem;
-      font-weight: 400;
-      padding: 0px 0px 18px 0px;
-      margin: 0px;
-      font-style: italic;
-      gap: 10px;
+    .rating {
 
-      li {
-        display: inline-block;
-        color: inherit;
-        vertical-align: middle;
-
-      }
     }
   }
 
@@ -115,16 +122,41 @@ nb-card {
     }
   }
 
+  .sidebar {
+    nb-card-header {
+      padding: 0px;
+    }
+
+    nb-card-body {
+      padding: 0px;
+
+      nb-list {
+        nb-list-item:hover {
+            color: var(--color-info-300);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+      }
+    }
+  }
+
   .grid-container {
     display: grid;
     grid-template-columns: repeat(2, 300px);
     grid-template-rows: auto;
+    grid-gap: 10px;
     padding-top: 30px;
   }
 
   @media screen and (min-width: 1361px) {
     .sidebar {
       grid-area: 1 / col4-start / last-line / 6;
+
+      nb-card-header {
+        h5 {
+          font-size: 19px;
+        }
+      }
     }
     .grid-container {
       grid-template-areas:

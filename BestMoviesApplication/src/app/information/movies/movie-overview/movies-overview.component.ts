@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Route, Router} from "@angular/router";
 import {Select, Store} from "@ngxs/store";
 import {Observable} from "rxjs";
 import {MoviesOverviewSelector} from "src/app/information/movies/movie-overview/movies-overview.selector";
@@ -18,6 +18,7 @@ import {Director} from "src/model/director";
 import {Star} from "src/model/star";
 import {MoviesFetchInfo} from "src/app/information/movies/movies.actions";
 import {NbToastrService} from "@nebular/theme";
+import {switchMap} from "rxjs/operators";
 
 @Component({
   selector: 'app-movies-overview',
@@ -50,64 +51,73 @@ export class MoviesOverviewComponent implements OnInit, OnDestroy{
   @Select(MoviesOverviewSelector.topMoviesByYear)
   topMoviesByYear$: Observable<Movie[]>;
 
+  TOP_SIZE_LIST: number = 5;
+
   alive: boolean = true;
   constructor(
     private route: ActivatedRoute,
     private store: Store,
     private nbToastrService: NbToastrService,
+    private router: Router,
   ) {
   }
 
   ngOnInit() {
-    let movieId;
-    this.route.params.subscribe(params => (movieId = params['movieId']));
+    this.route.params
+      .pipe(
+        switchMap(params => {
+          const movieId = params['movieId'];
+          const initialActions = [
+            new MovieOverviewFetchInfo(movieId),
+            new MovieOverviewFetchRating(movieId)
+          ];
+          let actionsInParallel = [];
 
-    const initialActions = [
-      new MovieOverviewFetchInfo(movieId),
-      new MovieOverviewFetchRating(movieId)
-    ];
+          return this.store.dispatch([...initialActions]).pipe(
+            switchMap(() => {
+              let movie = this.store.selectSnapshot(MoviesOverviewSelector.movie);
+              let rating = this.store.selectSnapshot(MoviesOverviewSelector.rating);
 
-    let actionsInParallel = [];
+              if (movie && rating) {
+                actionsInParallel = [
+                  ...actionsInParallel,
+                  new MovieOverviewFetchBestMoviesTop(this.TOP_SIZE_LIST),
+                  new MovieOverviewFetchMoviesFromSameYear(this.TOP_SIZE_LIST, movie.year),
+                  new MovieOverviewFetchSameRatingRange(this.TOP_SIZE_LIST, rating.rating)
+                ];
+              } else {
+                this.nbToastrService.show(
+                  "Movies or rating is null",
+                  "Couldn't fetch information about top lists",
+                  {
+                    status: "danger"
+                  }
+                );
+              }
 
-// Fetch movie first
-    this.store.dispatch([...initialActions]).subscribe(() => {
-      let movie = this.store.selectSnapshot(MoviesOverviewSelector.movie);
-      let rating = this.store.selectSnapshot(MoviesOverviewSelector.rating);
+              actionsInParallel = [
+                ...actionsInParallel,
+                new MovieOverviewFetchStars(movieId),
+                new MovieOverviewFetchDirectors(movieId)
+              ];
 
-      if (movie && rating) {
-        actionsInParallel = [
-          ...actionsInParallel,
-          new MovieOverviewFetchBestMoviesTop(5),
-          new MovieOverviewFetchMoviesFromSameYear(5, movie.year),
-          new MovieOverviewFetchSameRatingRange(5, rating.rating)
-        ];
-      } else {
-        this.nbToastrService.show(
-          "Movies or rating is null",
-          "Couldn't fetch information about top lists",
-          {
-            status: "danger"
-          }
-        );
-      }
-
-      actionsInParallel = [
-        ...actionsInParallel,
-        new MovieOverviewFetchStars(movieId),
-        new MovieOverviewFetchDirectors(movieId)
-      ];
-
-      this.store.dispatch(actionsInParallel).subscribe(() =>
-      {
+              return this.store.dispatch(actionsInParallel);
+            })
+          );
+        })
+      )
+      .subscribe(() => {
         let stars = this.store.selectSnapshot(MoviesOverviewSelector.stars);
-        console.log(stars);
       });
-    });
   }
 
   ngOnDestroy() {
     this.alive = false;
     this.store.dispatch(new MovieOverviewReset());
+  }
+
+  redirectToMovieOverviewPage(movieId: number) {
+    this.router.navigate([`/information/movies/${movieId}`]);
   }
 
   redirectToDirectorOverview(directorId) {
