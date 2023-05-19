@@ -7,7 +7,7 @@ import {
   MovieOverviewFetchDirectors,
   MovieOverviewFetchInfo,
   MovieOverviewFetchMoviesFromSameYear,
-  MovieOverviewFetchRatings,
+  MovieOverviewFetchRating,
   MovieOverviewFetchSameRatingRange,
   MovieOverviewFetchStars,
   MovieOverviewReset
@@ -101,14 +101,12 @@ export class MoviesOverviewState {
     })
     setState(newState);
 
-    let stars: Star[];
+    let stars: Star[] = [];
     try {
-      //TODO this one needs to be another action from its page
-      stars = starsMock.filter((starPredicate: Star) => {
-        let starsForMovie = starPredicate.movies.filter((moviePredicate: Movie) => moviePredicate.id == action.movieId);
-        return starsForMovie.length > 0;
-      });
+      //mock
+      stars.push(starsMock[1],starsMock[2],starsMock[3]);
 
+      //real data
       // this.starsService.getStarsByMovieId(action.movieId)
       //   .subscribe((starsPredicate: Star[]) => stars = starsPredicate);
     }
@@ -133,15 +131,13 @@ export class MoviesOverviewState {
     })
     setState(newState);
 
-    let directors: Director[];
+    let directors: Director[] = [];
     try {
-      //TODO this one needs to be another action from its page
-      directors = directorsMock.filter((directorPredicate: Director) => {
-        let directorsForMovie = directorPredicate.movies.filter((moviePredicate: Movie) => moviePredicate.id == action.movieId);
-        return directorsForMovie.length > 0;
-      });
+      //mock
+      directors.push(directorsMock[1],directorsMock[2]);
 
-      // //TODO tell colleagues about this method
+      //real data
+      //TODO tell colleagues about this method
       // this.directorsService.getDirectorsByMovieId(action.movieId)
       //   .subscribe((directorsPredicate: Director[]) => directors = directorsPredicate);
     }
@@ -156,10 +152,10 @@ export class MoviesOverviewState {
     setState(newState);
   }
 
-  @Action(MovieOverviewFetchRatings)
+  @Action(MovieOverviewFetchRating)
   async movieOverviewFetchRatings(
     {getState, setState}: StateContext<MovieOverviewStateModel>,
-    action: MovieOverviewFetchRatings) {
+    action: MovieOverviewFetchRating) {
 
     let newState = produce(getState(), draft => {
       draft.isFetching = true;
@@ -168,8 +164,10 @@ export class MoviesOverviewState {
 
     let rating: Rating;
     try {
-      rating = ratingsMock.find((ratingPredicate: Rating) => ratingPredicate.movie.id = action.movieId);
+      //mock
+      rating = ratingsMock[1];
 
+      //real data
       // this.ratingsService.getRatingByMovieId(action.movieId)
       //   .subscribe((ratingPredicate: Rating) => rating = ratingPredicate);
     }
@@ -194,7 +192,7 @@ export class MoviesOverviewState {
     })
     setState(newState);
 
-    let topMovies: Movie[];
+    let topMovies: Movie[] = [];
     try {
 
       //mock
@@ -225,7 +223,7 @@ export class MoviesOverviewState {
     })
     setState(newState);
 
-    let topMoviesByRating: Movie[];
+    let topMoviesByRating: Movie[] = [];
     try {
 
       //mock
@@ -256,7 +254,7 @@ export class MoviesOverviewState {
     })
     setState(newState);
 
-    let topMoviesByYear: Movie[];
+    let topMoviesByYear: Movie[] = [];
     try {
 
       //mock

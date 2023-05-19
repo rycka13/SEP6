@@ -18,7 +18,7 @@ export class MovieOverviewFetchDirectors {
   }
 }
 
-export class MovieOverviewFetchRatings {
+export class MovieOverviewFetchRating {
   static readonly type = 'Movie Overview - Fetching ratings';
   constructor(public movieId: number) {
   }
