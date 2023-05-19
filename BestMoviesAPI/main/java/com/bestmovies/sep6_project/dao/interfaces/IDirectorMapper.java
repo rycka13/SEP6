@@ -4,7 +4,7 @@ import com.bestmovies.sep6_project.model.Director;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-
+@Mapper
 public interface IDirectorMapper {
     List<Director> getByMovieId(long movieId);
     List<Director> getAll();
