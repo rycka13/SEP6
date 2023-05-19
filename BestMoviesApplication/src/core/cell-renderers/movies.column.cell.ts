@@ -10,7 +10,7 @@ export interface MoviesCellExtraParams {
   //TODO add click event to redirect user to movie-overview when he clicks one span (movie)
   template: `
         <div *ngFor="let movie of movies">
-          <span>{{movie.title}} from {{movie.year}}</span>
+          <span>{{movie?.title}} from {{movie?.year}}</span>
         </div>
     `,
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -8,8 +8,8 @@ import {
 import {produce} from "immer";
 import {moviesMock} from "../../../util/mocks/movies_mock";
 import {NbToastrService} from "@nebular/theme";
-import {take} from "rxjs/operators";
 import {paginate} from "src/core/helpers/helpers";
+import {MoviesService} from "src/api/movies/movies.service";
 
 export interface MoviesStateModel {
   isFetching: boolean;
@@ -41,8 +41,8 @@ export class MoviesState {
   initialPageToLoadNext: number;
 
   constructor(
-    private toastrService: NbToastrService
-    //here the services used for getting date from backend are imported
+    private toastrService: NbToastrService,
+    private moviesService: MoviesService,
   ) {
   }
 

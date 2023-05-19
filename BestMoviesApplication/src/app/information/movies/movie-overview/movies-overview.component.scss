@@ -1,0 +1,211 @@
+nb-card {
+  nb-card-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 25px 0px 25px;
+    font: inherit;
+    vertical-align: baseline;
+
+    .title-and-year {
+      h1 {
+        margin-bottom: 0px;
+        word-break: break-word;
+        font-size: 3rem;
+        line-height: 3.125rem;
+
+        span {
+          margin: 0px;
+          padding: 0px;
+          border: 0px;
+          font: inherit;
+          vertical-align: baseline;
+        }
+      }
+
+      ul {
+        display: flex;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.875rem;
+        font-weight: 400;
+        padding: 0px 0px 18px 0px;
+        margin: 0px;
+        font-style: italic;
+        gap: 10px;
+
+        li {
+          display: inline-block;
+          color: inherit;
+          vertical-align: middle;
+
+        }
+      }
+    }
+
+    .rating {
+      display: inline-flex;
+      gap: 20px;
+      .item-in-rating {
+        cursor: pointer;
+        .title-rating {
+          font-weight: bold;
+          margin-bottom: 0px;
+        }
+
+        .info-rating {
+          margin-top: 0px;
+          margin-bottom:0px;
+        }
+
+        .votes-rating {
+          margin-top: 0px;
+          font-style: italic;
+          font-weight: lighter;
+          text-align: center;
+        }
+        .info-your-rating {
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .left-content {
+    grid-area: left-content;
+
+    .poster-movie-overview {
+      position: relative;
+      width: 100%;
+      border-radius: 15px 15px 15px 15px;
+      padding: 0px;
+      margin: 0px 0px 22px 0px;
+
+      .body-poster-movie {
+        padding: unset;
+        overflow: hidden;
+        position: relative;
+        display: inline-flex;
+        gap: 30px;
+
+        img {
+          width: 47%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+          border-radius: 15px 15px;
+        }
+
+        p {
+          font-size: 20px;
+          word-break: break-word;
+          font-style: italic;
+          margin: 0px;
+        }
+      }
+    }
+
+    .border {
+      border-style: solid;
+      border-color: var(--menu-item-hover-text-color);
+      border-width: 0px 0px 2px 0px;
+      margin: 0px 0px 22px 0px;
+    }
+
+    .directors-stars {
+      nb-card-header {
+        padding: 0px;
+
+        h3 {
+          margin-bottom: 22px;
+        }
+
+        border-style: solid;
+        border-color: var(--menu-item-hover-text-color);
+        border-width: 0px 0px 2px 0px;
+      }
+      nb-card-body {
+        display:contents;
+        ul {
+          display: inline-flex;
+          margin: 22px 0px 0px 0px;
+          padding-left: 15px;
+          li {
+            margin-right: 20px;
+            font-size: 15px;
+            color: lightgrey;
+            font-style: italic;
+          }
+
+          li:hover {
+            color: var(--color-info-300);
+            cursor: pointer;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  .sidebar {
+    nb-card-header {
+      padding: 0px;
+    }
+
+    nb-card-body {
+      padding: 0px;
+
+      h6 {
+        margin: 0px;
+        padding-top: 22px;
+        padding-bottom: 22px;
+      }
+      nb-list {
+        nb-list-item:hover {
+            color: var(--color-info-300);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 300px);
+    grid-template-rows: auto;
+    grid-gap: 10px;
+    padding-top: 30px;
+  }
+
+  @media screen and (min-width: 1361px) {
+    .sidebar {
+      grid-area: 1 / col4-start / last-line / 6;
+
+      nb-card-header {
+        h5 {
+          font-size: 19px;
+        }
+      }
+    }
+    .grid-container {
+      grid-template-areas:
+    "left-content left-content";
+    }
+  }
+
+  @media screen and (max-width: 1360px) {
+    .sidebar {
+      grid-area: right-content;
+    }
+    .grid-container {
+      grid-template-columns: repeat(2,400px);
+      grid-template-areas:
+    "left-content left-content"
+      "right-content right-content"
+    }
+  }
+}
+
+.undefined-item {
+  list-style-type: none;
+}
+

@@ -23,9 +23,12 @@ exports[`components > bm-layout > bm-layout.component.spec.ts should match snaps
             class="fixed"
           >
             <button
+              aria-disabled="false"
+              class="appearance-ghost size-medium shape-round icon-start icon-end status-basic nb-transition"
               ghost=""
               nbbutton=""
               shape="round"
+              tabindex="0"
             >
               <nb-icon>
                 <svg

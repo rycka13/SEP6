@@ -17,7 +17,7 @@ import {
   NbButtonModule,
   NbSpinnerModule,
   NbListModule,
-  NbSearchModule, NbSearchService, NbInputModule, NbFormFieldModule
+  NbSearchModule, NbSearchService, NbInputModule, NbFormFieldModule, NbTooltipModule
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { BmLayoutComponent } from '../core/components/bm-layout/bm-layout.component';
@@ -33,19 +33,25 @@ import {PeopleComponent} from "src/app/information/people/people.component";
 import {PeopleState} from "src/app/information/people/people.state";
 import {environment} from "src/environments/environment";
 import {ApiService} from "src/core/services/api.service";
-import {DirectorsService} from "src/api/directors.service";
-import {MoviesService} from "src/api/movies.service";
-import {PeopleService} from "src/api/people.service";
-import {RatingsService} from "src/api/ratings.service";
-import {StarsService} from "src/api/stars.service";
+import {DirectorsService} from "src/api/directors/directors.service";
+import {MoviesService} from "src/api/movies/movies.service";
+import {RatingsService} from "src/api/ratings/ratings.service";
+import {StarsService} from "src/api/stars/stars.service";
 import {MoviesCell} from "src/core/cell-renderers/movies.column.cell";
 import { BmSearchComponent } from '../core/components/bm-search/bm-search.component';
+import { MoviesOverviewComponent } from './information/movies/movie-overview/movies-overview.component';
+import {MoviesOverviewState} from "src/app/information/movies/movie-overview/movies-overview.state";
+import {DirectorService} from "src/api/directors/director.service";
+import {MovieService} from "src/api/movies/movie.service";
+import {RatingService} from "src/api/ratings/rating.service";
+import {StarService} from "src/api/stars/star.service";
 
 
 export const STATES = [
   OverAllInformationState,
   MoviesState,
   PeopleState,
+  MoviesOverviewState,
 ]
 
 export const CELL_RENDERERS = [
@@ -62,9 +68,12 @@ export const COMPONENTS = [
   //overall information page
   OverallInformationComponent,
 
-  //information page
+  //information pages
   MoviesComponent,
   PeopleComponent,
+
+  //overview pages
+  MoviesOverviewComponent,
 
   //404 not found page
   NotFoundComponent,
@@ -75,10 +84,14 @@ export const PROVIDERS = [
 
   //Api services
   ApiService,
+  DirectorService,
   DirectorsService,
+  MovieService,
   MoviesService,
-  PeopleService,
+  // PeopleService,
+  RatingService,
   RatingsService,
+  StarService,
   StarsService
 ]
 
@@ -99,7 +112,10 @@ export const NEBULAR_MODULES = [
   NbThemeModule.forRoot({name: 'bm-theme'}),
   NbMenuModule.forRoot(),
   NbInputModule,
+  NbFormFieldModule,
+  NbTooltipModule
 ]
+
 @NgModule({
   declarations: [
     COMPONENTS,
@@ -114,7 +130,6 @@ export const NEBULAR_MODULES = [
       developmentMode: !environment.production,
     }),
     NEBULAR_MODULES,
-    NbFormFieldModule,
   ],
   providers: PROVIDERS,
   exports: [

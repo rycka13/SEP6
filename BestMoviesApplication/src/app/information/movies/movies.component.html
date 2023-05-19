@@ -46,9 +46,9 @@
               Show more
             </button>
           </div>
-          <img *ngIf="movie.posterUrl"
-               [src]="movie.posterUrl" [alt]="movie.title">
-          <img *ngIf="!movie.posterUrl"
+          <img *ngIf="movie.posterImage"
+               [src]="movie.posterImage" [alt]="movie.title">
+          <img *ngIf="!movie.posterImage"
                src="../../../assets/no-poster-available.jpg" [alt]="movie.title">
         </nb-card-body>
         <nb-card-footer class="footer-poster-movie">
@@ -86,9 +86,9 @@
               Show more
             </button>
           </div>
-          <img *ngIf="movie.posterUrl"
-               [src]="movie.posterUrl" [alt]="movie.title">
-          <img *ngIf="!movie.posterUrl"
+          <img *ngIf="movie.posterImage"
+               [src]="movie.posterImage" [alt]="movie.title">
+          <img *ngIf="!movie.posterImage"
                src="../../../assets/no-poster-available.jpg" [alt]="movie.title">
         </nb-card-body>
         <nb-card-footer class="footer-poster-movie">

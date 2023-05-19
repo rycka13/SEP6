@@ -1,6 +1,5 @@
 import {Selector} from "@ngxs/store";
 import {MoviesState, MoviesStateModel} from "./movies.state";
-import {Movie} from "src/model/movie";
 
 export class MoviesSelector {
   @Selector([MoviesState])

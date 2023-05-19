@@ -19,8 +19,10 @@ import {defaultsState} from "../people/people.state";
 import {NbEvaIconsModule} from "@nebular/eva-icons";
 import {FormsModule} from "@angular/forms";
 import {AgGridModule} from "ag-grid-angular";
-import {PROVIDERS, STATES} from "../../app.module";
+import {NEBULAR_MODULES, PROVIDERS, STATES} from "../../app.module";
 import {PeopleComponent} from "./people.component";
+import {HttpClientModule} from "@angular/common/http";
+import {environment} from "../../../environments/environment";
 
 describe('app > information > people > people.component.spec.ts', () => {
   let store: Store;
@@ -32,23 +34,13 @@ describe('app > information > people > people.component.spec.ts', () => {
       imports: [
         RouterTestingModule,
         BrowserModule,
+        HttpClientModule,
         AppRoutingModule,
         BrowserAnimationsModule,
-        NbThemeModule.forRoot({ name: 'bm-theme' }),
-        NbSidebarModule.forRoot(),
-        NbMenuModule.forRoot(),
-        NgxsModule.forRoot([
-          ...STATES
-        ]),
-        NbToastrModule.forRoot(),
-        NbIconModule,
-        NbLayoutModule,
-        NbEvaIconsModule,
-        NbCardModule,
-        NbActionsModule,
-        NbSearchModule,
-        FormsModule,
-        AgGridModule,
+        NgxsModule.forRoot(STATES, {
+          developmentMode: !environment.production,
+        }),
+        ...NEBULAR_MODULES,
       ],
       declarations: [],
       providers: [
