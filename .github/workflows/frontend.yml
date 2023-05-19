@@ -21,11 +21,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path: BestMoviesApplication/package-lock.json
-    - name: Enter frontend application
-      run: |
-        cd BestMoviesApplication
-        ls
+        cache-dependency-path: |
+          BestMoviesApplication/package-lock.json
+          BestMoviesApplication/package.json
     - name: Install dependencies
       run: npm ci
     - name: Build
