@@ -58,7 +58,6 @@ export class MoviesOverviewComponent {
     let movieId;
     this.route.params.subscribe(params => (movieId = params['movieId']));
 
-    console.log(movieId);
     const initialActions = [
       new MovieOverviewFetchInfo(movieId),
       new MovieOverviewFetchRating(movieId)
