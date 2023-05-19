@@ -21,7 +21,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path: |
+        path: |
           - BestMoviesApplication/package-lock.json
           - BestMoviesApplication/package.json
     - name: Install dependencies
