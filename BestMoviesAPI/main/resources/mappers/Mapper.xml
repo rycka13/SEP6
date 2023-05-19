@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <package name="com.bestmovies.sep6_project.model"/>
+    </typeAliases>
+    <mappers>
+        <mapper resource = "mappers/MovieMapper.xml"/>
+        <mapper resource = "mappers/RatingMapper.xml"/>
+        <mapper resource = "mappers/StarMapper.xml"/>
+        <mapper resource = "mappers/DirectorMapper.xml"/>
+    </mappers>
+</configuration>
