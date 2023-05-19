@@ -9,10 +9,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./BestMoviesApplication/
     strategy:
       matrix:
         node-version: [14.x, 16.x, 18.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
 
     steps:
     - uses: actions/checkout@v3
@@ -21,9 +25,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        path: |
-          - BestMoviesApplication/package-lock.json
-          - BestMoviesApplication/package.json
+        cache-dependency-path: BestMoviesApplication/package-lock.json
     - name: Install dependencies
       run: npm ci
     - name: Build
