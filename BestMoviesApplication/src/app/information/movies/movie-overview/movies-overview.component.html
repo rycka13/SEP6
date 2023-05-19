@@ -2,29 +2,28 @@
 </ng-container>
 <ng-template #dataFetched>
   <nb-card
-    *ngIf="movie$ | async as movie">
+    *ngIf="{movie: movie$ | async, rating: rating$ | async} as movieInformation">
     <nb-card-header>
       <div class="title-and-year">
         <h1>
           <span>
-            {{ movie.title }}
+            {{ movieInformation.movie.title }}
           </span>
         </h1>
         <ul>
           <li>
-            Year of publication: {{ movie.year}}
+            Year of publication: {{ movieInformation.movie.year}}
           </li>
         </ul>
       </div>
 
 <!--      TODO do rating with stars-->
-      <div class="rating"
-        *ngIf="rating$ | async as rating">
+      <div class="rating">
         <h3>
-          Rating {{rating.rating}}
+          Rating {{movieInformation.rating.rating}}
         </h3>
         <h6>
-          Votes: {{rating.votes}}
+          Votes: {{movieInformation.rating.votes}}
         </h6>
       </div>
     </nb-card-header>
@@ -32,10 +31,10 @@
       <div class="left-content">
         <nb-card size="medium" class="poster-movie-overview">
           <nb-card-body class="body-poster-movie">
-            <img *ngIf="movie.posterUrl"
-                 [src]="movie.posterUrl" [alt]="movie.title">
-            <img *ngIf="!movie.posterUrl"
-                 src="../../../assets/no-poster-available.jpg" [alt]="movie.title">
+            <img *ngIf="movieInformation.movie.posterUrl"
+                 [src]="movieInformation.movie.posterUrl" [alt]="movieInformation.movie.title">
+            <img *ngIf="!movieInformation.movie.posterUrl"
+                 src="../../../assets/no-poster-available.jpg" [alt]="movieInformation.movie.title">
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu ullamcorper dui. Ut suscipit urna et neque luctus, in malesuada lacus euismod. Mauris porttitor pellentesque placerat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce gravida vel lorem vitae mollis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu ullamcorper dui. Ut suscipit urna et neque luctus, in malesuada lacus euismod. Mauris porttitor pellentesque placerat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce gravida vel lorem vitae mollis.
             </p>
@@ -82,9 +81,44 @@
           <h5> Lists of top {{TOP_SIZE_LIST}} movies you might be interested</h5>
         </nb-card-header>
         <nb-card-body>
+          <h6>
+          <nb-icon
+          icon="arrow-forward-outline"
+          pack="eva"
+          ></nb-icon>
+            Top movies of all time
+          </h6>
           <nb-list *ngIf="topMovies$ | async as topMovies">
             <nb-list-item *ngFor="let movie of topMovies"
             (click)="redirectToMovieOverviewPage(movie.id)">
+              {{ movie.title }} from {{ movie.year }}
+            </nb-list-item>
+          </nb-list>
+
+          <h6>
+            <nb-icon
+              icon="arrow-forward-outline"
+              pack="eva"
+            ></nb-icon>
+            Top movies by rating {{ movieInformation.rating.rating }}
+          </h6>
+          <nb-list *ngIf="topMoviesByRating$ | async as topMoviesByRating">
+            <nb-list-item *ngFor="let movie of topMoviesByRating"
+                          (click)="redirectToMovieOverviewPage(movie.id)">
+              {{ movie.title }} from {{ movie.year }}
+            </nb-list-item>
+          </nb-list>
+
+          <h6>
+            <nb-icon
+              icon="arrow-forward-outline"
+              pack="eva"
+            ></nb-icon>
+            Top movies by year {{ movieInformation.movie.year }}
+          </h6>
+          <nb-list *ngIf="topMoviesByYear$ | async as topMoviesByRating">
+            <nb-list-item *ngFor="let movie of topMoviesByRating"
+                          (click)="redirectToMovieOverviewPage(movie.id)">
               {{ movie.title }} from {{ movie.year }}
             </nb-list-item>
           </nb-list>

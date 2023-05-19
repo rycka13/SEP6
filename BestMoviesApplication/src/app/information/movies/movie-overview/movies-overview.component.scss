@@ -130,6 +130,11 @@ nb-card {
     nb-card-body {
       padding: 0px;
 
+      h6 {
+        margin: 0px;
+        padding-top: 22px;
+        padding-bottom: 22px;
+      }
       nb-list {
         nb-list-item:hover {
             color: var(--color-info-300);
