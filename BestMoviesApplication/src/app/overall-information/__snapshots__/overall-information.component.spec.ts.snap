@@ -615,9 +615,7 @@ exports[`app > overall-information > overall-information.component.spec.ts shoul
                                   role="gridcell"
                                   style="left: 0px; width: 200px;"
                                   tabindex="-1"
-                                >
-                                  15724
-                                </div>
+                                />
                                 <div
                                   aria-colindex="2"
                                   class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
@@ -626,9 +624,7 @@ exports[`app > overall-information > overall-information.component.spec.ts shoul
                                   role="gridcell"
                                   style="left: 200px; width: 200px;"
                                   tabindex="-1"
-                                >
-                                  Dama de noche
-                                </div>
+                                />
                                 <div
                                   aria-colindex="3"
                                   class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
@@ -637,9 +633,7 @@ exports[`app > overall-information > overall-information.component.spec.ts shoul
                                   role="gridcell"
                                   style="left: 400px; width: 200px;"
                                   tabindex="-1"
-                                >
-                                  1993
-                                </div>
+                                />
                               </div>
                               <div
                                 aria-label="Press SPACE to select this row."
@@ -659,9 +653,7 @@ exports[`app > overall-information > overall-information.component.spec.ts shoul
                                   role="gridcell"
                                   style="left: 0px; width: 200px;"
                                   tabindex="-1"
-                                >
-                                  16906
-                                </div>
+                                />
                                 <div
                                   aria-colindex="2"
                                   class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
@@ -670,9 +662,7 @@ exports[`app > overall-information > overall-information.component.spec.ts shoul
                                   role="gridcell"
                                   style="left: 200px; width: 200px;"
                                   tabindex="-1"
-                                >
-                                  Frivolinas
-                                </div>
+                                />
                                 <div
                                   aria-colindex="3"
                                   class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
@@ -681,9 +671,7 @@ exports[`app > overall-information > overall-information.component.spec.ts shoul
                                   role="gridcell"
                                   style="left: 400px; width: 200px;"
                                   tabindex="-1"
-                                >
-                                  2014
-                                </div>
+                                />
                               </div>
                               <div
                                 aria-label="Press SPACE to select this row."
@@ -703,9 +691,7 @@ exports[`app > overall-information > overall-information.component.spec.ts shoul
                                   role="gridcell"
                                   style="left: 0px; width: 200px;"
                                   tabindex="-1"
-                                >
-                                  31458
-                                </div>
+                                />
                                 <div
                                   aria-colindex="2"
                                   class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
@@ -714,9 +700,7 @@ exports[`app > overall-information > overall-information.component.spec.ts shoul
                                   role="gridcell"
                                   style="left: 200px; width: 200px;"
                                   tabindex="-1"
-                                >
-                                  El huésped del sevillano
-                                </div>
+                                />
                                 <div
                                   aria-colindex="3"
                                   class="ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height"
@@ -725,9 +709,7 @@ exports[`app > overall-information > overall-information.component.spec.ts shoul
                                   role="gridcell"
                                   style="left: 400px; width: 200px;"
                                   tabindex="-1"
-                                >
-                                  1970
-                                </div>
+                                />
                               </div>
                             </div>
                           </div>
@@ -1055,7 +1037,7 @@ exports[`app > overall-information > overall-information.component.spec.ts shoul
                 </g>
               </svg>
             </nb-icon>
-             Movies: 200 
+             Movies: 0 
           </div>
           <div>
             <nb-icon
