@@ -34,11 +34,43 @@
             </p>
           </nb-card-body>
         </nb-card>
+
         <div class="border">
         </div>
-        <div class="directors-stars">
-          sdasda
-        </div>
+
+        <nb-card class="directors-stars"
+        *ngIf="{ stars: stars$ | async, directors: directors$ | async} as cast">
+          <nb-card-header>
+            <h3>
+              Directors and actors
+            </h3>
+          </nb-card-header>
+          <nb-card-body>
+<!--            directors-->
+            <ul>
+              <li *ngFor="let director of cast.directors"
+                  [ngClass]="{ 'undefined-item': director === undefined }"
+                  (click)="redirectToDirectorOverview(director.id)">
+                <ng-container *ngIf="director !== undefined">
+                  {{ director.name }}
+                </ng-container>
+              </li>
+            </ul>
+
+<!--            stars-->
+            <ul>
+              <li *ngFor="let star of cast.stars"
+                  [ngClass]="{ 'undefined-item': star === undefined }"
+                  (click)="redirectToStarOverview(star.id)">
+                <ng-container *ngIf="star !== undefined">
+                  {{ star.name }}
+                </ng-container>
+              </li>
+            </ul>
+          </nb-card-body>
+
+        </nb-card>
+
         <div class="list-of-reviews">
 
         </div>

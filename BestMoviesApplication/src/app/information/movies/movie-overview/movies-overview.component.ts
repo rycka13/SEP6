@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Select, Store} from "@ngxs/store";
 import {Observable} from "rxjs";
@@ -11,7 +11,7 @@ import {
   MovieOverviewFetchMoviesFromSameYear,
   MovieOverviewFetchRating,
   MovieOverviewFetchSameRatingRange,
-  MovieOverviewFetchStars
+  MovieOverviewFetchStars, MovieOverviewReset
 } from "src/app/information/movies/movie-overview/movies-overview.actions";
 import {Rating} from "src/model/rating";
 import {Director} from "src/model/director";
@@ -24,7 +24,7 @@ import {NbToastrService} from "@nebular/theme";
   templateUrl: './movies-overview.component.html',
   styleUrls: ['./movies-overview.component.scss']
 })
-export class MoviesOverviewComponent {
+export class MoviesOverviewComponent implements OnInit, OnDestroy{
 
   @Select(MoviesOverviewSelector.isFetching)
   isFetching$: Observable<boolean>;
@@ -50,11 +50,15 @@ export class MoviesOverviewComponent {
   @Select(MoviesOverviewSelector.topMoviesByYear)
   topMoviesByYear$: Observable<Movie[]>;
 
+  alive: boolean = true;
   constructor(
     private route: ActivatedRoute,
     private store: Store,
     private nbToastrService: NbToastrService,
   ) {
+  }
+
+  ngOnInit() {
     let movieId;
     this.route.params.subscribe(params => (movieId = params['movieId']));
 
@@ -93,7 +97,24 @@ export class MoviesOverviewComponent {
         new MovieOverviewFetchDirectors(movieId)
       ];
 
-      this.store.dispatch(actionsInParallel);
+      this.store.dispatch(actionsInParallel).subscribe(() =>
+      {
+        let stars = this.store.selectSnapshot(MoviesOverviewSelector.stars);
+        console.log(stars);
+      });
     });
+  }
+
+  ngOnDestroy() {
+    this.alive = false;
+    this.store.dispatch(new MovieOverviewReset());
+  }
+
+  redirectToDirectorOverview(directorId) {
+    //TODO: not implemented yet
+  }
+
+  redirectToStarOverview(starId) {
+    //TODO: not implemented yet
   }
 }
