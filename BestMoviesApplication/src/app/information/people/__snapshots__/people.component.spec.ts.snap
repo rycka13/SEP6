@@ -806,12 +806,12 @@ exports[`app > information > people > people.component.spec.ts should match snap
                                   <movies-cell>
                                     <div>
                                       <span>
-                                        La tierra de los toros from 2000
+                                         from 
                                       </span>
                                     </div>
                                     <div>
                                       <span>
-                                        Dama de noche from 1993
+                                         from 
                                       </span>
                                     </div>
                                   </movies-cell>
@@ -882,12 +882,12 @@ exports[`app > information > people > people.component.spec.ts should match snap
                                   <movies-cell>
                                     <div>
                                       <span>
-                                        Dama de noche from 1993
+                                         from 
                                       </span>
                                     </div>
                                     <div>
                                       <span>
-                                        Frivolinas from 2014
+                                         from 
                                       </span>
                                     </div>
                                   </movies-cell>
@@ -958,12 +958,12 @@ exports[`app > information > people > people.component.spec.ts should match snap
                                   <movies-cell>
                                     <div>
                                       <span>
-                                        La tierra de los toros from 2000
+                                         from 
                                       </span>
                                     </div>
                                     <div>
                                       <span>
-                                        Dama de noche from 1993
+                                         from 
                                       </span>
                                     </div>
                                   </movies-cell>
@@ -1034,12 +1034,12 @@ exports[`app > information > people > people.component.spec.ts should match snap
                                   <movies-cell>
                                     <div>
                                       <span>
-                                        La tierra de los toros from 2000
+                                         from 
                                       </span>
                                     </div>
                                     <div>
                                       <span>
-                                        Dama de noche from 1993
+                                         from 
                                       </span>
                                     </div>
                                   </movies-cell>
@@ -1110,12 +1110,12 @@ exports[`app > information > people > people.component.spec.ts should match snap
                                   <movies-cell>
                                     <div>
                                       <span>
-                                        Kate & Leopold from 2001
+                                         from 
                                       </span>
                                     </div>
                                     <div>
                                       <span>
-                                        Another Time, Another Place from 1983
+                                         from 
                                       </span>
                                     </div>
                                   </movies-cell>
@@ -1186,12 +1186,12 @@ exports[`app > information > people > people.component.spec.ts should match snap
                                   <movies-cell>
                                     <div>
                                       <span>
-                                        Let There Be Light from 1980
+                                         from 
                                       </span>
                                     </div>
                                     <div>
                                       <span>
-                                        Another Time, Another Place from 1983
+                                         from 
                                       </span>
                                     </div>
                                   </movies-cell>
@@ -1262,12 +1262,12 @@ exports[`app > information > people > people.component.spec.ts should match snap
                                   <movies-cell>
                                     <div>
                                       <span>
-                                        Kate & Leopold from 2001
+                                         from 
                                       </span>
                                     </div>
                                     <div>
                                       <span>
-                                        El huésped del sevillano from 1970
+                                         from 
                                       </span>
                                     </div>
                                   </movies-cell>
