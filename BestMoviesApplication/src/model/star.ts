@@ -5,4 +5,5 @@ export interface Star {
   id: number;
   name: string;
   birth: number;
+  posterImage: string;
 }
