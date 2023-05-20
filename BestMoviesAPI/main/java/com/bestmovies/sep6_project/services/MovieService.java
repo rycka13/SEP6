@@ -32,7 +32,7 @@ public class MovieService {
     public Movie getMovieById(long id) {
         Movie movieById = movieMapper.getMovieById(id);
         setMovieImages(movieById);
-        return movieMapper.getMovieById(id);
+        return movieById;
     }
 
     public boolean createMovie(Movie movie) {
