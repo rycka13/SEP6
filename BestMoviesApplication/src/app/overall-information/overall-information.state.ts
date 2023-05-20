@@ -66,7 +66,6 @@ export class OverAllInformationState {
     }
     catch (e) {
       this.toastrService.show('Error...', 'Fetching overall information went wrong.', { status: 'danger'});
-      console.log(e);
     }
 
     newState = produce(currentState, draft => {

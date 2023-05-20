@@ -67,7 +67,7 @@ export class MoviesState {
       this.allMovies = moviesMock;
     } catch (e) {
       this.toastrService.show('danger', 'Fetching movies went wrong.');
-      console.log(e);
+
     }
 
     newState = produce(currentState, draft => {
@@ -104,7 +104,7 @@ export class MoviesState {
       moviesToDisplayNext = paginate(this.allMovies, pageSize, pageToLoadNext);
     } catch (e) {
       this.toastrService.show('danger', 'Fetching next movies went wrong.');
-      console.log(e);
+
     }
 
     newState = produce(currentState, draft => {
