@@ -169,11 +169,10 @@ export class MoviesOverviewState {
     let rating: Rating;
     try {
       //mock
-      rating = ratingsMock[1];
+      // rating = ratingsMock[1];
 
       //real data
-      //TODO - this is DELETE in BE, it needs to be GET
-      // rating = await this.ratingService.getRatingByMovieId(action.movieId);
+      rating = await this.ratingService.getRatingByMovieId(action.movieId);
     }
     catch (e) {
       console.log(e);
