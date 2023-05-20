@@ -1,4 +1,4 @@
-<ng-container *ngIf="((isFetching$ | async) || (isFetchingBestMovies$ | async)); then dataFetching; else dataFetched"></ng-container>
+<ng-container *ngIf="isFetching$ | async; then dataFetching; else dataFetched"></ng-container>
 <ng-template #dataFetched>
   <div class="overall-information">
     <div class="best-movies">
@@ -9,7 +9,6 @@
          </span>
 
           <nb-select
-            *ngIf="!(isFetchingBestMovies$ | async)"
             [(selected)]="TOP_BEST_MOVIES"
             (selectedChange)="loadMovies(getLoadEnum().BEST_MOVIES)"
             hero status="info" shape="round">

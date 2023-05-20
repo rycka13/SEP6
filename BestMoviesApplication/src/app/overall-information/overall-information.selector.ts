@@ -1,5 +1,9 @@
 import {Selector} from "@ngxs/store";
 import {OverAllInformationState, OverAllInformationStateModel} from "./overall-information.state";
+import {
+  MovieOverviewStateModel,
+  MoviesOverviewState
+} from "src/app/information/movies/movie-overview/movies-overview.state";
 
 export class OverallInformationSelector {
   @Selector([OverAllInformationState])
@@ -20,5 +24,20 @@ export class OverallInformationSelector {
   @Selector([OverAllInformationState])
   static people(state: OverAllInformationStateModel) {
     return state.people;
+  }
+
+  @Selector([OverAllInformationState])
+  static topMovies(state: OverAllInformationStateModel) {
+    return state.topMovies;
+  }
+
+  @Selector([OverAllInformationState])
+  static topMoviesByRating(state: OverAllInformationStateModel) {
+    return state.topMoviesByRating;
+  }
+
+  @Selector([OverAllInformationState])
+  static topMoviesByYear(state: OverAllInformationStateModel) {
+    return state.topMoviesByYear;
   }
 }
