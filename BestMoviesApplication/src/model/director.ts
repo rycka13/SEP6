@@ -5,4 +5,5 @@ export interface Director {
   id: number;
   name: string;
   birth: number;
+  posterImage: string;
 }
