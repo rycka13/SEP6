@@ -71,6 +71,12 @@
         ORDER BY r.rating DESC
             LIMIT #{n};
     </select>
+    <select id="getNMoviesByPage" resultMap="result">
+        SELECT *
+        FROM movies
+        ORDER BY id
+            LIMIT ${(pageNum - 1) * limit}, #{limit}
+    </select>
 
     <insert id="createMovie" parameterType="Movie" useGeneratedKeys='true' keyProperty='id'>
         INSERT INTO movies (title, year)
