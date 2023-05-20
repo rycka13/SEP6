@@ -17,6 +17,7 @@ public interface IMovieMapper {
     List<Movie> getNMostPopularMovies(int n);
     List<Movie> getNBestRatedMovies(int n);
     List<Movie> getMoviesByTitle(String title);
+    List<Movie> getNMoviesByPage(int pageNum, int limit);
     void createMovie(Movie movie);
     void updateMovie(Movie movie);
     void deleteMovie(long id);
