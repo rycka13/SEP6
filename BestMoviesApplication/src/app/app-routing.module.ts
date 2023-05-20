@@ -5,6 +5,7 @@ import {NotFoundComponent} from "src/app/not-found/not-found.component";
 import {MoviesComponent} from "src/app/information/movies/movies.component";
 import {PeopleComponent} from "src/app/information/people/people.component";
 import {MoviesOverviewComponent} from "src/app/information/movies/movie-overview/movies-overview.component";
+import {PeopleOverviewComponent} from "src/app/information/people/people-overview/people-overview.component";
 
 const routes: Routes = [
   {
@@ -26,10 +27,16 @@ const routes: Routes = [
         component: MoviesOverviewComponent,
       },
       {
-        path:'people',
+        path: 'people',
         title: 'Information People',
         component: PeopleComponent,
+      },
+      {
+        path: 'people/:peopleType/:personId',
+        title: 'Person Overview',
+        component: PeopleOverviewComponent,
       }
+
     ]
   },
   { path: '',

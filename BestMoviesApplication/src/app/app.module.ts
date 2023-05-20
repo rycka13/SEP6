@@ -46,6 +46,7 @@ import {MovieService} from "src/api/movies/movie.service";
 import {RatingService} from "src/api/ratings/rating.service";
 import {StarService} from "src/api/stars/star.service";
 import { PeopleOverviewComponent } from './information/people/people-overview/people-overview.component';
+import {PeopleAdapter} from "src/app/information/people/people-overview/adapter/PeopleAdapter";
 
 
 export const STATES = [
@@ -84,12 +85,16 @@ export const COMPONENTS = [
 export const PROVIDERS = [
   NbSearchService,
 
+  //adapters
+  PeopleAdapter,
+
   //Api services
   ApiService,
   DirectorService,
   DirectorsService,
   MovieService,
   MoviesService,
+
   // PeopleService,
   RatingService,
   RatingsService,
