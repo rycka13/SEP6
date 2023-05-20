@@ -1,10 +1,25 @@
-<ng-container *ngIf="isFetching$ | async; then dataFetching; else dataFetched"></ng-container>
+<ng-container *ngIf="((isFetching$ | async) || (isFetchingBestMovies$ | async)); then dataFetching; else dataFetched"></ng-container>
 <ng-template #dataFetched>
   <div class="overall-information">
     <div class="best-movies">
       <nb-card>
         <nb-card-header>
-          Best {{TOP}} movies of all time
+         <span class="title">
+            Best {{TOP_BEST_MOVIES}} movies of all time
+         </span>
+
+          <nb-select
+            *ngIf="!(isFetchingBestMovies$ | async)"
+            [(selected)]="TOP_BEST_MOVIES"
+            (selectedChange)="loadBestMovies()"
+            hero status="info" shape="round">
+
+            <nb-option
+              value="5">Top 5</nb-option>
+            <nb-option value="10">Top 10</nb-option>
+            <nb-option value="15">Top 15</nb-option>
+            <nb-option value="20">Top 20</nb-option>
+          </nb-select>
         </nb-card-header>
         <nb-card-body>
           <nb-list
@@ -46,7 +61,22 @@
     <div class="best-movies-by-year">
       <nb-card>
         <nb-card-header>
-          Best {{TOP}} movies by year {{YEAR}}
+          <span class="title">
+            Best {{TOP_BEST_MOVIES_YEAR}} movies by year {{YEAR}}
+          </span>
+
+          <nb-select
+            *ngIf="!(isFetchingBestMovies$ | async)"
+            [(selected)]="TOP_BEST_MOVIES_YEAR"
+            (selectedChange)="loadBestMoviesByYear()"
+            hero status="info" shape="round">
+
+            <nb-option
+              value="5">Top 5</nb-option>
+            <nb-option value="10">Top 10</nb-option>
+            <nb-option value="15">Top 15</nb-option>
+            <nb-option value="20">Top 20</nb-option>
+          </nb-select>
         </nb-card-header>
         <nb-card-body>
           <nb-list
@@ -109,6 +139,8 @@
   </div>
 </ng-template>
 
+<ng-template #optionsSelect>
+</ng-template>
 <ng-template #dataFetching>
   <nb-spinner
     [nbSpinner]="true"

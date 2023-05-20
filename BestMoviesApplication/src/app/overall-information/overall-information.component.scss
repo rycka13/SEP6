@@ -2,7 +2,17 @@
 @import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 nb-card-header {
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .title {
+    flex-grow: 1;
+    text-align: center;
+  }
+
+  nb-select {
+
+  }
 }
 
 .overall-information {

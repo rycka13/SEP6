@@ -36,6 +36,9 @@ export class OverallInformationComponent implements OnInit, OnDestroy{
   @Select(OverallInformationSelector.people)
   people$: Observable<Person[]>;
 
+  @Select(MoviesOverviewSelector.isFetching)
+  isFetchingBestMovies$: Observable<boolean>;
+
   @Select(MoviesOverviewSelector.topMovies)
   bestMovies$: Observable<Movie[]>;
 
@@ -46,7 +49,8 @@ export class OverallInformationComponent implements OnInit, OnDestroy{
   gridColumnApi: ColumnApi;
   @ViewChild('agGridAngular') agGrid!: AgGridAngular;
 
-  TOP: number = 5;
+  TOP_BEST_MOVIES: string = '5';
+  TOP_BEST_MOVIES_YEAR: string = '5';
   YEAR: number;
 
 
@@ -61,8 +65,8 @@ export class OverallInformationComponent implements OnInit, OnDestroy{
     const actionsInParallel = [
       new OverAllInformationFetchInfo(),
       new OverAllInformationBestMoviesFetch(),
-      new MovieOverviewFetchBestMoviesTop(this.TOP),
-      new MovieOverviewFetchMoviesFromSameYear(this.TOP, this.YEAR),
+      new MovieOverviewFetchBestMoviesTop(Number(this.TOP_BEST_MOVIES)),
+      new MovieOverviewFetchMoviesFromSameYear(Number(this.TOP_BEST_MOVIES_YEAR), this.YEAR),
     ];
     this.store.dispatch([...actionsInParallel]);
   }
@@ -71,6 +75,13 @@ export class OverallInformationComponent implements OnInit, OnDestroy{
     this.router.navigate([`/information/movies/${movieId}`]);
   }
 
+  loadBestMovies() {
+    this.store.dispatch(new MovieOverviewFetchBestMoviesTop(Number(this.TOP_BEST_MOVIES)));
+  }
+
+  loadBestMoviesByYear() {
+    this.store.dispatch(new MovieOverviewFetchMoviesFromSameYear(Number(this.TOP_BEST_MOVIES_YEAR), this.YEAR));
+  }
   ngOnDestroy() {
     this.alive = false;
     this.store.dispatch(new OverAllInformationReset());
