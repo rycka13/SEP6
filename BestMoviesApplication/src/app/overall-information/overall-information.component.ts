@@ -4,23 +4,20 @@ import {OverallInformationSelector} from "./overall-information.selector";
 import {Observable} from "rxjs";
 import {Movie} from "../../model/movie";
 import {Person} from "../../model/person";
-import {
-  OverAllInformationBestMoviesFetch,
-  OverAllInformationFetchInfo,
-  OverAllInformationReset
-} from "./overall-information.actions";
 import {ColumnApi, GridApi} from "ag-grid-community";
 import {AgGridAngular} from "ag-grid-angular";
 import {Router} from "@angular/router";
-import {
-  MovieOverviewFetchBestMoviesTop,
-  MovieOverviewFetchMoviesFromSameYear,
-  MovieOverviewFetchSameRatingRange
-} from "src/app/information/movies/movie-overview/movies-overview.actions";
 import {MoviesOverviewSelector} from "src/app/information/movies/movie-overview/movies-overview.selector";
 import {NbToastrService} from "@nebular/theme";
 import {randomNumberFromInterval} from "src/util/utils_functions";
 import {LoadEnum, SearchByEnum} from "src/app/overall-information/constants";
+import {
+  OverAllInformationFetchBestMoviesTop,
+  OverAllInformationFetchInfo,
+  OverAllInformationFetchMoviesFromSameYear,
+  OverAllInformationFetchSameRatingRange,
+  OverAllInformationReset
+} from "src/app/overall-information/overall-information.actions";
 
 @Component({
   selector: 'app-overall-information',
@@ -40,16 +37,13 @@ export class OverallInformationComponent implements OnInit, OnDestroy {
   @Select(OverallInformationSelector.people)
   people$: Observable<Person[]>;
 
-  @Select(MoviesOverviewSelector.isFetching)
-  isFetchingBestMovies$: Observable<boolean>;
-
-  @Select(MoviesOverviewSelector.topMovies)
+  @Select(OverallInformationSelector.topMovies)
   bestMovies$: Observable<Movie[]>;
 
-  @Select(MoviesOverviewSelector.topMoviesByYear)
+  @Select(OverallInformationSelector.topMoviesByYear)
   bestMoviesByYear$: Observable<Movie[]>;
 
-  @Select(MoviesOverviewSelector.topMoviesByRating)
+  @Select(OverallInformationSelector.topMoviesByRating)
   bestMoviesByRating$: Observable<Movie[]>;
 
   gridApi: GridApi;
@@ -91,10 +85,9 @@ export class OverallInformationComponent implements OnInit, OnDestroy {
     this.moviesByRatingPlaceHolder = `Rating searched ${this.RATING_SEARCHED}`;
     const actionsInParallel = [
       new OverAllInformationFetchInfo(),
-      new OverAllInformationBestMoviesFetch(),
-      new MovieOverviewFetchBestMoviesTop(Number(this.TOP_BEST_MOVIES)),
-      new MovieOverviewFetchMoviesFromSameYear(Number(this.LIST_MOVIES_YEAR), this.YEAR_NOW),
-      new MovieOverviewFetchSameRatingRange(Number(this.LIST_MOVIES_RATING), this.RATING_SEARCHED)
+      new OverAllInformationFetchBestMoviesTop(Number(this.TOP_BEST_MOVIES)),
+      new OverAllInformationFetchMoviesFromSameYear(Number(this.LIST_MOVIES_YEAR), this.YEAR_NOW),
+      new OverAllInformationFetchSameRatingRange(Number(this.LIST_MOVIES_RATING), this.RATING_SEARCHED)
     ];
     this.store.dispatch([...actionsInParallel]);
   }
@@ -111,7 +104,7 @@ export class OverallInformationComponent implements OnInit, OnDestroy {
       else {
         this.moviesByYearIsFiltered = true;
         this.moviesByYearPlaceHolder = `Year searched ${this.YEAR_SEARCHED}`;
-        this.store.dispatch(new MovieOverviewFetchMoviesFromSameYear(Number(this.LIST_MOVIES_YEAR), this.YEAR_SEARCHED));
+        this.store.dispatch(new OverAllInformationFetchMoviesFromSameYear(Number(this.LIST_MOVIES_YEAR), this.YEAR_SEARCHED));
       }
     }
     else if(searchBy == SearchByEnum.RATING) {
@@ -125,7 +118,7 @@ export class OverallInformationComponent implements OnInit, OnDestroy {
       else {
         this.moviesByRatingIsFiltered = true;
         this.moviesByRatingPlaceHolder = `Rating searched ${this.RATING_SEARCHED}`;
-        this.store.dispatch(new MovieOverviewFetchSameRatingRange(Number(this.LIST_MOVIES_RATING), this.RATING_SEARCHED));
+        this.store.dispatch(new OverAllInformationFetchSameRatingRange(Number(this.LIST_MOVIES_RATING), this.RATING_SEARCHED));
       }
     }
   }
@@ -135,13 +128,13 @@ export class OverallInformationComponent implements OnInit, OnDestroy {
       this.moviesByYearIsFiltered = false;
       this.YEAR_SEARCHED = this.YEAR_NOW;
       this.moviesByYearPlaceHolder = `Year searched ${this.YEAR_SEARCHED}`;
-      this.store.dispatch(new MovieOverviewFetchMoviesFromSameYear(Number(this.LIST_MOVIES_YEAR), this.YEAR_NOW));
+      this.store.dispatch(new OverAllInformationFetchMoviesFromSameYear(Number(this.LIST_MOVIES_YEAR), this.YEAR_NOW));
     }
     else if(searchBy == SearchByEnum.RATING) {
       this.moviesByRatingIsFiltered = false;
       this.RATING_SEARCHED = this.RANDOMLY_RATING;
       this.moviesByRatingPlaceHolder = `Rating searched ${this.RANDOMLY_RATING}`;
-      this.store.dispatch(new MovieOverviewFetchSameRatingRange(Number(this.LIST_MOVIES_RATING), this.RANDOMLY_RATING));
+      this.store.dispatch(new OverAllInformationFetchSameRatingRange(Number(this.LIST_MOVIES_RATING), this.RANDOMLY_RATING));
     }
   }
 
@@ -152,15 +145,15 @@ export class OverallInformationComponent implements OnInit, OnDestroy {
   loadMovies(loadBy: LoadEnum) {
     switch (loadBy) {
       case LoadEnum.BEST_MOVIES: {
-        this.store.dispatch(new MovieOverviewFetchBestMoviesTop(Number(this.TOP_BEST_MOVIES)));
+        this.store.dispatch(new OverAllInformationFetchBestMoviesTop(Number(this.TOP_BEST_MOVIES)));
         break;
       }
       case LoadEnum.MOVIES_BY_YEAR: {
-        this.store.dispatch(new MovieOverviewFetchMoviesFromSameYear(Number(this.LIST_MOVIES_YEAR), this.YEAR_NOW));
+        this.store.dispatch(new OverAllInformationFetchMoviesFromSameYear(Number(this.LIST_MOVIES_YEAR), this.YEAR_NOW));
         break;
       }
       case LoadEnum.MOVIES_BY_RATING: {
-        this.store.dispatch(new MovieOverviewFetchSameRatingRange(Number(this.LIST_MOVIES_YEAR), this.RANDOMLY_RATING));
+        this.store.dispatch(new OverAllInformationFetchSameRatingRange(Number(this.LIST_MOVIES_YEAR), this.RANDOMLY_RATING));
         break;
       }
     }
