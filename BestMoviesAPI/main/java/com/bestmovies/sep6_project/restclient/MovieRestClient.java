@@ -37,7 +37,7 @@ public class MovieRestClient {
     }
 
     public MovieResult getAllByName(String movieName){
-        String uri = "https://api.themoviedb.org/3/search/movie?api_key=" + apiKey + "&query=\"" + movieName + "\"";
+        String uri = "https://api.themoviedb.org/3/search/movie?api_key=" + apiKey + "&&query=\"" + movieName + "\"";
         String result = template.getForObject(uri, String.class);
         if(result != null){
             return gson.fromJson(result, MovieResult.class);
