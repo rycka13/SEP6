@@ -11,6 +11,7 @@ export const starsMock: Star[] = [
     id: peopleMock[6].id,
     name: peopleMock[6].name,
     birth: peopleMock[6].birth,
+    posterImage: peopleMock[6].posterImage,
   },
   {
     movies: [
@@ -20,6 +21,7 @@ export const starsMock: Star[] = [
     id: peopleMock[5].id,
     name: peopleMock[5].name,
     birth: peopleMock[5].birth,
+    posterImage: peopleMock[5].posterImage,
   },
   {
     movies: [
@@ -29,5 +31,6 @@ export const starsMock: Star[] = [
     id: peopleMock[4].id,
     name: peopleMock[4].name,
     birth: peopleMock[4].birth,
+    posterImage: peopleMock[4].posterImage,
   },
 ]
