@@ -17,7 +17,7 @@ import {
   NbButtonModule,
   NbSpinnerModule,
   NbListModule,
-  NbSearchModule, NbSearchService, NbInputModule, NbFormFieldModule, NbTooltipModule
+  NbSearchModule, NbSearchService, NbInputModule, NbFormFieldModule, NbTooltipModule, NbSelectModule
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { BmLayoutComponent } from '../core/components/bm-layout/bm-layout.component';
@@ -130,6 +130,7 @@ export const NEBULAR_MODULES = [
       developmentMode: !environment.production,
     }),
     NEBULAR_MODULES,
+    NbSelectModule,
   ],
   providers: PROVIDERS,
   exports: [
