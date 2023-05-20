@@ -45,6 +45,7 @@ import {DirectorService} from "src/api/directors/director.service";
 import {MovieService} from "src/api/movies/movie.service";
 import {RatingService} from "src/api/ratings/rating.service";
 import {StarService} from "src/api/stars/star.service";
+import { PeopleOverviewComponent } from './information/people/people-overview/people-overview.component';
 
 
 export const STATES = [
@@ -74,6 +75,7 @@ export const COMPONENTS = [
 
   //overview pages
   MoviesOverviewComponent,
+  PeopleOverviewComponent,
 
   //404 not found page
   NotFoundComponent,
