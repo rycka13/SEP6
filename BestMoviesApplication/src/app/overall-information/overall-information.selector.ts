@@ -8,6 +8,11 @@ export class OverallInformationSelector {
   }
 
   @Selector([OverAllInformationState])
+  static moviesByYearIsFiltered(state: OverAllInformationStateModel) {
+    return state.moviesByYearIsFiltered;
+  }
+
+  @Selector([OverAllInformationState])
   static movies(state: OverAllInformationStateModel) {
     return state.movies;
   }

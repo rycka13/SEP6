@@ -7,6 +7,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
         <input #searchInput
                (keyup.enter)="search(searchInput.value)"
                 (blur)="onReset(searchInput.value); searchInput.value = ''"
+               [placeholder]="placeHolder"
         nbInput
         >
         <button
@@ -34,6 +35,7 @@ export class BmSearchComponent {
   @Output() searchEvent = new EventEmitter<string>();
   @Output() resetSearch = new EventEmitter<void>();
   @Input() isFiltered: boolean;
+  @Input() placeHolder: string;
 
   constructor() {
   }
