@@ -10,7 +10,6 @@ exports[`app > overall-information > overall-information.component.spec.ts shoul
   YEAR_NOW={[Function Number]}
   YEAR_SEARCHED={[Function Number]}
   __isFetching$__selector={[Function Observable]}
-  __isFetchingBestMovies$__selector={[Function Observable]}
   agGrid="undefined"
   alive={[Function Boolean]}
   moviesByRatingIsFiltered="false"
