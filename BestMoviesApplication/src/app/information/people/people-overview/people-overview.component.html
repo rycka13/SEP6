@@ -1,1 +1,136 @@
-<p>people-overview works!</p>
+<!--<ng-container *ngIf="isFetching$ | async; then dataFetching; else dataFetched">-->
+<!--</ng-container>-->
+<!--<ng-template #dataFetched>-->
+<!--  <nb-card-->
+<!--    *ngIf="person$ | async as person">-->
+<!--    <nb-card-header>-->
+<!--      <div class="title-and-year">-->
+<!--        <h1>-->
+<!--          <span>-->
+<!--            {{ person.name }}-->
+<!--          </span>-->
+<!--        </h1>-->
+<!--        <ul>-->
+<!--          <li>-->
+<!--            Year of birth: {{ person.birth }}-->
+<!--          </li>-->
+<!--        </ul>-->
+<!--      </div>-->
+<!--    </nb-card-header>-->
+<!--    <nb-card-body class="grid-container">-->
+<!--      <div class="left-content">-->
+<!--        <nb-card size="medium" class="poster-movie-overview">-->
+<!--          <nb-card-body class="body-poster-movie">-->
+<!--            <img *ngIf=""-->
+<!--                 [src]="movieInformation?.movie?.posterImage" [alt]="movieInformation?.movie?.title">-->
+<!--            <img *ngIf="!movieInformation?.movie?.posterImage"-->
+<!--                 src="../../../assets/no-poster-available.jpg" [alt]="movieInformation?.movie?.title">-->
+<!--            <p>-->
+<!--              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu ullamcorper dui. Ut suscipit urna et-->
+<!--              neque luctus, in malesuada lacus euismod. Mauris porttitor pellentesque placerat. Class aptent taciti-->
+<!--              sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce gravida vel lorem vitae-->
+<!--              mollis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu ullamcorper dui. Ut suscipit-->
+<!--              urna et neque luctus, in malesuada lacus euismod. Mauris porttitor pellentesque placerat. Class aptent-->
+<!--              taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce gravida vel lorem-->
+<!--              vitae mollis.-->
+<!--            </p>-->
+<!--          </nb-card-body>-->
+<!--        </nb-card>-->
+
+<!--        <div class="border">-->
+<!--        </div>-->
+
+<!--        <nb-card class="directors-stars"-->
+<!--                 *ngIf="{ stars: stars$ | async, directors: directors$ | async} as cast">-->
+<!--          <nb-card-header>-->
+<!--            <h3>-->
+<!--              Directors and actors-->
+<!--            </h3>-->
+<!--          </nb-card-header>-->
+<!--          <nb-card-body>-->
+<!--            &lt;!&ndash;            directors&ndash;&gt;-->
+<!--            <ul>-->
+<!--              <li *ngFor="let director of cast.directors"-->
+<!--                  [ngClass]="{ 'undefined-item': director === undefined }"-->
+<!--                  (click)="redirectToDirectorOverview(director.id)">-->
+<!--                <ng-container *ngIf="director !== undefined">-->
+<!--                  {{ director.name }}-->
+<!--                </ng-container>-->
+<!--              </li>-->
+<!--            </ul>-->
+
+<!--            &lt;!&ndash;            stars&ndash;&gt;-->
+<!--            <ul>-->
+<!--              <li *ngFor="let star of cast.stars"-->
+<!--                  [ngClass]="{ 'undefined-item': star === undefined }"-->
+<!--                  (click)="redirectToStarOverview(star.id)">-->
+<!--                <ng-container *ngIf="star !== undefined">-->
+<!--                  {{ star.name }}-->
+<!--                </ng-container>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </nb-card-body>-->
+<!--        </nb-card>-->
+<!--      </div>-->
+<!--      <nb-card class="sidebar">-->
+<!--        <nb-card-header>-->
+<!--          <h5> Lists of top {{TOP_SIZE_LIST}} movies you might be interested</h5>-->
+<!--        </nb-card-header>-->
+<!--        <nb-card-body>-->
+<!--          <h6>-->
+<!--            <nb-icon-->
+<!--              icon="arrow-forward-outline"-->
+<!--              pack="eva"-->
+<!--            ></nb-icon>-->
+<!--            Top movies of all time-->
+<!--          </h6>-->
+<!--          <nb-list *ngIf="topMovies$ | async as topMovies">-->
+<!--            <nb-list-item *ngFor="let movie of topMovies"-->
+<!--                          (click)="redirectToMovieOverviewPage(movie.id)">-->
+<!--              {{ movie.title }} from {{ movie.year }}-->
+<!--            </nb-list-item>-->
+<!--          </nb-list>-->
+
+<!--          <h6 *ngIf="movieInformation.rating">-->
+<!--            <nb-icon-->
+<!--              icon="arrow-forward-outline"-->
+<!--              pack="eva"-->
+<!--            ></nb-icon>-->
+<!--            Top movies by rating {{ movieInformation.rating.rating }}-->
+<!--          </h6>-->
+<!--          <nb-list *ngIf="topMoviesByRating$ | async as topMoviesByRating">-->
+<!--            <nb-list-item *ngFor="let movie of topMoviesByRating"-->
+<!--                          (click)="redirectToMovieOverviewPage(movie.id)">-->
+<!--              {{ movie.title }} from {{ movie.year }}-->
+<!--            </nb-list-item>-->
+<!--          </nb-list>-->
+
+<!--          <h6 *ngIf="movieInformation.movie">-->
+<!--            <nb-icon-->
+<!--              icon="arrow-forward-outline"-->
+<!--              pack="eva"-->
+<!--            ></nb-icon>-->
+<!--            Top movies by year {{ movieInformation?.movie?.year }}-->
+<!--          </h6>-->
+<!--          <nb-list *ngIf="topMoviesByYear$ | async as topMoviesByYear">-->
+<!--            <nb-list-item *ngFor="let movie of topMoviesByYear"-->
+<!--                          (click)="redirectToMovieOverviewPage(movie.id)">-->
+<!--              {{ movie.title }} from {{ movie.year }}-->
+<!--            </nb-list-item>-->
+<!--          </nb-list>-->
+<!--        </nb-card-body>-->
+<!--      </nb-card>-->
+<!--    </nb-card-body>-->
+<!--  </nb-card>-->
+<!--  &lt;!&ndash;  TODO to be implemented&ndash;&gt;-->
+<!--</ng-template>-->
+<!--<ng-template #dataFetching>-->
+<!--  <nb-spinner-->
+<!--    [nbSpinner]="true"-->
+<!--    status="basic"-->
+<!--    class="spinner">-->
+<!--  </nb-spinner>-->
+<!--</ng-template>-->
+
+
+people works!
