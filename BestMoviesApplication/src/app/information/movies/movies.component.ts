@@ -37,6 +37,8 @@ export class MoviesComponent implements OnInit, OnDestroy {
   @Select(MoviesSelector.pageToLoadNext)
   pageToLoadNext$: Observable<number>;
 
+  placeHolder = "Search title"
+
   constructor(
     private store: Store,
     private router: Router,

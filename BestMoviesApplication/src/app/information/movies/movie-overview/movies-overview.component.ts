@@ -69,42 +69,28 @@ export class MoviesOverviewComponent implements OnInit, OnDestroy{
           const movieId = params['movieId'];
           const initialActions = [
             new MovieOverviewFetchInfo(movieId),
-            new MovieOverviewFetchRating(movieId)
+            new MovieOverviewFetchRating(movieId),
+            new MovieOverviewFetchStars(movieId),
+            new MovieOverviewFetchBestMoviesTop(this.TOP_SIZE_LIST),
+            new MovieOverviewFetchDirectors(movieId)
           ];
           let actionsInParallel = [];
 
           return this.store.dispatch([...initialActions]).pipe(
             switchMap(() => {
               let movie = this.store.selectSnapshot(MoviesOverviewSelector.movie);
-              console.log(movie);
-
-              let isFetching = this.store.selectSnapshot(MoviesOverviewSelector.isFetching);
-              console.log("is fetching? " + isFetching);
-              let rating = this.store.selectSnapshot(MoviesOverviewSelector.rating);
-
-              if (movie && rating) {
-                actionsInParallel = [
-                  ...actionsInParallel,
-                  new MovieOverviewFetchBestMoviesTop(this.TOP_SIZE_LIST),
-                  new MovieOverviewFetchMoviesFromSameYear(this.TOP_SIZE_LIST, movie.year),
-                  new MovieOverviewFetchSameRatingRange(this.TOP_SIZE_LIST, rating.rating)
-                ];
-              } else {
-                this.nbToastrService.show(
-                  "Movies or rating is null",
-                  "Couldn't fetch information about top lists",
-                  {
-                    status: "danger"
-                  }
-                );
-              }
-
               actionsInParallel = [
                 ...actionsInParallel,
-                new MovieOverviewFetchStars(movieId),
-                new MovieOverviewFetchDirectors(movieId)
-              ];
+                new MovieOverviewFetchMoviesFromSameYear(this.TOP_SIZE_LIST, movie.year),
+                ];
 
+              let rating = this.store.selectSnapshot(MoviesOverviewSelector.rating);
+              if(rating) {
+                actionsInParallel = [
+                  ...actionsInParallel,
+                  new MovieOverviewFetchSameRatingRange(this.TOP_SIZE_LIST, rating.rating),
+                ]
+              }
               return this.store.dispatch(actionsInParallel);
             })
           );

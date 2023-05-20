@@ -8,6 +8,11 @@ export class OverallInformationSelector {
   }
 
   @Selector([OverAllInformationState])
+  static moviesByYearIsFiltered(state: OverAllInformationStateModel) {
+    return state.moviesByYearIsFiltered;
+  }
+
+  @Selector([OverAllInformationState])
   static movies(state: OverAllInformationStateModel) {
     return state.movies;
   }
@@ -15,10 +20,5 @@ export class OverallInformationSelector {
   @Selector([OverAllInformationState])
   static people(state: OverAllInformationStateModel) {
     return state.people;
-  }
-
-  @Selector([OverAllInformationState])
-  static bestMovies(state: OverAllInformationStateModel) {
-    return state.bestMovies;
   }
 }
