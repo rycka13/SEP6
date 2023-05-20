@@ -1,5 +1,5 @@
 nb-card {
-  display: block;
+  display: flex;
   width: 100%;
 
   nb-card-header {
@@ -35,7 +35,7 @@ nb-card {
       padding: 0px;
       margin: 0px 0px 22px 0px;
 
-      .body-poster-movie {
+      .person-poster {
         padding: unset;
         overflow: hidden;
         position: relative;
