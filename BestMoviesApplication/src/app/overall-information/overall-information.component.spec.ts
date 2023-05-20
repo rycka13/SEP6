@@ -38,7 +38,7 @@ describe('app > overall-information > overall-information.component.spec.ts', ()
     spectator = createComponent();
   });
 
-  it('should create', () => {
+  it('should create', async () => {
     expect(spectator.component).toBeTruthy();
   });
 
