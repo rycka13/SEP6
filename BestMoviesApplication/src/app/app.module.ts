@@ -9,7 +9,6 @@ import {
   NbLayoutModule,
   NbActionsModule,
   NbSidebarModule,
-  NbSidebarService,
   NbMenuModule,
   NbCardModule,
   NbToastrModule,
@@ -46,7 +45,7 @@ import {MovieService} from "src/api/movies/movie.service";
 import {RatingService} from "src/api/ratings/rating.service";
 import {StarService} from "src/api/stars/star.service";
 import { PeopleOverviewComponent } from './information/people/people-overview/people-overview.component';
-import {PeopleAdapter} from "src/app/information/people/people-overview/adapter/PeopleAdapter";
+import {PeopleOverviewState} from "src/app/information/people/people-overview/people-overview.state";
 
 
 export const STATES = [
@@ -54,6 +53,7 @@ export const STATES = [
   MoviesState,
   PeopleState,
   MoviesOverviewState,
+  PeopleOverviewState,
 ]
 
 export const CELL_RENDERERS = [
@@ -84,9 +84,6 @@ export const COMPONENTS = [
 
 export const PROVIDERS = [
   NbSearchService,
-
-  //adapters
-  PeopleAdapter,
 
   //Api services
   ApiService,
