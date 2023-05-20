@@ -6,7 +6,10 @@ import {Star} from "src/model/star";
 import {DirectorService} from "src/api/directors/director.service";
 import {StarService} from "src/api/stars/star.service";
 import {produce} from "immer";
-import {PeopleOverviewFetchInfo} from "src/app/information/people/people-overview/people-overview.actions";
+import {
+  PeopleOverviewFetchInfo,
+  PeopleOverviewReset
+} from "src/app/information/people/people-overview/people-overview.actions";
 import {PeopleType} from "src/app/information/people/people-overview/constants/constants";
 import {starsMock} from "src/util/mocks/stars_mock";
 import {directorsMock} from "src/util/mocks/directors_mock";
@@ -50,14 +53,15 @@ export class PeopleOverviewState {
     currentState = newState;
 
     let person: Star | Director;
+    let peopleType = this.getPeopleType(action.peopleType);
     try {
-      if (action.peopleType === PeopleType.STAR) {
+      if (peopleType === PeopleType.STAR) {
         //mock
         // person = starsMock[0] as Star;
 
         //real data
         person = await this.starService.getStarById(action.personId) as Star;
-      } else if(action.peopleType === PeopleType.DIRECTOR) {
+      } else if(peopleType === PeopleType.DIRECTOR) {
         //mock
         // person = directorsMock[0] as Director;
 
@@ -77,5 +81,18 @@ export class PeopleOverviewState {
     setState(newState);
   }
 
+  @Action(PeopleOverviewReset)
+  async peopleReset(
+    { getState, setState }: StateContext<PeopleOverviewStateModel>) {
+    setState(defaultsState);
+  }
+
+  getPeopleType(peopleType: string) {
+    switch(peopleType) {
+      case "star" : return PeopleType.STAR;
+      case "director" : return PeopleType.DIRECTOR;
+      default: return PeopleType.UNKNOWN;
+    }
+  }
 
 }
