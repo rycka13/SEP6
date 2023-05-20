@@ -67,7 +67,7 @@ export class PeopleState {
     }
     catch (e) {
       this.toastrService.show('danger', 'Fetching people went wrong.');
-      console.log(e);
+
     }
 
     newState = produce(currentState, draft => {
