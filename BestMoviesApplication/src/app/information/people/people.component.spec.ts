@@ -49,7 +49,7 @@ describe('app > information > people > people.component.spec.ts', () => {
       ],
     });
 
-  beforeEach(() => {
+  beforeEach(async () => {
     spectator = createComponent({
       detectChanges: false,
     });
@@ -61,7 +61,12 @@ describe('app > information > people > people.component.spec.ts', () => {
     })
   });
 
-  it('should create', () => {
+  it('should create', async () => {
+    spectator.detectChanges();
+    await spectator.fixture.whenStable();
+    spectator.detectChanges();
+    await spectator.fixture.whenRenderingDone();
+
     expect(spectator.component).toBeTruthy();
   });
 

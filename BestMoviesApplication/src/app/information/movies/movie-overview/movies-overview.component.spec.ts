@@ -47,8 +47,14 @@ describe('app > information > movies > movies-overview > movies-overview.compone
     })
   });
 
-  it('should create', () => {
+  it('should create', async () => {
+    spectator.detectChanges();
+    await spectator.fixture.whenStable();
+    spectator.detectChanges();
+    await spectator.fixture.whenRenderingDone();
+
     expect(spectator.component).toBeTruthy();
+
   });
 
   it('should match snapshot', async () => {

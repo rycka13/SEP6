@@ -13,10 +13,6 @@ export class RatingsService {
   PATH_CONTROLLER = 'rating';
   ID = 'ratingId';
 
-  async getRatingByMovieId(movieId): Promise<Rating[]> {
-    return await this.apiService.get(`${this.PATH_CONTROLLER}/byMovieId/${movieId}`);
-  }
-
   async getAll(): Promise<Rating[]> {
     return this.apiService.get(`${this.PATH_CONTROLLER}/getAll`);
   }

@@ -91,7 +91,6 @@ export class MoviesOverviewState {
       });
       setState(newState);
     } catch (e) {
-      console.log(e);
     }
   }
 
@@ -115,7 +114,7 @@ export class MoviesOverviewState {
       //TODO - still 500 response
       // stars = await this.starsService.getStarsByMovieId(action.movieId);
     } catch (e) {
-      console.log(e);
+
     }
 
     newState = produce(getState(), draft => {
@@ -145,7 +144,7 @@ export class MoviesOverviewState {
       // this.directorsService.getDirectorsByMovieId(action.movieId)
       //   .subscribe((directorsPredicate: Director[]) => directors = directorsPredicate);
     } catch (e) {
-      console.log(e);
+
     }
 
     newState = produce(getState(), draft => {
@@ -173,7 +172,7 @@ export class MoviesOverviewState {
       //real data
       rating = await this.ratingService.getRatingByMovieId(action.movieId);
     } catch (e) {
-      console.log(e);
+
     }
 
     newState = produce(getState(), draft => {
@@ -203,7 +202,7 @@ export class MoviesOverviewState {
       let movies = await this.moviesService.getNMostPopularMovies(action.top);
       topMovies.push(...movies);
     } catch (e) {
-      console.log(e);
+
     }
 
     newState = produce(getState(), draft => {
@@ -248,7 +247,7 @@ export class MoviesOverviewState {
       let movies = await this.moviesService.getNMoviesByRating(action.rating, action.listSize);
       topMoviesByRating.push(...movies);
     } catch (e) {
-      console.log(e);
+
     }
 
     newState = produce(getState(), draft => {
@@ -290,7 +289,7 @@ export class MoviesOverviewState {
       let movies = await this.moviesService.getNMoviesByYear(action.year, action.listSize);
       topMoviesByYear.push(...movies);
     } catch (e) {
-      console.log(e);
+
     }
     newState = produce(getState(), draft => {
       draft.topMoviesByYear = topMoviesByYear;
