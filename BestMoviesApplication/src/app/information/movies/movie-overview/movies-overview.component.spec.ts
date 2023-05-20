@@ -47,7 +47,7 @@ describe('app > information > movies > movies-overview > movies-overview.compone
     })
   });
 
-  it('should create', () => {
+  it('should create', async () => {
     expect(spectator.component).toBeTruthy();
   });
 

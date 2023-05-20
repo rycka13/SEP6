@@ -91,7 +91,6 @@ export class MoviesOverviewState {
       });
       setState(newState);
     } catch (e) {
-      console.log(e);
     }
   }
 
