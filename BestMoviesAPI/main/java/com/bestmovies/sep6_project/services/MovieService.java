@@ -124,6 +124,14 @@ public class MovieService {
         return null;
     }
 
+    public List<Movie> getPageOfMovies(int pageNr, int n) {
+        if(pageNr>0 && n>0){
+            List<Movie> pagedMovies = movieMapper.getNMoviesByPage(pageNr, n);
+            return setMultipleMoviesImages(pagedMovies);
+        }
+        return null;
+    }
+
     private void setMovieImages(Movie movie) {
         MovieResult movieResult= movieRestClient.getAllByName(movie.getTitle());
         if(movieResult != null && !movieResult.getResults().isEmpty()){
