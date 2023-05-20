@@ -1,8 +1,6 @@
 package com.bestmovies.sep6_project.controllers;
 
-import com.bestmovies.sep6_project.model.Movie;
 import com.bestmovies.sep6_project.model.Rating;
-import com.bestmovies.sep6_project.services.MovieService;
 import com.bestmovies.sep6_project.services.RatingService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.http.HttpStatus;
