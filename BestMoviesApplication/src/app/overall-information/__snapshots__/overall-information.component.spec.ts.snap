@@ -1037,7 +1037,7 @@ exports[`app > overall-information > overall-information.component.spec.ts shoul
                 </g>
               </svg>
             </nb-icon>
-             Movies: 0 
+             Movies: 1 
           </div>
           <div>
             <nb-icon
