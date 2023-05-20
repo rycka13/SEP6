@@ -9,7 +9,6 @@ import {
   NbLayoutModule,
   NbActionsModule,
   NbSidebarModule,
-  NbSidebarService,
   NbMenuModule,
   NbCardModule,
   NbToastrModule,
@@ -45,6 +44,8 @@ import {DirectorService} from "src/api/directors/director.service";
 import {MovieService} from "src/api/movies/movie.service";
 import {RatingService} from "src/api/ratings/rating.service";
 import {StarService} from "src/api/stars/star.service";
+import { PeopleOverviewComponent } from './information/people/people-overview/people-overview.component';
+import {PeopleOverviewState} from "src/app/information/people/people-overview/people-overview.state";
 
 
 export const STATES = [
@@ -52,6 +53,7 @@ export const STATES = [
   MoviesState,
   PeopleState,
   MoviesOverviewState,
+  PeopleOverviewState,
 ]
 
 export const CELL_RENDERERS = [
@@ -74,6 +76,7 @@ export const COMPONENTS = [
 
   //overview pages
   MoviesOverviewComponent,
+  PeopleOverviewComponent,
 
   //404 not found page
   NotFoundComponent,
@@ -88,6 +91,7 @@ export const PROVIDERS = [
   DirectorsService,
   MovieService,
   MoviesService,
+
   // PeopleService,
   RatingService,
   RatingsService,

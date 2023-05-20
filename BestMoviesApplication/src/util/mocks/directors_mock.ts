@@ -10,7 +10,8 @@ export const directorsMock: Director[] = [
     ],
     id: peopleMock[0].id,
     name: peopleMock[0].name,
-    birth: peopleMock[0].birth,
+    birthYear: peopleMock[0].birthYear,
+    posterImage: peopleMock[0].posterImage,
   },
   {
     movies: [
@@ -19,7 +20,8 @@ export const directorsMock: Director[] = [
     ],
     id: peopleMock[1].id,
     name: peopleMock[1].name,
-    birth: peopleMock[1].birth,
+    birthYear: peopleMock[1].birthYear,
+    posterImage: peopleMock[1].posterImage,
   },
   {
     movies: [
@@ -28,6 +30,7 @@ export const directorsMock: Director[] = [
     ],
     id: peopleMock[2].id,
     name: peopleMock[2].name,
-    birth: peopleMock[2].birth,
+    birthYear: peopleMock[2].birthYear,
+    posterImage: peopleMock[2].posterImage,
   },
 ]
