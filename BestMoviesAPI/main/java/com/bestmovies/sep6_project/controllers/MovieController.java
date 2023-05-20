@@ -86,6 +86,11 @@ public class MovieController{
         return movieService.getMoviesByTitle(title);
     }
 
+    @RequestMapping(value = "/page/{pageNr}/{n}", method = RequestMethod.GET)
+    public List<Movie> getPageOfMovies(@PathVariable int pageNr, @PathVariable int n){
+        return movieService.getPageOfMovies(pageNr, n);
+    }
+
     public void setResponse(HttpServletResponse response, boolean success){
         if(success){
             response.setStatus(HttpStatus.SC_OK);
