@@ -113,7 +113,8 @@ export const NEBULAR_MODULES = [
   NbMenuModule.forRoot(),
   NbInputModule,
   NbFormFieldModule,
-  NbTooltipModule
+  NbTooltipModule,
+  NbSelectModule,
 ]
 
 @NgModule({
@@ -130,7 +131,6 @@ export const NEBULAR_MODULES = [
       developmentMode: !environment.production,
     }),
     NEBULAR_MODULES,
-    NbSelectModule,
   ],
   providers: PROVIDERS,
   exports: [
