@@ -79,11 +79,13 @@ export class MoviesOverviewComponent implements OnInit, OnDestroy{
           return this.store.dispatch([...initialActions]).pipe(
             switchMap(() => {
               let movie = this.store.selectSnapshot(MoviesOverviewSelector.movie);
-              actionsInParallel = [
-                ...actionsInParallel,
-                new MovieOverviewFetchMoviesFromSameYear(this.TOP_SIZE_LIST, movie.year),
-                ];
 
+              if(movie) {
+                actionsInParallel = [
+                  ...actionsInParallel,
+                  new MovieOverviewFetchMoviesFromSameYear(this.TOP_SIZE_LIST, movie.year),
+                ];
+              }
               let rating = this.store.selectSnapshot(MoviesOverviewSelector.rating);
               if(rating) {
                 actionsInParallel = [
