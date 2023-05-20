@@ -60,7 +60,7 @@ export const defaultsState: MovieOverviewStateModel = {
 @Injectable()
 export class MoviesOverviewState {
   constructor(
-    private toastrService: NbToastrService,
+    private nbToastrService: NbToastrService,
     private moviesService: MoviesService,
     private movieService: MovieService,
     private starsService: StarsService,
@@ -74,7 +74,7 @@ export class MoviesOverviewState {
 
   @Action(MovieOverviewFetchInfo)
   async movieOverviewFetchInfo(
-    { getState, setState }: StateContext<MovieOverviewStateModel>,
+    {getState, setState}: StateContext<MovieOverviewStateModel>,
     action: MovieOverviewFetchInfo
   ) {
     let newState = produce(getState(), (draft) => {
@@ -109,13 +109,12 @@ export class MoviesOverviewState {
     let stars: Star[] = [];
     try {
       //mock
-      stars.push(starsMock[1],starsMock[2],starsMock[3]);
+      stars.push(starsMock[1], starsMock[2], starsMock[3]);
       //
       //real data
       //TODO - still 500 response
       // stars = await this.starsService.getStarsByMovieId(action.movieId);
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e);
     }
 
@@ -139,14 +138,13 @@ export class MoviesOverviewState {
     let directors: Director[] = [];
     try {
       //mock
-      directors.push(directorsMock[1],directorsMock[2]);
+      directors.push(directorsMock[1], directorsMock[2]);
 
       //real data
       //TODO tell colleagues about this method - not implemented
       // this.directorsService.getDirectorsByMovieId(action.movieId)
       //   .subscribe((directorsPredicate: Director[]) => directors = directorsPredicate);
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e);
     }
 
@@ -170,13 +168,11 @@ export class MoviesOverviewState {
     let rating: Rating;
     try {
       //mock
-      rating = ratingsMock[1];
+      // rating = ratingsMock[1];
 
       //real data
-      //TODO - this is DELETE in BE, it needs to be GET
-      // rating = await this.ratingService.getRatingByMovieId(action.movieId);
-    }
-    catch (e) {
+      rating = await this.ratingService.getRatingByMovieId(action.movieId);
+    } catch (e) {
       console.log(e);
     }
 
@@ -206,8 +202,7 @@ export class MoviesOverviewState {
       //real data
       let movies = await this.moviesService.getNMostPopularMovies(action.top);
       topMovies.push(...movies);
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e);
     }
 
@@ -235,10 +230,24 @@ export class MoviesOverviewState {
       // topMoviesByRating.push(moviesMock[1],moviesMock[2], moviesMock[3], moviesMock[9],moviesMock[10]);
 
       //real data
+      console.log(action.rating);
+      if (!action.rating) {
+        newState = produce(getState, draft => {
+          draft.isFetching = false;
+        })
+
+        setState(newState);
+        return this.nbToastrService.show(
+          "Rating is not found",
+          "Couldn't fetch information about movies from same rating",
+          {
+            status: "warning"
+          }
+        );
+      }
       let movies = await this.moviesService.getNMoviesByRating(action.rating, action.listSize);
       topMoviesByRating.push(...movies);
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e);
     }
 
@@ -266,13 +275,23 @@ export class MoviesOverviewState {
       // topMoviesByYear.push(moviesMock[1], moviesMock[2], moviesMock[3], moviesMock[4]);
 
       //real data
+      if (!action.year) {
+        newState = produce(getState, draft => {
+          draft.isFetching = false;
+        })
+        return this.nbToastrService.show(
+          "Movie is not found",
+          "Couldn't fetch information about movies from same year",
+          {
+            status: "warning"
+          }
+        );
+      }
       let movies = await this.moviesService.getNMoviesByYear(action.year, action.listSize);
       topMoviesByYear.push(...movies);
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e);
     }
-
     newState = produce(getState(), draft => {
       draft.topMoviesByYear = topMoviesByYear;
       draft.isFetching = false;

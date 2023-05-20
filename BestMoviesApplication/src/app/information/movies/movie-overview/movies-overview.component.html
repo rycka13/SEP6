@@ -126,7 +126,7 @@
             </nb-list-item>
           </nb-list>
 
-          <h6>
+          <h6 *ngIf="movieInformation.rating">
             <nb-icon
               icon="arrow-forward-outline"
               pack="eva"
@@ -140,7 +140,7 @@
             </nb-list-item>
           </nb-list>
 
-          <h6>
+          <h6 *ngIf="movieInformation.movie">
             <nb-icon
               icon="arrow-forward-outline"
               pack="eva"

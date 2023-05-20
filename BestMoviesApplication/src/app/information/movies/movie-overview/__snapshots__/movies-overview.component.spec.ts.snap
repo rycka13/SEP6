@@ -35,108 +35,9 @@ exports[`app > information > movies > movies-overview > movies-overview.componen
       <div
         class="rating"
       >
-        <div
-          class="item-in-rating"
-          nbtooltip="Best movies rating"
-        >
-          <p
-            class="title-rating"
-          >
-            BM Rating
-          </p>
-          <p
-            class="info-rating"
-          >
-            <nb-icon
-              class="status-warning"
-              icon="star"
-              pack="eva"
-              status="warning"
-            >
-              <svg
-                class="eva eva-star"
-                fill="currentColor"
-                height="100%"
-                viewBox="0 0 24 24"
-                width="100%"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g
-                  data-name="Layer 2"
-                >
-                  <g
-                    data-name="star"
-                  >
-                    <rect
-                      height="24"
-                      opacity="0"
-                      transform="rotate(90 12 12)"
-                      width="24"
-                    />
-                    <path
-                      d="M17.56 21a1 1 0 0 1-.46-.11L12 18.22l-5.1 2.67a1 1 0 0 1-1.45-1.06l1-5.63-4.12-4a1 1 0 0 1-.25-1 1 1 0 0 1 .81-.68l5.7-.83 2.51-5.13a1 1 0 0 1 1.8 0l2.54 5.12 5.7.83a1 1 0 0 1 .81.68 1 1 0 0 1-.25 1l-4.12 4 1 5.63a1 1 0 0 1-.4 1 1 1 0 0 1-.62.18z"
-                    />
-                  </g>
-                </g>
-              </svg>
-            </nb-icon>
-             6.2 
-            <span>
-              / 10
-            </span>
-          </p>
-          <p
-            class="votes-rating"
-          >
-             20 votes
-          </p>
-        </div>
-        <div
-          class="item-in-rating"
-        >
-          <p
-            class="title-rating"
-          >
-            Your rating
-          </p>
-          <p
-            class="info-rating info-your-rating"
-          >
-            <nb-icon
-              class="status-info"
-              icon="star"
-              pack="eva"
-              status="info"
-            >
-              <svg
-                class="eva eva-star"
-                fill="currentColor"
-                height="100%"
-                viewBox="0 0 24 24"
-                width="100%"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g
-                  data-name="Layer 2"
-                >
-                  <g
-                    data-name="star"
-                  >
-                    <rect
-                      height="24"
-                      opacity="0"
-                      transform="rotate(90 12 12)"
-                      width="24"
-                    />
-                    <path
-                      d="M17.56 21a1 1 0 0 1-.46-.11L12 18.22l-5.1 2.67a1 1 0 0 1-1.45-1.06l1-5.63-4.12-4a1 1 0 0 1-.25-1 1 1 0 0 1 .81-.68l5.7-.83 2.51-5.13a1 1 0 0 1 1.8 0l2.54 5.12 5.7.83a1 1 0 0 1 .81.68 1 1 0 0 1-.25 1l-4.12 4 1 5.63a1 1 0 0 1-.4 1 1 1 0 0 1-.62.18z"
-                    />
-                  </g>
-                </g>
-              </svg>
-            </nb-icon>
-          </p>
-        </div>
+        <h3>
+           No rating for this movie 
+        </h3>
       </div>
     </nb-card-header>
     <nb-card-body
@@ -174,8 +75,24 @@ exports[`app > information > movies > movies-overview > movies-overview.componen
           </nb-card-header>
           <nb-card-body>
             <ul>
+              <li>
+                 Lauren Bacall 
+              </li>
+              <li>
+                 Brigitte Bardot 
+              </li>
             </ul>
             <ul>
+              <li>
+                 Ingrid Bergman 
+              </li>
+              <li>
+                 Ingmar Bergman 
+              </li>
+              <li
+                class="undefined-item"
+              >
+              </li>
             </ul>
           </nb-card-body>
         </nb-card>
@@ -227,78 +144,10 @@ exports[`app > information > movies > movies-overview > movies-overview.componen
             role="list"
           >
           </nb-list>
-          <h6>
-            <nb-icon
-              icon="arrow-forward-outline"
-              pack="eva"
-            >
-              <svg
-                class="eva eva-arrow-forward-outline"
-                fill="currentColor"
-                height="100%"
-                viewBox="0 0 24 24"
-                width="100%"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g
-                  data-name="Layer 2"
-                >
-                  <g
-                    data-name="arrow-forward"
-                  >
-                    <rect
-                      height="24"
-                      opacity="0"
-                      transform="rotate(-90 12 12)"
-                      width="24"
-                    />
-                    <path
-                      d="M5 13h11.86l-3.63 4.36a1 1 0 0 0 1.54 1.28l5-6a1.19 1.19 0 0 0 .09-.15c0-.05.05-.08.07-.13A1 1 0 0 0 20 12a1 1 0 0 0-.07-.36c0-.05-.05-.08-.07-.13a1.19 1.19 0 0 0-.09-.15l-5-6A1 1 0 0 0 14 5a1 1 0 0 0-.64.23 1 1 0 0 0-.13 1.41L16.86 11H5a1 1 0 0 0 0 2z"
-                    />
-                  </g>
-                </g>
-              </svg>
-            </nb-icon>
-             Top movies by rating 6.2 
-          </h6>
           <nb-list
             role="list"
           >
           </nb-list>
-          <h6>
-            <nb-icon
-              icon="arrow-forward-outline"
-              pack="eva"
-            >
-              <svg
-                class="eva eva-arrow-forward-outline"
-                fill="currentColor"
-                height="100%"
-                viewBox="0 0 24 24"
-                width="100%"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g
-                  data-name="Layer 2"
-                >
-                  <g
-                    data-name="arrow-forward"
-                  >
-                    <rect
-                      height="24"
-                      opacity="0"
-                      transform="rotate(-90 12 12)"
-                      width="24"
-                    />
-                    <path
-                      d="M5 13h11.86l-3.63 4.36a1 1 0 0 0 1.54 1.28l5-6a1.19 1.19 0 0 0 .09-.15c0-.05.05-.08.07-.13A1 1 0 0 0 20 12a1 1 0 0 0-.07-.36c0-.05-.05-.08-.07-.13a1.19 1.19 0 0 0-.09-.15l-5-6A1 1 0 0 0 14 5a1 1 0 0 0-.64.23 1 1 0 0 0-.13 1.41L16.86 11H5a1 1 0 0 0 0 2z"
-                    />
-                  </g>
-                </g>
-              </svg>
-            </nb-icon>
-             Top movies by year  
-          </h6>
           <nb-list
             role="list"
           >
