@@ -8,6 +8,7 @@
         (searchEvent)="onSearch($event)"
         (resetSearch)="resetSearch()"
         [isFiltered]="isFiltered$ | async"
+        [placeHolder]="placeHolder"
       ></bm-search>
     </nb-card-header>
     <nb-card-body>

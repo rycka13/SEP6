@@ -15,12 +15,14 @@ import {MoviesService} from "src/api/movies/movies.service";
 
 export interface OverAllInformationStateModel {
   isFetching: boolean;
+  moviesByYearIsFiltered: boolean;
   movies: Movie[];
   people: Person[];
 }
 
 export const defaultsState: OverAllInformationStateModel = {
   isFetching: false,
+  moviesByYearIsFiltered: false,
   movies: [],
   people: [],
 }

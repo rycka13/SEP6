@@ -17,13 +17,14 @@ import {
   MovieOverviewFetchMoviesFromSameYear
 } from "src/app/information/movies/movie-overview/movies-overview.actions";
 import {MoviesOverviewSelector} from "src/app/information/movies/movie-overview/movies-overview.selector";
+import {NbToastrService} from "@nebular/theme";
 
 @Component({
   selector: 'app-overall-information',
   templateUrl: './overall-information.component.html',
   styleUrls: ['./overall-information.component.scss']
 })
-export class OverallInformationComponent implements OnInit, OnDestroy{
+export class OverallInformationComponent implements OnInit, OnDestroy {
 
   alive = true;
 
@@ -51,24 +52,50 @@ export class OverallInformationComponent implements OnInit, OnDestroy{
 
   TOP_BEST_MOVIES: string = '5';
   TOP_BEST_MOVIES_YEAR: string = '5';
-  YEAR: number;
+  YEAR_NOW: number;
+  YEAR_SEARCHED: number;
+  moviesByYearIsFiltered: boolean = false;
+  placeHolder: string;
 
 
   constructor(private store: Store,
-              private router: Router) {
+              private router: Router,
+              private nbToastrService: NbToastrService) {
   }
 
   async ngOnInit() {
     let date = new Date();
-    this.YEAR = date.getUTCFullYear();
-
+    this.YEAR_NOW = date.getUTCFullYear();
+    this.YEAR_SEARCHED = this.YEAR_NOW;
+    this.placeHolder = `Year searched ${this.YEAR_SEARCHED}`;
     const actionsInParallel = [
       new OverAllInformationFetchInfo(),
       new OverAllInformationBestMoviesFetch(),
       new MovieOverviewFetchBestMoviesTop(Number(this.TOP_BEST_MOVIES)),
-      new MovieOverviewFetchMoviesFromSameYear(Number(this.TOP_BEST_MOVIES_YEAR), this.YEAR),
+      new MovieOverviewFetchMoviesFromSameYear(Number(this.TOP_BEST_MOVIES_YEAR), this.YEAR_NOW),
     ];
     this.store.dispatch([...actionsInParallel]);
+  }
+
+  onSearchMoviesByYear(event) {
+    this.YEAR_SEARCHED = Number(event);
+    if (isNaN(this.YEAR_SEARCHED)) {
+      return this.nbToastrService.show(`Searched for ${event}'`, `You only need to include numbers in search`, {
+        status: 'warning'
+      })
+    }
+    else {
+      this.moviesByYearIsFiltered = true;
+      this.placeHolder = `Year searched ${this.YEAR_SEARCHED}`;
+      this.store.dispatch(new MovieOverviewFetchMoviesFromSameYear(Number(this.TOP_BEST_MOVIES_YEAR), this.YEAR_SEARCHED));
+    }
+  }
+
+  resetSearchMoviesByYear() {
+    this.moviesByYearIsFiltered = false;
+    this.YEAR_SEARCHED = this.YEAR_NOW;
+    this.placeHolder = `Year searched ${this.YEAR_SEARCHED}`;
+    this.store.dispatch(new MovieOverviewFetchMoviesFromSameYear(Number(this.TOP_BEST_MOVIES_YEAR), this.YEAR_NOW));
   }
 
   redirectToMovieOverviewPage(movieId: number) {
@@ -80,8 +107,9 @@ export class OverallInformationComponent implements OnInit, OnDestroy{
   }
 
   loadBestMoviesByYear() {
-    this.store.dispatch(new MovieOverviewFetchMoviesFromSameYear(Number(this.TOP_BEST_MOVIES_YEAR), this.YEAR));
+    this.store.dispatch(new MovieOverviewFetchMoviesFromSameYear(Number(this.TOP_BEST_MOVIES_YEAR), this.YEAR_NOW));
   }
+
   ngOnDestroy() {
     this.alive = false;
     this.store.dispatch(new OverAllInformationReset());

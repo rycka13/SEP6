@@ -62,21 +62,31 @@
       <nb-card>
         <nb-card-header>
           <span class="title">
-            Best {{TOP_BEST_MOVIES_YEAR}} movies by year {{YEAR}}
+            Best {{TOP_BEST_MOVIES_YEAR}} movies by year {{YEAR_SEARCHED}}
           </span>
 
-          <nb-select
-            *ngIf="!(isFetchingBestMovies$ | async)"
-            [(selected)]="TOP_BEST_MOVIES_YEAR"
-            (selectedChange)="loadBestMoviesByYear()"
-            hero status="info" shape="round">
+          <div class="right-side">
+            <bm-search
+              (searchEvent)="onSearchMoviesByYear($event)"
+              (resetSearch)="resetSearchMoviesByYear()"
+              [isFiltered]="moviesByYearIsFiltered"
+              [placeHolder]="placeHolder"
+            >
 
-            <nb-option
-              value="5">Top 5</nb-option>
-            <nb-option value="10">Top 10</nb-option>
-            <nb-option value="15">Top 15</nb-option>
-            <nb-option value="20">Top 20</nb-option>
-          </nb-select>
+            </bm-search>
+            <nb-select
+              *ngIf="!(isFetchingBestMovies$ | async)"
+              [(selected)]="TOP_BEST_MOVIES_YEAR"
+              (selectedChange)="loadBestMoviesByYear()"
+              hero status="info" shape="round">
+
+              <nb-option
+                value="5">Top 5</nb-option>
+              <nb-option value="10">Top 10</nb-option>
+              <nb-option value="15">Top 15</nb-option>
+              <nb-option value="20">Top 20</nb-option>
+            </nb-select>
+          </div>
         </nb-card-header>
         <nb-card-body>
           <nb-list
