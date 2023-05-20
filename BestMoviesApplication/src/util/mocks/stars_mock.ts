@@ -10,7 +10,7 @@ export const starsMock: Star[] = [
     ],
     id: peopleMock[6].id,
     name: peopleMock[6].name,
-    birth: peopleMock[6].birth,
+    birthYear: peopleMock[6].birthYear,
     posterImage: peopleMock[6].posterImage,
   },
   {
@@ -20,7 +20,7 @@ export const starsMock: Star[] = [
     ],
     id: peopleMock[5].id,
     name: peopleMock[5].name,
-    birth: peopleMock[5].birth,
+    birthYear: peopleMock[5].birthYear,
     posterImage: peopleMock[5].posterImage,
   },
   {
@@ -30,7 +30,7 @@ export const starsMock: Star[] = [
     ],
     id: peopleMock[4].id,
     name: peopleMock[4].name,
-    birth: peopleMock[4].birth,
+    birthYear: peopleMock[4].birthYear,
     posterImage: peopleMock[4].posterImage,
   },
 ]
