@@ -1,50 +1,110 @@
 <ng-container *ngIf="isFetching$ | async; then dataFetching; else dataFetched"></ng-container>
 <ng-template #dataFetched>
-  <div class="overall-information"
-       *ngIf="{movies: movies$ | async,
-               people: people$ | async,
-               bestMovies: bestMovies$ | async} as info">
+  <div class="overall-information">
     <div class="best-movies">
       <nb-card>
         <nb-card-header>
-          Best movies
+          Best {{TOP}} movies of all time
         </nb-card-header>
         <nb-card-body>
-          <ag-grid-angular
-            #agGridAngular
-            style="width: 100%; height: 300px"
-            class="ag-theme-alpine"
-            [columnDefs]="columnDefs"
-            [defaultColDef]="defaultColDef"
-            [rowData]="bestMovies$ | async"
-            [rowSelection]="'multiple'"
-            [animateRows]="true"
-            (gridReady)="onGridReady($event)"
-            (cellClicked)="onCellClicked($event)"
-          ></ag-grid-angular>
+          <nb-list
+            class="movie-container"
+            *ngIf="bestMovies$ | async as movies"
+          >
+            <nb-list-item *ngFor="let movie of movies">
+              <nb-card size="medium" class="poster-movie">
+                <nb-card-header class="header-poster-movie">
+                  <div class="movie-title">{{ movie.title }}</div>
+                </nb-card-header>
+                <nb-card-body class="body-poster-movie">
+                  <div class="show-more-button">
+                    <button
+                      nbButton
+                      status="primary"
+                      (click)="redirectToMovieOverviewPage(movie.id)"
+                    >
+                      <nb-icon icon="film-outline"></nb-icon>
+                      Show more
+                    </button>
+                  </div>
+                  <img *ngIf="movie.posterImage"
+                       [src]="movie.posterImage" [alt]="movie.title">
+                  <img *ngIf="!movie.posterImage"
+                       src="../../../assets/no-poster-available.jpg" [alt]="movie.title">
+                </nb-card-body>
+                <nb-card-footer class="footer-poster-movie">
+                  <div>
+                    <span class="movie-year">Year of publication: {{ movie.year }}</span>
+                  </div>
+                </nb-card-footer>
+              </nb-card>
+            </nb-list-item>
+          </nb-list>
         </nb-card-body>
       </nb-card>
     </div>
-    <div class="general-information">
+    <div class="best-movies-by-year">
       <nb-card>
         <nb-card-header>
-          Overall information
+          Best {{TOP}} movies by year {{YEAR}}
         </nb-card-header>
         <nb-card-body>
-          <div>
-            <nb-icon
-              icon="film-outline">
-            </nb-icon>
-            Movies: {{info.movies.length}}
-          </div>
-          <div>
-            <nb-icon
-              icon="people-outline">
-            </nb-icon>
-            People: {{info.people.length}}
-          </div>
+          <nb-list
+            class="movie-container"
+            *ngIf="bestMoviesByYear$ | async as movies"
+          >
+            <nb-list-item *ngFor="let movie of movies">
+              <nb-card size="medium" class="poster-movie">
+                <nb-card-header class="header-poster-movie">
+                  <div class="movie-title">{{ movie.title }}</div>
+                </nb-card-header>
+                <nb-card-body class="body-poster-movie">
+                  <div class="show-more-button">
+                    <button
+                      nbButton
+                      status="primary"
+                      (click)="redirectToMovieOverviewPage(movie.id)"
+                    >
+                      <nb-icon icon="film-outline"></nb-icon>
+                      Show more
+                    </button>
+                  </div>
+                  <img *ngIf="movie.posterImage"
+                       [src]="movie.posterImage" [alt]="movie.title">
+                  <img *ngIf="!movie.posterImage"
+                       src="../../../assets/no-poster-available.jpg" [alt]="movie.title">
+                </nb-card-body>
+                <nb-card-footer class="footer-poster-movie">
+                  <div>
+                    <span class="movie-year">Year of publication: {{ movie.year }}</span>
+                  </div>
+                </nb-card-footer>
+              </nb-card>
+            </nb-list-item>
+          </nb-list>
         </nb-card-body>
       </nb-card>
+      <!--    <div class="general-information">-->
+      <!--      <nb-card>-->
+      <!--        <nb-card-header>-->
+      <!--          Overall information-->
+      <!--        </nb-card-header>-->
+      <!--        <nb-card-body>-->
+      <!--          <div>-->
+      <!--            <nb-icon-->
+      <!--              icon="film-outline">-->
+      <!--            </nb-icon>-->
+      <!--            Movies: {{info.movies.length}}-->
+      <!--          </div>-->
+      <!--          <div>-->
+      <!--            <nb-icon-->
+      <!--              icon="people-outline">-->
+      <!--            </nb-icon>-->
+      <!--            People: {{info.people.length}}-->
+      <!--          </div>-->
+      <!--        </nb-card-body>-->
+      <!--      </nb-card>-->
+      <!--    </div>-->
     </div>
   </div>
 </ng-template>

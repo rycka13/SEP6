@@ -11,6 +11,12 @@ import {
 } from "./overall-information.actions";
 import {CellClickedEvent, ColDef, ColumnApi, GridApi, GridReadyEvent} from "ag-grid-community";
 import {AgGridAngular} from "ag-grid-angular";
+import {Router} from "@angular/router";
+import {
+  MovieOverviewFetchBestMoviesTop,
+  MovieOverviewFetchMoviesFromSameYear
+} from "src/app/information/movies/movie-overview/movies-overview.actions";
+import {MoviesOverviewSelector} from "src/app/information/movies/movie-overview/movies-overview.selector";
 
 @Component({
   selector: 'app-overall-information',
@@ -30,56 +36,40 @@ export class OverallInformationComponent implements OnInit, OnDestroy{
   @Select(OverallInformationSelector.people)
   people$: Observable<Person[]>;
 
-  @Select(OverallInformationSelector.bestMovies)
+  @Select(MoviesOverviewSelector.topMovies)
   bestMovies$: Observable<Movie[]>;
+
+  @Select(MoviesOverviewSelector.topMoviesByYear)
+  bestMoviesByYear$: Observable<Movie[]>;
 
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   @ViewChild('agGridAngular') agGrid!: AgGridAngular;
 
+  TOP: number = 5;
+  YEAR: number;
 
-  constructor(private store: Store) {
+
+  constructor(private store: Store,
+              private router: Router) {
   }
 
   async ngOnInit() {
+    let date = new Date();
+    this.YEAR = date.getUTCFullYear();
+
     const actionsInParallel = [
       new OverAllInformationFetchInfo(),
       new OverAllInformationBestMoviesFetch(),
+      new MovieOverviewFetchBestMoviesTop(this.TOP),
+      new MovieOverviewFetchMoviesFromSameYear(this.TOP, this.YEAR),
     ];
     this.store.dispatch([...actionsInParallel]);
   }
 
-  onGridReady(params: GridReadyEvent) {
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-
-    //TODO adjust autosize
-    this.gridApi.sizeColumnsToFit();
+  redirectToMovieOverviewPage(movieId: number) {
+    this.router.navigate([`/information/movies/${movieId}`]);
   }
-
-  onCellClicked( e: CellClickedEvent): void {
-    // TODO redirect to the movie overview
-  }
-
-  columnDefs: ColDef[] = [
-    {
-      headerName: 'Id',
-      field: 'id',
-    },
-    {
-      headerName: 'Title',
-      field: 'title',
-    },
-    {
-      headerName: 'Year',
-      field: 'year'
-    }
-  ]
-
-  public defaultColDef: ColDef = {
-    sortable: true,
-    filter: true,
-  };
 
   ngOnDestroy() {
     this.alive = false;

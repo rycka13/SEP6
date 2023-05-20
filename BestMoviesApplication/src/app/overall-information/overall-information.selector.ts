@@ -16,9 +16,4 @@ export class OverallInformationSelector {
   static people(state: OverAllInformationStateModel) {
     return state.people;
   }
-
-  @Selector([OverAllInformationState])
-  static bestMovies(state: OverAllInformationStateModel) {
-    return state.bestMovies;
-  }
 }
