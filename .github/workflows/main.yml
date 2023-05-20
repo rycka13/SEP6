@@ -8,6 +8,25 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: create-json
+        uses: jsdaniell/create-json@v1.2.2
+
+      - name: create-api-key
+          id: create-api-key
+          uses: jsdaniell/create-json@v1.2.2
+          with:
+            name: "api_key.json"
+            json: ${{ secrets.API_KEY }}
+#            dir: 'src/'
+
+      - name: create-google-credentials
+        id: create-google-credentials
+        uses: jsdaniell/create-json@v1.2.2
+        with:
+          name: "my-project-1521814632192-74db441a7e07.json"
+          json: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
+#          dir: 'src/'
+
       - name: Step 1 - Checkout main branch from GitHub
         uses: actions/checkout@v2
       - name: 'Step 2 - Create api key and Google credentials'
