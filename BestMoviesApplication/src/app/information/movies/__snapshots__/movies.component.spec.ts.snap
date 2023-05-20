@@ -78,7 +78,7 @@ exports[`app > information > movies > movies.component.spec.ts should match snap
                       </g>
                     </svg>
                   </nb-icon>
-                   Show more
+                   Show more 
                 </button>
               </div>
               <img

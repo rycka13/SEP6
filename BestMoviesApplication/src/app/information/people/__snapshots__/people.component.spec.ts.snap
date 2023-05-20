@@ -811,7 +811,7 @@ exports[`app > information > people > people.component.spec.ts should match snap
                                     </div>
                                     <div>
                                       <span>
-                                         from
+                                         from 
                                       </span>
                                     </div>
                                   </movies-cell>
@@ -882,12 +882,12 @@ exports[`app > information > people > people.component.spec.ts should match snap
                                   <movies-cell>
                                     <div>
                                       <span>
-                                         from
+                                         from 
                                       </span>
                                     </div>
                                     <div>
                                       <span>
-                                         from
+                                         from 
                                       </span>
                                     </div>
                                   </movies-cell>
@@ -963,7 +963,7 @@ exports[`app > information > people > people.component.spec.ts should match snap
                                     </div>
                                     <div>
                                       <span>
-                                         from
+                                         from 
                                       </span>
                                     </div>
                                   </movies-cell>
@@ -1039,7 +1039,7 @@ exports[`app > information > people > people.component.spec.ts should match snap
                                     </div>
                                     <div>
                                       <span>
-                                         from
+                                         from 
                                       </span>
                                     </div>
                                   </movies-cell>
@@ -1110,12 +1110,12 @@ exports[`app > information > people > people.component.spec.ts should match snap
                                   <movies-cell>
                                     <div>
                                       <span>
-                                         from
+                                         from 
                                       </span>
                                     </div>
                                     <div>
                                       <span>
-                                         from
+                                         from 
                                       </span>
                                     </div>
                                   </movies-cell>
@@ -1186,12 +1186,12 @@ exports[`app > information > people > people.component.spec.ts should match snap
                                   <movies-cell>
                                     <div>
                                       <span>
-                                         from
+                                         from 
                                       </span>
                                     </div>
                                     <div>
                                       <span>
-                                         from
+                                         from 
                                       </span>
                                     </div>
                                   </movies-cell>
@@ -1262,12 +1262,12 @@ exports[`app > information > people > people.component.spec.ts should match snap
                                   <movies-cell>
                                     <div>
                                       <span>
-                                         from
+                                         from 
                                       </span>
                                     </div>
                                     <div>
                                       <span>
-                                         from
+                                         from 
                                       </span>
                                     </div>
                                   </movies-cell>
