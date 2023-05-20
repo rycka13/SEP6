@@ -11,7 +11,7 @@
           <nb-select
             *ngIf="!(isFetchingBestMovies$ | async)"
             [(selected)]="TOP_BEST_MOVIES"
-            (selectedChange)="loadBestMovies()"
+            (selectedChange)="loadMovies(getLoadEnum().BEST_MOVIES)"
             hero status="info" shape="round">
 
             <nb-option
@@ -58,26 +58,25 @@
         </nb-card-body>
       </nb-card>
     </div>
-    <div class="best-movies-by-year">
+    <div class="movies-by-year">
       <nb-card>
         <nb-card-header>
           <span class="title">
-            Best {{TOP_BEST_MOVIES_YEAR}} movies by year {{YEAR_SEARCHED}}
+            {{LIST_MOVIES_YEAR}} movies from year {{YEAR_SEARCHED}}
           </span>
 
           <div class="right-side">
             <bm-search
-              (searchEvent)="onSearchMoviesByYear($event)"
-              (resetSearch)="resetSearchMoviesByYear()"
+              (searchEvent)="onSearch(getSearchByEnum().YEAR, $event)"
+              (resetSearch)="resetSearch(getSearchByEnum().YEAR)"
               [isFiltered]="moviesByYearIsFiltered"
-              [placeHolder]="placeHolder"
+              [placeHolder]="moviesByYearPlaceHolder"
             >
 
             </bm-search>
             <nb-select
-              *ngIf="!(isFetchingBestMovies$ | async)"
-              [(selected)]="TOP_BEST_MOVIES_YEAR"
-              (selectedChange)="loadBestMoviesByYear()"
+              [(selected)]="LIST_MOVIES_YEAR"
+              (selectedChange)="loadMovies(getLoadEnum().BEST_MOVIES)"
               hero status="info" shape="round">
 
               <nb-option
@@ -124,27 +123,72 @@
           </nb-list>
         </nb-card-body>
       </nb-card>
-      <!--    <div class="general-information">-->
-      <!--      <nb-card>-->
-      <!--        <nb-card-header>-->
-      <!--          Overall information-->
-      <!--        </nb-card-header>-->
-      <!--        <nb-card-body>-->
-      <!--          <div>-->
-      <!--            <nb-icon-->
-      <!--              icon="film-outline">-->
-      <!--            </nb-icon>-->
-      <!--            Movies: {{info.movies.length}}-->
-      <!--          </div>-->
-      <!--          <div>-->
-      <!--            <nb-icon-->
-      <!--              icon="people-outline">-->
-      <!--            </nb-icon>-->
-      <!--            People: {{info.people.length}}-->
-      <!--          </div>-->
-      <!--        </nb-card-body>-->
-      <!--      </nb-card>-->
-      <!--    </div>-->
+    </div>
+      <div class="movies-by-rating">
+        <nb-card>
+          <nb-card-header>
+          <span class="title">
+            {{LIST_MOVIES_RATING}} movies by rating bigger than {{RATING_SEARCHED}}
+          </span>
+
+            <div class="right-side">
+              <bm-search
+                (searchEvent)="onSearch(getSearchByEnum().RATING, $event)"
+                (resetSearch)="resetSearch(getSearchByEnum().RATING)"
+                [isFiltered]="moviesByRatingIsFiltered"
+                [placeHolder]="moviesByRatingPlaceHolder"
+              >
+
+              </bm-search>
+              <nb-select
+                [(selected)]="LIST_MOVIES_RATING"
+                (selectedChange)="loadMovies(getLoadEnum().BEST_MOVIES)"
+                hero status="info" shape="round">
+
+                <nb-option
+                  value="5">Top 5</nb-option>
+                <nb-option value="10">Top 10</nb-option>
+                <nb-option value="15">Top 15</nb-option>
+                <nb-option value="20">Top 20</nb-option>
+              </nb-select>
+            </div>
+          </nb-card-header>
+          <nb-card-body>
+            <nb-list
+              class="movie-container"
+              *ngIf="bestMoviesByRating$ | async as movies"
+            >
+              <nb-list-item *ngFor="let movie of movies">
+                <nb-card size="medium" class="poster-movie">
+                  <nb-card-header class="header-poster-movie">
+                    <div class="movie-title">{{ movie.title }}</div>
+                  </nb-card-header>
+                  <nb-card-body class="body-poster-movie">
+                    <div class="show-more-button">
+                      <button
+                        nbButton
+                        status="primary"
+                        (click)="redirectToMovieOverviewPage(movie.id)"
+                      >
+                        <nb-icon icon="film-outline"></nb-icon>
+                        Show more
+                      </button>
+                    </div>
+                    <img *ngIf="movie.posterImage"
+                         [src]="movie.posterImage" [alt]="movie.title">
+                    <img *ngIf="!movie.posterImage"
+                         src="../../../assets/no-poster-available.jpg" [alt]="movie.title">
+                  </nb-card-body>
+                  <nb-card-footer class="footer-poster-movie">
+                    <div>
+                      <span class="movie-year">Year of publication: {{ movie.year }}</span>
+                    </div>
+                  </nb-card-footer>
+                </nb-card>
+              </nb-list-item>
+            </nb-list>
+          </nb-card-body>
+        </nb-card>
     </div>
   </div>
 </ng-template>

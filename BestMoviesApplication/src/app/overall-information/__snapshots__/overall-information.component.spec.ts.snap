@@ -2,13 +2,22 @@
 
 exports[`app > overall-information > overall-information.component.spec.ts should match snapshot 1`] = `
 <app-overall-information
+  LIST_MOVIES_RATING={[Function String]}
+  LIST_MOVIES_YEAR={[Function String]}
+  RANDOMLY_RATING={[Function Number]}
+  RATING_SEARCHED={[Function Number]}
   TOP_BEST_MOVIES={[Function String]}
-  TOP_BEST_MOVIES_YEAR={[Function String]}
-  YEAR={[Function Number]}
+  YEAR_NOW={[Function Number]}
+  YEAR_SEARCHED={[Function Number]}
   __isFetching$__selector={[Function Observable]}
   __isFetchingBestMovies$__selector={[Function Observable]}
   agGrid="undefined"
   alive={[Function Boolean]}
+  moviesByRatingIsFiltered="false"
+  moviesByRatingPlaceHolder={[Function String]}
+  moviesByYearIsFiltered="false"
+  moviesByYearPlaceHolder={[Function String]}
+  nbToastrService={[Function NbToastrService]}
   router={[Function Router]}
   store={[Function Store]}
 >
