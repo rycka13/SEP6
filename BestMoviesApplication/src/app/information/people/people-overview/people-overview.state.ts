@@ -68,6 +68,10 @@ export class PeopleOverviewState {
         //real data
         person = await this.directorService.getDirectorById(action.personId) as Director;
       }
+
+      //TODO ERROR PosterImage is not mapped when calling one of the api above
+      //todo this will be removed
+      person.posterImage = null;
     } catch (e) {
       this.toastrService.show('danger', 'Fetching people went wrong.');
 
