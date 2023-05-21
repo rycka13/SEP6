@@ -8,11 +8,13 @@ import {PeopleSelector} from "src/app/information/people/people.selector";
 import {Person} from "src/model/person";
 import {
   PeopleFetchInfo,
-  PeopleReset,
-  PeopleSearchName,
-  PeopleSearchReset
+  PeopleReset, PeopleSearchDirectorsReset,
+  PeopleSearchStarsByName,
+  PeopleSearchStarsReset
 } from "src/app/information/people/people.actions";
 import {MoviesCell} from "src/core/cell-renderers/movies.column.cell";
+import {Star} from "src/model/star";
+import {Director} from "src/model/director";
 
 @Component({
   selector: 'app-people',
@@ -24,27 +26,22 @@ export class PeopleComponent implements OnInit, OnDestroy {
   @Select(PeopleSelector.isFetching)
   isFetching$: Observable<boolean>;
 
-  @Select(PeopleSelector.isFiltered)
-  isFiltered$: Observable<boolean>;
+  @Select(PeopleSelector.starsAreFiltered)
+  starsAreFiltered$: Observable<boolean>;
 
-  @Select(PeopleSelector.people)
-  people$: Observable<Person[]>;
+  @Select(PeopleSelector.starsAreFiltered)
+  directorsAreFiltered$: Observable<boolean>;
 
-  //ag grid
-  gridApi: GridApi;
-  gridColumnApi: ColumnApi;
-  @ViewChild('agGridAngular') agGrid!: AgGridAngular;
+  @Select(PeopleSelector.stars)
+  stars$: Observable<Star[]>;
+
+  @Select(PeopleSelector.directors)
+  directors$: Observable<Director[]>;
 
   alive: boolean = true;
 
   constructor(private store: Store,
               private searchService: NbSearchService) {
-
-    this.searchService.onSearchSubmit()
-      .subscribe((data: any) => {
-        this.store.dispatch(new PeopleSearchName(data.term));
-      })
-
   }
 
   async ngOnInit() {
@@ -54,51 +51,20 @@ export class PeopleComponent implements OnInit, OnDestroy {
     this.store.dispatch([...actionsInParallel]);
   }
 
-  onGridReady(params: GridReadyEvent) {
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-
-    //TODO adjust autosize
-    this.gridApi.sizeColumnsToFit();
+  onSearchStars(event) {
+    this.store.dispatch(new PeopleSearchStarsByName(event))
   }
 
-  onCellClicked(e: CellClickedEvent): void {
-    // TODO redirect to the movie overview
+  onSearchDirectors(event) {
+    this.store.dispatch(new PeopleSearchStarsByName(event))
   }
 
-  columnDefs: ColDef[] = [
-    {
-      headerName: 'Movies',
-      field: 'movies',
-      cellRenderer: 'moviesCell',
-      autoHeight: true,
-    },
-    {
-      headerName: 'Id',
-      field: 'id',
-    },
-    {
-      headerName: 'Name',
-      field: 'name',
-    },
-    {
-      headerName: 'Birth',
-      field: 'birth'
-    },
-  ]
-
-  components = {
-    moviesCell: MoviesCell,
+  resetSearchStars() {
+    this.store.dispatch(new PeopleSearchStarsReset());
   }
 
-  public defaultColDef: ColDef = {
-    sortable: true,
-    filter: true,
-
-  };
-
-  resetSearch() {
-    this.store.dispatch(new PeopleSearchReset());
+  resetSearchDirectors() {
+    this.store.dispatch(new PeopleSearchDirectorsReset());
   }
 
   ngOnDestroy() {

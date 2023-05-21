@@ -8,8 +8,13 @@ export class PeopleSelector {
   }
 
   @Selector([PeopleState])
-  static isFiltered(state: PeopleStateModel) {
+  static starsAreFiltered(state: PeopleStateModel) {
     return state.starsAreFiltered;
+  }
+
+  @Selector([PeopleState])
+  static directorsAreFiltered(state: PeopleStateModel) {
+    return state.directorsAreFiltered;
   }
 
   @Selector([PeopleState])
