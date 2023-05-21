@@ -1,6 +1,5 @@
 package com.bestmovies.sep6_project.dao.interfaces;
 
-import com.bestmovies.sep6_project.model.Movie;
 import com.bestmovies.sep6_project.model.Rating;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,6 +10,5 @@ public interface IRatingMapper {
     void createRating(Rating rating);
     void updateRating(Rating rating);
     void deleteRating(long id);
-
-    Rating getRatingById(long id);
+    Rating getRatingByMovieId(long id);
 }

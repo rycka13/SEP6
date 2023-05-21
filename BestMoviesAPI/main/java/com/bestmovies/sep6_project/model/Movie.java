@@ -6,6 +6,7 @@ public class Movie {
     private int year;
     private String posterImage;
     private String backgroundImage;
+    private String description;
 
     public Movie(long id, String title, int year){
         this.id = id;
@@ -55,5 +56,13 @@ public class Movie {
 
     public void setBackgroundImage(String backgroundImage) {
         this.backgroundImage = backgroundImage;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

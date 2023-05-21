@@ -1,7 +1,6 @@
 package com.bestmovies.sep6_project.controllers;
 
 import com.bestmovies.sep6_project.model.Director;
-import com.bestmovies.sep6_project.model.Movie;
 import com.bestmovies.sep6_project.services.DirectorService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.http.HttpStatus;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/director")
 public class DirectorController {
     @Autowired
@@ -49,6 +49,11 @@ public class DirectorController {
     @RequestMapping(value = "/name/{name}",method = RequestMethod.GET)
     List<Director> getDirectorsByName(@PathVariable String name){
         return directorService.getDirectorsByName(name);
+    }
+
+    @RequestMapping(value = "/page/{pageNr}/{n}", method = RequestMethod.GET)
+    public List<Director> getPageOfMovies(@PathVariable int pageNr, @PathVariable int n){
+        return directorService.getPageOfDirectors(pageNr, n);
     }
 
     public void setResponse(HttpServletResponse response, boolean success){

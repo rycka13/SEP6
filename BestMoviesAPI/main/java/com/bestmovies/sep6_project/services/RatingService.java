@@ -17,7 +17,7 @@ public class RatingService {
     }
 
     public Rating getRatingById(long id) {
-        return ratingMapper.getRatingById(id);
+        return ratingMapper.getRatingByMovieId(id);
     }
 
     public boolean createRating(Rating rating) {
@@ -48,7 +48,7 @@ public class RatingService {
 
     public Rating getRatingByMovieId(long id){
         if(id > 0){
-            return ratingMapper.getRatingById(id);
+            return ratingMapper.getRatingByMovieId(id);
         }
         return null;
     }

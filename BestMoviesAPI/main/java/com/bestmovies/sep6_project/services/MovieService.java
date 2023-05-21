@@ -3,7 +3,7 @@ package com.bestmovies.sep6_project.services;
 import com.bestmovies.sep6_project.dao.interfaces.IMovieMapper;
 import com.bestmovies.sep6_project.model.Movie;
 import com.bestmovies.sep6_project.model.MovieResult;
-import com.bestmovies.sep6_project.restclient.MovieRestClient;
+import com.bestmovies.sep6_project.restclient.RestClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,22 +16,21 @@ public class MovieService {
     private IMovieMapper movieMapper;
 
     @Autowired
-    private MovieRestClient movieRestClient;
+    private RestClient restClient;
 
-    private final String pictureUrl = "https://image.tmdb.org/t/p/original/";
+    private final String pictureUrl = "https://image.tmdb.org/t/p/original";
 
     public List<Movie> getAllMovies(){
         List<Movie> allMovies = movieMapper.getAll();
-        for (Movie m : allMovies) {
-            setMovieImages(m);
-        }
-
+        setMultipleMoviesImages(allMovies);
+        setMultipleMoviesDescriptions(allMovies);
         return allMovies;
     }
 
     public Movie getMovieById(long id) {
         Movie movieById = movieMapper.getMovieById(id);
         setMovieImages(movieById);
+        setMovieDescription(movieById);
         return movieById;
     }
 
@@ -63,63 +62,90 @@ public class MovieService {
 
     public List<Movie> getNMoviesByRating(double rating, int n){
         if(rating > 0 && n > 0){
-            return setMultipleMoviesImages(movieMapper.getNMoviesByRating(rating, n));
+            List<Movie> movies = movieMapper.getNMoviesByRating(rating, n);
+            setMultipleMoviesImages(movies);
+            setMultipleMoviesDescriptions(movies);
+            return movies;
         }
         return null;
     }
 
     public List<Movie> getNMoviesByVotes(int votes, int n){
         if(votes > 0 && n > 0){
-            return setMultipleMoviesImages(movieMapper.getNMoviesByVotes(votes, n));
+            List<Movie> movies = movieMapper.getNMoviesByVotes(votes, n);
+            setMultipleMoviesImages(movies);
+            setMultipleMoviesDescriptions(movies);
+            return movies;
         }
         return null;
     }
 
     public List<Movie> getAllMoviesForDirector(long id){
         if(id > 0){
-            return setMultipleMoviesImages(movieMapper.getAllMoviesForDirector(id));
+            List<Movie> movies = movieMapper.getAllMoviesForDirector(id);
+            setMultipleMoviesImages(movies);
+            setMultipleMoviesDescriptions(movies);
+            return movies;
         }
         return null;
     }
 
     public List<Movie> getAllMoviesForStar(long id){
         if(id > 0){
-            return setMultipleMoviesImages(movieMapper.getAllMoviesForStar(id));
+            List<Movie> movies = movieMapper.getAllMoviesForStar(id);
+            setMultipleMoviesImages(movies);
+            setMultipleMoviesDescriptions(movies);
+            return movies;
         }
         return null;
     }
 
     public List<Movie> getNMoviesByYear(int year, int n){
         if(year > 0 && n > 0){
-            return setMultipleMoviesImages(movieMapper.getNMoviesByYear(year, n));
+            List<Movie> movies = movieMapper.getNMoviesByYear(year, n);
+            setMultipleMoviesImages(movies);
+            setMultipleMoviesDescriptions(movies);
+            return movies;
         }
         return null;
     }
 
-    public List<Movie> getMoviesByYear(int year, int n){
-        if(year > 0 && n > 0){
-            return setMultipleMoviesImages(movieMapper.getMoviesByYear(year, n));
+    public List<Movie> getMoviesByYear(int year){
+        if(year > 0){
+            List<Movie> movies = movieMapper.getMoviesByYear(year);
+            setMultipleMoviesImages(movies);
+            setMultipleMoviesDescriptions(movies);
+            return movies;
         }
         return null;
     }
 
     public List<Movie> getNMostPopularMovies(int n){
         if(n > 0){
-            return setMultipleMoviesImages(movieMapper.getNMostPopularMovies(n));
+            List<Movie> movies = movieMapper.getNMostPopularMovies(n);
+            setMultipleMoviesImages(movies);
+            setMultipleMoviesDescriptions(movies);
+            return movies;
         }
         return null;
     }
 
     public List<Movie> getNBestRatedMovies(int n){
         if(n > 0){
-            return setMultipleMoviesImages(movieMapper.getNBestRatedMovies(n));
+            List<Movie> movies = movieMapper.getNBestRatedMovies(n);
+            setMultipleMoviesImages(movies);
+            setMultipleMoviesDescriptions(movies);
+            return movies;
         }
         return null;
     }
 
     public List<Movie> getMoviesByTitle(String title){
         if(title != null){
-            return setMultipleMoviesImages(movieMapper.getMoviesByTitle(title));
+            List<Movie> movies = movieMapper.getMoviesByTitle(title);
+            setMultipleMoviesImages(movies);
+            setMultipleMoviesDescriptions(movies);
+            return movies;
         }
         return null;
     }
@@ -127,16 +153,26 @@ public class MovieService {
     public List<Movie> getPageOfMovies(int pageNr, int n) {
         if(pageNr>0 && n>0){
             List<Movie> pagedMovies = movieMapper.getNMoviesByPage(pageNr, n);
-            return setMultipleMoviesImages(pagedMovies);
+            setMultipleMoviesImages(pagedMovies);
+            setMultipleMoviesDescriptions(pagedMovies);
+            return pagedMovies;
         }
         return null;
     }
 
     private void setMovieImages(Movie movie) {
-        MovieResult movieResult= movieRestClient.getAllByName(movie.getTitle());
+        MovieResult movieResult= restClient.getAllMoviesByName(movie.getTitle());
         if(movieResult != null && !movieResult.getResults().isEmpty()){
-            movie.setPosterImage(pictureUrl + movieResult.getResults().get(0).getPoster_path());
-            movie.setBackgroundImage(pictureUrl + movieResult.getResults().get(0).getBackdrop_path());
+            String posterPath = movieResult.getResults().get(0).getPoster_path();
+            String backgroundPath = movieResult.getResults().get(0).getPoster_path();
+            if(posterPath != null){
+                movie.setPosterImage(pictureUrl + posterPath);
+            }
+            if(backgroundPath != null){
+                movie.setBackgroundImage(pictureUrl + backgroundPath);
+            }
+
+
         }
         else {
             movie.setPosterImage(null);
@@ -144,10 +180,26 @@ public class MovieService {
         }
     }
 
-    private List<Movie> setMultipleMoviesImages(List<Movie> allMovies){
+    private void setMultipleMoviesImages(List<Movie> allMovies){
         for (Movie m : allMovies) {
             setMovieImages(m);
         }
-        return allMovies;
     }
+
+    private void setMovieDescription(Movie movie) {
+        MovieResult movieResult= restClient.getAllMoviesByName(movie.getTitle());
+        if(movieResult != null && !movieResult.getResults().isEmpty()){
+            movie.setDescription(movieResult.getResults().get(0).getOverview());
+        }
+        else {
+            movie.setDescription(null);
+        }
+    }
+
+    private void setMultipleMoviesDescriptions(List<Movie> allMovies){
+        for (Movie m : allMovies) {
+            setMovieDescription(m);
+        }
+    }
+
 }

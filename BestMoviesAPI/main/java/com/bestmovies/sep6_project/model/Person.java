@@ -8,6 +8,7 @@ public abstract class Person {
     private long id;
     private String name;
     private int birthYear;
+    private String profilePicture;
 
     public Person(){}
     public Person(String name, int birthYear) {
@@ -63,5 +64,21 @@ public abstract class Person {
 
     public void setBirthYear(int birthYear) {
         this.birthYear = birthYear;
+    }
+
+    public void setAddMovie(Movie addMovie) {
+        this.addMovie = addMovie;
+    }
+
+    public Movie getAddMovie() {
+        return addMovie;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 }

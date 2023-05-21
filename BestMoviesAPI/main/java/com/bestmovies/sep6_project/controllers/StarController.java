@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/star")
 public class StarController {
 
@@ -59,6 +60,11 @@ public class StarController {
     @RequestMapping(value = "/add", method = RequestMethod.POST, consumes="application/json")
     public void addMovieStar(@RequestBody Star star, HttpServletResponse response){
         setResponse(response, starService.addMovieStar(star));
+    }
+
+    @RequestMapping(value = "/page/{pageNr}/{n}", method = RequestMethod.GET)
+    public List<Star> getPageOfMovies(@PathVariable int pageNr, @PathVariable int n){
+        return starService.getPageOfStars(pageNr, n);
     }
 
     public void setResponse(HttpServletResponse response, boolean success){

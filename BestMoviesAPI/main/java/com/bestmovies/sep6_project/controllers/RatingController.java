@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/rating")
 public class RatingController {
 
@@ -41,7 +42,7 @@ public class RatingController {
         return ratingService.getRatingById(id);
     }
 
-    @RequestMapping(value = "/byMovieId/{movieId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/byMovieId/{movieId}", method = RequestMethod.GET)
     public Rating getRatingByMovieId(@PathVariable long movieId){
         return ratingService.getRatingByMovieId(movieId);
     }
