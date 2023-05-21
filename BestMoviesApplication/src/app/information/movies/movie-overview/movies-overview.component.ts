@@ -19,6 +19,7 @@ import {Star} from "src/model/star";
 import {MoviesFetchInfo} from "src/app/information/movies/movies.actions";
 import {NbToastrService} from "@nebular/theme";
 import {switchMap} from "rxjs/operators";
+import {PeopleType} from "src/app/information/people/people-overview/constants/constants";
 
 @Component({
   selector: 'app-movies-overview',

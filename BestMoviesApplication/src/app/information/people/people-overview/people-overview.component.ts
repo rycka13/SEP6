@@ -12,6 +12,8 @@ import {
   PeopleOverviewFetchInfo,
   PeopleOverviewReset
 } from "src/app/information/people/people-overview/people-overview.actions";
+import {getPeopleType, PeopleType} from "src/app/information/people/people-overview/constants/constants";
+import {Person} from "src/model/person";
 
 @Component({
   selector: 'app-people-overview',
@@ -25,13 +27,11 @@ export class PeopleOverviewComponent implements OnInit, OnDestroy{
   isFetching$: Observable<boolean>;
 
   @Select(PeopleOverviewSelector.person)
-  person$: Observable<Star | Director>;
-
-  @Select(PeopleOverviewSelector.movies)
-  movies$: Observable<Movie[]>;
+  person$: Observable<Person>;
 
 
   alive: boolean = true;
+  peopleType: PeopleType;
   constructor(
     private route: ActivatedRoute,
     private store: Store,
@@ -44,14 +44,18 @@ export class PeopleOverviewComponent implements OnInit, OnDestroy{
     this.route.params.subscribe(params => {
       const peopleType = params['peopleType'];
       const personId = params['personId'];
-
-      this.store.dispatch(new PeopleOverviewFetchInfo(peopleType, Number(personId)));
+      this.peopleType = getPeopleType(peopleType);
+      this.store.dispatch(new PeopleOverviewFetchInfo(this.peopleType, Number(personId)));
     });
   }
 
 
   redirectToMovieOverviewPage(movieId: number) {
     this.router.navigate([`/information/movies/${movieId}`]);
+  }
+
+  getPeopleTypeEnum() : typeof PeopleType {
+    return PeopleType;
   }
 
   ngOnDestroy() {

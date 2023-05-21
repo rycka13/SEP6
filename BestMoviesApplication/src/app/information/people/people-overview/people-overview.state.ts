@@ -11,16 +11,17 @@ import {
   PeopleOverviewReset
 } from "src/app/information/people/people-overview/people-overview.actions";
 import {PeopleType} from "src/app/information/people/people-overview/constants/constants";
-import {starsMock} from "src/util/mocks/stars_mock";
-import {directorsMock} from "src/util/mocks/directors_mock";
+import {Person} from "src/model/person";
 
 export interface PeopleOverviewStateModel {
   isFetching: boolean;
-  person: Star | Director;
+  star: Star;
+  person: Director;
 }
 
 export const defaultsState: PeopleOverviewStateModel = {
   isFetching: false,
+  star: null,
   person: null,
 }
 
@@ -50,23 +51,21 @@ export class PeopleOverviewState {
     })
 
     setState(newState);
-    currentState = newState;
 
-    let person: Star | Director;
-    let peopleType = this.getPeopleType(action.peopleType);
+    let person: Person;
     try {
-      if (peopleType === PeopleType.STAR) {
+      if (action.peopleType === PeopleType.STAR) {
         //mock
         // person = starsMock[0] as Star;
 
         //real data
-        person = await this.starService.getStarById(action.personId) as Star;
-      } else if(peopleType === PeopleType.DIRECTOR) {
+        person = await this.starService.getStarById(action.personId);
+      } else if(action.peopleType === PeopleType.DIRECTOR) {
         //mock
         // person = directorsMock[0] as Director;
 
         //real data
-        person = await this.directorService.getDirectorById(action.personId) as Director;
+        person = await this.directorService.getDirectorById(action.personId);
       }
 
       //TODO ERROR PosterImage is not mapped when calling one of the api above
@@ -90,13 +89,4 @@ export class PeopleOverviewState {
     { getState, setState }: StateContext<PeopleOverviewStateModel>) {
     setState(defaultsState);
   }
-
-  getPeopleType(peopleType: string) {
-    switch(peopleType) {
-      case "star" : return PeopleType.STAR;
-      case "director" : return PeopleType.DIRECTOR;
-      default: return PeopleType.UNKNOWN;
-    }
-  }
-
 }
