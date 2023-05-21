@@ -62,6 +62,11 @@ public class StarController {
         setResponse(response, starService.addMovieStar(star));
     }
 
+    @RequestMapping(value = "/page/{pageNr}/{n}", method = RequestMethod.GET)
+    public List<Star> getPageOfMovies(@PathVariable int pageNr, @PathVariable int n){
+        return starService.getPageOfStars(pageNr, n);
+    }
+
     public void setResponse(HttpServletResponse response, boolean success){
         if(success){
             response.setStatus(HttpStatus.SC_OK);
