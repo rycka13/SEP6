@@ -91,6 +91,15 @@ public class StarService {
         return false;
     }
 
+    public List<Star> getPageOfStars(int pageNr, int n) {
+        if(pageNr>0 && n>0){
+            List<Star> stars = starMapper.getNStarsByPage(pageNr, n);
+            setMultipleStarsPictures(stars);
+            return stars;
+        }
+        return null;
+    }
+
     private void setStarPicture(Star star){
         PersonResult personResult = restClient.getAllPersonsByName(star.getName());
         if(personResult != null && !personResult.getResults().isEmpty()){

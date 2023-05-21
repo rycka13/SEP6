@@ -51,6 +51,11 @@ public class DirectorController {
         return directorService.getDirectorsByName(name);
     }
 
+    @RequestMapping(value = "/page/{pageNr}/{n}", method = RequestMethod.GET)
+    public List<Director> getPageOfMovies(@PathVariable int pageNr, @PathVariable int n){
+        return directorService.getPageOfDirectors(pageNr, n);
+    }
+
     public void setResponse(HttpServletResponse response, boolean success){
         if(success){
             response.setStatus(HttpStatus.SC_OK);

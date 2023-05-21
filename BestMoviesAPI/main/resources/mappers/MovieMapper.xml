@@ -26,7 +26,7 @@
         SELECT m.id, m.title, m.`year`
         FROM movies m
                  JOIN directors d ON m.id = d.movie_id
-        WHERE d.person_id = #{id}
+        WHERE d.person_id = #{id} limit 5;
     </select>
 
     <select id="getAllMoviesForStar" resultMap="result">

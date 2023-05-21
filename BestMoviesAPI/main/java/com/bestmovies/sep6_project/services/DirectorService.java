@@ -75,6 +75,15 @@ public class DirectorService {
         return null;
     }
 
+    public List<Director> getPageOfDirectors(int pageNr, int n) {
+        if(pageNr>0 && n>0){
+            List<Director> directors = directorMapper.getNDirectorsByPage(pageNr, n);
+            setMultipleDirectorsPictures(directors);
+            return directors;
+        }
+        return null;
+    }
+
     private void setDirectorPicture(Director director){
         PersonResult personResult = restClient.getAllPersonsByName(director.getName());
         if(personResult != null && !personResult.getResults().isEmpty()){
