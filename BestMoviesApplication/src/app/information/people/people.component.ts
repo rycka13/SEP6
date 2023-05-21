@@ -15,6 +15,7 @@ import {
 import {MoviesCell} from "src/core/cell-renderers/movies.column.cell";
 import {Star} from "src/model/star";
 import {Director} from "src/model/director";
+import {PeoplePlaceHolderEnum} from "src/app/information/people/constants/constants";
 
 @Component({
   selector: 'app-people',
@@ -38,6 +39,8 @@ export class PeopleComponent implements OnInit, OnDestroy {
   @Select(PeopleSelector.directors)
   directors$: Observable<Director[]>;
 
+  starsPlaceholder: string;
+  directorsPlaceholder: string;
   alive: boolean = true;
 
   constructor(private store: Store,
@@ -45,6 +48,9 @@ export class PeopleComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
+    this.starsPlaceholder = PeoplePlaceHolderEnum.STARS_PLACEHOLDER;
+    this.directorsPlaceholder = PeoplePlaceHolderEnum.DIRECTORS_PLACEHOLDER;
+
     const actionsInParallel = [
       new PeopleFetchInfo(),
     ];
@@ -52,18 +58,22 @@ export class PeopleComponent implements OnInit, OnDestroy {
   }
 
   onSearchStars(event) {
+    this.starsPlaceholder = event;
     this.store.dispatch(new PeopleSearchStarsByName(event))
   }
 
   onSearchDirectors(event) {
+    this.directorsPlaceholder = event;
     this.store.dispatch(new PeopleSearchStarsByName(event))
   }
 
   resetSearchStars() {
+    this.starsPlaceholder = PeoplePlaceHolderEnum.STARS_PLACEHOLDER;
     this.store.dispatch(new PeopleSearchStarsReset());
   }
 
   resetSearchDirectors() {
+    this.directorsPlaceholder = PeoplePlaceHolderEnum.DIRECTORS_PLACEHOLDER;
     this.store.dispatch(new PeopleSearchDirectorsReset());
   }
 
