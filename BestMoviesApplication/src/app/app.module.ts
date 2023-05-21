@@ -5,18 +5,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  NbThemeModule,
-  NbLayoutModule,
-  NbActionsModule,
-  NbSidebarModule,
-  NbMenuModule,
-  NbCardModule,
-  NbToastrModule,
-  NbIconModule,
-  NbButtonModule,
-  NbSpinnerModule,
-  NbListModule,
-  NbSearchModule, NbSearchService, NbInputModule, NbFormFieldModule, NbTooltipModule, NbSelectModule
+    NbThemeModule,
+    NbLayoutModule,
+    NbActionsModule,
+    NbSidebarModule,
+    NbMenuModule,
+    NbCardModule,
+    NbToastrModule,
+    NbIconModule,
+    NbButtonModule,
+    NbSpinnerModule,
+    NbListModule,
+    NbSearchModule, NbSearchService, NbInputModule, NbFormFieldModule, NbTooltipModule, NbSelectModule, NbTabsetModule
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { BmLayoutComponent } from '../core/components/bm-layout/bm-layout.component';
@@ -119,6 +119,7 @@ export const NEBULAR_MODULES = [
   NbFormFieldModule,
   NbTooltipModule,
   NbSelectModule,
+  NbTabsetModule,
 ]
 
 @NgModule({
