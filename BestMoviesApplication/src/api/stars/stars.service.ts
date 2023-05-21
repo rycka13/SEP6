@@ -24,6 +24,10 @@ export class StarsService {
     return await this.apiService.get(`${this.PATH_CONTROLLER}/name/${name}`);
   }
 
+  async getStarsPerPage(pageNumber, pageSize): Promise<Star[]> {
+    return await this.apiService.get(`${this.PATH_CONTROLLER}/page/${pageNumber}/${pageSize}`);
+  }
+
   async getAll(): Promise<Star[]> {
     return await this.apiService.get(`${this.PATH_CONTROLLER}/getAll`);
   }

@@ -2,47 +2,143 @@
 </ng-container>
 
 <ng-template #dataFetched>
-  <nb-card
-    accent="info">
-    <nb-card-header>
-      <nb-search type="rotate-layout"></nb-search>
-      <button
-        *ngIf="isFiltered$ | async"
-        nbButton
-        outline
-        status="primary"
-        shape="round"
-        class="reset-button"
-        (click)="resetSearch()"
-      >
-        <nb-icon
-          icon="refresh-outline"
-        >
-        </nb-icon>
-        Reset search
-      </button>
-    </nb-card-header>
-    <nb-card-body>
-      <ag-grid-angular
-        #agGridAngular
-        style="width: 100%; height: 70vh"
-        class="ag-theme-alpine"
-        [columnDefs]="columnDefs"
-        [defaultColDef]="defaultColDef"
-        [rowData]="people$ | async"
-        [components]="components"
-        [rowSelection]="'multiple'"
-        [animateRows]="true"
-        (gridReady)="onGridReady($event)"
-        (cellClicked)="onCellClicked($event)"
-      ></ag-grid-angular>
-    </nb-card-body>
-  </nb-card>
+  <div class="people-information">
+    <nb-card>
+      <nb-card-body>
+
+        <nb-tabset listenWindowScroll>
+          <nb-tab tabTitle="Stars"
+                  [badgeText]="starsSize$ | async"
+                  badgeStatus="success">
+            <div class="stars">
+              <nb-card>
+                <nb-card-header class="header-information">
+          <span class="title">
+            Stars
+          </span>
+
+                  <div class="right-side">
+                    <bm-search
+                      (searchEvent)="onSearch(getPeopleType().STAR,$event)"
+                      (resetSearch)="resetSearch(getPeopleType().STAR)"
+                      [isFiltered]="starsAreFiltered$ | async"
+                      [placeHolder]="starsPlaceholder"
+                    >
+
+                    </bm-search>
+                  </div>
+                </nb-card-header>
+                <nb-card-body>
+                  <nb-list
+                    nbInfiniteList
+                    [threshold]="500"
+                    (bottomThreshold)="loadNext(getPeopleType().STAR)"
+                    class="movie-container"
+                    *ngIf="stars$ | async as stars"
+                  >
+                    <nb-list-item *ngFor="let star of stars">
+                      <nb-card size="medium" class="poster-people">
+                        <nb-card-header class="header-poster-people">
+                          <div class="people-name">{{ star.name }}</div>
+                        </nb-card-header>
+                        <nb-card-body class="body-poster-people">
+                          <div class="show-more-button">
+                            <button
+                              nbButton
+                              status="primary"
+                              (click)="redirectToOverviewPageFor(getPeopleType().STAR,star.id)"
+                            >
+                              <nb-icon icon="film-outline"></nb-icon>
+                              Show more
+                            </button>
+                          </div>
+                          <img *ngIf="star.profilePicture"
+                               [src]="star.profilePicture" [alt]="star.name">
+                          <img *ngIf="!star.profilePicture"
+                               src="../../../assets/no-poster-available.jpg" [alt]="star.name">
+                        </nb-card-body>
+                        <nb-card-footer class="footer-poster-people">
+                          <div>
+                            <span class="person-birth">Year of birth: {{ star.birthYear }}</span>
+                          </div>
+                        </nb-card-footer>
+                      </nb-card>
+                    </nb-list-item>
+                  </nb-list>
+                </nb-card-body>
+              </nb-card>
+            </div>
+          </nb-tab>
+          <nb-tab tabTitle="Directors"
+                  [badgeText]="directorsSize$ | async"
+                  badgeStatus="warning">
+            <div class="directors">
+              <nb-card>
+                <nb-card-header class="header-information">
+          <span class="title">
+            Directors
+          </span>
+
+                  <div class="right-side">
+                    <bm-search
+                      (searchEvent)="onSearch(getPeopleType().DIRECTOR,$event)"
+                      (resetSearch)="resetSearch(getPeopleType().DIRECTOR)"
+                      [isFiltered]="directorsAreFiltered$ | async"
+                      [placeHolder]="directorsPlaceholder"
+                    >
+
+                    </bm-search>
+                  </div>
+                </nb-card-header>
+                <nb-card-body>
+                  <nb-list
+                    nbInfiniteList
+                    [threshold]="500"
+                    (bottomThreshold)="loadNext(getPeopleType().DIRECTOR)"
+                    class="movie-container"
+                    *ngIf="directors$ | async as directors"
+                  >
+                    <nb-list-item *ngFor="let director of directors">
+                      <nb-card size="medium" class="poster-people">
+                        <nb-card-header class="header-poster-people">
+                          <div class="people-name">{{ director }}</div>
+                        </nb-card-header>
+                        <nb-card-body class="body-poster-people">
+                          <div class="show-more-button">
+                            <button
+                              nbButton
+                              status="primary"
+                              (click)="redirectToOverviewPageFor(getPeopleType().DIRECTOR, director.id)"
+                            >
+                              <nb-icon icon="film-outline"></nb-icon>
+                              Show more
+                            </button>
+                          </div>
+                          <img *ngIf="director.profilePicture"
+                               [src]="director.profilePicture" [alt]="director.name">
+                          <img *ngIf="!director.profilePicture"
+                               src="../../../assets/no-poster-available.jpg" [alt]="director.name">
+                        </nb-card-body>
+                        <nb-card-footer class="footer-poster-people">
+                          <div>
+                            <span class="person-birth">Year of birth: {{ director.name }}</span>
+                          </div>
+                        </nb-card-footer>
+                      </nb-card>
+                    </nb-list-item>
+                  </nb-list>
+                </nb-card-body>
+              </nb-card>
+            </div>
+          </nb-tab>
+        </nb-tabset>
+      </nb-card-body>
+    </nb-card>
+  </div>
 </ng-template>
 
 <ng-template #dataFetching>
   <nb-spinner
-    [nbSpinner]="true"
     status="basic"
     class="spinner">
   </nb-spinner>

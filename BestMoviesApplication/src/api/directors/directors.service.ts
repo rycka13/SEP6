@@ -21,6 +21,10 @@ export class DirectorsService {
     return await this.apiService.get(`${this.PATH_CONTROLLER}//name/${name}`);
   }
 
+  async getDirectorsPerPage(pageNumber, pageSize): Promise<Director[]> {
+    return await this.apiService.get(`${this.PATH_CONTROLLER}/page/${pageNumber}/${pageSize}`);
+  }
+
   async getAll(): Promise<Director[]> {
     return await this.apiService.get(`${this.PATH_CONTROLLER}/getAll`);
   }
