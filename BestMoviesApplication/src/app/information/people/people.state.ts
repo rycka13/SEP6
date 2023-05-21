@@ -13,7 +13,7 @@ import {produce} from "immer";
 import {moviesMock} from "src/util/mocks/movies_mock";
 import {MoviesStateModel} from "src/app/information/movies/movies.state";
 import {
-  PeopleFetchInfo,
+  PeopleFetchDirectorsNextPage, PeopleFetchInfoFirstPage, PeopleFetchStarsNextPage,
   PeopleReset, PeopleSearchDirectorsByName, PeopleSearchDirectorsReset,
   PeopleSearchStarsByName,
   PeopleSearchStarsReset
@@ -29,6 +29,8 @@ export interface PeopleStateModel {
   isFetching: boolean;
   starsAreFiltered: boolean;
   directorsAreFiltered: boolean;
+  pageNumberStars: number;
+  pageNumberDirectors: number;
   stars: Star[];
   directors: Star[];
 }
@@ -37,6 +39,8 @@ export const defaultsState: PeopleStateModel = {
   isFetching: false,
   starsAreFiltered: false,
   directorsAreFiltered: false,
+  pageNumberStars: 1,
+  pageNumberDirectors: 1,
   stars: [],
   directors: [],
 }
@@ -55,7 +59,7 @@ export class PeopleState {
   ) {
   }
 
-  @Action(PeopleFetchInfo)
+  @Action(PeopleFetchInfoFirstPage)
   async peopleFetchInfo(
     {getState, setState}: StateContext<PeopleStateModel>) {
 
@@ -71,11 +75,6 @@ export class PeopleState {
     let stars: Star[] = [];
     let directors: Star[] = [];
     try {
-
-      //mock
-      stars.push(peopleMock[0], peopleMock[1]);
-      directors.push(peopleMock[2], peopleMock[2]);
-
       //real data
       //TODO - have pagination like in movies page here
       // stars = await this.starsService.getPagination();
@@ -92,6 +91,16 @@ export class PeopleState {
     })
 
     setState(newState);
+  }
+
+  @Action(PeopleFetchStarsNextPage)
+  async peopleFetchStarsNextPage(
+    {getState, setState}: StateContext<PeopleStateModel>) {
+  }
+
+  @Action(PeopleFetchDirectorsNextPage)
+  async peopleFetchDirectorsNextPage(
+    {getState, setState}: StateContext<PeopleStateModel>) {
   }
 
   @Action(PeopleSearchStarsByName)
