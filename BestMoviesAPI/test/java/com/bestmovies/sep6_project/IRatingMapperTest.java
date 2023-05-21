@@ -13,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 import static com.bestmovies.sep6_project.Utils.objectToId;
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(properties = "spring.config.name=application-test")

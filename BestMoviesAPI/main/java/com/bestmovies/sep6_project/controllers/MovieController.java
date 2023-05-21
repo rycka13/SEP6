@@ -67,7 +67,7 @@ public class MovieController{
     }
 
     @RequestMapping(value = "/year/{year}", method = RequestMethod.GET)
-    public List<Movie> getMoviesByYear(@PathVariable int year, @PathVariable int n){
+    public List<Movie> getMoviesByYear(@PathVariable int year){
         return movieService.getMoviesByYear(year);
     }
 

@@ -1,5 +1,4 @@
 package com.bestmovies.sep6_project.model;
-import com.bestmovies.sep6_project.model.Movie;
 
 public class Rating {
     private Movie movie;

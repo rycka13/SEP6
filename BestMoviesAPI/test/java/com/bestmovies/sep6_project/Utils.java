@@ -4,9 +4,7 @@ import com.bestmovies.sep6_project.model.Movie;
 import com.bestmovies.sep6_project.model.Person;
 import com.bestmovies.sep6_project.model.Rating;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
