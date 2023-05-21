@@ -26,9 +26,9 @@
     <nb-card-body class="grid-container">
       <nb-card size="medium" class="poster-movie-overview">
         <nb-card-body class="person-poster">
-          <img *ngIf="person.posterImage"
-               [src]="person.posterImage" [alt]="person.name">
-          <img *ngIf="!person.posterImage"
+          <img *ngIf="person.profilePicture"
+               [src]="person.profilePicture" [alt]="person.name">
+          <img *ngIf="!person.profilePicture"
                src="../../../assets/no-person-profile-picture-available.jpg" [alt]="person.name">
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu ullamcorper dui. Ut suscipit urna et
