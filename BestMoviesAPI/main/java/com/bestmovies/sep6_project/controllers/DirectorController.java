@@ -1,7 +1,6 @@
 package com.bestmovies.sep6_project.controllers;
 
 import com.bestmovies.sep6_project.model.Director;
-import com.bestmovies.sep6_project.model.Movie;
 import com.bestmovies.sep6_project.services.DirectorService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.http.HttpStatus;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/director")
 public class DirectorController {
     @Autowired
