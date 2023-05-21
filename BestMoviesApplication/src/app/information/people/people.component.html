@@ -2,116 +2,118 @@
 </ng-container>
 
 <ng-template #dataFetched>
-      <div class="movies-by-year">
-        <nb-card>
-          <nb-card-header>
+  <div class="people-information">
+    <div class="stars">
+      <nb-card>
+        <nb-card-header class="header-information">
           <span class="title">
             Stars
           </span>
 
-            <div class="right-side">
-              <bm-search
-                (searchEvent)="onSearch(getPeopleType().STAR,$event)"
-                (resetSearch)="resetSearch(getPeopleType().STAR)"
-                [isFiltered]="starsAreFiltered$ | async"
-                [placeHolder]="starsPlaceholder"
-              >
-
-              </bm-search>
-            </div>
-          </nb-card-header>
-          <nb-card-body>
-            <nb-list
-              class="movie-container"
-              *ngIf="stars$ | async as stars"
+          <div class="right-side">
+            <bm-search
+              (searchEvent)="onSearch(getPeopleType().STAR,$event)"
+              (resetSearch)="resetSearch(getPeopleType().STAR)"
+              [isFiltered]="starsAreFiltered$ | async"
+              [placeHolder]="starsPlaceholder"
             >
-              <nb-list-item *ngFor="let star of stars">
-                <nb-card size="medium" class="poster-movie">
-                  <nb-card-header class="header-poster-movie">
-                    <div class="movie-title">{{ star.name }}</div>
-                  </nb-card-header>
-                  <nb-card-body class="body-poster-movie">
-                    <div class="show-more-button">
-                      <button
-                        nbButton
-                        status="primary"
-                        (click)="redirectToOverviewPageFor(getPeopleType().STAR,star.id)"
-                      >
-                        <nb-icon icon="film-outline"></nb-icon>
-                        Show more
-                      </button>
-                    </div>
-                    <img *ngIf="star.posterImage"
-                         [src]="star.posterImage" [alt]="star.name">
-                    <img *ngIf="!star.posterImage"
-                         src="../../../assets/no-poster-available.jpg" [alt]="star.name">
-                  </nb-card-body>
-                  <nb-card-footer class="footer-poster-movie">
-                    <div>
-                      <span class="movie-year">Year of birth: {{ star.birthYear }}</span>
-                    </div>
-                  </nb-card-footer>
-                </nb-card>
-              </nb-list-item>
-            </nb-list>
-          </nb-card-body>
-        </nb-card>
-      </div>
-      <div class="movies-by-rating">
-        <nb-card>
-          <nb-card-header>
+
+            </bm-search>
+          </div>
+        </nb-card-header>
+        <nb-card-body>
+          <nb-list
+            class="movie-container"
+            *ngIf="stars$ | async as stars"
+          >
+            <nb-list-item *ngFor="let star of stars">
+              <nb-card size="medium" class="poster-people">
+                <nb-card-header class="header-poster-people">
+                  <div class="people-name">{{ star.name }}</div>
+                </nb-card-header>
+                <nb-card-body class="body-poster-people">
+                  <div class="show-more-button">
+                    <button
+                      nbButton
+                      status="primary"
+                      (click)="redirectToOverviewPageFor(getPeopleType().STAR,star.id)"
+                    >
+                      <nb-icon icon="film-outline"></nb-icon>
+                      Show more
+                    </button>
+                  </div>
+                  <img *ngIf="star.posterImage"
+                       [src]="star.posterImage" [alt]="star.name">
+                  <img *ngIf="!star.posterImage"
+                       src="../../../assets/no-poster-available.jpg" [alt]="star.name">
+                </nb-card-body>
+                <nb-card-footer class="footer-poster-people">
+                  <div>
+                    <span class="person-birth">Year of birth: {{ star.birthYear }}</span>
+                  </div>
+                </nb-card-footer>
+              </nb-card>
+            </nb-list-item>
+          </nb-list>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div class="directors">
+      <nb-card>
+        <nb-card-header class="header-information">
           <span class="title">
             Directors
           </span>
 
-            <div class="right-side">
-              <bm-search
-                (searchEvent)="onSearch(getPeopleType().DIRECTOR,$event)"
-                (resetSearch)="resetSearch(getPeopleType().DIRECTOR)"
-                [isFiltered]="starsAreFiltered$ | async"
-                [placeHolder]="starsPlaceholder"
-              >
-
-              </bm-search>
-            </div>
-          </nb-card-header>
-          <nb-card-body>
-            <nb-list
-              class="movie-container"
-              *ngIf="directors$ | async as directors"
+          <div class="right-side">
+            <bm-search
+              (searchEvent)="onSearch(getPeopleType().DIRECTOR,$event)"
+              (resetSearch)="resetSearch(getPeopleType().DIRECTOR)"
+              [isFiltered]="starsAreFiltered$ | async"
+              [placeHolder]="starsPlaceholder"
             >
-              <nb-list-item *ngFor="let director of directors">
-                <nb-card size="medium" class="poster-movie">
-                  <nb-card-header class="header-poster-movie">
-                    <div class="movie-title">{{ director }}</div>
-                  </nb-card-header>
-                  <nb-card-body class="body-poster-movie">
-                    <div class="show-more-button">
-                      <button
-                        nbButton
-                        status="primary"
-                        (click)="redirectToOverviewPageFor(getPeopleType().DIRECTOR, director.id)"
-                      >
-                        <nb-icon icon="film-outline"></nb-icon>
-                        Show more
-                      </button>
-                    </div>
-                    <img *ngIf="director.posterImage"
-                         [src]="director.posterImage" [alt]="director.name">
-                    <img *ngIf="!director.posterImage"
-                         src="../../../assets/no-poster-available.jpg" [alt]="director.name">
-                  </nb-card-body>
-                  <nb-card-footer class="footer-poster-movie">
-                    <div>
-                      <span class="movie-year">Year of birth: {{ director.name }}</span>
-                    </div>
-                  </nb-card-footer>
-                </nb-card>
-              </nb-list-item>
-            </nb-list>
-          </nb-card-body>
-        </nb-card>
-      </div>
+
+            </bm-search>
+          </div>
+        </nb-card-header>
+        <nb-card-body>
+          <nb-list
+            class="movie-container"
+            *ngIf="directors$ | async as directors"
+          >
+            <nb-list-item *ngFor="let director of directors">
+              <nb-card size="medium" class="poster-people">
+                <nb-card-header class="header-poster-people">
+                  <div class="people-name">{{ director }}</div>
+                </nb-card-header>
+                <nb-card-body class="body-poster-people">
+                  <div class="show-more-button">
+                    <button
+                      nbButton
+                      status="primary"
+                      (click)="redirectToOverviewPageFor(getPeopleType().DIRECTOR, director.id)"
+                    >
+                      <nb-icon icon="film-outline"></nb-icon>
+                      Show more
+                    </button>
+                  </div>
+                  <img *ngIf="director.posterImage"
+                       [src]="director.posterImage" [alt]="director.name">
+                  <img *ngIf="!director.posterImage"
+                       src="../../../assets/no-poster-available.jpg" [alt]="director.name">
+                </nb-card-body>
+                <nb-card-footer class="footer-poster-people">
+                  <div>
+                    <span class="person-birth">Year of birth: {{ director.name }}</span>
+                  </div>
+                </nb-card-footer>
+              </nb-card>
+            </nb-list-item>
+          </nb-list>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
 </ng-template>
 
 <ng-template #dataFetching>
