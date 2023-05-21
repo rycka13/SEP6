@@ -64,4 +64,12 @@ public abstract class Person {
     public void setBirthYear(int birthYear) {
         this.birthYear = birthYear;
     }
+
+    public void setAddMovie(Movie addMovie) {
+        this.addMovie = addMovie;
+    }
+
+    public Movie getAddMovie() {
+        return addMovie;
+    }
 }

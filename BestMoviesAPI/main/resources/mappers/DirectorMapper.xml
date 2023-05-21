@@ -10,7 +10,7 @@
     </resultMap>
 
     <select id="getAll" resultMap="DirectorResultMap">
-        SELECT p.id AS id, p.name, p.birth
+        SELECT DISTINCT p.id AS id, p.name, p.birth
         FROM people p
                  JOIN directors d ON p.id = d.person_id
     </select>
@@ -24,7 +24,7 @@
     </select>
 
     <select id="getDirectorsByBirth" resultMap="DirectorResultMap">
-        SELECT p.id, p.name, p.birth
+        SELECT DISTINCT p.id, p.name, p.birth
         FROM people p
                  LEFT JOIN directors d ON p.id = d.person_id
         WHERE p.birth = #{birth}

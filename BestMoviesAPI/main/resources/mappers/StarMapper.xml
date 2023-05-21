@@ -6,11 +6,11 @@
         <result property="id" column="id"/>
         <result property="name" column="name" javaType="java.lang.String"/>
         <result property="birthYear" column="birth" javaType="int"/>
-        <collection property="movies" column="id" select="com.bestmovies.sep6_project.dao.interfaces.IMovieMapper.getAllMoviesForStars"/>
+        <collection property="movies" column="id" select="com.bestmovies.sep6_project.dao.interfaces.IMovieMapper.getAllMoviesForStar"/>
     </resultMap>
 
     <select id="getAll" resultMap="StarResultMap">
-        SELECT p.id AS id, p.name, p.birth
+        SELECT DISTINCT p.id AS id, p.name, p.birth
         FROM people p
                  JOIN stars s ON p.id = s.person_id
     </select>
@@ -24,7 +24,7 @@
     </select>
 
     <select id="getStarsByBirth" resultMap="StarResultMap">
-        SELECT p.id, p.name, p.birth
+        SELECT DISTINCT p.id, p.name, p.birth
         FROM people p
                  LEFT JOIN stars s ON p.id = s.person_id
         WHERE p.birth = #{birth}

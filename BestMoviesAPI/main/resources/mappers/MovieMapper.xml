@@ -23,52 +23,52 @@
         WHERE id = #{id};
     </select>
     <select id="getAllMoviesForDirector" resultMap="result">
-        SELECT m.id, m.title, m.year
+        SELECT m.id, m.title, m.`year`
         FROM movies m
                  JOIN directors d ON m.id = d.movie_id
         WHERE d.person_id = #{id}
     </select>
 
     <select id="getAllMoviesForStar" resultMap="result">
-        SELECT m.id, m.title, m.year
+        SELECT m.id, m.title, m.`year`
         FROM movies m
                  JOIN stars s ON m.id = s.movie_id
         WHERE s.person_id = #{id}
     </select>
 
     <select id="getNMoviesByRating" resultMap="result">
-        SELECT m.id as id, m.title, m.year
+        SELECT m.id as id, m.title, m.`year`
         FROM movies m
                  JOIN ratings r on m.id = r.movie_id
         WHERE r.rating >= #{rating} limit #{n};
     </select>
 
     <select id="getNMoviesByVotes" resultMap="result">
-        SELECT m.id as id, m.title, m.year
+        SELECT m.id as id, m.title, m.`year`
         FROM movies m
                  JOIN ratings r on m.id = r.movie_id
         WHERE r.votes >= #{votes} limit #{n};
     </select>
 
     <select id="getNMoviesByYear" resultMap="result">
-        SELECT * FROM movies WHERE year = #{year} limit #{n};
+        SELECT * FROM movies WHERE `year` = #{year} limit #{n};
     </select>
 
     <select id="getMoviesByYear" resultMap="result">
-        SELECT * FROM movies WHERE year = #{year};
+        SELECT * FROM movies WHERE `year` = #{year};
     </select>
     <select id="getNMostPopularMovies" resultMap="result">
-        SELECT m.id, m.title, m.year
+        SELECT m.id, m.title, m.`year`
         FROM movies m
                  JOIN ratings r ON m.id = r.movie_id
-        ORDER BY r.votes DESC
+        ORDER BY r.votes DESC, m.id ASC
             LIMIT #{n};
     </select>
     <select id="getNBestRatedMovies" resultMap="result">
-        SELECT m.id, m.title, m.year
+        SELECT m.id, m.title, m.`year`
         FROM movies m
                  JOIN ratings r ON m.id = r.movie_id
-        ORDER BY r.rating DESC
+        ORDER BY r.rating DESC, m.id ASC
             LIMIT #{n};
     </select>
     <select id="getNMoviesByPage" resultMap="result">
@@ -79,14 +79,14 @@
     </select>
 
     <insert id="createMovie" parameterType="Movie" useGeneratedKeys='true' keyProperty='id'>
-        INSERT INTO movies (title, year)
+        INSERT INTO movies (title, `year`)
         VALUES (#{title}, #{year});
     </insert>
 
     <update id="updateMovie" parameterType="Movie">
         UPDATE movies
         SET title = #{title},
-            year  = #{year}
+            `year`  = #{year}
         WHERE id = #{id};
     </update>
 
