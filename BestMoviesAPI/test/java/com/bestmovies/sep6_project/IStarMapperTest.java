@@ -51,6 +51,9 @@ public class IStarMapperTest {
     void getNStarsByPageTest() {
         List<Star> stars = starMapper.getNStarsByPage(2, 2);
         assertThat(objectToId(stars)).isEqualTo(List.of(8L, 9L));
+        for(Star star: stars){
+            assertThat(star.getMovies()).isNull();
+        }
     }
     @Test
     @Order(6)
