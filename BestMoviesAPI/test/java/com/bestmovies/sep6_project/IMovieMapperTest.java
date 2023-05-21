@@ -119,4 +119,11 @@ public class IMovieMapperTest {
 
         assertThat(movieMapper.getMoviesByTitle("CreateMovie").size()).isEqualTo(0);
     }
+    @Test
+    @Order(16)
+    void getNMostPopularMoviesByYearTest() {
+        List<Movie> movies = movieMapper.getNMostPopularMoviesByYear(2023, 3);
+
+        assertThat(objectToId(movies)).isEqualTo(List.of(1L,2L,4L));
+    }
 }
