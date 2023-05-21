@@ -4,7 +4,7 @@ import {Select, Store} from "@ngxs/store";
 import {Observable} from "rxjs";
 import {PeopleSelector} from "src/app/information/people/people.selector";
 import {
-  PeopleFetchInfo,
+  PeopleFetchInfoFirstPage,
   PeopleReset,
   PeopleSearchDirectorsReset,
   PeopleSearchStarsByName,
@@ -52,32 +52,37 @@ export class PeopleComponent implements OnInit, OnDestroy {
     this.directorsPlaceholder = PeoplePlaceHolderEnum.DIRECTORS_PLACEHOLDER;
 
     const actionsInParallel = [
-      new PeopleFetchInfo(),
+      new PeopleFetchInfoFirstPage(),
     ];
     this.store.dispatch([...actionsInParallel]);
   }
 
   onSearch(peopleType: PeopleType, event) {
-    if(peopleType === PeopleType.STAR) {
+    if (peopleType === PeopleType.STAR) {
       this.starsPlaceholder = event;
       this.store.dispatch(new PeopleSearchStarsByName(event))
-    }
-
-    else if(peopleType === PeopleType.DIRECTOR) {
+    } else if (peopleType === PeopleType.DIRECTOR) {
       this.directorsPlaceholder = event;
       this.store.dispatch(new PeopleSearchStarsByName(event))
     }
   }
 
   resetSearch(peopleType: PeopleType) {
-    if(peopleType === PeopleType.STAR) {
+    if (peopleType === PeopleType.STAR) {
       this.starsPlaceholder = PeoplePlaceHolderEnum.STARS_PLACEHOLDER;
       this.store.dispatch(new PeopleSearchStarsReset());
-    }
-
-    else if(peopleType === PeopleType.DIRECTOR) {
+    } else if (peopleType === PeopleType.DIRECTOR) {
       this.directorsPlaceholder = PeoplePlaceHolderEnum.DIRECTORS_PLACEHOLDER;
       this.store.dispatch(new PeopleSearchDirectorsReset());
+    }
+  }
+
+  loadNext(peopleType: PeopleType) {
+    if (peopleType === PeopleType.STAR) {
+
+    }
+    else if(peopleType === PeopleType.DIRECTOR) {
+
     }
   }
 
