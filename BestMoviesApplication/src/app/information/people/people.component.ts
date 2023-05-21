@@ -32,6 +32,12 @@ export class PeopleComponent implements OnInit, OnDestroy {
   @Select(PeopleSelector.starsAreFiltered)
   directorsAreFiltered$: Observable<boolean>;
 
+  @Select(PeopleSelector.starsSize)
+  starsSize$: Observable<string>;
+
+  @Select(PeopleSelector.directorsSize)
+  directorsSize$: Observable<string>;
+
   @Select(PeopleSelector.stars)
   stars$: Observable<Star[]>;
 

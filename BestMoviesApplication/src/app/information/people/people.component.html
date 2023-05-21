@@ -8,7 +8,7 @@
 
         <nb-tabset listenWindowScroll>
           <nb-tab tabTitle="Stars"
-                  badgeText="99+"
+                  [badgeText]="starsSize$ | async"
                   badgeStatus="success">
             <div class="stars">
               <nb-card>
@@ -70,8 +70,7 @@
             </div>
           </nb-tab>
           <nb-tab tabTitle="Directors"
-                  badgeText="12"
-                  badgePosition="bottom right"
+                  [badgeText]="directorsSize$ | async"
                   badgeStatus="warning">
             <div class="directors">
               <nb-card>
