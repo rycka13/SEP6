@@ -10,6 +10,7 @@ public interface IStarMapper {
     List<Star> getByMovieId(long movieId);
     List<Star> getStarsByBirth(int birth);
     List<Star> getStarsByName(String name);
+    List<Star> getNStarsByPage(int pageNum, int limit);
     Star getStarById(long id);
     void createStar(Star star);
     void updateStar(Star star);

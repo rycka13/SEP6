@@ -3,6 +3,7 @@ package com.bestmovies.sep6_project;
 import com.bestmovies.sep6_project.dao.interfaces.IDirectorMapper;
 import com.bestmovies.sep6_project.model.Movie;
 import com.bestmovies.sep6_project.model.Director;
+import com.bestmovies.sep6_project.model.Star;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -54,6 +55,12 @@ public class IDirectorMapperTest {
     }
     @Test
     @Order(6)
+    void getNDirectorsByPageTest() {
+        List<Director> directors = directorMapper.getNDirectorsByPage(2, 2);
+        assertThat(objectToId(directors)).isEqualTo(List.of(3L, 4L));
+    }
+    @Test
+    @Order(7)
     void createDirectorTest(){
         Movie movie = new Movie(1,"Test1", 2023);
         Director director = new Director("CreatePerson", 2015);
@@ -64,7 +71,7 @@ public class IDirectorMapperTest {
         assertThat(directorMapper.getDirectorById(directorId).getName()).isEqualTo(director.getName());
     }
     @Test
-    @Order(7)
+    @Order(8)
     void updateDirectorTest(){
         long directorId = directorMapper.getDirectorsByName("CreatePerson").get(0).getId();
         Director director = new Director(directorId,"UpdatePerson", 2015);
@@ -73,14 +80,14 @@ public class IDirectorMapperTest {
         assertThat(directorMapper.getDirectorById(directorId).getName()).isEqualTo(director.getName());
     }
     @Test
-    @Order(8)
+    @Order(9)
     void deleteDirectorTest(){
         long directorId = directorMapper.getDirectorsByName("UpdatePerson").get(0).getId();
         directorMapper.deleteDirector(directorId);
         assertThat(directorMapper.getDirectorById(11)).isNull();
     }
     @Test
-    @Order(9)
+    @Order(10)
     void addMovieDirectorTest(){
         Movie movie = new Movie(1,"Test1", 2023);
         Director director = new Director(5,"Person5", 2019);
