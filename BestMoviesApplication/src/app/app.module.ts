@@ -46,6 +46,7 @@ import {RatingService} from "src/api/ratings/rating.service";
 import {StarService} from "src/api/stars/star.service";
 import { PeopleOverviewComponent } from './information/people/people-overview/people-overview.component';
 import {PeopleOverviewState} from "src/app/information/people/people-overview/people-overview.state";
+import {NgxsLoggerPluginModule} from "@ngxs/logger-plugin";
 
 
 export const STATES = [
@@ -134,6 +135,7 @@ export const NEBULAR_MODULES = [
     NgxsModule.forRoot(STATES, {
       developmentMode: !environment.production,
     }),
+    NgxsLoggerPluginModule.forRoot({ disabled: environment.production }),
     NEBULAR_MODULES,
   ],
   providers: PROVIDERS,

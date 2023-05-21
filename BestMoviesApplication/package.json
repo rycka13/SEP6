@@ -23,6 +23,7 @@
     "@nebular/eva-icons": "^11.0.0",
     "@nebular/theme": "^11.0.0",
     "@ngneat/spectator": "^14.0.0",
+    "@ngxs/logger-plugin": "^3.8.1-dev.master-e73ea48",
     "@ngxs/store": "^3.7.3",
     "ag-grid-angular": "^29.3.4",
     "ag-grid-community": "^29.3.4",
