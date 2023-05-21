@@ -46,6 +46,14 @@
         WHERE p.name = #{name};
     </select>
 
+    <select id="getNStarsByPage" resultMap="StarResultMap">
+        SELECT DISTINCT p.id AS id, p.name, p.birth
+        FROM people p
+                 JOIN stars s ON p.id = s.person_id
+        ORDER BY id
+            LIMIT ${(pageNum - 1) * limit}, #{limit}
+    </select>
+
     <insert id = "createStar" parameterType = "Star" useGeneratedKeys='true' keyProperty='id'>
         INSERT INTO people (name, birth) VALUES (#{name}, #{birthYear});
     </insert>

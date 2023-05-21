@@ -48,12 +48,18 @@ public class IStarMapperTest {
     }
     @Test
     @Order(5)
+    void getNStarsByPageTest() {
+        List<Star> stars = starMapper.getNStarsByPage(2, 2);
+        assertThat(objectToId(stars)).isEqualTo(List.of(8L, 9L));
+    }
+    @Test
+    @Order(6)
     void getStarByIdTest(){
         Star star = starMapper.getStarById(6);
         assertThat(star.getId()).isEqualTo(6);
     }
     @Test
-    @Order(6)
+    @Order(7)
     void createStarTest(){
         Movie movie = new Movie(1,"Test1", 2023);
         Star star = new Star("CreatePerson", 2015);
@@ -64,7 +70,7 @@ public class IStarMapperTest {
         assertThat(starMapper.getStarById(starId).getName()).isEqualTo(star.getName());
     }
     @Test
-    @Order(7)
+    @Order(8)
     void updateStarTest(){
         long starId = starMapper.getStarsByName("CreatePerson").get(0).getId();
         Star star = new Star(starId, "UpdatePerson", 2015);
@@ -73,14 +79,14 @@ public class IStarMapperTest {
         assertThat(starMapper.getStarById(starId).getName()).isEqualTo(star.getName());
     }
     @Test
-    @Order(8)
+    @Order(9)
     void deleteStarTest(){
         long starId = starMapper.getStarsByName("UpdatePerson").get(0).getId();
         starMapper.deleteStar(starId);
         assertThat(starMapper.getStarById(starId)).isNull();
     }
     @Test
-    @Order(9)
+    @Order(10)
     void addMovieStarTest(){
         Movie movie = new Movie(1,"Test1", 2023);
         Star star = new Star(10,"Person10", 2016);
