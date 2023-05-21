@@ -1,0 +1,101 @@
+<ng-container *ngIf="isFetching$ | async; then dataFetching; else dataFetched">
+</ng-container>
+<ng-template #dataFetched>
+  <nb-card
+    *ngIf="person$ | async as person">
+    <nb-card-header>
+      <div class="person-name">
+        <h1>
+          <span>
+            {{ person.name }}
+          </span>
+        </h1>
+        <ul>
+          <li *ngIf="this.peopleType === getPeopleTypeEnum().DIRECTOR">
+            Director
+          </li>
+          <li *ngIf="this.peopleType === getPeopleTypeEnum().STAR">
+            Star
+          </li>
+          <li>
+            Year of birth: {{ person.birthYear }}
+          </li>
+        </ul>
+      </div>
+    </nb-card-header>
+    <nb-card-body class="grid-container">
+      <nb-card size="medium" class="poster-movie-overview">
+        <nb-card-body class="person-poster">
+          <img *ngIf="person.posterImage"
+               [src]="person.posterImage" [alt]="person.name">
+          <img *ngIf="!person.posterImage"
+               src="../../../assets/no-person-profile-picture-available.jpg" [alt]="person.name">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu ullamcorper dui. Ut suscipit urna et
+            neque luctus, in malesuada lacus euismod. Mauris porttitor pellentesque placerat. Class aptent taciti
+            sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce gravida vel lorem vitae
+            mollis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu ullamcorper dui. Ut suscipit
+            urna et neque luctus, in malesuada lacus euismod. Mauris porttitor pellentesque placerat. Class aptent
+            taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce gravida vel lorem
+            vitae mollis.
+          </p>
+        </nb-card-body>
+      </nb-card>
+
+      <div class="border">
+        <h3 *ngIf="this.peopleType === getPeopleTypeEnum().DIRECTOR">
+          Movies {{ person.name }} directed
+        </h3>
+        <h3 *ngIf="this.peopleType === getPeopleTypeEnum().STAR">
+          Movies {{ person.name }} played in
+        </h3>
+      </div>
+
+      <div class="movies"
+           *ngIf="person.movies as movies">
+        <nb-card-body>
+          <nb-list
+            class="movie-container"
+            *ngIf="movies"
+          >
+            <nb-list-item *ngFor="let movie of movies">
+              <nb-card size="medium" class="poster-movie">
+                <nb-card-header class="header-poster-movie">
+                  <div class="movie-title">{{ movie.title }}</div>
+                </nb-card-header>
+                <nb-card-body class="body-poster-movie">
+                  <div class="show-more-button">
+                    <button
+                      nbButton
+                      status="primary"
+                      (click)="redirectToMovieOverviewPage(movie.id)"
+                    >
+                      <nb-icon icon="film-outline"></nb-icon>
+                      Show more
+                    </button>
+                  </div>
+                  <img *ngIf="movie.posterImage"
+                       [src]="movie.posterImage" [alt]="movie.title">
+                  <img *ngIf="!movie.posterImage"
+                       src="../../../assets/no-poster-available.jpg" [alt]="movie.title">
+                </nb-card-body>
+                <nb-card-footer class="footer-poster-movie">
+                  <div>
+                    <span class="movie-year">Year of publication: {{ movie.year }}</span>
+                  </div>
+                </nb-card-footer>
+              </nb-card>
+            </nb-list-item>
+          </nb-list>
+        </nb-card-body>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<ng-template #dataFetching>
+  <nb-spinner
+    status="basic"
+    class="spinner">
+  </nb-spinner>
+</ng-template>

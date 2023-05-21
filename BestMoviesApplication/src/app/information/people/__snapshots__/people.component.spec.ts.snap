@@ -848,9 +848,7 @@ exports[`app > information > people > people.component.spec.ts should match snap
                               role="gridcell"
                               style="left: 600px; width: 200px;"
                               tabindex="-1"
-                            >
-                              1899
-                            </div>
+                            />
                           </div>
                           <div
                             aria-label="Press SPACE to select this row."
@@ -924,9 +922,7 @@ exports[`app > information > people > people.component.spec.ts should match snap
                               role="gridcell"
                               style="left: 600px; width: 200px;"
                               tabindex="-1"
-                            >
-                              1924
-                            </div>
+                            />
                           </div>
                           <div
                             aria-label="Press SPACE to select this row."
@@ -1000,9 +996,7 @@ exports[`app > information > people > people.component.spec.ts should match snap
                               role="gridcell"
                               style="left: 600px; width: 200px;"
                               tabindex="-1"
-                            >
-                              1934
-                            </div>
+                            />
                           </div>
                           <div
                             aria-label="Press SPACE to select this row."
@@ -1076,9 +1070,7 @@ exports[`app > information > people > people.component.spec.ts should match snap
                               role="gridcell"
                               style="left: 600px; width: 200px;"
                               tabindex="-1"
-                            >
-                              1949
-                            </div>
+                            />
                           </div>
                           <div
                             aria-label="Press SPACE to select this row."
@@ -1152,9 +1144,7 @@ exports[`app > information > people > people.component.spec.ts should match snap
                               role="gridcell"
                               style="left: 600px; width: 200px;"
                               tabindex="-1"
-                            >
-                              1918
-                            </div>
+                            />
                           </div>
                           <div
                             aria-label="Press SPACE to select this row."
@@ -1228,9 +1218,7 @@ exports[`app > information > people > people.component.spec.ts should match snap
                               role="gridcell"
                               style="left: 600px; width: 200px;"
                               tabindex="-1"
-                            >
-                              1915
-                            </div>
+                            />
                           </div>
                           <div
                             aria-label="Press SPACE to select this row."
@@ -1304,9 +1292,7 @@ exports[`app > information > people > people.component.spec.ts should match snap
                               role="gridcell"
                               style="left: 600px; width: 200px;"
                               tabindex="-1"
-                            >
-                              1899
-                            </div>
+                            />
                           </div>
                         </div>
                       </div>

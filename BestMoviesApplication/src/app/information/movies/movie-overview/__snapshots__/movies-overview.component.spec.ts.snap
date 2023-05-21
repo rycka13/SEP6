@@ -20,7 +20,7 @@ exports[`app > information > movies > movies-overview > movies-overview.componen
   <nb-card>
     <nb-card-header>
       <div
-        class="title-and-year"
+        class="person-name"
       >
         <h1>
           <span>
@@ -66,7 +66,7 @@ exports[`app > information > movies > movies-overview > movies-overview.componen
           class="border"
         />
         <nb-card
-          class="directors-stars"
+          class="movies"
         >
           <nb-card-header>
             <h3>
@@ -84,14 +84,13 @@ exports[`app > information > movies > movies-overview > movies-overview.componen
             </ul>
             <ul>
               <li>
-                 Ingrid Bergman 
+                 Lauren Bacall 
               </li>
               <li>
-                 Ingmar Bergman 
+                 Brigitte Bardot 
               </li>
-              <li
-                class="undefined-item"
-              >
+              <li>
+                 John Belushi 
               </li>
             </ul>
           </nb-card-body>

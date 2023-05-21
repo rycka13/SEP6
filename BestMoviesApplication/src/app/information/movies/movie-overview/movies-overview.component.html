@@ -4,7 +4,7 @@
   <nb-card
     *ngIf="{movie: movie$ | async, rating: rating$ | async} as movieInformation">
     <nb-card-header>
-      <div class="title-and-year">
+      <div class="person-name">
         <h1>
           <span>
             {{
@@ -75,7 +75,7 @@
         <div class="border">
         </div>
 
-        <nb-card class="directors-stars"
+        <nb-card class="movies"
                  *ngIf="{ stars: stars$ | async, directors: directors$ | async} as cast">
           <nb-card-header>
             <h3>

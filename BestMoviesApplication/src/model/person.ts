@@ -4,5 +4,6 @@ export interface Person {
   movies: Movie[];
   id: number;
   name: string;
-  birth: number;
+  birthYear: number;
+  posterImage: string;
 }
