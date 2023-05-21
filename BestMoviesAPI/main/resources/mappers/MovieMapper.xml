@@ -78,6 +78,15 @@
             LIMIT ${(pageNum - 1) * limit}, #{limit}
     </select>
 
+    <select id="getNMostPopularMoviesByYear" resultMap="result">
+        SELECT m.id, m.title, m.`year`
+        FROM movies m
+                 JOIN ratings r ON m.id = r.movie_id
+        WHERE m.`year` = #{year}
+        ORDER BY r.votes DESC, m.id ASC
+            LIMIT #{n};
+    </select>
+
     <insert id="createMovie" parameterType="Movie" useGeneratedKeys='true' keyProperty='id'>
         INSERT INTO movies (title, `year`)
         VALUES (#{title}, #{year});
