@@ -4,11 +4,6 @@ public class Rating {
     private Movie movie;
     private double rating;
     private int votes;
-    public Rating(Movie movie, double rating, int votes){
-        this.movie = movie;
-        this.rating = rating;
-        this.votes = votes;
-    }
 
     public double getRating() {
         return rating;

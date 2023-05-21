@@ -66,10 +66,10 @@ public class MovieController{
         return movieService.getNMoviesByYear(year, n);
     }
 
-//    @RequestMapping(value = "/year/{year}/{n}", method = RequestMethod.GET)
-//    public List<Movie> getMoviesByYear(@PathVariable int year, @PathVariable int n){
-//        return movieService.getMoviesByYear(year, n);
-//    }
+    @RequestMapping(value = "/year/{year}", method = RequestMethod.GET)
+    public List<Movie> getMoviesByYear(@PathVariable int year){
+        return movieService.getMoviesByYear(year);
+    }
 
     @RequestMapping(value = "/popular/{n}", method = RequestMethod.GET)
     public List<Movie> getNMostPopularMovies(@PathVariable int n){

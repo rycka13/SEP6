@@ -41,7 +41,7 @@ public class RatingController {
         return ratingService.getRatingById(id);
     }
 
-    @RequestMapping(value = "/byMovieId/{movieId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/byMovieId/{movieId}", method = RequestMethod.GET)
     public Rating getRatingByMovieId(@PathVariable long movieId){
         return ratingService.getRatingByMovieId(movieId);
     }

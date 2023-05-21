@@ -96,9 +96,9 @@ public class MovieService {
         return null;
     }
 
-    public List<Movie> getMoviesByYear(int year, int n){
-        if(year > 0 && n > 0){
-            return setMultipleMoviesImages(movieMapper.getMoviesByYear(year, n));
+    public List<Movie> getMoviesByYear(int year){
+        if(year > 0){
+            return setMultipleMoviesImages(movieMapper.getMoviesByYear(year));
         }
         return null;
     }
