@@ -14,30 +14,34 @@ import {moviesMock} from "src/util/mocks/movies_mock";
 import {MoviesStateModel} from "src/app/information/movies/movies.state";
 import {
   PeopleFetchInfo,
-  PeopleReset,
-  PeopleSearchName,
-  PeopleSearchReset
+  PeopleReset, PeopleSearchDirectorsByName, PeopleSearchDirectorsReset,
+  PeopleSearchStarsByName,
+  PeopleSearchStarsReset
 } from "src/app/information/people/people.actions";
 import {peopleMock} from "src/util/mocks/people_mock";
 import {Star} from "src/model/star";
 import {StarsService} from "src/api/stars/stars.service";
 import {DirectorService} from "src/api/directors/director.service";
+import {Director} from "src/model/director";
+import {DirectorsService} from "src/api/directors/directors.service";
 
 export interface PeopleStateModel {
   isFetching: boolean;
-  isFiltered: boolean;
+  starsAreFiltered: boolean;
+  directorsAreFiltered: boolean;
   stars: Star[];
   directors: Star[];
 }
 
 export const defaultsState: PeopleStateModel = {
   isFetching: false,
-  isFiltered: false,
+  starsAreFiltered: false,
+  directorsAreFiltered: false,
   stars: [],
   directors: [],
 }
 
-@State<PeopleStateModel>( {
+@State<PeopleStateModel>({
   name: 'peoplePage',
   defaults: defaultsState,
 })
@@ -47,13 +51,13 @@ export class PeopleState {
   constructor(
     private toastrService: NbToastrService,
     private starsService: StarsService,
-    private directorsService: DirectorService,
+    private directorsService: DirectorsService,
   ) {
   }
 
   @Action(PeopleFetchInfo)
   async peopleFetchInfo(
-    { getState, setState }: StateContext<PeopleStateModel>) {
+    {getState, setState}: StateContext<PeopleStateModel>) {
 
     let currentState = getState();
 
@@ -69,15 +73,14 @@ export class PeopleState {
     try {
 
       //mock
-      stars.push(peopleMock[0],peopleMock[1]);
-      directors.push(peopleMock[2],peopleMock[2]);
+      stars.push(peopleMock[0], peopleMock[1]);
+      directors.push(peopleMock[2], peopleMock[2]);
 
       //real data
       //TODO - have pagination like in movies page here
       // stars = await this.starsService.getPagination();
       // directors = await this.directorsService.getPagination
-    }
-    catch (e) {
+    } catch (e) {
       this.toastrService.show('danger', 'Fetching people went wrong.');
 
     }
@@ -91,10 +94,10 @@ export class PeopleState {
     setState(newState);
   }
 
-  @Action(PeopleSearchName)
-  async peopleSearchName(
-    { getState, setState }: StateContext<PeopleStateModel>,
-    action: PeopleSearchName) {
+  @Action(PeopleSearchStarsByName)
+  async peopleSearchStarsByName(
+    {getState, setState}: StateContext<PeopleStateModel>,
+    action: PeopleSearchStarsByName) {
 
     let currentState = getState();
 
@@ -105,43 +108,80 @@ export class PeopleState {
     setState(newState);
     currentState = newState;
 
-    let stars: Star[] = [];
+    let filteredStars: Star[] = [];
 
     try {
-      stars = await this.starsService.getStarsByName(action.personName);
-    }
-    catch (e){
+      filteredStars = await this.starsService.getStarsByName(action.starName);
+    } catch (e) {
 
     }
     newState = produce(currentState, draft => {
-      if(stars.length < 0) {
-        this.toastrService.show('', 'There are no people to search');
-      }
-      else {
-        let filteredStars = stars.filter((star: Star) => {
-          let value = star.name.toLowerCase().includes(action.personName);
-          return value;
-        });
-        if(filteredStars.length < 0) {
-          this.toastrService.show('', 'There are no people that contain name ' + action.personName);
-        }
-        draft.stars = filteredStars;
+      if (filteredStars.length < 0) {
+        this.toastrService.show('', 'There are no people that contain name ' + action.starName);
       }
       draft.isFetching = false;
-      draft.isFiltered = true;
+      draft.starsAreFiltered = true;
+      draft.stars = filteredStars;
+    });
+
+    setState(newState);
+  }
+
+  @Action(PeopleSearchDirectorsByName)
+  async peopleSearchDirectorsByName(
+    {getState, setState}: StateContext<PeopleStateModel>,
+    action: PeopleSearchDirectorsByName) {
+
+    let currentState = getState();
+
+    let newState = produce(currentState, draft => {
+      draft.isFetching = true;
+    })
+
+    setState(newState);
+    currentState = newState;
+
+    let filteredDirectors: Director[] = [];
+
+    try {
+      // filteredDirectors = await this.directorsService.getDirectorsByName(action.directorName);
+    } catch (e) {
+
+    }
+    newState = produce(currentState, draft => {
+      if (filteredDirectors.length < 0) {
+        this.toastrService.show('', 'There are no people that contain name ' + action.directorName);
+      }
+      draft.isFetching = false;
+      draft.directorsAreFiltered = true;
+      draft.directors = filteredDirectors;
+    });
+    setState(newState);
+  }
+
+  @Action(PeopleSearchStarsReset)
+  async peopleSearchStarsReset(
+    {getState, setState}: StateContext<PeopleStateModel>) {
+
+    let currentState = getState();
+
+    let newState = produce(currentState, draft => {
+      draft.starsAreFiltered = false;
+      //TODO implement same pagination here
+      // draft.stars = this.allPeople;
     })
 
     setState(newState);
   }
 
-  @Action(PeopleSearchReset)
-  async peopleSearchReset(
-    { getState, setState }: StateContext<PeopleStateModel>) {
+  @Action(PeopleSearchDirectorsReset)
+  async peopleSearchDirectorsReset(
+    {getState, setState}: StateContext<PeopleStateModel>) {
 
     let currentState = getState();
 
     let newState = produce(currentState, draft => {
-      draft.isFiltered = false;
+      draft.directorsAreFiltered = false;
       //TODO implement same pagination here
       // draft.stars = this.allPeople;
     })
@@ -151,7 +191,7 @@ export class PeopleState {
 
   @Action(PeopleReset)
   async peopleReset(
-    { getState, setState }: StateContext<PeopleStateModel>) {
+    {setState}: StateContext<PeopleStateModel>) {
     setState(defaultsState);
   }
 }

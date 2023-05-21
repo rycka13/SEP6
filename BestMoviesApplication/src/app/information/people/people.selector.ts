@@ -9,7 +9,7 @@ export class PeopleSelector {
 
   @Selector([PeopleState])
   static isFiltered(state: PeopleStateModel) {
-    return state.isFiltered;
+    return state.starsAreFiltered;
   }
 
   @Selector([PeopleState])
