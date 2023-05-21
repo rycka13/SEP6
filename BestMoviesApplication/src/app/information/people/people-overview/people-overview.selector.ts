@@ -14,9 +14,4 @@ export class PeopleOverviewSelector {
   static person(state: PeopleOverviewStateModel) {
     return state.person;
   }
-
-  @Selector([PeopleOverviewState])
-  static movies(state: PeopleOverviewStateModel) {
-    return state.person.movies;
-  }
 }

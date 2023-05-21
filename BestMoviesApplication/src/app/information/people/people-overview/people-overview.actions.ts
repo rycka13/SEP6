@@ -1,6 +1,8 @@
+import {PeopleType} from "src/app/information/people/people-overview/constants/constants";
+
 export class PeopleOverviewFetchInfo {
   static readonly type = 'People Overview - Fetching info';
-  constructor(public peopleType: string,
+  constructor(public peopleType: PeopleType,
               public personId: number) {
   }
 }
