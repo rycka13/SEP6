@@ -1,21 +1,20 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NbSearchService} from "@nebular/theme";
-import {CellClickedEvent, ColDef, ColumnApi, GridApi, GridReadyEvent, ICellRendererParams} from "ag-grid-community";
 import {Select, Store} from "@ngxs/store";
 import {Observable} from "rxjs";
-import {AgGridAngular} from "ag-grid-angular";
 import {PeopleSelector} from "src/app/information/people/people.selector";
-import {Person} from "src/model/person";
 import {
   PeopleFetchInfo,
-  PeopleReset, PeopleSearchDirectorsReset,
+  PeopleReset,
+  PeopleSearchDirectorsReset,
   PeopleSearchStarsByName,
   PeopleSearchStarsReset
 } from "src/app/information/people/people.actions";
-import {MoviesCell} from "src/core/cell-renderers/movies.column.cell";
 import {Star} from "src/model/star";
 import {Director} from "src/model/director";
 import {PeoplePlaceHolderEnum} from "src/app/information/people/constants/constants";
+import {Router} from "@angular/router";
+import {PeopleType} from "src/app/information/people/people-overview/constants/constants";
 
 @Component({
   selector: 'app-people',
@@ -44,6 +43,7 @@ export class PeopleComponent implements OnInit, OnDestroy {
   alive: boolean = true;
 
   constructor(private store: Store,
+              private router: Router,
               private searchService: NbSearchService) {
   }
 
@@ -57,28 +57,40 @@ export class PeopleComponent implements OnInit, OnDestroy {
     this.store.dispatch([...actionsInParallel]);
   }
 
-  onSearchStars(event) {
-    this.starsPlaceholder = event;
-    this.store.dispatch(new PeopleSearchStarsByName(event))
+  onSearch(peopleType: PeopleType, event) {
+    if(peopleType === PeopleType.STAR) {
+      this.starsPlaceholder = event;
+      this.store.dispatch(new PeopleSearchStarsByName(event))
+    }
+
+    else if(peopleType === PeopleType.DIRECTOR) {
+      this.directorsPlaceholder = event;
+      this.store.dispatch(new PeopleSearchStarsByName(event))
+    }
   }
 
-  onSearchDirectors(event) {
-    this.directorsPlaceholder = event;
-    this.store.dispatch(new PeopleSearchStarsByName(event))
+  resetSearch(peopleType: PeopleType) {
+    if(peopleType === PeopleType.STAR) {
+      this.starsPlaceholder = PeoplePlaceHolderEnum.STARS_PLACEHOLDER;
+      this.store.dispatch(new PeopleSearchStarsReset());
+    }
+
+    else if(peopleType === PeopleType.DIRECTOR) {
+      this.directorsPlaceholder = PeoplePlaceHolderEnum.DIRECTORS_PLACEHOLDER;
+      this.store.dispatch(new PeopleSearchDirectorsReset());
+    }
   }
 
-  resetSearchStars() {
-    this.starsPlaceholder = PeoplePlaceHolderEnum.STARS_PLACEHOLDER;
-    this.store.dispatch(new PeopleSearchStarsReset());
-  }
-
-  resetSearchDirectors() {
-    this.directorsPlaceholder = PeoplePlaceHolderEnum.DIRECTORS_PLACEHOLDER;
-    this.store.dispatch(new PeopleSearchDirectorsReset());
+  redirectToOverviewPageFor(peopleType: PeopleType, starId: number) {
+    this.router.navigate([`/information/people/${peopleType}/${starId}`]);
   }
 
   ngOnDestroy() {
     this.alive = false;
     this.store.dispatch(new PeopleReset());
+  }
+
+  getPeopleType(): typeof PeopleType {
+    return PeopleType;
   }
 }
