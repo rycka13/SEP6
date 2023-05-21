@@ -1,9 +1,8 @@
 package com.bestmovies.sep6_project;
 
 import com.bestmovies.sep6_project.dao.interfaces.IDirectorMapper;
-import com.bestmovies.sep6_project.model.Movie;
 import com.bestmovies.sep6_project.model.Director;
-import com.bestmovies.sep6_project.model.Star;
+import com.bestmovies.sep6_project.model.Movie;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -58,6 +57,9 @@ public class IDirectorMapperTest {
     void getNDirectorsByPageTest() {
         List<Director> directors = directorMapper.getNDirectorsByPage(2, 2);
         assertThat(objectToId(directors)).isEqualTo(List.of(3L, 4L));
+        for(Director director: directors){
+            assertThat(director.getMovies()).isNull();
+        }
     }
     @Test
     @Order(7)

@@ -6,7 +6,13 @@
         <result property="id" column="id"/>
         <result property="name" column="name" javaType="java.lang.String"/>
         <result property="birthYear" column="birth" javaType="int"/>
-        <collection property="movies" column="id" select="com.bestmovies.sep6_project.dao.interfaces.IMovieMapper.getAllMoviesForDirector"/>
+        <collection property="movies" column="id"
+                    select="com.bestmovies.sep6_project.dao.interfaces.IMovieMapper.getAllMoviesForDirector"/>
+    </resultMap>
+    <resultMap id="DirectorResultMapWithoutMovies" type="Director">
+        <result property="id" column="id"/>
+        <result property="name" column="name" javaType="java.lang.String"/>
+        <result property="birthYear" column="birth" javaType="int"/>
     </resultMap>
 
     <select id="getAll" resultMap="DirectorResultMap">
@@ -19,8 +25,7 @@
         SELECT p.id, p.name, p.birth
         FROM people p
                  LEFT JOIN directors d ON p.id = d.person_id
-        WHERE d.person_id = #{id}
-            LIMIT 1;
+        WHERE d.person_id = #{id} LIMIT 1;
     </select>
 
     <select id="getDirectorsByBirth" resultMap="DirectorResultMap">
@@ -46,7 +51,7 @@
         WHERE p.name = #{name};
     </select>
 
-    <select id="getNDirectorsByPage" resultMap="DirectorResultMap">
+    <select id="getNDirectorsByPage" resultMap="DirectorResultMapWithoutMovies">
         SELECT DISTINCT p.id AS id, p.name, p.birth
         FROM people p
                  JOIN directors d ON p.id = d.person_id
@@ -54,21 +59,26 @@
             LIMIT ${(pageNum - 1) * limit}, #{limit}
     </select>
 
-    <insert id = "createDirector" parameterType = "Director" useGeneratedKeys='true' keyProperty='id'>
-        INSERT INTO people (name, birth) VALUES (#{name}, #{birthYear});
+    <insert id="createDirector" parameterType="Director" useGeneratedKeys='true' keyProperty='id'>
+        INSERT INTO people (name, birth)
+        VALUES (#{name}, #{birthYear});
     </insert>
 
-    <insert id = "addMovieDirector" parameterType = "Director">
-        INSERT INTO directors (movie_id, person_id) VALUES (#{addMovie.id}, #{id});
+    <insert id="addMovieDirector" parameterType="Director">
+        INSERT INTO directors (movie_id, person_id)
+        VALUES (#{addMovie.id}, #{id});
     </insert>
 
-    <update id = "updateDirector" parameterType = "Director">
+    <update id="updateDirector" parameterType="Director">
         UPDATE people
-        SET name = #{name}, birth = #{birthYear}
-        WHERE id=#{id};
+        SET name  = #{name},
+            birth = #{birthYear}
+        WHERE id = #{id};
     </update>
 
-    <delete id = "deleteDirector" parameterType = "long">
-        DELETE FROM people WHERE id = #{id}
+    <delete id="deleteDirector" parameterType="long">
+        DELETE
+        FROM people
+        WHERE id = #{id}
     </delete>
 </mapper>

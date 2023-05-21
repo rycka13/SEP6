@@ -6,7 +6,14 @@
         <result property="id" column="id"/>
         <result property="name" column="name" javaType="java.lang.String"/>
         <result property="birthYear" column="birth" javaType="int"/>
-        <collection property="movies" column="id" select="com.bestmovies.sep6_project.dao.interfaces.IMovieMapper.getAllMoviesForStar"/>
+        <collection property="movies" column="id"
+                    select="com.bestmovies.sep6_project.dao.interfaces.IMovieMapper.getAllMoviesForStar"/>
+    </resultMap>
+
+    <resultMap id="StarResultMapWithoutMovies" type="Star">
+        <result property="id" column="id"/>
+        <result property="name" column="name" javaType="java.lang.String"/>
+        <result property="birthYear" column="birth" javaType="int"/>
     </resultMap>
 
     <select id="getAll" resultMap="StarResultMap">
@@ -19,8 +26,7 @@
         SELECT p.id, p.name, p.birth
         FROM people p
                  LEFT JOIN stars s ON p.id = s.person_id
-        WHERE s.person_id = #{id}
-            LIMIT 1;
+        WHERE s.person_id = #{id} LIMIT 1;
     </select>
 
     <select id="getStarsByBirth" resultMap="StarResultMap">
@@ -28,7 +34,7 @@
         FROM people p
                  LEFT JOIN stars s ON p.id = s.person_id
         WHERE p.birth = #{birth}
-        AND s.person_id IS NOT NULL;
+          AND s.person_id IS NOT NULL;
     </select>
 
     <select id="getByMovieId" resultMap="StarResultMap">
@@ -46,7 +52,7 @@
         WHERE p.name = #{name};
     </select>
 
-    <select id="getNStarsByPage" resultMap="StarResultMap">
+    <select id="getNStarsByPage" resultMap="StarResultMapWithoutMovies">
         SELECT DISTINCT p.id AS id, p.name, p.birth
         FROM people p
                  JOIN stars s ON p.id = s.person_id
@@ -54,21 +60,26 @@
             LIMIT ${(pageNum - 1) * limit}, #{limit}
     </select>
 
-    <insert id = "createStar" parameterType = "Star" useGeneratedKeys='true' keyProperty='id'>
-        INSERT INTO people (name, birth) VALUES (#{name}, #{birthYear});
+    <insert id="createStar" parameterType="Star" useGeneratedKeys='true' keyProperty='id'>
+        INSERT INTO people (name, birth)
+        VALUES (#{name}, #{birthYear});
     </insert>
 
-    <insert id = "addMovieStar" parameterType = "Star">
-        INSERT INTO stars (movie_id, person_id) VALUES (#{addMovie.id}, #{id});
+    <insert id="addMovieStar" parameterType="Star">
+        INSERT INTO stars (movie_id, person_id)
+        VALUES (#{addMovie.id}, #{id});
     </insert>
 
-    <update id = "updateStar" parameterType = "Star">
+    <update id="updateStar" parameterType="Star">
         UPDATE people
-        SET name = #{name}, birth = #{birthYear}
-        WHERE id=#{id};
+        SET name  = #{name},
+            birth = #{birthYear}
+        WHERE id = #{id};
     </update>
 
-    <delete id = "deleteStar" parameterType = "long">
-        DELETE FROM people WHERE id = #{id}
+    <delete id="deleteStar" parameterType="long">
+        DELETE
+        FROM people
+        WHERE id = #{id}
     </delete>
 </mapper>
