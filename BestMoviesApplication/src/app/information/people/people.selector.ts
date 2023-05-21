@@ -13,7 +13,12 @@ export class PeopleSelector {
   }
 
   @Selector([PeopleState])
-  static people(state: PeopleStateModel) {
-    return state.people;
+  static stars(state: PeopleStateModel) {
+    return state.stars;
+  }
+
+  @Selector([PeopleState])
+  static directors(state: PeopleStateModel) {
+    return state.directors;
   }
 }

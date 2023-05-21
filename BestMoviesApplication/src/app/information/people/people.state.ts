@@ -19,17 +19,22 @@ import {
   PeopleSearchReset
 } from "src/app/information/people/people.actions";
 import {peopleMock} from "src/util/mocks/people_mock";
+import {Star} from "src/model/star";
+import {StarsService} from "src/api/stars/stars.service";
+import {DirectorService} from "src/api/directors/director.service";
 
 export interface PeopleStateModel {
   isFetching: boolean;
   isFiltered: boolean;
-  people: Person[];
+  stars: Star[];
+  directors: Star[];
 }
 
 export const defaultsState: PeopleStateModel = {
   isFetching: false,
   isFiltered: false,
-  people: [],
+  stars: [],
+  directors: [],
 }
 
 @State<PeopleStateModel>( {
@@ -39,11 +44,10 @@ export const defaultsState: PeopleStateModel = {
 
 @Injectable()
 export class PeopleState {
-  allPeople: Person[] = [];
-
   constructor(
-    private toastrService: NbToastrService
-    //here the services used for getting date from backend are imported
+    private toastrService: NbToastrService,
+    private starsService: StarsService,
+    private directorsService: DirectorService,
   ) {
   }
 
@@ -60,10 +64,18 @@ export class PeopleState {
     setState(newState);
     currentState = newState;
 
-    // here we will call the API, but for now we have the mocks
-    //TODO implement api call
+    let stars: Star[] = [];
+    let directors: Star[] = [];
     try {
-      this.allPeople = peopleMock;
+
+      //mock
+      stars.push(peopleMock[0],peopleMock[1]);
+      directors.push(peopleMock[2],peopleMock[2]);
+
+      //real data
+      //TODO - have pagination like in movies page here
+      // stars = await this.starsService.getPagination();
+      // directors = await this.directorsService.getPagination
     }
     catch (e) {
       this.toastrService.show('danger', 'Fetching people went wrong.');
@@ -72,8 +84,8 @@ export class PeopleState {
 
     newState = produce(currentState, draft => {
       draft.isFetching = false;
-      //TODO instead of equal it with mocks, use the apis response
-      draft.people = this.allPeople;
+      draft.stars = stars;
+      draft.directors = directors;
     })
 
     setState(newState);
@@ -93,21 +105,27 @@ export class PeopleState {
     setState(newState);
     currentState = newState;
 
-    //TODO implement api call or can be done also from frontend
+    let stars: Star[] = [];
+
+    try {
+      stars = await this.starsService.getStarsByName(action.personName);
+    }
+    catch (e){
+
+    }
     newState = produce(currentState, draft => {
-      let people = this.allPeople;
-      if(people.length < 0) {
+      if(stars.length < 0) {
         this.toastrService.show('', 'There are no people to search');
       }
       else {
-        let filteredPeople = people.filter((person: Person) => {
-          let value = person.name.toLowerCase().includes(action.personName);
+        let filteredStars = stars.filter((star: Star) => {
+          let value = star.name.toLowerCase().includes(action.personName);
           return value;
         });
-        if(filteredPeople.length < 0) {
+        if(filteredStars.length < 0) {
           this.toastrService.show('', 'There are no people that contain name ' + action.personName);
         }
-        draft.people = filteredPeople;
+        draft.stars = filteredStars;
       }
       draft.isFetching = false;
       draft.isFiltered = true;
@@ -124,7 +142,8 @@ export class PeopleState {
 
     let newState = produce(currentState, draft => {
       draft.isFiltered = false;
-      draft.people = this.allPeople;
+      //TODO implement same pagination here
+      // draft.stars = this.allPeople;
     })
 
     setState(newState);
@@ -136,3 +155,4 @@ export class PeopleState {
     setState(defaultsState);
   }
 }
+
