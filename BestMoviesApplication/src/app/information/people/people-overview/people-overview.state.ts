@@ -1,29 +1,27 @@
-import {Action, State, StateContext} from "@ngxs/store";
-import {Injectable} from "@angular/core";
-import {NbToastrService} from "@nebular/theme";
-import {Director} from "src/model/director";
-import {Star} from "src/model/star";
-import {produce} from "immer";
+import { Action, State, StateContext } from "@ngxs/store";
+import { Injectable } from "@angular/core";
+import { NbToastrService } from "@nebular/theme";
+import { produce } from "immer";
 import {
   PeopleOverviewFetchInfo,
   PeopleOverviewReset
 } from "src/app/information/people/people-overview/people-overview.actions";
-import {PeopleType} from "src/app/information/people/people-overview/constants/constants";
-import {Person} from "src/model/person";
+import { PeopleType } from "src/app/information/people/people-overview/constants/constants";
+import { Person } from "src/model/person";
 import { DirectorService } from "src/api/director.service";
 import { StarService } from "src/api/star.service";
 import { Observable, throwError } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
+import { MoviesService } from "src/api/movies.service";
+import { Movie } from "src/model/movie";
 
 export interface PeopleOverviewStateModel {
   isFetching: boolean;
-  star: Star;
-  person: Director;
+  person: Person;
 }
 
 export const defaultsState: PeopleOverviewStateModel = {
   isFetching: false,
-  star: null,
   person: null,
 }
 
@@ -38,42 +36,58 @@ export class PeopleOverviewState {
     private toastrService: NbToastrService,
     private directorService: DirectorService,
     private starService: StarService,
+    private moviesService: MoviesService,
   ) {
   }
 
   @Action(PeopleOverviewFetchInfo)
-  peopleOverviewFetchInfo(
+  async peopleOverviewFetchInfo(
     {getState, setState}: StateContext<PeopleOverviewStateModel>,
-    action: PeopleOverviewFetchInfo) {
-
-    let currentState = getState();
-
-    let newState = produce(currentState, draft => {
-      draft.isFetching = true;
-    })
-
+    action: PeopleOverviewFetchInfo
+  ) {
+    let newState = produce(getState(), (draft) => {
+      draft.isFetching = false;
+    });
     setState(newState);
 
     let person$: Observable<Person>;
+    let movies$: Observable<Movie[]>;
 
     if (action.peopleType === PeopleType.STAR) {
       person$ = this.starService.getStarById(action.personId);
-    } else if(action.peopleType === PeopleType.DIRECTOR) {
+      movies$ = this.moviesService.getAllMoviesForStar(action.personId);
+    } else if (action.peopleType === PeopleType.DIRECTOR) {
       person$ = this.directorService.getDirectorById(action.personId);
+      movies$ = this.moviesService.getAllMoviesForDirector(action.personId);
     }
 
     person$
     .pipe(
       tap((person: Person) => {
-        newState = produce(getState(), draft => {
-          draft.isFetching = false;
-          draft.person = person;
-        })
-        setState(newState);
+        movies$
+        .pipe(
+          tap((movies: Movie[]) => {
+            const updatedPerson: Person = {...person, movies};
+            newState = produce(getState(), (draft) => {
+              draft.isFetching = false;
+              draft.person = updatedPerson;
+            });
+            setState(newState);
+          }),
+          catchError((error) => {
+            this.toastrService.show('danger', 'Fetching person movies went wrong.');
+            newState = produce(getState(), (draft) => {
+              draft.isFetching = false;
+            });
+            setState(newState);
+            return throwError(error);
+          })
+        )
+        .subscribe();
       }),
       catchError((error) => {
-        this.toastrService.show('danger', 'Fetching people went wrong.');
-        newState = produce(getState(), draft => {
+        this.toastrService.show('danger', 'Fetching person information went wrong.');
+        newState = produce(getState(), (draft) => {
           draft.isFetching = false;
         });
         setState(newState);
@@ -85,7 +99,7 @@ export class PeopleOverviewState {
 
   @Action(PeopleOverviewReset)
   async peopleReset(
-    { getState, setState }: StateContext<PeopleOverviewStateModel>) {
+    {getState, setState}: StateContext<PeopleOverviewStateModel>) {
     setState(defaultsState);
   }
 }
