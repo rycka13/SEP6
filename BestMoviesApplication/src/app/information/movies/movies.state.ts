@@ -6,27 +6,23 @@ import {
   MoviesReset, MoviesSearchReset, MoviesSearchTitle
 } from "./movies.actions";
 import {produce} from "immer";
-import {moviesMock} from "../../../util/mocks/movies_mock";
 import {NbToastrService} from "@nebular/theme";
-import {paginate} from "src/core/helpers/helpers";
 import { MoviesService } from "src/api/movies.service";
+import { catchError, tap } from "rxjs/operators";
+import { throwError } from "rxjs";
 
 export interface MoviesStateModel {
   isFetching: boolean;
   isFiltered: boolean;
-  allMovies: Movie[];
-  moviesDisplayed: Movie[];
-  pageSize: number;
-  pageToLoadNext: number;
+  movies: Movie[];
+  pageNumber: number;
 }
 
 export const defaultsState: MoviesStateModel = {
   isFetching: false,
   isFiltered: false,
-  allMovies: [],
-  moviesDisplayed: [],
-  pageSize: 5,
-  pageToLoadNext: 1,
+  movies: [],
+  pageNumber: 1,
 }
 
 @State<MoviesStateModel>({
@@ -36,9 +32,8 @@ export const defaultsState: MoviesStateModel = {
 
 @Injectable()
 export class MoviesState {
-  allMovies: Movie[] = [];
-  initialPageSize: number;
-  initialPageToLoadNext: number;
+  currentMovies: Movie[] = [];
+  initialPageSize: number = 10;
 
   constructor(
     private toastrService: NbToastrService,
@@ -50,34 +45,38 @@ export class MoviesState {
   async moviesFetchInfo(
     {getState, setState}: StateContext<MoviesStateModel>) {
 
-    let currentState = getState();
+    let pageNumber = getState().pageNumber;
 
-    let newState = produce(currentState, draft => {
+    let newState = produce(getState(), draft => {
       draft.isFetching = true;
-      this.initialPageSize = draft.pageSize;
-      this.initialPageToLoadNext = draft.pageToLoadNext;
-    })
+    });
 
     setState(newState);
-    currentState = newState;
 
-    // here we will call the API, but for now we have the mocks
-    //TODO implement api call
-    try {
-      this.allMovies = moviesMock;
-    } catch (e) {
-      this.toastrService.show('danger', 'Fetching movies went wrong.');
+    this.moviesService.getMoviesPerPage(pageNumber, this.initialPageSize)
+    .pipe(
+      tap(movies => {
+        newState = produce(getState(), draft => {
+          draft.movies = movies;
+          this.currentMovies = movies;
+          draft.isFetching = false;
+        });
+        setState(newState);
+      }),
+      catchError(error => {
+        this.toastrService.show(error, 'Fetching movies went wrong.', {status: 'danger'});
+        newState = produce(getState(), draft => {
+          draft.isFetching = false;
+        });
+        setState(newState);
+        return throwError(error);
+      })
+    )
+    .subscribe();
 
-    }
-
-    newState = produce(currentState, draft => {
+    newState = produce(getState(), draft => {
       draft.isFetching = false;
-      //TODO instead of equal it with mocks, use the apis response
-      draft.allMovies = this.allMovies;
-      draft.moviesDisplayed = paginate(this.allMovies, draft.pageSize, draft.pageToLoadNext);
-    })
-
-    setState(newState);
+    });
   }
 
   @Action(MoviesFetchNextPage)
@@ -85,35 +84,36 @@ export class MoviesState {
     {getState, setState}: StateContext<MoviesStateModel>,
     action: MoviesFetchNextPage) {
 
-    let currentState = getState();
-
-    let pageSize, pageToLoadNext;
-    let newState = produce(currentState, draft => {
+    let newState = produce(getState(), draft => {
       draft.isFetching = true;
-      pageToLoadNext = draft.pageToLoadNext;
-      pageSize = draft.pageSize;
     })
 
     setState(newState);
-    currentState = newState;
 
+    let pageNumber = getState().pageNumber;
 
-    let moviesToDisplayNext: Movie[] = [];
-    try {
-      pageToLoadNext++;
-      moviesToDisplayNext = paginate(this.allMovies, pageSize, pageToLoadNext);
-    } catch (e) {
-      this.toastrService.show('danger', 'Fetching next movies went wrong.');
-
-    }
-
-    newState = produce(currentState, draft => {
-      //TODO instead of equal it with mocks, use the apis response
-      draft.moviesDisplayed.push(...moviesToDisplayNext);
-      draft.isFetching = false;
-    })
-
-    setState(newState);
+    this.moviesService.getMoviesPerPage(pageNumber, this.initialPageSize)
+    .pipe(
+      tap(movies => {
+        newState = produce(getState(), draft => {
+          let currentMovies = draft.movies;
+          draft.movies = [...currentMovies, ...movies];
+          this.currentMovies = draft.movies;
+          draft.isFetching = false;
+          draft.pageNumber++;
+        })
+        setState(newState);
+      }),
+      catchError(error => {
+        this.toastrService.show(error, 'Fetching movies went wrong.', {status: 'danger'});
+        newState = produce(getState(), draft => {
+          draft.isFetching = false;
+        });
+        setState(newState);
+        return throwError(error);
+      })
+    )
+    .subscribe();
   }
 
   @Action(MoviesSearchTitle)
@@ -124,34 +124,44 @@ export class MoviesState {
 
     let newState = produce(currentState, draft => {
       draft.isFetching = true;
-    });
+    })
 
     setState(newState);
-    currentState = newState;
 
-    let filteredMovies = this.allMovies.filter((movie: Movie) => {
-      return movie.title.toLowerCase().includes(action.movieTitle);
-    });
-
-    //TODO implement api call or can be done also from frontend
-    newState = produce(currentState, draft => {
-        if (filteredMovies.length < 0) {
-          this.toastrService.show('', 'There are no movies that contain ' + action.movieTitle);
-        } else {
-          draft.allMovies = filteredMovies;
+    this.moviesService.getMoviesByTitle(action.movieTitle)
+    .pipe(
+      tap((filteredMovies: Movie[]) => {
+        if (!filteredMovies || filteredMovies.length === 0) {
+          newState = produce(getState(), draft => {
+            draft.isFetching = false;
+          });
+          setState(newState);
+          this.toastrService.show('', 'There are no movies that contain title ' + action.movieTitle, {status: 'info'});
         }
-        draft.isFetching = false;
-        draft.isFiltered = true;
-      }
-    );
-
-    setState(newState);
+        else {
+          newState = produce(getState(), draft => {
+            draft.isFetching = false;
+            draft.isFiltered = true;
+            draft.movies = filteredMovies;
+          });
+          setState(newState);
+        }
+      }),
+      catchError(error => {
+        this.toastrService.show(error, 'Fetching movies went wrong.', {status: 'danger'});
+        newState = produce(getState(), draft => {
+          draft.isFetching = false;
+        });
+        setState(newState);
+        return throwError(error);
+      })
+    )
+    .subscribe();
   }
 
   @Action(MoviesSearchReset)
   async moviesSearchReset(
     {getState, setState}: StateContext<MoviesStateModel>) {
-
     let currentState = getState();
 
     let newState = produce(currentState, draft => {
@@ -159,44 +169,15 @@ export class MoviesState {
     })
 
     setState(newState);
-    currentState = newState;
 
     newState = produce(currentState, draft => {
       draft.isFetching = false;
-      //TODO instead of equal it with mocks, use the apis response
-      draft.allMovies = this.allMovies;
-      draft.pageSize = this.initialPageSize;
-      draft.pageToLoadNext = this.initialPageToLoadNext;
-      draft.moviesDisplayed = paginate(this.allMovies, draft.pageSize, draft.pageToLoadNext);
       draft.isFiltered = false;
+      draft.movies = this.currentMovies;
     })
 
     setState(newState);
   }
-
-
-  // @Action(MoviesSearchReset)
-  // async moviesSearchReset(
-  //   {getState, setState}
-  //     :
-  //     StateContext<MoviesStateModel>
-  // ) {
-  //
-  //   let currentState = getState();
-  //   let newState = produce(currentState, draft => {
-  //     draft.isFetching = true;
-  //   })
-  //
-  //   setState(newState);
-  //   setState(resetPageState);
-  //   currentState = getState();
-  //   newState = produce(currentState, draft => {
-  //     draft.isFiltered = false;
-  //     draft.moviesDisplayed = paginate(this.allMovies, draft.pageSize, draft.pageToLoadNext);
-  //   })
-  //
-  //   setState(newState);
-  // }
 
   @Action(MoviesReset)
   async moviesReset(

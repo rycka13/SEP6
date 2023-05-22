@@ -2,6 +2,7 @@ import { Movie } from "src/model/movie";
 import { Observable } from "rxjs";
 import { ApiService } from "src/core/services/api.service";
 import { Injectable } from "@angular/core";
+import { Director } from "src/model/director";
 
 @Injectable({
   providedIn: 'root'
@@ -45,5 +46,9 @@ export class MoviesService {
 
   getAll(): Observable<Movie[]> {
     return this.apiService.get(`${this.PATH_CONTROLLER}/getAll`);
+  }
+
+  getMoviesPerPage(pageNumber, pageSize): Observable<Movie[]> {
+    return this.apiService.get(`${this.PATH_CONTROLLER}/page/${pageNumber}/${pageSize}`);
   }
 }
