@@ -1,5 +1,4 @@
 import { OverallInformationComponent } from './overall-information.component';
-import {BmLayoutComponent} from "../../core/components/bm-layout/bm-layout.component";
 import {Spectator} from "@ngneat/spectator";
 import {createComponentFactory, SpectatorFactory} from "@ngneat/spectator/jest";
 import {RouterTestingModule} from "@angular/router/testing";
@@ -13,6 +12,7 @@ import {NEBULAR_MODULES, PROVIDERS, STATES} from "../app.module";
 import {HttpClientModule} from "@angular/common/http";
 import {NgxsModule} from "@ngxs/store";
 import {environment} from "../../environments/environment";
+import {AppComponent} from "../app.component";
 
 describe('app > overall-information > overall-information.component.spec.ts', () => {
   let component: OverallInformationComponent;
@@ -30,7 +30,7 @@ describe('app > overall-information > overall-information.component.spec.ts', ()
       }),
       ...NEBULAR_MODULES,
     ],
-    declarations: [BmLayoutComponent],
+    declarations: [AppComponent],
     providers: PROVIDERS,
   });
 

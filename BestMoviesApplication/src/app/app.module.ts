@@ -19,7 +19,6 @@ import {
     NbSearchModule, NbSearchService, NbInputModule, NbFormFieldModule, NbTooltipModule, NbSelectModule, NbTabsetModule
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { BmLayoutComponent } from '../core/components/bm-layout/bm-layout.component';
 import { OverallInformationComponent } from './overall-information/overall-information.component';
 import {OverAllInformationState} from "./overall-information/overall-information.state";
 import {NgxsModule} from "@ngxs/store";
@@ -65,7 +64,6 @@ export const COMPONENTS = [
   AppComponent,
 
   //components
-  BmLayoutComponent,
   BmSearchComponent,
 
   //overall information page
