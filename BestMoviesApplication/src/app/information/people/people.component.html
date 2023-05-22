@@ -5,38 +5,31 @@
   <div class="people-information">
     <nb-card>
       <nb-card-body>
-
-        <nb-tabset listenWindowScroll>
-          <nb-tab tabTitle="Stars"
-                  [badgeText]="starsSize$ | async"
-                  badgeStatus="success">
+        <nb-tabset
+        (changeTab)="changeCurrentTab($event)">
+          <nb-tab
+            [tabTitle]="getPeopleType().STAR"
+            [active]="isTabActive(getPeopleType().STAR)"
+            [badgeText]="starsSize$ | async"
+            badgeStatus="success"
+          >
             <div class="stars">
               <nb-card>
                 <nb-card-header class="header-information">
-          <span class="title">
-            Stars
-          </span>
+                  <span class="title">Stars</span>
 
                   <div class="right-side">
                     <bm-search
-                      (searchEvent)="onSearch(getPeopleType().STAR,$event)"
+                      (searchEvent)="onSearch(getPeopleType().STAR, $event)"
                       (resetSearch)="resetSearch(getPeopleType().STAR)"
                       [isFiltered]="starsAreFiltered$ | async"
                       [placeHolder]="starsPlaceholder"
-                    >
-
-                    </bm-search>
+                    ></bm-search>
                   </div>
                 </nb-card-header>
                 <nb-card-body>
-                  <nb-list
-                    nbInfiniteList
-                    [threshold]="500"
-                    (bottomThreshold)="loadNext()"
-                    class="movie-container"
-                    *ngIf="stars$ | async as stars"
-                  >
-                    <nb-list-item *ngFor="let star of stars">
+                  <nb-list class="movie-container">
+                    <nb-list-item *ngFor="let star of stars$ | async">
                       <nb-card size="medium" class="poster-people">
                         <nb-card-header class="header-poster-people">
                           <div class="people-name">{{ star.name }}</div>
@@ -46,16 +39,18 @@
                             <button
                               nbButton
                               status="primary"
-                              (click)="redirectToOverviewPageFor(getPeopleType().STAR,star.id)"
+                              (click)="redirectToOverviewPageFor(getPeopleType().STAR, star.id)"
                             >
                               <nb-icon icon="film-outline"></nb-icon>
                               Show more
                             </button>
                           </div>
-                          <img *ngIf="star.profilePicture"
-                               [src]="star.profilePicture" [alt]="star.name">
-                          <img *ngIf="!star.profilePicture"
-                               src="../../../assets/no-poster-available.jpg" [alt]="star.name">
+                          <img *ngIf="star.profilePicture" [src]="star.profilePicture" [alt]="star.name" />
+                          <img
+                            *ngIf="!star.profilePicture"
+                            src="../../../assets/no-poster-available.jpg"
+                            [alt]="star.name"
+                          />
                         </nb-card-body>
                         <nb-card-footer class="footer-poster-people">
                           <div>
@@ -66,35 +61,35 @@
                     </nb-list-item>
                   </nb-list>
                 </nb-card-body>
+                <nb-card-footer class="footer-page">
+                  <button nbButton status="primary" nbTooltip="Load more stars" (click)="loadNext(getPeopleType().STAR)">
+                    <nb-icon icon="arrow-ios-downward-outline" pack="eva"></nb-icon>
+                  </button>
+                </nb-card-footer>
               </nb-card>
             </div>
           </nb-tab>
-          <nb-tab tabTitle="Directors"
-                  [badgeText]="directorsSize$ | async"
-                  badgeStatus="warning">
+          <nb-tab
+            tabTitle="Directors"
+            [badgeText]="directorsSize$ | async"
+            [tabTitle]="getPeopleType().DIRECTOR"
+            [active]="isTabActive(getPeopleType().DIRECTOR)">
             <div class="directors">
               <nb-card>
                 <nb-card-header class="header-information">
-          <span class="title">
-            Directors
-          </span>
+                  <span class="title">Directors</span>
 
                   <div class="right-side">
                     <bm-search
-                      (searchEvent)="onSearch(getPeopleType().DIRECTOR,$event)"
+                      (searchEvent)="onSearch(getPeopleType().DIRECTOR, $event)"
                       (resetSearch)="resetSearch(getPeopleType().DIRECTOR)"
                       [isFiltered]="directorsAreFiltered$ | async"
                       [placeHolder]="directorsPlaceholder"
-                    >
-
-                    </bm-search>
+                    ></bm-search>
                   </div>
                 </nb-card-header>
                 <nb-card-body>
                   <nb-list
-                    nbInfiniteList
-                    [threshold]="500"
-                    (bottomThreshold)="loadNextNext(getPeopleType().DIRECTOR)"
                     class="movie-container"
                     *ngIf="directors$ | async as directors"
                   >
@@ -114,10 +109,12 @@
                               Show more
                             </button>
                           </div>
-                          <img *ngIf="director.profilePicture"
-                               [src]="director.profilePicture" [alt]="director.name">
-                          <img *ngIf="!director.profilePicture"
-                               src="../../../assets/no-poster-available.jpg" [alt]="director.name">
+                          <img *ngIf="director.profilePicture" [src]="director.profilePicture" [alt]="director.name" />
+                          <img
+                            *ngIf="!director.profilePicture"
+                            src="../../../assets/no-poster-available.jpg"
+                            [alt]="director.name"
+                          />
                         </nb-card-body>
                         <nb-card-footer class="footer-poster-people">
                           <div>
@@ -128,6 +125,11 @@
                     </nb-list-item>
                   </nb-list>
                 </nb-card-body>
+                <nb-card-footer class="footer-page">
+                  <button nbButton status="primary" nbTooltip="Load more directors" (click)="loadNext(getPeopleType().DIRECTOR)">
+                    <nb-icon icon="arrow-ios-downward-outline" pack="eva"></nb-icon>
+                  </button>
+                </nb-card-footer>
               </nb-card>
             </div>
           </nb-tab>
