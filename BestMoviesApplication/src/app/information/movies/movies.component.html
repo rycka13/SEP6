@@ -1,103 +1,73 @@
 <ng-container *ngIf="isFetching$ | async; then dataFetching; else dataFetched">
 </ng-container>
 
-<ng-template #dataFetched>
-  <nb-card>
-    <nb-card-header>
-      <bm-search
-        (searchEvent)="onSearch($event)"
-        (resetSearch)="resetSearch()"
-        [isFiltered]="isFiltered$ | async"
-        [placeHolder]="placeHolder"
-      ></bm-search>
-    </nb-card-header>
-    <nb-card-body>
-      <ng-container *ngIf="isFiltered$ | async; then dataFiltered; else dataNotFiltered">
-      </ng-container>
-    </nb-card-body>
-  </nb-card>
-</ng-template>
-
 <ng-template #dataFetching>
   <nb-spinner
-    [nbSpinner]="true"
     status="basic"
     class="spinner">
   </nb-spinner>
 </ng-template>
 
-<ng-template #dataFiltered>
-  <nb-list
-    class="movie-container"
-    *ngIf="allMovies$ | async as movies"
-  >
-    <nb-list-item *ngFor="let movie of movies">
-      <nb-card size="medium" class="poster-movie">
-        <nb-card-header class="header-poster-movie">
-          <div class="movie-title">{{ movie.title }}</div>
-        </nb-card-header>
-        <nb-card-body class="body-poster-movie">
-          <div class="show-more-button">
-            <button
-              nbButton
-              status="primary"
-              (click)="redirectToMovieOverviewPage(movie.id)"
-            >
-              <nb-icon icon="film-outline"></nb-icon>
-              Show more
-            </button>
-          </div>
-          <img *ngIf="movie.posterImage"
-               [src]="movie.posterImage" [alt]="movie.title">
-          <img *ngIf="!movie.posterImage"
-               src="../../../assets/no-poster-available.jpg" [alt]="movie.title">
-        </nb-card-body>
-        <nb-card-footer class="footer-poster-movie">
-          <div>
-            <span class="movie-year">Year of publication: {{ movie.year }}</span>
-          </div>
-        </nb-card-footer>
-      </nb-card>
-    </nb-list-item>
-  </nb-list>
-</ng-template>
+<ng-template #dataFetched>
+  <div class="movie-information">
+    <nb-card>
+      <nb-card-body>
+        <div class="movies">
+          <nb-card>
+            <nb-card-header class="header-information">
+              <span class="title">Movies</span>
 
-<ng-template #dataNotFiltered>
-  <nb-list
-    nbInfiniteList
-    listenWindowScroll
-    [threshold]="500"
-    (bottomThreshold)="loadNext()"
-    class="movie-container"
-    *ngIf="moviesDisplayed$ | async as movies"
-  >
-    <nb-list-item *ngFor="let movie of movies">
-      <nb-card size="medium" class="poster-movie">
-        <nb-card-header class="header-poster-movie">
-          <div class="movie-title">{{ movie.title }}</div>
-        </nb-card-header>
-        <nb-card-body class="body-poster-movie">
-          <div class="show-more-button">
-            <button
-              nbButton
-              status="primary"
-              (click)="redirectToMovieOverviewPage(movie.id)"
-            >
-              <nb-icon icon="film-outline"></nb-icon>
-              Show more
-            </button>
-          </div>
-          <img *ngIf="movie.posterImage"
-               [src]="movie.posterImage" [alt]="movie.title">
-          <img *ngIf="!movie.posterImage"
-               src="../../../assets/no-poster-available.jpg" [alt]="movie.title">
-        </nb-card-body>
-        <nb-card-footer class="footer-poster-movie">
-          <div>
-            <span class="movie-year">Year of publication: {{ movie.year }}</span>
-          </div>
-        </nb-card-footer>
-      </nb-card>
-    </nb-list-item>
-  </nb-list>
+              <div class="right-side">
+                <bm-search
+                  (searchEvent)="onSearch($event)"
+                  (resetSearch)="resetSearch()"
+                  [isFiltered]="isFiltered$ | async"
+                  [placeHolder]=""
+                ></bm-search>
+              </div>
+            </nb-card-header>
+            <nb-card-body>
+              <nb-list class="movie-container">
+                <nb-list-item *ngFor="let movie of movies$ | async">
+                  <nb-card size="medium" class="poster-movie">
+                    <nb-card-header class="header-poster-movie">
+                      <div class="movie-title">{{ movie.title }}</div>
+                    </nb-card-header>
+                    <nb-card-body class="body-poster-movie">
+                      <div class="show-more-button">
+                        <button
+                          nbButton
+                          status="primary"
+                          (click)="redirectToMovieOverviewPage(movie.id)"
+                        >
+                          <nb-icon icon="film-outline"></nb-icon>
+                          Show more
+                        </button>
+                      </div>
+                      <img *ngIf="movie.posterImage" [src]="movie.posterImage" [alt]="movie.title"/>
+                      <img
+                        *ngIf="!movie.posterImage"
+                        src="../../../assets/no-poster-available.jpg"
+                        [alt]="movie.title"
+                      />
+                    </nb-card-body>
+                    <nb-card-footer class="footer-poster-movie">
+                      <div>
+                        <span class="person-birth">Year of publication: {{ movie.year }}</span>
+                      </div>
+                    </nb-card-footer>
+                  </nb-card>
+                </nb-list-item>
+              </nb-list>
+            </nb-card-body>
+            <nb-card-footer class="footer-page">
+              <button nbButton status="primary" nbTooltip="Load more movies" (click)="loadNext()">
+                <nb-icon icon="arrow-ios-downward-outline" pack="eva"></nb-icon>
+              </button>
+            </nb-card-footer>
+          </nb-card>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
 </ng-template>
