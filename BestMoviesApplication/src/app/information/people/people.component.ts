@@ -1,20 +1,22 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {NbSearchService} from "@nebular/theme";
-import {Select, Store} from "@ngxs/store";
-import {Observable} from "rxjs";
-import {PeopleSelector} from "src/app/information/people/people.selector";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NbSearchService, NbTabComponent } from "@nebular/theme";
+import { Select, Store } from "@ngxs/store";
+import { Observable } from "rxjs";
+import { PeopleSelector } from "src/app/information/people/people.selector";
 import {
+  PeopleFetchDirectorsNextPage,
   PeopleFetchInfoFirstPage,
+  PeopleFetchStarsNextPage,
   PeopleReset,
   PeopleSearchDirectorsReset,
   PeopleSearchStarsByName,
   PeopleSearchStarsReset
 } from "src/app/information/people/people.actions";
-import {Star} from "src/model/star";
-import {Director} from "src/model/director";
-import {PeoplePlaceHolderEnum} from "src/app/information/people/constants/constants";
-import {Router} from "@angular/router";
-import {PeopleType} from "src/app/information/people/people-overview/constants/constants";
+import { Star } from "src/model/star";
+import { Director } from "src/model/director";
+import { PeoplePlaceHolderEnum } from "src/app/information/people/constants/constants";
+import { Router } from "@angular/router";
+import { PeopleType } from "src/app/information/people/people-overview/constants/constants";
 
 @Component({
   selector: 'app-people',
@@ -46,6 +48,9 @@ export class PeopleComponent implements OnInit, OnDestroy {
 
   starsPlaceholder: string;
   directorsPlaceholder: string;
+
+  currentTabSelected: NbTabComponent = null;
+
   alive: boolean = true;
 
   constructor(private store: Store,
@@ -53,14 +58,11 @@ export class PeopleComponent implements OnInit, OnDestroy {
               private searchService: NbSearchService) {
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.starsPlaceholder = PeoplePlaceHolderEnum.STARS_PLACEHOLDER;
     this.directorsPlaceholder = PeoplePlaceHolderEnum.DIRECTORS_PLACEHOLDER;
 
-    // const actionsInParallel = [
-    //   new PeopleFetchInfoFirstPage(),
-    // ];
-    // this.store.dispatch([...actionsInParallel]);
+    this.store.dispatch(new PeopleFetchInfoFirstPage());
   }
 
   onSearch(peopleType: PeopleType, event) {
@@ -85,15 +87,23 @@ export class PeopleComponent implements OnInit, OnDestroy {
 
   loadNext(peopleType: PeopleType) {
     if (peopleType === PeopleType.STAR) {
-
+      this.store.dispatch(new PeopleFetchStarsNextPage());
     }
     else if(peopleType === PeopleType.DIRECTOR) {
-
+      this.store.dispatch(new PeopleFetchDirectorsNextPage());
     }
   }
 
-  redirectToOverviewPageFor(peopleType: PeopleType, starId: number) {
-    this.router.navigate([`/information/people/${peopleType}/${starId}`]);
+  changeCurrentTab(nbTabComponent: NbTabComponent) {
+    this.currentTabSelected = nbTabComponent;
+  }
+
+  isTabActive(peopleType: PeopleType) {
+    return peopleType === PeopleType.DIRECTOR || peopleType === PeopleType.STAR;
+  }
+
+  redirectToOverviewPageFor(peopleType: PeopleType, id: number) {
+    this.router.navigate([`/information/people/${peopleType}/${id}`]);
   }
 
   ngOnDestroy() {
