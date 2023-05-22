@@ -52,6 +52,9 @@ export const defaultsState: PeopleStateModel = {
 
 @Injectable()
 export class PeopleState {
+
+  initialPageSize: number = 10;
+
   constructor(
     private toastrService: NbToastrService,
     private starsService: StarsService,
@@ -60,34 +63,42 @@ export class PeopleState {
   }
 
   @Action(PeopleFetchInfoFirstPage)
-  async peopleFetchInfo(
+  async peopleFetchInfoFirstPage(
     {getState, setState}: StateContext<PeopleStateModel>) {
 
-    let currentState = getState();
+    let currentPageNumberStars = getState().pageNumberStars;
+    let currentPageNumberDirectors = getState().pageNumberDirectors;
 
-    let newState = produce(currentState, draft => {
+    let newState = produce(getState(), draft => {
       draft.isFetching = true;
     })
 
     setState(newState);
-    currentState = newState;
 
-    let stars: Star[] = [];
-    let directors: Star[] = [];
-    try {
-      //real data
-      //TODO - have pagination like in movies page here
-      // stars = await this.starsService.getPagination();
-      // directors = await this.directorsService.getPagination
-    } catch (e) {
-      this.toastrService.show('danger', 'Fetching people went wrong.');
+    await this.starsService.getStarsPerPage(currentPageNumberStars, this.initialPageSize)
+      .then(stars => {
+        newState = produce(getState(), draft => {
+          draft.stars = stars;
+        })
+        setState(newState);
+      })
+      .catch(error => {
+        this.toastrService.show(error, 'Fetching stars went wrong.', {status: 'danger'});
+      });
 
-    }
+    await this.directorsService.getDirectorsPerPage(currentPageNumberDirectors, this.initialPageSize)
+      .then(directors => {
+        newState = produce(getState(), draft => {
+          draft.directors = directors;
+        })
+        setState(newState);
+      })
+      .catch(error => {
+        this.toastrService.show(error, 'Fetching directors went wrong.', {status: 'danger'});
+      });
 
-    newState = produce(currentState, draft => {
+    newState = produce(getState(), draft => {
       draft.isFetching = false;
-      draft.stars = stars;
-      draft.directors = directors;
     })
 
     setState(newState);
