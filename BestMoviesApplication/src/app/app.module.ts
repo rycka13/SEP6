@@ -37,6 +37,15 @@ import {MoviesOverviewState} from "src/app/information/movies/movie-overview/mov
 import { PeopleOverviewComponent } from './information/people/people-overview/people-overview.component';
 import {PeopleOverviewState} from "src/app/information/people/people-overview/people-overview.state";
 import {NgxsLoggerPluginModule} from "@ngxs/logger-plugin";
+import { ApiService } from "src/core/services/api.service";
+import { DirectorService } from "src/api/director.service";
+import { DirectorsService } from "src/api/directors.service";
+import { MovieService } from "src/api/movie.service";
+import { MoviesService } from "src/api/movies.service";
+import { RatingService } from "src/api/rating.service";
+import { RatingsService } from "src/api/ratings.service";
+import { StarService } from "src/api/star.service";
+import { StarsService } from "src/api/stars.service";
 
 
 export const STATES = [
@@ -73,6 +82,15 @@ export const COMPONENTS = [
 ]
 
 export const PROVIDERS = [
+  ApiService,
+  DirectorService,
+  DirectorsService,
+  MovieService,
+  MoviesService,
+  RatingService,
+  RatingsService,
+  StarService,
+  StarsService
 ]
 
 export const NEBULAR_MODULES = [

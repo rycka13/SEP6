@@ -1,12 +1,23 @@
 import { TestBed } from '@angular/core/testing';
-
-import { MovieService } from './movie.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Store } from "@ngxs/store";
+import { PROVIDERS } from "../app/app.module";
+import { MovieService } from "./movie.service";
 
 describe('MovieService', () => {
   let service: MovieService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [
+        HttpClientTestingModule,
+      ],
+      declarations: [],
+      providers: [
+        ...PROVIDERS,
+        Store,
+      ],
+    });
     service = TestBed.inject(MovieService);
   });
 

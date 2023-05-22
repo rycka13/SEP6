@@ -1,12 +1,23 @@
 import { TestBed } from '@angular/core/testing';
-
-import { StarService } from './star.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Store } from "@ngxs/store";
+import { PROVIDERS } from "../app/app.module";
+import { StarService } from "./star.service";
 
 describe('StarService', () => {
   let service: StarService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [
+        HttpClientTestingModule,
+      ],
+      declarations: [],
+      providers: [
+        ...PROVIDERS,
+        Store,
+      ],
+    });
     service = TestBed.inject(StarService);
   });
 
