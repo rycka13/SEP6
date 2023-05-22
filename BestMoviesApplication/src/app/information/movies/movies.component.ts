@@ -12,6 +12,7 @@ import {
 import { MoviesSelector } from 'src/app/information/movies/movies.selector';
 import {Select, Store} from '@ngxs/store';
 import {Router} from "@angular/router";
+import { MoviePlaceHolderEnum } from "src/app/information/movies/constants/constants";
 
 @Component({
   selector: 'app-movies',
@@ -41,6 +42,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.placeHolder = MoviePlaceHolderEnum.MOVIE_PLACEHOLDER;
     this.store.dispatch(new MoviesFetchInfo());
   }
 
@@ -48,11 +50,13 @@ export class MoviesComponent implements OnInit, OnDestroy {
     this.store.dispatch(new MoviesFetchNextPage());
   }
 
-  onSearch($event) {
-    this.store.dispatch(new MoviesSearchTitle($event));
+  onSearch(event) {
+    this.placeHolder = event;
+    this.store.dispatch(new MoviesSearchTitle(event));
   }
 
   resetSearch() {
+    this.placeHolder = MoviePlaceHolderEnum.MOVIE_PLACEHOLDER;
     this.store.dispatch(new MoviesSearchReset());
   }
 
