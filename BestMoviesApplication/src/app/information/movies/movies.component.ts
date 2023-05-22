@@ -25,16 +25,10 @@ export class MoviesComponent implements OnInit, OnDestroy {
   @Select(MoviesSelector.isFiltered)
   isFiltered$: Observable<boolean>;
 
-  @Select(MoviesSelector.allMovies)
-  allMovies$: Observable<Movie[]>;
+  @Select(MoviesSelector.movies)
+  movies$: Observable<Movie[]>;
 
-  @Select(MoviesSelector.moviesDisplayed)
-  moviesDisplayed$: Observable<Movie[]>;
-
-  @Select(MoviesSelector.pageSize)
-  pageSize$: Observable<number>;
-
-  @Select(MoviesSelector.pageToLoadNext)
+  @Select(MoviesSelector.pageNumber)
   pageToLoadNext$: Observable<number>;
 
   placeHolder = "Search title"
@@ -57,6 +51,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   onSearch($event) {
     this.store.dispatch(new MoviesSearchTitle($event));
   }
+
   resetSearch() {
     this.store.dispatch(new MoviesSearchReset());
   }
