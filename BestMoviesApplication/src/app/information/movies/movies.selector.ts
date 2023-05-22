@@ -13,22 +13,12 @@ export class MoviesSelector {
   }
 
   @Selector([MoviesState])
-  static allMovies(state: MoviesStateModel) {
-    return state.allMovies;
-  }
-
-  @Selector([MoviesState])
   static moviesDisplayed(state: MoviesStateModel) {
-    return state.moviesDisplayed;
+    return state.movies;
   }
 
   @Selector([MoviesState])
-  static pageSize(state: MoviesStateModel) {
-    return state.pageSize;
-  }
-
-  @Selector([MoviesState])
-  static pageToLoadNext(state: MoviesStateModel) {
-    return state.pageToLoadNext;
+  static pageNumber(state: MoviesStateModel) {
+    return state.pageNumber;
   }
 }
