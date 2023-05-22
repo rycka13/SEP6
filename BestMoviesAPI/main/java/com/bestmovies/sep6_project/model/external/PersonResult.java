@@ -1,18 +1,21 @@
-package com.bestmovies.sep6_project.model;
+package com.bestmovies.sep6_project.model.external;
 
 import java.util.ArrayList;
 
-public class MovieResult {
+public class PersonResult {
     private float page;
-    ArrayList<ExternalMovie> results = new ArrayList <>();
+    ArrayList < ExternalPerson > results = new ArrayList<>();
     private float total_pages;
     private float total_results;
 
-
-    // Getter Methods
+// Getter Methods
 
     public float getPage() {
         return page;
+    }
+
+    public ArrayList<ExternalPerson> getResults() {
+        return results;
     }
 
     public float getTotal_pages() {
@@ -23,14 +26,14 @@ public class MovieResult {
         return total_results;
     }
 
-    public ArrayList<ExternalMovie> getResults() {
-        return results;
-    }
-
     // Setter Methods
 
     public void setPage(float page) {
         this.page = page;
+    }
+
+    public void setResults(ArrayList<ExternalPerson> results) {
+        this.results = results;
     }
 
     public void setTotal_pages(float total_pages) {
@@ -39,9 +42,5 @@ public class MovieResult {
 
     public void setTotal_results(float total_results) {
         this.total_results = total_results;
-    }
-
-    public void setResults(ArrayList<ExternalMovie> results) {
-        this.results = results;
     }
 }

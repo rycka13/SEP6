@@ -2,7 +2,7 @@ package com.bestmovies.sep6_project.services;
 
 import com.bestmovies.sep6_project.dao.interfaces.IMovieMapper;
 import com.bestmovies.sep6_project.model.Movie;
-import com.bestmovies.sep6_project.model.MovieResult;
+import com.bestmovies.sep6_project.model.external.MovieResult;
 import com.bestmovies.sep6_project.restclient.RestClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

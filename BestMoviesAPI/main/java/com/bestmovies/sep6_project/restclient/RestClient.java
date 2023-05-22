@@ -1,8 +1,8 @@
 package com.bestmovies.sep6_project.restclient;
 
 
-import com.bestmovies.sep6_project.model.MovieResult;
-import com.bestmovies.sep6_project.model.PersonResult;
+import com.bestmovies.sep6_project.model.external.MovieResult;
+import com.bestmovies.sep6_project.model.external.PersonResult;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import org.springframework.http.*;

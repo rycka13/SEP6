@@ -1,4 +1,4 @@
-package com.bestmovies.sep6_project.model;
+package com.bestmovies.sep6_project.model.external;
 
 import java.util.ArrayList;
 
