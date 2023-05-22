@@ -65,7 +65,6 @@ export class PeopleOverviewState {
     person$
     .pipe(
       tap((person: Person) => {
-        person.profilePicture = null; // TODO: This will be removed
         newState = produce(getState(), draft => {
           draft.isFetching = false;
           draft.person = person;
