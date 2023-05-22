@@ -1,67 +1,37 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
+import { Director } from "src/model/director";
+import { peopleMock } from "src/util/mocks/people_mock";
+import { Star } from "src/model/star";
+import { Movie } from "src/model/movie";
+import { moviesMock } from "src/util/mocks/movies_mock";
+import { Rating } from "src/model/rating";
+import { ratingsMock } from "src/util/mocks/ratings_mock";
 import { Observable } from "rxjs";
-import {Director} from "src/model/director";
-import {moviesMock} from "src/util/mocks/movies_mock";
-import {Movie} from "src/model/movie";
-import {Star} from "src/model/star";
-import {Rating} from "src/model/rating";
-import {ratingsMock} from "src/util/mocks/ratings_mock";
-import {peopleMock} from "src/util/mocks/people_mock";
 
+@Injectable({
+  providedIn: 'root'
+})
 @Injectable()
 export class ApiService<T> {
-  constructor(private http: HttpClient) {}
-
-  get(path: string): Promise<T> {
-    return this.returnMockIfTest(this.http.get<T>(`${environment.api_url}${path}`).toPromise());
+  constructor(private http: HttpClient) {
   }
 
-  put(path: string, body: Object = {}): Promise<T> {
-    return this.returnMockIfTest(
-      this.http.put<T>(`${environment.api_url}${path}`, JSON.stringify(body)).toPromise()
-    );
+  get(path: string): Observable<T> {
+    return this.http.get<T>(`${environment.api_url}${path}`);
   }
 
-  post(path: string, body: Object = {}): Promise<T> {
-    return this.returnMockIfTest(
-      this.http.post<T>(`${environment.api_url}${path}`, JSON.stringify(body)).toPromise()
-    );
+  put(path: string, body: Object = {}): Observable<T> {
+    return this.http.put<T>(`${environment.api_url}${path}`, body);
   }
 
-  delete(path: string): Promise<T> {
-    return this.returnMockIfTest(this.http.delete<T>(`${environment.api_url}${path}`).toPromise());
+  post(path: string, body: Object = {}): Observable<T> {
+    return this.http.post<T>(`${environment.api_url}${path}`, body);
   }
 
-  returnMockIfTest(method: Promise<T>): Promise<T> {
-    if (environment.test && method instanceof Promise) {
-      if (method as Promise<Director>) {
-        return Promise.resolve(peopleMock[0] as unknown as T);
-      }
-      else if (method as Promise<Director[]>) {
-        return Promise.resolve([peopleMock[0]] as unknown as T);
-      }
-      else if (method as Promise<Star>) {
-        return Promise.resolve(peopleMock[0] as unknown as T);
-      }
-      else if (method as Promise<Star[]>) {
-        return Promise.resolve([peopleMock[0]] as unknown as T);
-      }
-      else if (method as Promise<Movie>) {
-        return Promise.resolve(moviesMock[0] as unknown as T);
-      }
-      else if (method as Promise<Movie[]>) {
-        return Promise.resolve([moviesMock[0]] as unknown as T);
-      }
-      else if (method as Promise<Rating>) {
-        return Promise.resolve(ratingsMock[0] as unknown as T);
-      }
-      else if (method as Promise<Movie[]>) {
-        return Promise.resolve([ratingsMock[0]] as unknown as T);
-      }
-    }
-    return method;
+  delete(path: string): Observable<T> {
+    return this.http.delete<T>(`${environment.api_url}${path}`);
   }
-
 }
+

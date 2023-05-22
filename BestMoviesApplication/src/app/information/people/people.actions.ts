@@ -1,5 +1,17 @@
-export class PeopleFetchInfo {
-  static readonly type = 'People - Fetching info';
+export class PeopleFetchInfoFirstPage {
+  static readonly type = 'People - Fetching info for first page';
+  constructor() {
+  }
+}
+
+export class PeopleFetchStarsNextPage {
+  static readonly type = 'People - Fetching stars for next page';
+  constructor() {
+  }
+}
+
+export class PeopleFetchDirectorsNextPage {
+  static readonly type = 'People - Fetching directors for next page';
   constructor() {
   }
 }
@@ -10,14 +22,26 @@ export class PeopleReset {
   }
 }
 
-export class PeopleSearchName {
-  static readonly type = 'People - Search by person name';
-  constructor(public personName: string) {
+export class PeopleSearchStarsByName {
+  static readonly type = 'People - Search by stars by name';
+  constructor(public starName: string) {
   }
 }
 
-export class PeopleSearchReset {
-  static readonly type = 'People - Search Reset';
+export class PeopleSearchDirectorsByName {
+  static readonly type = 'People - Search by directors by name';
+  constructor(public directorName: string) {
+  }
+}
+
+export class PeopleSearchStarsReset {
+  static readonly type = 'People - Search stars reset';
+  constructor() {
+  }
+}
+
+export class PeopleSearchDirectorsReset {
+  static readonly type = 'People - Search directors reset';
   constructor() {
   }
 }

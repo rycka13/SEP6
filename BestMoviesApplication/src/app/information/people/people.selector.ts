@@ -8,12 +8,32 @@ export class PeopleSelector {
   }
 
   @Selector([PeopleState])
-  static isFiltered(state: PeopleStateModel) {
-    return state.isFiltered;
+  static starsAreFiltered(state: PeopleStateModel) {
+    return state.starsAreFiltered;
   }
 
   @Selector([PeopleState])
-  static people(state: PeopleStateModel) {
-    return state.people;
+  static directorsAreFiltered(state: PeopleStateModel) {
+    return state.directorsAreFiltered;
+  }
+
+  @Selector([PeopleState])
+  static starsSize(state: PeopleStateModel) {
+    return String(state.stars.length);
+  }
+
+  @Selector([PeopleState])
+  static directorsSize(state: PeopleStateModel) {
+    return String(state.directors.length);
+  }
+
+  @Selector([PeopleState])
+  static stars(state: PeopleStateModel) {
+    return state.stars;
+  }
+
+  @Selector([PeopleState])
+  static directors(state: PeopleStateModel) {
+    return state.directors;
   }
 }

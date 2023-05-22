@@ -1,18 +1,20 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NbSearchService} from "@nebular/theme";
-import {CellClickedEvent, ColDef, ColumnApi, GridApi, GridReadyEvent, ICellRendererParams} from "ag-grid-community";
 import {Select, Store} from "@ngxs/store";
 import {Observable} from "rxjs";
-import {AgGridAngular} from "ag-grid-angular";
 import {PeopleSelector} from "src/app/information/people/people.selector";
-import {Person} from "src/model/person";
 import {
-  PeopleFetchInfo,
+  PeopleFetchInfoFirstPage,
   PeopleReset,
-  PeopleSearchName,
-  PeopleSearchReset
+  PeopleSearchDirectorsReset,
+  PeopleSearchStarsByName,
+  PeopleSearchStarsReset
 } from "src/app/information/people/people.actions";
-import {MoviesCell} from "src/core/cell-renderers/movies.column.cell";
+import {Star} from "src/model/star";
+import {Director} from "src/model/director";
+import {PeoplePlaceHolderEnum} from "src/app/information/people/constants/constants";
+import {Router} from "@angular/router";
+import {PeopleType} from "src/app/information/people/people-overview/constants/constants";
 
 @Component({
   selector: 'app-people',
@@ -24,85 +26,82 @@ export class PeopleComponent implements OnInit, OnDestroy {
   @Select(PeopleSelector.isFetching)
   isFetching$: Observable<boolean>;
 
-  @Select(PeopleSelector.isFiltered)
-  isFiltered$: Observable<boolean>;
+  @Select(PeopleSelector.starsAreFiltered)
+  starsAreFiltered$: Observable<boolean>;
 
-  @Select(PeopleSelector.people)
-  people$: Observable<Person[]>;
+  @Select(PeopleSelector.starsAreFiltered)
+  directorsAreFiltered$: Observable<boolean>;
 
-  //ag grid
-  gridApi: GridApi;
-  gridColumnApi: ColumnApi;
-  @ViewChild('agGridAngular') agGrid!: AgGridAngular;
+  @Select(PeopleSelector.starsSize)
+  starsSize$: Observable<string>;
 
+  @Select(PeopleSelector.directorsSize)
+  directorsSize$: Observable<string>;
+
+  @Select(PeopleSelector.stars)
+  stars$: Observable<Star[]>;
+
+  @Select(PeopleSelector.directors)
+  directors$: Observable<Director[]>;
+
+  starsPlaceholder: string;
+  directorsPlaceholder: string;
   alive: boolean = true;
 
   constructor(private store: Store,
+              private router: Router,
               private searchService: NbSearchService) {
-
-    this.searchService.onSearchSubmit()
-      .subscribe((data: any) => {
-        this.store.dispatch(new PeopleSearchName(data.term));
-      })
-
   }
 
   async ngOnInit() {
-    const actionsInParallel = [
-      new PeopleFetchInfo(),
-    ];
-    this.store.dispatch([...actionsInParallel]);
+    this.starsPlaceholder = PeoplePlaceHolderEnum.STARS_PLACEHOLDER;
+    this.directorsPlaceholder = PeoplePlaceHolderEnum.DIRECTORS_PLACEHOLDER;
+
+    // const actionsInParallel = [
+    //   new PeopleFetchInfoFirstPage(),
+    // ];
+    // this.store.dispatch([...actionsInParallel]);
   }
 
-  onGridReady(params: GridReadyEvent) {
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-
-    //TODO adjust autosize
-    this.gridApi.sizeColumnsToFit();
+  onSearch(peopleType: PeopleType, event) {
+    if (peopleType === PeopleType.STAR) {
+      this.starsPlaceholder = event;
+      this.store.dispatch(new PeopleSearchStarsByName(event))
+    } else if (peopleType === PeopleType.DIRECTOR) {
+      this.directorsPlaceholder = event;
+      this.store.dispatch(new PeopleSearchStarsByName(event))
+    }
   }
 
-  onCellClicked(e: CellClickedEvent): void {
-    // TODO redirect to the movie overview
+  resetSearch(peopleType: PeopleType) {
+    if (peopleType === PeopleType.STAR) {
+      this.starsPlaceholder = PeoplePlaceHolderEnum.STARS_PLACEHOLDER;
+      this.store.dispatch(new PeopleSearchStarsReset());
+    } else if (peopleType === PeopleType.DIRECTOR) {
+      this.directorsPlaceholder = PeoplePlaceHolderEnum.DIRECTORS_PLACEHOLDER;
+      this.store.dispatch(new PeopleSearchDirectorsReset());
+    }
   }
 
-  columnDefs: ColDef[] = [
-    {
-      headerName: 'Movies',
-      field: 'movies',
-      cellRenderer: 'moviesCell',
-      autoHeight: true,
-    },
-    {
-      headerName: 'Id',
-      field: 'id',
-    },
-    {
-      headerName: 'Name',
-      field: 'name',
-    },
-    {
-      headerName: 'Birth',
-      field: 'birth'
-    },
-  ]
+  loadNext(peopleType: PeopleType) {
+    if (peopleType === PeopleType.STAR) {
 
-  components = {
-    moviesCell: MoviesCell,
+    }
+    else if(peopleType === PeopleType.DIRECTOR) {
+
+    }
   }
 
-  public defaultColDef: ColDef = {
-    sortable: true,
-    filter: true,
-
-  };
-
-  resetSearch() {
-    this.store.dispatch(new PeopleSearchReset());
+  redirectToOverviewPageFor(peopleType: PeopleType, starId: number) {
+    this.router.navigate([`/information/people/${peopleType}/${starId}`]);
   }
 
   ngOnDestroy() {
     this.alive = false;
     this.store.dispatch(new PeopleReset());
+  }
+
+  getPeopleType(): typeof PeopleType {
+    return PeopleType;
   }
 }

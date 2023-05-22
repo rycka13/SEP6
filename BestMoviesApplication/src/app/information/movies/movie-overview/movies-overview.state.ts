@@ -13,18 +13,19 @@ import {
   MovieOverviewReset
 } from "src/app/information/movies/movie-overview/movies-overview.actions";
 import {produce} from "immer";
-import {MoviesService} from "src/api/movies/movies.service";
 import {Star} from "src/model/star";
 import {Director} from "src/model/director";
 import {Rating} from "src/model/rating";
-import {StarsService} from "src/api/stars/stars.service";
-import {DirectorsService} from "src/api/directors/directors.service";
-import {RatingsService} from "src/api/ratings/ratings.service";
-import {MovieService} from "src/api/movies/movie.service";
-import {StarService} from "src/api/stars/star.service";
-import {DirectorService} from "src/api/directors/director.service";
-import {RatingService} from "src/api/ratings/rating.service";
 import {peopleMock} from "src/util/mocks/people_mock";
+import { MoviesService } from "src/api/movies.service";
+import { MovieService } from "src/api/movie.service";
+import { StarsService } from "src/api/stars.service";
+import { StarService } from "src/api/star.service";
+import { DirectorsService } from "src/api/directors.service";
+import { DirectorService } from "src/api/director.service";
+import { RatingsService } from "src/api/ratings.service";
+import { RatingService } from "src/api/rating.service";
+import { tap } from "rxjs/operators";
 
 export interface MovieOverviewStateModel {
   isFetching: boolean;
@@ -69,25 +70,30 @@ export class MoviesOverviewState {
   }
 
   @Action(MovieOverviewFetchInfo)
-  async movieOverviewFetchInfo(
-    {getState, setState}: StateContext<MovieOverviewStateModel>,
+  movieOverviewFetchInfo(
+    {getState, patchState}: StateContext<MovieOverviewStateModel>,
     action: MovieOverviewFetchInfo
   ) {
-    let newState = produce(getState(), (draft) => {
+    const newState = produce(getState(), (draft) => {
       draft.isFetching = true;
     });
-    setState(newState);
+    patchState(newState);
 
-    try {
-      const movie = await this.movieService.getMovieById(action.movieId);
-      let currentState = getState();
-      newState = produce(currentState, (draft) => {
-        draft.movie = movie;
-        draft.isFetching = false;
-      });
-      setState(newState);
-    } catch (e) {
-    }
+    return this.movieService.getMovieById(action.movieId).pipe(
+      tap(
+        (movie) => {
+          let currentState = getState();
+          let newState = produce(currentState, (draft) => {
+            draft.movie = movie;
+            draft.isFetching = false;
+          });
+          patchState(newState);
+        },
+        () => {
+          // handle error here if you need to
+        }
+      )
+    );
   }
 
 
@@ -152,146 +158,110 @@ export class MoviesOverviewState {
 
   @Action(MovieOverviewFetchRating)
   async movieOverviewFetchRatings(
-    {getState, setState}: StateContext<MovieOverviewStateModel>,
+    {getState, setState, patchState}: StateContext<MovieOverviewStateModel>,
     action: MovieOverviewFetchRating) {
 
-    let newState = produce(getState(), draft => {
+    const newState = produce(getState(), (draft) => {
       draft.isFetching = true;
-    })
-    setState(newState);
+    });
+    patchState(newState);
 
-    let rating: Rating;
-    try {
-      //mock
-      // rating = ratingsMock[1];
-
-      //real data
-      rating = await this.ratingService.getRatingByMovieId(action.movieId);
-    } catch (e) {
-
-    }
-
-    newState = produce(getState(), draft => {
-      draft.rating = rating;
-      draft.isFetching = false;
-    })
-    setState(newState);
+    return this.ratingService.getRatingByMovieId(action.movieId).pipe(
+      tap(
+        (rating) => {
+          let currentState = getState();
+          let newState = produce(currentState, (draft) => {
+            draft.rating = rating;
+            draft.isFetching = false;
+          });
+          patchState(newState);
+        },
+        () => {
+          // handle error here if you need to
+        }
+      )
+    );
   }
 
   @Action(MovieOverviewFetchBestMoviesTop)
   async movieOverviewFetchBestMoviesTop(
-    {getState, setState}: StateContext<MovieOverviewStateModel>,
+    {getState, setState, patchState}: StateContext<MovieOverviewStateModel>,
     action: MovieOverviewFetchBestMoviesTop) {
 
-    let newState = produce(getState(), draft => {
+    const newState = produce(getState(), (draft) => {
       draft.isFetching = true;
-    })
-    setState(newState);
+    });
+    patchState(newState);
 
-    let topMovies: Movie[] = [];
-    try {
-
-      //mock
-      // topMovies.push(moviesMock[4],moviesMock[5],moviesMock[6], moviesMock[7]);
-
-      //real data
-      let movies = await this.moviesService.getNMostPopularMovies(action.top);
-      topMovies.push(...movies);
-    } catch (e) {
-
-    }
-
-    newState = produce(getState(), draft => {
-      draft.topMovies = topMovies;
-      draft.isFetching = false;
-    })
-    setState(newState);
+    return this.moviesService.getNMostPopularMovies(action.top).pipe(
+      tap(
+        (topMovies) => {
+          let currentState = getState();
+          let newState = produce(currentState, (draft) => {
+            draft.topMovies = topMovies;
+            draft.isFetching = false;
+          });
+          patchState(newState);
+        },
+        () => {
+          // handle error here if you need to
+        }
+      )
+    );
   }
 
   @Action(MovieOverviewFetchSameRatingRange)
   async movieOverviewFetchSameRatingRange(
-    {getState, setState}: StateContext<MovieOverviewStateModel>,
+    {getState, setState, patchState}: StateContext<MovieOverviewStateModel>,
     action: MovieOverviewFetchSameRatingRange) {
 
-    let newState = produce(getState(), draft => {
+    const newState = produce(getState(), (draft) => {
       draft.isFetching = true;
-    })
-    setState(newState);
+    });
+    patchState(newState);
 
-    let topMoviesByRating: Movie[] = [];
-    try {
-
-      //mock
-      // topMoviesByRating.push(moviesMock[1],moviesMock[2], moviesMock[3], moviesMock[9],moviesMock[10]);
-
-      //real data
-      console.log(action.rating);
-      if (!action.rating) {
-        newState = produce(getState, draft => {
-          draft.isFetching = false;
-        })
-
-        setState(newState);
-        return this.nbToastrService.show(
-          "Rating is not found",
-          "Couldn't fetch information about movies from same rating",
-          {
-            status: "warning"
-          }
-        );
-      }
-      let movies = await this.moviesService.getNMoviesByRating(action.rating, action.listSize);
-      topMoviesByRating.push(...movies);
-    } catch (e) {
-
-    }
-
-    newState = produce(getState(), draft => {
-      draft.topMoviesByRating = topMoviesByRating;
-      draft.isFetching = false;
-    })
-    setState(newState);
+    return this.moviesService.getNMoviesByRating(action.rating, action.listSize).pipe(
+      tap(
+        (topMoviesByRating) => {
+          let currentState = getState();
+          let newState = produce(currentState, (draft) => {
+            draft.topMoviesByRating = topMoviesByRating;
+            draft.isFetching = false;
+          });
+          patchState(newState);
+        },
+        () => {
+          // handle error here if you need to
+        }
+      )
+    );
   }
 
   @Action(MovieOverviewFetchMoviesFromSameYear)
   async movieOverviewFetchMoviesFromSameYear(
-    {getState, setState}: StateContext<MovieOverviewStateModel>,
+    {getState, setState, patchState}: StateContext<MovieOverviewStateModel>,
     action: MovieOverviewFetchMoviesFromSameYear) {
 
-    let newState = produce(getState(), draft => {
+    const newState = produce(getState(), (draft) => {
       draft.isFetching = true;
-    })
-    setState(newState);
+    });
+    patchState(newState);
 
-    let topMoviesByYear: Movie[] = [];
-    try {
-
-      //mock
-      // topMoviesByYear.push(moviesMock[1], moviesMock[2], moviesMock[3], moviesMock[4]);
-
-      //real data
-      if (!action.year) {
-        newState = produce(getState, draft => {
-          draft.isFetching = false;
-        })
-        return this.nbToastrService.show(
-          "Movie is not found",
-          "Couldn't fetch information about movies from same year",
-          {
-            status: "warning"
-          }
-        );
-      }
-      let movies = await this.moviesService.getNMoviesByYear(action.year, action.listSize);
-      topMoviesByYear.push(...movies);
-    } catch (e) {
-
-    }
-    newState = produce(getState(), draft => {
-      draft.topMoviesByYear = topMoviesByYear;
-      draft.isFetching = false;
-    })
-    setState(newState);
+    return this.moviesService.getNMoviesByYear(action.year, action.listSize).pipe(
+      tap(
+        (topMoviesByYear) => {
+          let currentState = getState();
+          let newState = produce(currentState, (draft) => {
+            draft.topMoviesByYear = topMoviesByYear;
+            draft.isFetching = false;
+          });
+          patchState(newState);
+        },
+        () => {
+          // handle error here if you need to
+        }
+      )
+    );
   }
 
   @Action(MovieOverviewReset)
