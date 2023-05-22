@@ -13,7 +13,7 @@ export class MoviesSelector {
   }
 
   @Selector([MoviesState])
-  static moviesDisplayed(state: MoviesStateModel) {
+  static movies(state: MoviesStateModel) {
     return state.movies;
   }
 
