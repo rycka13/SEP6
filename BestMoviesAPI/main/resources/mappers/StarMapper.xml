@@ -45,11 +45,11 @@
         WHERE m.id = #{movieId};
     </select>
 
-    <select id="getStarsByName" resultMap="StarResultMap">
+    <select id="getStarsByName" resultMap="StarResultMapWithoutMovies">
         SELECT p.id as id, p.name, p.birth
         FROM people p
                  JOIN stars s ON p.id = s.person_id
-        WHERE p.name = #{name};
+        WHERE p.name LIKE CONCAT('%', #{name}, '%') LIMIT 10;
     </select>
 
     <select id="getNStarsByPage" resultMap="StarResultMapWithoutMovies">

@@ -15,7 +15,7 @@
         FROM movies;
     </select>
     <select id="getMoviesByTitle" resultMap="result">
-        SELECT * FROM movies WHERE title = #{title};
+        SELECT * FROM movies WHERE title LIKE CONCAT('%', #{title}, '%') LIMIT 10;
     </select>
     <select id="getMovieById" resultMap="result" parameterType="long">
         SELECT *

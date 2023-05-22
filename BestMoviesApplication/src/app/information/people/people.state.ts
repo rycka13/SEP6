@@ -292,7 +292,14 @@ export class PeopleState {
     let currentState = getState();
 
     let newState = produce(currentState, draft => {
+      draft.isFetching = true;
+    })
+
+    currentState = getState();
+
+    newState = produce(currentState, draft => {
       draft.directorsAreFiltered = false;
+      draft.isFetching = false;
       draft.directors = this.currentDirectors;
     })
 
