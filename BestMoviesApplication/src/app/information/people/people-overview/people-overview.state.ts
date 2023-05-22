@@ -3,8 +3,6 @@ import {Injectable} from "@angular/core";
 import {NbToastrService} from "@nebular/theme";
 import {Director} from "src/model/director";
 import {Star} from "src/model/star";
-import {DirectorService} from "src/api/directors/director.service";
-import {StarService} from "src/api/stars/star.service";
 import {produce} from "immer";
 import {
   PeopleOverviewFetchInfo,
@@ -12,6 +10,10 @@ import {
 } from "src/app/information/people/people-overview/people-overview.actions";
 import {PeopleType} from "src/app/information/people/people-overview/constants/constants";
 import {Person} from "src/model/person";
+import { DirectorService } from "src/api/director.service";
+import { StarService } from "src/api/star.service";
+import { Observable, throwError } from "rxjs";
+import { catchError, tap } from "rxjs/operators";
 
 export interface PeopleOverviewStateModel {
   isFetching: boolean;
@@ -40,7 +42,7 @@ export class PeopleOverviewState {
   }
 
   @Action(PeopleOverviewFetchInfo)
-  async peopleOverviewFetchInfo(
+  peopleOverviewFetchInfo(
     {getState, setState}: StateContext<PeopleOverviewStateModel>,
     action: PeopleOverviewFetchInfo) {
 
@@ -52,36 +54,34 @@ export class PeopleOverviewState {
 
     setState(newState);
 
-    let person: Person;
-    try {
-      if (action.peopleType === PeopleType.STAR) {
-        //mock
-        // person = starsMock[0] as Star;
+    let person$: Observable<Person>;
 
-        //real data
-        person = await this.starService.getStarById(action.personId);
-      } else if(action.peopleType === PeopleType.DIRECTOR) {
-        //mock
-        // person = directorsMock[0] as Director;
-
-        //real data
-        person = await this.directorService.getDirectorById(action.personId);
-      }
-
-      //TODO ERROR PosterImage is not mapped when calling one of the api above
-      //todo this will be removed
-      person.profilePicture = null;
-    } catch (e) {
-      this.toastrService.show('danger', 'Fetching people went wrong.');
-
+    if (action.peopleType === PeopleType.STAR) {
+      person$ = this.starService.getStarById(action.personId);
+    } else if(action.peopleType === PeopleType.DIRECTOR) {
+      person$ = this.directorService.getDirectorById(action.personId);
     }
 
-    newState = produce(currentState, draft => {
-      draft.isFetching = false;
-      draft.person = person;
-    })
-
-    setState(newState);
+    person$
+    .pipe(
+      tap((person: Person) => {
+        person.profilePicture = null; // TODO: This will be removed
+        newState = produce(getState(), draft => {
+          draft.isFetching = false;
+          draft.person = person;
+        })
+        setState(newState);
+      }),
+      catchError((error) => {
+        this.toastrService.show('danger', 'Fetching people went wrong.');
+        newState = produce(getState(), draft => {
+          draft.isFetching = false;
+        });
+        setState(newState);
+        return throwError(error);
+      })
+    )
+    .subscribe();
   }
 
   @Action(PeopleOverviewReset)

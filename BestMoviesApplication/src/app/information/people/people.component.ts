@@ -57,10 +57,10 @@ export class PeopleComponent implements OnInit, OnDestroy {
     this.starsPlaceholder = PeoplePlaceHolderEnum.STARS_PLACEHOLDER;
     this.directorsPlaceholder = PeoplePlaceHolderEnum.DIRECTORS_PLACEHOLDER;
 
-    const actionsInParallel = [
-      new PeopleFetchInfoFirstPage(),
-    ];
-    this.store.dispatch([...actionsInParallel]);
+    // const actionsInParallel = [
+    //   new PeopleFetchInfoFirstPage(),
+    // ];
+    // this.store.dispatch([...actionsInParallel]);
   }
 
   onSearch(peopleType: PeopleType, event) {

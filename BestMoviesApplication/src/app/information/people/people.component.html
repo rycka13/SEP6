@@ -32,7 +32,7 @@
                   <nb-list
                     nbInfiniteList
                     [threshold]="500"
-                    (bottomThreshold)="loadNext(getPeopleType().STAR)"
+                    (bottomThreshold)="loadNext()"
                     class="movie-container"
                     *ngIf="stars$ | async as stars"
                   >
@@ -94,7 +94,7 @@
                   <nb-list
                     nbInfiniteList
                     [threshold]="500"
-                    (bottomThreshold)="loadNext(getPeopleType().DIRECTOR)"
+                    (bottomThreshold)="loadNextNext(getPeopleType().DIRECTOR)"
                     class="movie-container"
                     *ngIf="directors$ | async as directors"
                   >

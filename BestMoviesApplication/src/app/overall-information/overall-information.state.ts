@@ -11,7 +11,9 @@ import {current, produce} from "immer";
 import {moviesMock} from "../../util/mocks/movies_mock";
 import {peopleMock} from "../../util/mocks/people_mock";
 import {NbToastrService} from "@nebular/theme";
-import {MoviesService} from "src/api/movies/movies.service";
+import { MoviesService } from "src/api/movies.service";
+import { throwError } from "rxjs";
+import { catchError, tap } from "rxjs/operators";
 
 export interface OverAllInformationStateModel {
   isFetching: boolean;
@@ -82,11 +84,10 @@ export class OverAllInformationState {
     })
 
     setState(newState);
-    currentState = newState;
   }
 
   @Action(OverAllInformationFetchBestMoviesTop)
-  async mverAllInformationFetchBestMoviesTop(
+  overAllInformationFetchBestMoviesTop(
     {getState, setState}: StateContext<OverAllInformationStateModel>,
     action: OverAllInformationFetchBestMoviesTop) {
 
@@ -95,28 +96,29 @@ export class OverAllInformationState {
     })
     setState(newState);
 
-    let topMovies: Movie[] = [];
-    try {
-
-      //mock
-      // topMovies.push(moviesMock[4],moviesMock[5],moviesMock[6], moviesMock[7]);
-
-      //real data
-      let movies = await this.moviesService.getNMostPopularMovies(action.top);
-      topMovies.push(...movies);
-    } catch (e) {
-
-    }
-
-    newState = produce(getState(), draft => {
-      draft.topMovies = topMovies;
-      draft.isFetching = false;
-    })
-    setState(newState);
+    this.moviesService.getNMostPopularMovies(action.top)
+    .pipe(
+      tap((movies: Movie[]) => {
+        newState = produce(getState(), draft => {
+          draft.topMovies = movies;
+          draft.isFetching = false;
+        });
+        setState(newState);
+      }),
+      catchError((error) => {
+        newState = produce(getState(), draft => {
+          draft.isFetching = false;
+        });
+        setState(newState);
+        return throwError(error);
+      })
+    )
+    .subscribe();
   }
 
+
   @Action(OverAllInformationFetchSameRatingRange)
-  async overAllInformationFetchSameRatingRange(
+  overAllInformationFetchSameRatingRange(
     {getState, setState}: StateContext<OverAllInformationStateModel>,
     action: OverAllInformationFetchSameRatingRange) {
 
@@ -125,43 +127,44 @@ export class OverAllInformationState {
     })
     setState(newState);
 
-    let topMoviesByRating: Movie[] = [];
-    try {
+    if (!action.rating) {
+      newState = produce(getState(), draft => {
+        draft.isFetching = false;
+      })
 
-      //mock
-      // topMoviesByRating.push(moviesMock[1],moviesMock[2], moviesMock[3], moviesMock[9],moviesMock[10]);
-
-      //real data
-      console.log(action.rating);
-      if (!action.rating) {
-        newState = produce(getState, draft => {
-          draft.isFetching = false;
-        })
-
-        setState(newState);
-        return this.nbToastrService.show(
-          "Rating is not found",
-          "Couldn't fetch information about movies from same rating",
-          {
-            status: "warning"
-          }
-        );
-      }
-      let movies = await this.moviesService.getNMoviesByRating(action.rating, action.listSize);
-      topMoviesByRating.push(...movies);
-    } catch (e) {
-
+      setState(newState);
+      return this.nbToastrService.show(
+        "Rating is not found",
+        "Couldn't fetch information about movies from same rating",
+        {
+          status: "warning"
+        }
+      );
     }
 
-    newState = produce(getState(), draft => {
-      draft.topMoviesByRating = topMoviesByRating;
-      draft.isFetching = false;
-    })
-    setState(newState);
+    this.moviesService.getNMoviesByRating(action.rating, action.listSize)
+    .pipe(
+      tap((movies: Movie[]) => {
+        newState = produce(getState(), draft => {
+          draft.topMoviesByRating = movies;
+          draft.isFetching = false;
+        })
+        setState(newState);
+      }),
+      catchError((error) => {
+        newState = produce(getState(), draft => {
+          draft.isFetching = false;
+        });
+        setState(newState);
+        return throwError(error);
+      })
+    )
+    .subscribe();
   }
 
+
   @Action(OverAllInformationFetchMoviesFromSameYear)
-  async overAllInformationFetchMoviesFromSameYear(
+  overAllInformationFetchMoviesFromSameYear(
     {getState, setState}: StateContext<OverAllInformationStateModel>,
     action: OverAllInformationFetchMoviesFromSameYear) {
 
@@ -170,36 +173,40 @@ export class OverAllInformationState {
     })
     setState(newState);
 
-    let topMoviesByYear: Movie[] = [];
-    try {
+    if (!action.year) {
+      newState = produce(getState(), draft => {
+        draft.isFetching = false;
+      })
+      setState(newState);
+      return this.nbToastrService.show(
+        "Movie is not found",
+        "Couldn't fetch information about movies from same year",
+        {
+          status: "warning"
+        }
+      );
+    }
 
-      //mock
-      // topMoviesByYear.push(moviesMock[1], moviesMock[2], moviesMock[3], moviesMock[4]);
-
-      //real data
-      if (!action.year) {
-        newState = produce(getState, draft => {
+    this.moviesService.getNMoviesByYear(action.year, action.listSize)
+    .pipe(
+      tap((movies: Movie[]) => {
+        newState = produce(getState(), draft => {
+          draft.topMoviesByYear = movies;
           draft.isFetching = false;
         })
-        return this.nbToastrService.show(
-          "Movie is not found",
-          "Couldn't fetch information about movies from same year",
-          {
-            status: "warning"
-          }
-        );
-      }
-      let movies = await this.moviesService.getNMoviesByYear(action.year, action.listSize);
-      topMoviesByYear.push(...movies);
-    } catch (e) {
-
-    }
-    newState = produce(getState(), draft => {
-      draft.topMoviesByYear = topMoviesByYear;
-      draft.isFetching = false;
-    })
-    setState(newState);
+        setState(newState);
+      }),
+      catchError((error) => {
+        newState = produce(getState(), draft => {
+          draft.isFetching = false;
+        });
+        setState(newState);
+        return throwError(error);
+      })
+    )
+    .subscribe();
   }
+
 
   @Action(OverAllInformationReset)
   async overAllInformationReset(

@@ -53,8 +53,8 @@ export const defaultsState: PeopleStateModel = {
 @Injectable()
 export class PeopleState {
 
-  initialPageSize: number = 10;
-
+  initialPageSize: number = 20;
+  currentPageNumberStars: number = 1;
   constructor(
     private toastrService: NbToastrService,
     private starsService: StarsService,
@@ -115,7 +115,7 @@ export class PeopleState {
   }
 
   @Action(PeopleSearchStarsByName)
-  async peopleSearchStarsByName(
+  peopleSearchStarsByName(
     {getState, setState}: StateContext<PeopleStateModel>,
     action: PeopleSearchStarsByName) {
 
@@ -126,29 +126,35 @@ export class PeopleState {
     })
 
     setState(newState);
-    currentState = newState;
 
-    let filteredStars: Star[] = [];
-
-    try {
-      filteredStars = await this.starsService.getStarsByName(action.starName);
-    } catch (e) {
-
-    }
-    newState = produce(currentState, draft => {
-      if (filteredStars.length < 0) {
-        this.toastrService.show('', 'There are no people that contain name ' + action.starName);
-      }
-      draft.isFetching = false;
-      draft.starsAreFiltered = true;
-      draft.stars = filteredStars;
-    });
-
-    setState(newState);
+    this.starsService.getStarsByName(action.starName)
+    .pipe(
+      tap((filteredStars: Star[]) => {
+        if (!filteredStars || filteredStars.length === 0) {
+          this.toastrService.show('', 'There are no people that contain name ' + action.starName, {status: 'danger'});
+        }
+        newState = produce(getState(), draft => {
+          draft.isFetching = false;
+          draft.starsAreFiltered = true;
+          draft.stars = filteredStars;
+        });
+        setState(newState);
+      }),
+      catchError(error => {
+        this.toastrService.show(error, 'Fetching stars went wrong.', {status: 'danger'});
+        newState = produce(getState(), draft => {
+          draft.isFetching = false;
+        });
+        setState(newState);
+        return throwError(error);
+      })
+    )
+    .subscribe();
   }
 
+
   @Action(PeopleSearchDirectorsByName)
-  async peopleSearchDirectorsByName(
+  peopleSearchDirectorsByName(
     {getState, setState}: StateContext<PeopleStateModel>,
     action: PeopleSearchDirectorsByName) {
 
@@ -156,27 +162,33 @@ export class PeopleState {
 
     let newState = produce(currentState, draft => {
       draft.isFetching = true;
-    })
-
-    setState(newState);
-    currentState = newState;
-
-    let filteredDirectors: Director[] = [];
-
-    try {
-      // filteredDirectors = await this.directorsService.getDirectorsByName(action.directorName);
-    } catch (e) {
-
-    }
-    newState = produce(currentState, draft => {
-      if (filteredDirectors.length < 0) {
-        this.toastrService.show('', 'There are no people that contain name ' + action.directorName);
-      }
-      draft.isFetching = false;
-      draft.directorsAreFiltered = true;
-      draft.directors = filteredDirectors;
     });
+
     setState(newState);
+
+    this.directorsService.getDirectorsByName(action.directorName)
+    .pipe(
+      tap((filteredDirectors: Director[]) => {
+        if (!filteredDirectors || filteredDirectors.length === 0) {
+          this.toastrService.show('', 'There are no people that contain name ' + action.directorName, {status: 'danger'});
+        }
+        newState = produce(getState(), draft => {
+          draft.isFetching = false;
+          draft.directorsAreFiltered = true;
+          draft.directors = filteredDirectors;
+        });
+        setState(newState);
+      }),
+      catchError(error => {
+        this.toastrService.show(error, 'Fetching directors went wrong.', {status: 'danger'});
+        newState = produce(getState(), draft => {
+          draft.isFetching = false;
+        });
+        setState(newState);
+        return throwError(error);
+      })
+    )
+    .subscribe();
   }
 
   @Action(PeopleSearchStarsReset)

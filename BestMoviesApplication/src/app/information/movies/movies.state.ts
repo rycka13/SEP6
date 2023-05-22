@@ -9,7 +9,7 @@ import {produce} from "immer";
 import {moviesMock} from "../../../util/mocks/movies_mock";
 import {NbToastrService} from "@nebular/theme";
 import {paginate} from "src/core/helpers/helpers";
-import {MoviesService} from "src/api/movies/movies.service";
+import { MoviesService } from "src/api/movies.service";
 
 export interface MoviesStateModel {
   isFetching: boolean;
