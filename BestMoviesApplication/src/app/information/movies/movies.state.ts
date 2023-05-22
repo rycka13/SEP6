@@ -59,6 +59,7 @@ export class MoviesState {
         newState = produce(getState(), draft => {
           draft.movies = movies;
           this.currentMovies = movies;
+          draft.isFetching = false;
         });
         setState(newState);
       }),
