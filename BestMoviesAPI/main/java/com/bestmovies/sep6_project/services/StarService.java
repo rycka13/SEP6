@@ -1,7 +1,7 @@
 package com.bestmovies.sep6_project.services;
 
 import com.bestmovies.sep6_project.dao.interfaces.IStarMapper;
-import com.bestmovies.sep6_project.model.PersonResult;
+import com.bestmovies.sep6_project.model.external.PersonResult;
 import com.bestmovies.sep6_project.model.Star;
 import com.bestmovies.sep6_project.restclient.RestClient;
 import org.springframework.beans.factory.annotation.Autowired;
