@@ -2,7 +2,7 @@ package com.bestmovies.sep6_project.services;
 
 import com.bestmovies.sep6_project.dao.interfaces.IMovieMapper;
 import com.bestmovies.sep6_project.model.Movie;
-import com.bestmovies.sep6_project.model.external.MovieResult;
+import com.bestmovies.sep6_project.model.external.movies.ExternalMovie;
 import com.bestmovies.sep6_project.restclient.RestClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -161,10 +161,10 @@ public class MovieService {
     }
 
     private void setMovieImages(Movie movie) {
-        MovieResult movieResult= restClient.getAllMoviesByName(movie.getTitle());
-        if(movieResult != null && !movieResult.getResults().isEmpty()){
-            String posterPath = movieResult.getResults().get(0).getPoster_path();
-            String backgroundPath = movieResult.getResults().get(0).getPoster_path();
+        ExternalMovie movieResult= restClient.getAllMoviesByName(movie.getId());
+        if(movieResult != null){
+            String posterPath = movieResult.getPoster_path();
+            String backgroundPath = movieResult.getBackdrop_path();
             if(posterPath != null){
                 movie.setPosterImage(pictureUrl + posterPath);
             }
@@ -187,9 +187,9 @@ public class MovieService {
     }
 
     private void setMovieDescription(Movie movie) {
-        MovieResult movieResult= restClient.getAllMoviesByName(movie.getTitle());
-        if(movieResult != null && !movieResult.getResults().isEmpty()){
-            movie.setDescription(movieResult.getResults().get(0).getOverview());
+        ExternalMovie movieResult= restClient.getAllMoviesByName(movie.getId());
+        if(movieResult != null){
+            movie.setDescription(movieResult.getOverview());
         }
         else {
             movie.setDescription(null);

@@ -24,7 +24,7 @@ public class UserController {
         ResponseMessage responseMessage = userService.registerUser(user);
         switch (responseMessage) {
             case SUCCESS -> setResponse(response, true);
-            case WRONG_PASSWORD -> response.sendError(401, "Password does not match");
+            case WRONG_PASSWORD -> response.sendError(401, "Wrong password or user name/email");
             default -> response.sendError(500, "Internal server error");
         }
     }
