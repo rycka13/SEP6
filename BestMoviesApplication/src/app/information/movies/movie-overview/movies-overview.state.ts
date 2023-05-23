@@ -204,7 +204,7 @@ export class MoviesOverviewState {
           patchState(newState);
         },
         () => {
-          // handle error here if you need to
+          this.nbToastrService.show('API Error', 'Popular movies could not be fetched', {status: 'danger'})
         }
       )
     );
@@ -231,7 +231,7 @@ export class MoviesOverviewState {
           patchState(newState);
         },
         () => {
-          // handle error here if you need to
+          this.nbToastrService.show('API Error', `Movies with rating ${action.rating} could not be fetched`, {status: 'danger'})
         }
       )
     );
@@ -258,7 +258,7 @@ export class MoviesOverviewState {
           patchState(newState);
         },
         () => {
-          // handle error here if you need to
+          this.nbToastrService.show('API Error', `Movies for year ${action.year} could not be fetched`, {status: 'danger'})
         }
       )
     );
