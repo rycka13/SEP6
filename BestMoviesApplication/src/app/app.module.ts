@@ -30,7 +30,6 @@ import {MoviesState} from "src/app/information/movies/movies.state";
 import {PeopleComponent} from "src/app/information/people/people.component";
 import {PeopleState} from "src/app/information/people/people.state";
 import {environment} from "src/environments/environment";
-import {MoviesCell} from "src/core/cell-renderers/movies.column.cell";
 import { BmSearchComponent } from '../core/components/bm-search/bm-search.component';
 import { MoviesOverviewComponent } from './information/movies/movie-overview/movies-overview.component';
 import {MoviesOverviewState} from "src/app/information/movies/movie-overview/movies-overview.state";
@@ -60,7 +59,6 @@ export const STATES = [
 ]
 
 export const CELL_RENDERERS = [
-  MoviesCell,
 ]
 
 export const COMPONENTS = [
