@@ -6,6 +6,7 @@ import {MoviesComponent} from "src/app/information/movies/movies.component";
 import {PeopleComponent} from "src/app/information/people/people.component";
 import {MoviesOverviewComponent} from "src/app/information/movies/movie-overview/movies-overview.component";
 import {PeopleOverviewComponent} from "src/app/information/people/people-overview/people-overview.component";
+import { AccountComponent } from "src/app/account/account.component";
 
 const routes: Routes = [
   {
@@ -38,6 +39,12 @@ const routes: Routes = [
       }
 
     ]
+  },
+  {
+    //type - register/login
+    path: 'account/:type',
+    title: 'Account',
+    component: AccountComponent,
   },
   { path: '',
     redirectTo: '/overall-information',

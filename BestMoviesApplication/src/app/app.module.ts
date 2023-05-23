@@ -46,6 +46,9 @@ import { RatingService } from "src/api/rating.service";
 import { RatingsService } from "src/api/ratings.service";
 import { StarService } from "src/api/star.service";
 import { StarsService } from "src/api/stars.service";
+import { AccountComponent } from './account/account.component';
+import { UserService } from "src/api/user.service";
+import { AccountService } from "src/core/services/account.service";
 
 
 export const STATES = [
@@ -90,7 +93,9 @@ export const PROVIDERS = [
   RatingService,
   RatingsService,
   StarService,
-  StarsService
+  StarsService,
+  UserService,
+  AccountService
 ]
 
 export const NEBULAR_MODULES = [
@@ -120,6 +125,7 @@ export const NEBULAR_MODULES = [
   declarations: [
     COMPONENTS,
     ...CELL_RENDERERS,
+    AccountComponent,
   ],
   imports: [
     BrowserModule,
