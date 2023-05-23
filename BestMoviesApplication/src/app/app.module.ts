@@ -45,9 +45,10 @@ import { RatingService } from "src/api/rating.service";
 import { RatingsService } from "src/api/ratings.service";
 import { StarService } from "src/api/star.service";
 import { StarsService } from "src/api/stars.service";
-import { AccountComponent } from './account/account.component';
+import { LoginComponent } from './account/login/login.component';
 import { UserService } from "src/api/user.service";
 import { AccountService } from "src/core/services/account.service";
+import { RegisterComponent } from "src/app/account/register/register.component";
 
 
 export const STATES = [
@@ -66,6 +67,10 @@ export const COMPONENTS = [
 
   //components
   BmSearchComponent,
+
+  //account
+  RegisterComponent,
+  LoginComponent,
 
   //overall information page
   OverallInformationComponent,
@@ -123,7 +128,6 @@ export const NEBULAR_MODULES = [
   declarations: [
     COMPONENTS,
     ...CELL_RENDERERS,
-    AccountComponent,
   ],
   imports: [
     BrowserModule,
