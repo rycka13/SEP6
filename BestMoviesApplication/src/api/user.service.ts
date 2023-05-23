@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from "src/core/services/api.service";
-import { Star } from "src/model/star";
 import { Observable } from "rxjs";
 import { User } from "src/model/user";
 
