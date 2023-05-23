@@ -8,7 +8,7 @@ import { catchError, tap } from "rxjs/operators";
 import { Director } from "src/model/director";
 import { throwError } from "rxjs";
 import { PeopleStateModel } from "src/app/information/people/people.state";
-import { AccountLogin, AccountRegister } from "src/app/account/account.actions";
+import { AccountLogin, AccountRegister } from "src/app/auth/account.actions";
 import { HttpErrorResponse } from "@angular/common/http";
 
 export interface AccountStateModel {

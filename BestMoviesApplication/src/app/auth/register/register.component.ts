@@ -2,16 +2,16 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { Store } from "@ngxs/store";
 import { NbToastrService } from "@nebular/theme";
-import { AccountType, getAccountType } from "src/app/account/constants/constants";
-import { AccountLogin, AccountRegister } from "src/app/account/account.actions";
+import { AccountType, getAccountType } from "src/app/auth/constants/constants";
+import { AccountLogin, AccountRegister } from "src/app/auth/account.actions";
 import { User } from "src/model/user";
 
 @Component({
   selector: 'app-account',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
-export class LoginComponent {
+export class RegisterComponent {
 
   accountType: AccountType;
   constructor(

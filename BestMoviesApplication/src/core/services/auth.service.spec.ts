@@ -3,10 +3,10 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Store } from "@ngxs/store";
 import { PROVIDERS } from "../../app/app.module";
 import { JwtService } from "./jwt.service";
-import { AccountService } from "./account.service";
+import { AuthService } from "./auth.service";
 
 describe('AccountService', () => {
-  let service: AccountService;
+  let service: AuthService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -19,7 +19,7 @@ describe('AccountService', () => {
         Store,
       ],
     });
-    service = TestBed.inject(AccountService);
+    service = TestBed.inject(AuthService);
   });
 
   it('should be created', () => {
