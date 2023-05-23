@@ -31,7 +31,6 @@ import {PeopleComponent} from "src/app/information/people/people.component";
 import {PeopleState} from "src/app/information/people/people.state";
 import {environment} from "src/environments/environment";
 import {MoviesCell} from "src/core/cell-renderers/movies.column.cell";
-import { BmSearchComponent } from '../core/components/bm-search/bm-search.component';
 import { MoviesOverviewComponent } from './information/movies/movie-overview/movies-overview.component';
 import {MoviesOverviewState} from "src/app/information/movies/movie-overview/movies-overview.state";
 import { PeopleOverviewComponent } from './information/people/people-overview/people-overview.component';
@@ -46,6 +45,7 @@ import { RatingService } from "src/api/rating.service";
 import { RatingsService } from "src/api/ratings.service";
 import { StarService } from "src/api/star.service";
 import { StarsService } from "src/api/stars.service";
+import { BmSearchComponent } from "src/core/components/bm-search/bm-search.component";
 
 
 export const STATES = [

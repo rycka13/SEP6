@@ -61,13 +61,7 @@
             <img *ngIf="!movieInformation?.movie?.posterImage"
                  src="../../../assets/no-poster-available.jpg" [alt]="movieInformation?.movie?.title">
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu ullamcorper dui. Ut suscipit urna et
-              neque luctus, in malesuada lacus euismod. Mauris porttitor pellentesque placerat. Class aptent taciti
-              sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce gravida vel lorem vitae
-              mollis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu ullamcorper dui. Ut suscipit
-              urna et neque luctus, in malesuada lacus euismod. Mauris porttitor pellentesque placerat. Class aptent
-              taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce gravida vel lorem
-              vitae mollis.
+              {{ movieInformation.movie.description }}
             </p>
           </nb-card-body>
         </nb-card>
