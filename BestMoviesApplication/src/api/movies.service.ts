@@ -25,11 +25,11 @@ export class MoviesService {
   }
 
   getAllMoviesForDirector(directorId): Observable<Movie[]> {
-    return this.apiService.get(`${this.PATH_CONTROLLER}/directorId/${directorId}/`);
+    return this.apiService.get(`${this.PATH_CONTROLLER}/directorId/${directorId}`);
   }
 
   getAllMoviesForStar(starId): Observable<Movie[]> {
-    return this.apiService.get(`${this.PATH_CONTROLLER}/starId/${starId}/`);
+    return this.apiService.get(`${this.PATH_CONTROLLER}/starId/${starId}`);
   }
 
   getNMoviesByYear(year, n): Observable<Movie[]> {

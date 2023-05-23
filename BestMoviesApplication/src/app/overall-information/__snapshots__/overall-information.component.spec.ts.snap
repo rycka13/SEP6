@@ -21,7 +21,7 @@ exports[`app > overall-information > overall-information.component.spec.ts shoul
   store={[Function Store]}
 >
   <nb-spinner
-    class="spinner size-medium status-basic nb-spinner-container"
+    class="spinner size-medium status-basic"
     status="basic"
   >
     <span
@@ -32,13 +32,6 @@ exports[`app > overall-information > overall-information.component.spec.ts shoul
     >
       Loading...
     </span>
-    <nb-spinner
-      class="size-medium status-basic"
-    >
-      <span
-        class="spin-circle"
-      />
-    </nb-spinner>
   </nb-spinner>
 </app-overall-information>
 `;

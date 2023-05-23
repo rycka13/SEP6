@@ -1,4 +1,4 @@
-<ng-container *ngIf="isFetching$ | async; then dataFetching; else dataFetched">
+<ng-container *ngIf="(isFetching$ | async); then dataFetching; else dataFetched">
 </ng-container>
 <ng-template #dataFetched>
   <nb-card
@@ -30,15 +30,6 @@
                [src]="person.profilePicture" [alt]="person.name">
           <img *ngIf="!person.profilePicture"
                src="../../../assets/no-person-profile-picture-available.jpg" [alt]="person.name">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu ullamcorper dui. Ut suscipit urna et
-            neque luctus, in malesuada lacus euismod. Mauris porttitor pellentesque placerat. Class aptent taciti
-            sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce gravida vel lorem vitae
-            mollis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu ullamcorper dui. Ut suscipit
-            urna et neque luctus, in malesuada lacus euismod. Mauris porttitor pellentesque placerat. Class aptent
-            taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce gravida vel lorem
-            vitae mollis.
-          </p>
         </nb-card-body>
       </nb-card>
 
