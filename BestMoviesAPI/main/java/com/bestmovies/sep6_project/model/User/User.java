@@ -1,12 +1,23 @@
 package com.bestmovies.sep6_project.model.User;
 
+import com.bestmovies.sep6_project.model.Hash.HashPair;
+
 public class User {
     private String id;
     private String userName;
     private String email;
     private String firstName;
     private String lastName;
-    private Password password;
+    private String password;
+    private HashPair hashedPassword;
+
+    public HashPair getHashedPassword() {
+        return hashedPassword;
+    }
+
+    public void setHashedPassword(HashPair hashedPassword) {
+        this.hashedPassword = hashedPassword;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -24,11 +35,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Password getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(Password password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 

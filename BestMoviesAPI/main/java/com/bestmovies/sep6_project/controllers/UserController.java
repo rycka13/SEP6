@@ -19,13 +19,13 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes="application/json")
+    @RequestMapping(value = "/register", method = RequestMethod.POST, consumes="application/json")
     public void registerUser(@RequestBody User user, HttpServletResponse response) throws IOException {
         ResponseMessage responseMessage = userService.registerUser(user);
         switch (responseMessage) {
             case SUCCESS -> setResponse(response, true);
             case WRONG_PASSWORD -> response.sendError(401, "Password does not match");
-            default -> response.sendError(401, "Internal server error");
+            default -> response.sendError(500, "Internal server error");
         }
     }
 
@@ -36,7 +36,7 @@ public class UserController {
             case SUCCESS -> setResponse(response, true);
             case PASSWORD_ERROR -> response.sendError(401, "Make sure the password matches requirements");
             case EXISTING_USER -> response.sendError(401, "User already exist");
-            default -> response.sendError(401, "Internal server error");
+            default -> response.sendError(500, "Internal server error");
         }
     }
 
