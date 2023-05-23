@@ -1,5 +1,7 @@
 package com.bestmovies.sep6_project.model.external;
 
+import com.bestmovies.sep6_project.model.external.movies.ExternalMovie;
+
 import java.util.ArrayList;
 
 public class MovieResult {
