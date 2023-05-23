@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bestmovies.sep6_project.dao.interfaces.IUserMapper">
+
+    <resultMap id="UserResultMap" type="User">
+        <result property="id" column="id"/>
+        <result property="userName" column="username" javaType="java.lang.String"/>
+        <result property="firstName" column="f_name" javaType="java.lang.String"/>
+        <result property="lastName" column="l_name" javaType="java.lang.String"/>
+        <result property="email" column="email" javaType="java.lang.String"/>
+        <association property="hashedPassword" javaType="HashPair">
+            <result property="hashedString" column="password"/>
+            <result property="salt" column="salt"/>
+        </association>
+    </resultMap>
+    <resultMap id="UserWithoutPassResultMap" type="User">
+        <result property="id" column="id"/>
+        <result property="userName" column="username" javaType="java.lang.String"/>
+        <result property="firstName" column="f_name" javaType="java.lang.String"/>
+        <result property="lastName" column="l_name" javaType="java.lang.String"/>
+        <result property="email" column="email" javaType="java.lang.String"/>
+    </resultMap>
+    <select id="getUserByUsername" resultMap="UserResultMap">
+        SELECT *
+        FROM users
+        WHERE username = #{userName};
+    </select>
+    <select id="getUserById" resultMap="UserWithoutPassResultMap">
+        SELECT username, f_name, l_name, email
+        FROM users
+        WHERE id = #{id};
+    </select>
+    <select id="getUserByEmail" resultMap="UserResultMap">
+        SELECT *
+        FROM users
+        WHERE email = #{email};
+    </select>
+    <insert id="registerUser" parameterType="User">
+        INSERT INTO users (username, f_name, l_name, email, password, salt)
+        VALUES (#{userName}, #{firstName}, #{lastName}, #{email}, #{hashedPassword.hashedString},
+                #{hashedPassword.salt})
+    </insert>
+</mapper>
