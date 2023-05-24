@@ -46,11 +46,6 @@ public class FavoritesController {
         return favoritesService.getFavorites(username);
     }
 
-    @RequestMapping(value = "/get/rating/{userId}/{movieId}", method = RequestMethod.GET)
-    Integer getRatingByMovieId(@PathVariable long movieId, @PathVariable long userId) {
-        return favoritesService.getRatingByMovieId(userId, movieId);
-    }
-
     public void setResponse(HttpServletResponse response, boolean success) {
         if (success) {
             response.setStatus(HttpStatus.SC_OK);

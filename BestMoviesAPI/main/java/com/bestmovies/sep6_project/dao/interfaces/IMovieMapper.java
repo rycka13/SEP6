@@ -38,8 +38,4 @@ public interface IMovieMapper {
     void updateMovie(Movie movie);
 
     void deleteMovie(long id);
-
-    double avgRatingOfStarMovies(long id);
-
-    double avgRatingOfDirectorMovies(long id);
 }

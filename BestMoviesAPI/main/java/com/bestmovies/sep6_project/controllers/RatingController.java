@@ -55,4 +55,13 @@ public class RatingController {
             response.setStatus(HttpStatus.SC_BAD_REQUEST);
         }
     }
+    @RequestMapping(value = "/star/avg/{personId}", method = RequestMethod.GET)
+    public double avgRatingOfStarMovies(@PathVariable long personId) {
+        return ratingService.avgRatingOfStarMovies(personId);
+    }
+
+    @RequestMapping(value = "/director/avg/{personId}", method = RequestMethod.GET)
+    public double avgRatingOfDirectorMovies(@PathVariable long personId) {
+        return ratingService.avgRatingOfDirectorMovies(personId);
+    }
 }

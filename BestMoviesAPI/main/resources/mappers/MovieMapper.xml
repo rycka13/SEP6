@@ -94,22 +94,6 @@
             LIMIT #{n};
     </select>
 
-    <select id="avgRatingOfStarMovies">
-        SELECT AVG(r.rating)
-        FROM stars s
-                 JOIN movies m ON s.movie_id = m.id
-                 JOIN ratings r ON m.id = r.movie_id
-        WHERE s.person_id = #{id};
-    </select>
-
-    <select id="avgRatingOfDirectorMovies">
-        SELECT AVG(r.rating)
-        FROM directors d
-                 JOIN movies m ON d.movie_id = m.id
-                 JOIN ratings r ON m.id = r.movie_id
-        WHERE d.person_id = #{id};
-    </select>
-
     <insert id="createMovie" parameterType="Movie" useGeneratedKeys='true' keyProperty='id'>
         INSERT INTO movies (title, `year`)
         VALUES (#{title}, #{year});

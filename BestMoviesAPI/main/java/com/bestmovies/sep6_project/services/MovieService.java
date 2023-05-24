@@ -160,18 +160,6 @@ public class MovieService {
         return null;
     }
 
-    public double avgRatingOfStarMovies(long id) {
-        if (id > 0) {
-            return movieMapper.avgRatingOfStarMovies(id);
-        } else return -1;
-    }
-
-    public double avgRatingOfDirectorMovies(long id) {
-        if (id > 0) {
-            return movieMapper.avgRatingOfDirectorMovies(id);
-        } else return -1;
-    }
-
     private void setMovieImages(Movie movie) {
         ExternalMovie movieResult = restClient.getAllMoviesByName(movie.getId());
         if (movieResult != null) {

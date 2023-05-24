@@ -92,16 +92,6 @@ public class MovieController {
         return movieService.getPageOfMovies(pageNr, n);
     }
 
-    @RequestMapping(value = "/star/avg/{personId}", method = RequestMethod.GET)
-    public double avgRatingOfStarMovies(@PathVariable long personId) {
-        return movieService.avgRatingOfStarMovies(personId);
-    }
-
-    @RequestMapping(value = "/director/avg/{personId}", method = RequestMethod.GET)
-    public double avgRatingOfDirectorMovies(@PathVariable long personId) {
-        return movieService.avgRatingOfDirectorMovies(personId);
-    }
-
     public void setResponse(HttpServletResponse response, boolean success) {
         if (success) {
             response.setStatus(HttpStatus.SC_OK);

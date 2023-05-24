@@ -140,20 +140,4 @@ public class IMovieMapperTest {
 
         assertThat(objectToId(movies)).isEqualTo(List.of(1L, 2L, 4L));
     }
-
-    @Test
-    @Order(17)
-    void avgRatingOfStarMoviesTest() {
-        double avg = movieMapper.avgRatingOfStarMovies(6);
-
-        assertThat(avg).isEqualTo(10);
-    }
-
-    @Test
-    @Order(18)
-    void avgRatingOfDirectorMoviesTest() {
-        double avg = movieMapper.avgRatingOfDirectorMovies(1);
-
-        assertThat(avg).isEqualTo(10);
-    }
 }
