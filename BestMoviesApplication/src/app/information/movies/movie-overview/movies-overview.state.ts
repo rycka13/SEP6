@@ -1,7 +1,7 @@
-import {Movie} from "src/model/movie";
-import {Action, State, StateContext} from "@ngxs/store";
-import {Injectable} from "@angular/core";
-import {NbToastrService} from "@nebular/theme";
+import { Movie } from "src/model/movie";
+import { Action, State, StateContext } from "@ngxs/store";
+import { Injectable } from "@angular/core";
+import { NbToastrService } from "@nebular/theme";
 import {
   MovieOverviewFetchBestMoviesTop,
   MovieOverviewFetchDirectors,
@@ -12,11 +12,11 @@ import {
   MovieOverviewFetchStars,
   MovieOverviewReset
 } from "src/app/information/movies/movie-overview/movies-overview.actions";
-import {produce} from "immer";
-import {Star} from "src/model/star";
-import {Director} from "src/model/director";
-import {Rating} from "src/model/rating";
-import {peopleMock} from "src/util/mocks/people_mock";
+import { produce } from "immer";
+import { Star } from "src/model/star";
+import { Director } from "src/model/director";
+import { Rating } from "src/model/rating";
+import { peopleMock } from "src/util/mocks/people_mock";
 import { MoviesService } from "src/api/movies.service";
 import { MovieService } from "src/api/movie.service";
 import { StarsService } from "src/api/stars.service";
@@ -99,65 +99,66 @@ export class MoviesOverviewState {
 
   @Action(MovieOverviewFetchStars)
   async movieOverviewFetchStars(
-    {getState, setState}: StateContext<MovieOverviewStateModel>,
+    {getState, setState, patchState}: StateContext<MovieOverviewStateModel>,
     action: MovieOverviewFetchStars) {
 
     let newState = produce(getState(), draft => {
       draft.isFetching = true;
     })
     setState(newState);
-
-    let stars: Star[] = [];
-    try {
-      //mock
-      stars.push(peopleMock[1], peopleMock[2], peopleMock[3]);
-      //
-      //real data
-      //TODO - still 500 response
-      // stars = await this.starsService.getStarsByMovieId(action.movieId);
-    } catch (e) {
-
-    }
-
-    newState = produce(getState(), draft => {
-      draft.stars = stars;
-      draft.isFetching = false;
-    })
-    setState(newState);
+    //mock
+    // stars.push(peopleMock[1], peopleMock[2], peopleMock[3]);
+    //
+    //real data
+    return this.starsService.getStarsByMovieId(action.movieId).pipe(
+      tap(
+        (stars) => {
+          let currentState = getState();
+          let newState = produce(currentState, (draft) => {
+            draft.stars = stars;
+            draft.isFetching = false;
+          });
+          patchState(newState);
+        },
+        () => {
+          this.nbToastrService.show('API Error', 'Stars for movie could not be fetched', {status: 'danger'})
+        }
+      )
+    );
   }
 
   @Action(MovieOverviewFetchDirectors)
   async movieOverviewFetchDirectors(
-    {getState, setState}: StateContext<MovieOverviewStateModel>,
+    {getState, setState, patchState}: StateContext<MovieOverviewStateModel>,
     action: MovieOverviewFetchDirectors) {
 
     let newState = produce(getState(), draft => {
       draft.isFetching = true;
     })
     setState(newState);
+    // mock
+    // directors.push(peopleMock[1], peopleMock[2]);
 
-    let directors: Director[] = [];
-    try {
-      //mock
-      directors.push(peopleMock[1], peopleMock[2]);
-
-      //real data
-      //TODO tell colleagues about this method - not implemented
-      // this.directorsService.getDirectorsByMovieId(action.movieId)
-      //   .subscribe((directorsPredicate: Director[]) => directors = directorsPredicate);
-    } catch (e) {
-
-    }
-
-    newState = produce(getState(), draft => {
-      draft.directors = directors;
-      draft.isFetching = false;
-    })
-    setState(newState);
+    // real data
+    return this.directorsService.getDirectorsByMovieId(action.movieId).pipe(
+      tap(
+        (directors) => {
+          let currentState = getState();
+          let newState = produce(currentState, (draft) => {
+            draft.directors = directors;
+            draft.isFetching = false;
+          });
+          patchState(newState);
+        },
+        () => {
+          this.nbToastrService.show('API Error', 'Stars for movie could not be fetched', {status: 'danger'})
+        }
+      )
+    );
   }
 
   @Action(MovieOverviewFetchRating)
-  async movieOverviewFetchRatings(
+  async movieOverviewFetchRating(
     {getState, setState, patchState}: StateContext<MovieOverviewStateModel>,
     action: MovieOverviewFetchRating) {
 
@@ -177,7 +178,7 @@ export class MoviesOverviewState {
           patchState(newState);
         },
         () => {
-          // handle error here if you need to
+          this.nbToastrService.show('API Error', 'Getting rating for movie could not be fetched', {status: 'danger'})
         }
       )
     );
@@ -204,7 +205,7 @@ export class MoviesOverviewState {
           patchState(newState);
         },
         () => {
-          // handle error here if you need to
+          this.nbToastrService.show('API Error', 'Popular movies could not be fetched', {status: 'danger'})
         }
       )
     );
@@ -231,7 +232,7 @@ export class MoviesOverviewState {
           patchState(newState);
         },
         () => {
-          // handle error here if you need to
+          this.nbToastrService.show('API Error', `Movies with rating ${action.rating} could not be fetched`, {status: 'danger'})
         }
       )
     );
@@ -258,7 +259,7 @@ export class MoviesOverviewState {
           patchState(newState);
         },
         () => {
-          // handle error here if you need to
+          this.nbToastrService.show('API Error', `Movies for year ${action.year} could not be fetched`, {status: 'danger'})
         }
       )
     );

@@ -7,6 +7,7 @@ public class Movie {
     private String posterImage;
     private String backgroundImage;
     private String description;
+    private int userRating;
 
     public Movie(long id, String title, int year){
         this.id = id;
@@ -16,6 +17,14 @@ public class Movie {
     public Movie(String title, int year){
         this.title = title;
         this.year = year;
+    }
+
+    public int getUserRating() {
+        return userRating;
+    }
+
+    public void setUserRating(int userRating) {
+        this.userRating = userRating;
     }
 
     public long getId() {

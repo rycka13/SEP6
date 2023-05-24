@@ -3,7 +3,7 @@ package com.bestmovies.sep6_project.model.User;
 import com.bestmovies.sep6_project.model.Hash.HashPair;
 
 public class User {
-    private String id;
+    private long id;
     private String userName;
     private String email;
     private String firstName;
@@ -43,11 +43,11 @@ public class User {
         this.password = password;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

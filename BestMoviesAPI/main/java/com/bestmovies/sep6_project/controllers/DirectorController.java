@@ -57,7 +57,7 @@ public class DirectorController {
     }
 
     @RequestMapping(value = "/movieId/{movieId}", method = RequestMethod.GET)
-    public List<Director> getPageOfDirectors(@PathVariable long movieId){
+    public List<Director> getDirectorsByMovieId(@PathVariable long movieId){
         return directorService.getDirectorsByMovieId(movieId);
     }
 

@@ -71,9 +71,9 @@ export class MoviesOverviewComponent implements OnInit, OnDestroy{
           const initialActions = [
             new MovieOverviewFetchInfo(movieId),
             new MovieOverviewFetchRating(movieId),
+            new MovieOverviewFetchDirectors(movieId),
             new MovieOverviewFetchStars(movieId),
             new MovieOverviewFetchBestMoviesTop(this.TOP_SIZE_LIST),
-            new MovieOverviewFetchDirectors(movieId)
           ];
           let actionsInParallel = [];
 
@@ -114,10 +114,10 @@ export class MoviesOverviewComponent implements OnInit, OnDestroy{
   }
 
   redirectToDirectorOverview(directorId) {
-    //TODO: not implemented yet
+    this.router.navigate([`/information/people/director/${directorId}`]);
   }
 
   redirectToStarOverview(starId) {
-    //TODO: not implemented yet
+    this.router.navigate([`/information/people/star/${starId}`]);
   }
 }

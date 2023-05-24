@@ -7,8 +7,6 @@ import com.bestmovies.sep6_project.services.enums.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 
 @Component
@@ -20,7 +18,7 @@ public class UserService {
     @Autowired
     private IUserMapper userMapper;
 
-    public ResponseMessage loginUser(User user) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public ResponseMessage loginUser(User user) {
         if(user != null){
             if(user.getUserName() != null){
                 User dbUser = userMapper.getUserByUsername(user.getUserName());
