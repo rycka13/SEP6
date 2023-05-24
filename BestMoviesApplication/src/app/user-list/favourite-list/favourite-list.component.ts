@@ -33,7 +33,9 @@ export class FavouriteListComponent implements OnInit, OnDestroy {
     this.authService.user$.subscribe(user => {
       this.user = user;
     })
-    this.store.dispatch(new UserFavouriteListMoviesFetch(this.user.userName));
+    if(this.user !== null) {
+      this.store.dispatch(new UserFavouriteListMoviesFetch(this.user.userName));
+    }
   }
 
   redirectToMovieOverviewPage(movieId: number) {

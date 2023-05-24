@@ -5,8 +5,10 @@ exports[`app > user-list > favourite-list > favourite-list.component.spec.ts sho
   __isFetching$__selector={[Function Observable]}
   __movies$__selector={[Function Observable]}
   alive={[Function Boolean]}
+  authService={[Function AuthService]}
   router={[Function Router]}
   store={[Function Object]}
+  user="null"
 >
   <div
     class="favourite-list"
