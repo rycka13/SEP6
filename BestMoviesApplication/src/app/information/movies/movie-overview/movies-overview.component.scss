@@ -37,6 +37,17 @@ nb-card {
           color: inherit;
           vertical-align: middle;
 
+          .person-name {
+            color: #ffffff;
+            text-decoration: none;
+          }
+
+          .person-name:hover {
+            color: var(--color-info-300);
+            cursor: pointer;
+            text-decoration: underline;
+          }
+
         }
       }
     }
@@ -124,18 +135,8 @@ nb-card {
       }
       nb-card-body {
         display:contents;
-        ul {
-          display: inline-flex;
-          margin: 22px 0px 0px 0px;
-          padding-left: 15px;
-          li {
-            margin-right: 20px;
-            font-size: 15px;
-            color: lightgrey;
-            font-style: italic;
-          }
-
-          li:hover {
+        nb-list {
+          nb-list-item:hover {
             color: var(--color-info-300);
             cursor: pointer;
             text-decoration: underline;

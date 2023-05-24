@@ -4,4 +4,5 @@ export interface Movie {
   year: number;
   posterImage: string;
   backgroundImage: string;
+  description: string;
 }
