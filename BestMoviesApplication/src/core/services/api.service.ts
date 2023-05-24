@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { Director } from "src/model/director";
 import { peopleMock } from "src/util/mocks/people_mock";
@@ -23,11 +23,13 @@ export class ApiService<T> {
   }
 
   put(path: string, body: Object = {}): Observable<T> {
-    return this.http.put<T>(`${environment.api_url}${path}`, body);
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.put<T>(`${environment.api_url}${path}`, JSON.stringify(body), { headers });
   }
 
-  post(path: string, body: Object = {}): Observable<T> {
-    return this.http.post<T>(`${environment.api_url}${path}`, body);
+  post<T>(path: string, body): Observable<T> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.post<T>(`${environment.api_url}${path}`, JSON.stringify(body), { headers });
   }
 
   delete(path: string): Observable<T> {
