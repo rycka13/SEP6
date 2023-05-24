@@ -18,6 +18,7 @@ import {
   OverAllInformationFetchSameRatingRange,
   OverAllInformationReset
 } from "src/app/overall-information/overall-information.actions";
+import { AuthService } from "src/core/services/auth.service";
 
 @Component({
   selector: 'app-overall-information',
@@ -69,10 +70,12 @@ export class OverallInformationComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store,
               private router: Router,
-              private nbToastrService: NbToastrService) {
+              private nbToastrService: NbToastrService,
+              private authService: AuthService) {
   }
 
   async ngOnInit() {
+
    //movies by year
     let date = new Date();
     this.YEAR_NOW = date.getUTCFullYear();

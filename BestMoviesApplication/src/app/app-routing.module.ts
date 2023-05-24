@@ -6,6 +6,7 @@ import {MoviesComponent} from "src/app/information/movies/movies.component";
 import {PeopleComponent} from "src/app/information/people/people.component";
 import {MoviesOverviewComponent} from "src/app/information/movies/movie-overview/movies-overview.component";
 import {PeopleOverviewComponent} from "src/app/information/people/people-overview/people-overview.component";
+import { LoginComponent } from "src/app/auth/login/login.component";
 
 const routes: Routes = [
   {
@@ -42,6 +43,10 @@ const routes: Routes = [
   { path: '',
     redirectTo: '/overall-information',
     pathMatch: 'full'
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   },
   {
     path: '**',

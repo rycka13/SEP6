@@ -27,14 +27,16 @@ export class RatingService {
     return this.apiService
     .post(
       `${this.PATH_CONTROLLER}/save`,
-      { rating: { body: rating } });
+      rating
+    );
   }
 
   updateRating(movieId, updatedRating): Observable<Rating> {
     return this.apiService
     .put(
       `${this.PATH_CONTROLLER}/movieId/${movieId}`,
-      { rating: { body: updatedRating } });
+      updatedRating
+    );
   }
 
   deleteRating(ratingId): Observable<Rating>{

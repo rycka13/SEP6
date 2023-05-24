@@ -1,5 +1,7 @@
 package com.bestmovies.sep6_project.model.external;
 
+import com.bestmovies.sep6_project.model.external.movies.ExternalMovie;
+
 import java.util.ArrayList;
 
 public class ExternalPerson {
@@ -11,7 +13,7 @@ public class ExternalPerson {
     private String original_name;
     private float popularity;
     private String profile_path;
-    ArrayList< ExternalMovie > known_for = new ArrayList <> ();
+    ArrayList<ExternalMovie> known_for = new ArrayList <> ();
 
 
     // Getter Methods

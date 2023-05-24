@@ -5,37 +5,37 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-    NbThemeModule,
-    NbLayoutModule,
-    NbActionsModule,
-    NbSidebarModule,
-    NbMenuModule,
-    NbCardModule,
-    NbToastrModule,
-    NbIconModule,
-    NbButtonModule,
-    NbSpinnerModule,
-    NbListModule,
-    NbSearchModule, NbInputModule, NbFormFieldModule, NbTooltipModule, NbSelectModule, NbTabsetModule
+  NbThemeModule,
+  NbLayoutModule,
+  NbActionsModule,
+  NbSidebarModule,
+  NbMenuModule,
+  NbCardModule,
+  NbToastrModule,
+  NbIconModule,
+  NbButtonModule,
+  NbSpinnerModule,
+  NbListModule,
+  NbSearchModule, NbInputModule, NbFormFieldModule, NbTooltipModule, NbSelectModule, NbTabsetModule
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { OverallInformationComponent } from './overall-information/overall-information.component';
-import {OverAllInformationState} from "./overall-information/overall-information.state";
-import {NgxsModule} from "@ngxs/store";
-import {AgGridModule} from "ag-grid-angular";
+import { OverAllInformationState } from "./overall-information/overall-information.state";
+import { NgxsModule } from "@ngxs/store";
+import { AgGridModule } from "ag-grid-angular";
 import { NotFoundComponent } from './not-found/not-found.component';
-import {HttpClientModule} from "@angular/common/http";
-import {MoviesComponent} from "src/app/information/movies/movies.component";
-import {MoviesState} from "src/app/information/movies/movies.state";
-import {PeopleComponent} from "src/app/information/people/people.component";
-import {PeopleState} from "src/app/information/people/people.state";
-import {environment} from "src/environments/environment";
-import {MoviesCell} from "src/core/cell-renderers/movies.column.cell";
+import { HttpClientModule } from "@angular/common/http";
+import { MoviesComponent } from "src/app/information/movies/movies.component";
+import { MoviesState } from "src/app/information/movies/movies.state";
+import { PeopleComponent } from "src/app/information/people/people.component";
+import { PeopleState } from "src/app/information/people/people.state";
+import { environment } from "src/environments/environment";
+import { BmSearchComponent } from '../core/components/bm-search/bm-search.component';
 import { MoviesOverviewComponent } from './information/movies/movie-overview/movies-overview.component';
-import {MoviesOverviewState} from "src/app/information/movies/movie-overview/movies-overview.state";
+import { MoviesOverviewState } from "src/app/information/movies/movie-overview/movies-overview.state";
 import { PeopleOverviewComponent } from './information/people/people-overview/people-overview.component';
-import {PeopleOverviewState} from "src/app/information/people/people-overview/people-overview.state";
-import {NgxsLoggerPluginModule} from "@ngxs/logger-plugin";
+import { PeopleOverviewState } from "src/app/information/people/people-overview/people-overview.state";
+import { NgxsLoggerPluginModule } from "@ngxs/logger-plugin";
 import { ApiService } from "src/core/services/api.service";
 import { DirectorService } from "src/api/director.service";
 import { DirectorsService } from "src/api/directors.service";
@@ -45,7 +45,8 @@ import { RatingService } from "src/api/rating.service";
 import { RatingsService } from "src/api/ratings.service";
 import { StarService } from "src/api/star.service";
 import { StarsService } from "src/api/stars.service";
-import { BmSearchComponent } from "src/core/components/bm-search/bm-search.component";
+import { UserService } from "src/api/user.service";
+import { AuthService } from "src/core/services/auth.service";
 
 
 export const STATES = [
@@ -56,9 +57,7 @@ export const STATES = [
   PeopleOverviewState,
 ]
 
-export const CELL_RENDERERS = [
-  MoviesCell,
-]
+export const CELL_RENDERERS = []
 
 export const COMPONENTS = [
   AppComponent,
@@ -90,7 +89,9 @@ export const PROVIDERS = [
   RatingService,
   RatingsService,
   StarService,
-  StarsService
+  StarsService,
+  UserService,
+  AuthService
 ]
 
 export const NEBULAR_MODULES = [
@@ -114,7 +115,7 @@ export const NEBULAR_MODULES = [
   NbTooltipModule,
   NbSelectModule,
   NbTabsetModule,
-]
+];
 
 @NgModule({
   declarations: [
@@ -129,7 +130,7 @@ export const NEBULAR_MODULES = [
     NgxsModule.forRoot(STATES, {
       developmentMode: !environment.production,
     }),
-    NgxsLoggerPluginModule.forRoot({ disabled: environment.production }),
+    NgxsLoggerPluginModule.forRoot({disabled: environment.production}),
     NEBULAR_MODULES,
   ],
   providers: PROVIDERS,
@@ -139,4 +140,5 @@ export const NEBULAR_MODULES = [
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

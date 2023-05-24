@@ -24,7 +24,7 @@ export class StarService {
     return this.apiService
     .post(
       `${this.PATH_CONTROLLER}/save`,
-      { star: { body: star } }
+     star
     );
   }
 
@@ -32,7 +32,7 @@ export class StarService {
     return this.apiService
     .post(
       `${this.PATH_CONTROLLER}/add`,
-      { star: { body: star } }
+      star
     );
   }
 
@@ -40,7 +40,8 @@ export class StarService {
     return this.apiService
     .put(
       `${this.PATH_CONTROLLER}/personId/${personId}`,
-      { star: { body: updatedStar } });
+      updatedStar
+    );
   }
 
   deleteStar(starId): Observable<Star> {

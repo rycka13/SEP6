@@ -21,7 +21,7 @@ export class DirectorService {
     return this.apiService
     .post(
       `${this.PATH_CONTROLLER}/save`,
-      { director: { body: director } }
+      director
     );
   }
 
@@ -29,7 +29,7 @@ export class DirectorService {
     return this.apiService
     .put(
       `${this.PATH_CONTROLLER}/personId/${personId}`,
-      { director: { body: updatedDirector } }
+      updatedDirector
     );
   }
 
