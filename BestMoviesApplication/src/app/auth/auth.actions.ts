@@ -2,7 +2,12 @@ import { User } from "src/model/user";
 
 export class AuthRegister {
   static readonly type = 'Account - Register';
-  constructor(public user: User) {
+  constructor(public email: string,
+              public userName: string,
+              public lastName: string,
+              public firstName: string,
+              public password: string,
+              public repeatedPassword: string) {
   }
 }
 

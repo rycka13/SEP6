@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { Store } from "@ngxs/store";
-import { NbToastrService } from "@nebular/theme";
-import { AccountType, getAccountType } from "src/app/auth/constants/constants";
-import { AuthLogin, AuthRegister } from "src/app/auth/auth.actions";
-import { User } from "src/model/user";
+import { CheckType } from "src/app/auth/constants/constants";
+import { AuthRegister } from "src/app/auth/auth.actions";
 
 @Component({
   selector: 'app-account',
@@ -18,7 +16,10 @@ export class RegisterComponent {
   lastName: string;
 
   password: string;
+  repeatPassword: string;
+
   showPassword: boolean = false;
+  showRepeatedPassword: boolean = false;
 
   constructor(
     private store: Store,
@@ -30,33 +31,42 @@ export class RegisterComponent {
   }
 
   register() {
-    let user: User = {
-      email: this.email,
-    userName: this.userName,
-    password: this.password,
-    firstName: this.firstName,
-    lastName: this.lastName,
-    };
-      this.store.dispatch(new AuthRegister(user));
+    this.store.dispatch(new AuthRegister(
+      this.userName,
+      this.email,
+      this.firstName,
+      this.lastName,
+      this.password,
+      this.repeatPassword));
   }
 
-  getInputType() {
-    if(this.showPassword) {
-      return 'text';
+  getInputType(checkType: CheckType) {
+    if(checkType === CheckType.PASSWORD) {
+      if(this.showPassword) {
+        return 'text';
+      }
+      return 'password';
     }
-    return 'password';
-  }
-
-  toggleShowPassword() {
-    this.showPassword = !this.showPassword;
-  }
-
-  createUser() {
-    return {
-      //TODO create user before doing action
+    else if(checkType === CheckType.REPEATED_PASSWORD) {
+      if(this.showRepeatedPassword) {
+        return 'text';
+      }
+      return 'password';
     }
   }
 
+  toggleShowPassword(checkType: CheckType) {
+    if(checkType === CheckType.PASSWORD) {
+      this.showPassword = !this.showPassword;
+    }
+    else if(checkType === CheckType.REPEATED_PASSWORD) {
+      this.showRepeatedPassword = !this.showRepeatedPassword;
+    }
+  }
 
+  //enums
+  getCheckType() : typeof CheckType {
+    return CheckType;
+  }
 
 }

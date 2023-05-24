@@ -4,6 +4,15 @@ export enum AccountType {
   UNKNOWN = 'UNKNOWN'
 }
 
+export enum CheckType {
+  USERNAME,
+  PASSWORD,
+  EMAIL,
+  FIRST_NAME,
+  LAST_NAME,
+  REPEATED_PASSWORD,
+}
+
 export function getAccountType(accountType: string) {
   switch(accountType) {
     case "register" : return AccountType.REGISTER;

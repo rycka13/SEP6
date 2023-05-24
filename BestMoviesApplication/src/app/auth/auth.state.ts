@@ -10,6 +10,7 @@ import { throwError } from "rxjs";
 import { PeopleStateModel } from "src/app/information/people/people.state";
 import { AuthLogin, AuthRegister } from "src/app/auth/auth.actions";
 import { HttpErrorResponse } from "@angular/common/http";
+import { User } from "src/model/user";
 
 export interface AccountStateModel {
   isFetching: boolean;
@@ -25,7 +26,7 @@ export const defaultsState: AccountStateModel = {
 })
 
 @Injectable()
-export class MoviesState {
+export class AuthState {
   constructor(
     private toastrService: NbToastrService,
     private userService: UserService,
@@ -45,7 +46,17 @@ export class MoviesState {
 
     setState(newState);
 
-    this.userService.register(action.user)
+    if(action.repeatedPassword !== action.password) {
+      this.toastrService.show("Password does not match", "Repeaed password and password do not match", {status: "warning"});
+      let newState = produce(currentState, draft => {
+        draft.isFetching = true;
+      });
+
+      return setState(newState);
+    }
+
+    const user: User = this.createUser(action.email, action.userName, action.firstName, action.lastName, action.password);
+    this.userService.register(user)
     .pipe(
       tap((response) => {
         newState = produce(getState(), draft => {
@@ -104,6 +115,16 @@ export class MoviesState {
       })
     )
     .subscribe();
+  }
+
+  createUser(email: string, userName: string, password: string, firstName: string, lastName: string) {
+    return {
+      email: email,
+      userName: userName,
+      password: password,
+      firstName: firstName,
+      lastName: lastName,
+    } as User;
   }
 
 }

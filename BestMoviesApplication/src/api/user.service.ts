@@ -18,7 +18,7 @@ export class UserService {
     return this.apiService
     .post(
       `${this.PATH_CONTROLLER}/regiser`,
-      { star: { body: user } }
+      { user: { body: user } }
     );
   }
 
@@ -26,7 +26,7 @@ export class UserService {
     return this.apiService
     .post(
       `${this.PATH_CONTROLLER}/regiser`,
-      { star: { body: user } }
+      { user: { body: user } }
     );
   }
 }
