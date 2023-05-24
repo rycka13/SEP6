@@ -26,6 +26,7 @@ import { AuthService } from "src/core/services/auth.service";
 import { RouterTestingModule } from "@angular/router/testing";
 import { ApiService } from "src/core/services/api.service";
 import { FavouriteListComponent } from './favourite-list/favourite-list.component';
+import { UserFavouriteListMoviesState } from "src/app/user-list/favourite-list/favourite-list.state";
 
 
 export const TOP_LIST_COMPONENTS = [
@@ -53,6 +54,7 @@ export const TOP_LIST_PROVIDERS = [
 
 export const TOP_LIST_STATES = [
   UserTopListMoviesState,
+  UserFavouriteListMoviesState,
 ]
 
 export const TOP_LIST_NGXS_CONFIG = [
