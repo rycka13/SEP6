@@ -3,11 +3,11 @@
     <h5>Login</h5>
   </nb-card-header>
   <nb-card-body class="card-body">
-    <div class="form-row">
+    <div *ngIf="loginWithUserNameActivated" class="form-row">
       <nb-icon nbPrefix icon="person-outline" pack="eva"></nb-icon>
       <input type="username" [(ngModel)]="userName" nbInput status="primary" placeholder="Username">
     </div>
-    <div class="form-row">
+    <div *ngIf="loginWithEmailActivated" class="form-row">
       <nb-icon nbPrefix icon="email-outline" pack="eva"></nb-icon>
       <input type="email" [(ngModel)]="email" nbInput status="primary" placeholder="Email">
     </div>
@@ -37,6 +37,15 @@
     <button nbButton outline="true" status="control"
             (click)="login()">
       Login
+    </button>
+    <button nbButton outline="true" status="control"
+            (click)="changeLoginType()">
+      <ng-container *ngIf="loginWithUserNameActivated">
+        Login with username
+      </ng-container>
+      <ng-container *ngIf="loginWithEmailActivated">
+        Login with email
+      </ng-container>
     </button>
   </nb-card-footer>
 </nb-card>

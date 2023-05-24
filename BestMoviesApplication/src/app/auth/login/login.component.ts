@@ -21,6 +21,9 @@ export class LoginComponent {
   showPassword: boolean = false;
   showRepeatedPassword: boolean = false;
 
+  loginWithEmailActivated: boolean = false;
+  loginWithUserNameActivated: boolean = true;
+
   constructor(
     private store: Store,
     private router: Router) {
@@ -65,6 +68,19 @@ export class LoginComponent {
 
   redirectToRegisterPage() {
     this.router.navigate([`/auth/register`]);
+  }
+
+  changeLoginType() {
+    if(this.loginWithEmailActivated) {
+      this.loginWithEmailActivated = false;
+      this.loginWithUserNameActivated = true;
+    }
+    else {
+      if(this.loginWithUserNameActivated) {
+        this.loginWithEmailActivated = true;
+        this.loginWithUserNameActivated = false;
+      }
+    }
   }
 
   //enums
