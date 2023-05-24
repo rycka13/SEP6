@@ -11,6 +11,7 @@ import { PeopleStateModel } from "src/app/information/people/people.state";
 import { AuthLogin, AuthRegister } from "src/app/auth/auth.actions";
 import { HttpErrorResponse } from "@angular/common/http";
 import { User } from "src/model/user";
+import { AuthService } from "src/core/services/auth.service";
 
 export interface AccountStateModel {
   isFetching: boolean;
@@ -30,6 +31,7 @@ export class AuthState {
   constructor(
     private toastrService: NbToastrService,
     private userService: UserService,
+    private authService: AuthService,
   ) {
   }
 
@@ -106,6 +108,7 @@ export class AuthState {
       tap((response) => {
         newState = produce(getState(), draft => {
           draft.isFetching = false;
+          this.authService.hasLoggedInSuccessfully(user);
         });
         setState(newState);
       }),

@@ -66,7 +66,7 @@ export class AppComponent {
               private menu: NbMenuService,
               public authService: AuthService) {
 
-    // TODO this.isLoggedIn = authService.hasLoggedIn;
+    // this.isLoggedIn = authService.isLoggedIn();
     this.isLoggedIn = true;
 
     let indexOfItem = getIndexOfParent(PARENT_IDS.OVERALL_INFORMATION_ID);

@@ -1,20 +1,23 @@
 import { Injectable } from '@angular/core';
+import { User } from "src/model/user";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
-  hasLoggedIn: boolean = false;
+  user: User = null;
 
   constructor() {
   }
 
-  hasLoggedInSuccessfully() {
-    this.hasLoggedIn = true;
+  isLoggedIn() {
+    return this.user !== null;
+  }
+  hasLoggedInSuccessfully(user: User) {
+    this.user = user;
   }
 
   hasLoggedOut() {
-    this.hasLoggedIn = false;
+    this.user = null;
   }
 }
