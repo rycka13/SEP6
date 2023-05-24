@@ -3,8 +3,7 @@ import {Person} from "../../model/person";
 import {Action, State, StateContext} from "@ngxs/store";
 import {Injectable} from "@angular/core";
 import {
-  OverAllInformationFetchBestMoviesTop,
-  OverAllInformationFetchInfo, OverAllInformationFetchMoviesFromSameYear, OverAllInformationFetchSameRatingRange,
+  OverAllInformationFetchBestMoviesTop, OverAllInformationFetchMoviesFromSameYear, OverAllInformationFetchSameRatingRange,
   OverAllInformationReset
 } from "./overall-information.actions";
 import {current, produce} from "immer";
