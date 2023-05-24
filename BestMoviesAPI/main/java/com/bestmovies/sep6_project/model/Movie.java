@@ -7,7 +7,7 @@ public class Movie {
     private String posterImage;
     private String backgroundImage;
     private String description;
-    private int userRating;
+    private Integer userRating;
 
     public Movie(long id, String title, int year){
         this.id = id;
@@ -18,12 +18,18 @@ public class Movie {
         this.title = title;
         this.year = year;
     }
+    public Movie(long id, String title, int year, Integer userRating){
+        this.id = id;
+        this.title = title;
+        this.year = year;
+        this.userRating = userRating;
+    }
 
-    public int getUserRating() {
+    public Integer getUserRating() {
         return userRating;
     }
 
-    public void setUserRating(int userRating) {
+    public void setUserRating(Integer userRating) {
         this.userRating = userRating;
     }
 

@@ -7,7 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface IFavoritesMapper {
-    void addMoviesToFavorites(long userId, long movieId);
+    void addMovieToFavorites(long userId, long movieId);
     void addMoviesToFavoritesWithRating(long userId, long movieId, int rating);
     void addRatingToMovie(long userId, long movieId, int rating);
     void removeRatingFromMovie(long userId, long movieId);

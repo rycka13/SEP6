@@ -12,5 +12,6 @@
         <mapper resource = "mappers/StarMapper.xml"/>
         <mapper resource = "mappers/DirectorMapper.xml"/>
         <mapper resource = "mappers/UserMapper.xml"/>
+        <mapper resource = "mappers/FavoritesMapper.xml"/>
     </mappers>
 </configuration>

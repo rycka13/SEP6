@@ -15,11 +15,11 @@ public class FavoritesService {
     @Autowired
     private IUserMapper userMapper;
 
-    public boolean addMoviesToFavorites(String userName, long movieId){
+    public boolean addMovieToFavorites(String userName, long movieId){
         if(userName != null){
             long userId = userMapper.getUserByUsername(userName).getId();
             if(userId > 0){
-                favoritesMapper.addMoviesToFavorites(userId, movieId);
+                favoritesMapper.addMovieToFavorites(userId, movieId);
                 return true;
             }
         }

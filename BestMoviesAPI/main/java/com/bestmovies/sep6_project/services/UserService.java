@@ -31,7 +31,7 @@ public class UserService {
                 }
             }
             if(user.getEmail() != null){
-                User dbUser = userMapper.getUserByEmail(user);
+                User dbUser = userMapper.getUserByEmail(user.getEmail());
                 if(Arrays.equals(hashUtil.hash(user.getPassword(), dbUser.getHashedPassword().getSalt()).getHashedString(),
                         dbUser.getHashedPassword().getHashedString())){
                     return ResponseMessage.SUCCESS;
@@ -49,7 +49,7 @@ public class UserService {
             if(userMapper.getUserByUsername(user.getUserName())!=null){
                 return ResponseMessage.EXISTING_USERNAME;
             }
-            if(userMapper.getUserByEmail(user)!=null){
+            if(userMapper.getUserByEmail(user.getEmail())!=null){
                 return ResponseMessage.EXISTING_EMAIL;
             }
             if(!user.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")){
