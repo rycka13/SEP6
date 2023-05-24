@@ -47,6 +47,7 @@ import { StarService } from "src/api/star.service";
 import { StarsService } from "src/api/stars.service";
 import { UserService } from "src/api/user.service";
 import { AuthService } from "src/core/services/auth.service";
+import { FavoritesService } from "src/api/favorites.service";
 
 
 export const STATES = [
@@ -91,6 +92,7 @@ export const PROVIDERS = [
   StarService,
   StarsService,
   UserService,
+  FavoritesService,
   AuthService
 ]
 
@@ -115,6 +117,7 @@ export const NEBULAR_MODULES = [
   NbTooltipModule,
   NbSelectModule,
   NbTabsetModule,
+  NbPopoverModule,
 ];
 
 @NgModule({
@@ -132,7 +135,6 @@ export const NEBULAR_MODULES = [
     }),
     NgxsLoggerPluginModule.forRoot({disabled: environment.production}),
     NEBULAR_MODULES,
-    NbPopoverModule,
   ],
   providers: PROVIDERS,
   exports: [
