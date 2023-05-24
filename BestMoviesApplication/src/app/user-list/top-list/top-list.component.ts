@@ -5,6 +5,7 @@ import { UserTopListMoviesFetch, UserTopListMoviesReset } from "src/app/user-lis
 import { Movie } from "src/model/movie";
 import { Router } from "@angular/router";
 import { UserFavouriteListMoviesSelector } from "src/app/user-list/favourite-list/favourite-list.selector";
+import { UserTopListMoviesSelector } from "src/app/user-list/top-list/top-list.selector";
 
 @Component({
   selector: 'app-top-list',
@@ -14,10 +15,10 @@ import { UserFavouriteListMoviesSelector } from "src/app/user-list/favourite-lis
 export class TopListComponent implements OnInit, OnDestroy{
   alive = true;
 
-  @Select(UserFavouriteListMoviesSelector.isFetching)
+  @Select(UserTopListMoviesSelector.isFetching)
   isFetching$: Observable<boolean>;
 
-  @Select(UserFavouriteListMoviesSelector.movies)
+  @Select(UserTopListMoviesSelector.movies)
   movies$: Observable<Movie[]>;
 
   constructor(private store: Store,
