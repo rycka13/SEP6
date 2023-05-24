@@ -12,7 +12,6 @@ import {randomNumberFromInterval} from "src/util/utils_functions";
 import {LoadEnum, SearchByEnum} from "src/app/overall-information/constants";
 import {
   OverAllInformationFetchBestMoviesTop,
-  OverAllInformationFetchInfo,
   OverAllInformationFetchMoviesFromSameYear,
   OverAllInformationFetchSameRatingRange,
   OverAllInformationReset
@@ -86,7 +85,6 @@ export class OverallInformationComponent implements OnInit, OnDestroy {
     this.RATING_SEARCHED = this.RANDOMLY_RATING;
     this.moviesByRatingPlaceHolder = `Rating searched ${this.RATING_SEARCHED}`;
     const actionsInParallel = [
-      new OverAllInformationFetchInfo(),
       new OverAllInformationFetchBestMoviesTop(Number(this.TOP_BEST_MOVIES)),
       new OverAllInformationFetchMoviesFromSameYear(Number(this.LIST_MOVIES_YEAR), this.YEAR_NOW),
       new OverAllInformationFetchSameRatingRange(Number(this.LIST_MOVIES_RATING), this.RATING_SEARCHED)
