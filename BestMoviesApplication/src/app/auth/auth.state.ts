@@ -152,11 +152,19 @@ export class AuthState {
   }
 
   createLoginUser(userName: string, email: string, password: string) {
-    return {
-      userName: userName,
-      email: email,
-      password: password,
-    } as User;
+    if(userName !== null && email === undefined) {
+      return {
+        userName: userName,
+        password: password,
+      } as User;
+    }
+    else if(email !== null && userName === undefined) {
+      return {
+        email: email,
+        password: password,
+      } as User;
+    }
+
   }
 
 }
