@@ -1,6 +1,8 @@
 package com.bestmovies.sep6_project.services;
 
+import com.bestmovies.sep6_project.dao.interfaces.IFavoritesMapper;
 import com.bestmovies.sep6_project.dao.interfaces.IMovieMapper;
+import com.bestmovies.sep6_project.dao.interfaces.IUserMapper;
 import com.bestmovies.sep6_project.model.Movie;
 import com.bestmovies.sep6_project.model.external.movies.ExternalMovie;
 import com.bestmovies.sep6_project.restclient.RestClient;
@@ -14,6 +16,12 @@ public class MovieService {
 
     @Autowired
     private IMovieMapper movieMapper;
+
+    @Autowired
+    private IFavoritesMapper favoritesMapper;
+
+    @Autowired
+    private IUserMapper userMapper;
 
     @Autowired
     private RestClient restClient;
@@ -31,6 +39,15 @@ public class MovieService {
         Movie movieById = movieMapper.getMovieById(id);
         setMovieImages(movieById);
         setMovieDescription(movieById);
+        return movieById;
+    }
+
+    public Movie getMovieByIdWithUserRating(long id, String userName) {
+        Movie movieById = movieMapper.getMovieById(id);
+        setMovieImages(movieById);
+        setMovieDescription(movieById);
+        long userId = userMapper.getUserByUsername(userName).getId();
+        movieById.setUserRating(favoritesMapper.getRatingByMovieId(userId, movieById.getId()));
         return movieById;
     }
 
