@@ -1,0 +1,7 @@
+{
+  "/api/*": {
+    "target": "${environment.api_url}",
+    "secure": false,
+    "logLevel": "debug"
+  }
+}

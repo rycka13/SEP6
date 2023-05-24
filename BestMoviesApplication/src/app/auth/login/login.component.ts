@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
 import { Store } from "@ngxs/store";
 import { NbToastrService } from "@nebular/theme";
-import { AccountType, getAccountType } from "src/app/auth/constants/constants";
 import { AuthLogin, AuthRegister } from "src/app/auth/auth.actions";
 import { User } from "src/model/user";
-import { NbLoginComponent } from "@nebular/auth";
 
 @Component({
   selector: 'app-login',
