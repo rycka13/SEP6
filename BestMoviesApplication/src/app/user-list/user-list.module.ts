@@ -25,6 +25,7 @@ import { AppRoutingModule } from "src/app/app-routing.module";
 import { AuthService } from "src/core/services/auth.service";
 import { RouterTestingModule } from "@angular/router/testing";
 import { ApiService } from "src/core/services/api.service";
+import { FavouriteListComponent } from './favourite-list/favourite-list.component';
 
 
 export const TOP_LIST_COMPONENTS = [
@@ -59,7 +60,8 @@ export const TOP_LIST_NGXS_CONFIG = [
 ]
 @NgModule({
   declarations: [
-    TOP_LIST_COMPONENTS
+    TOP_LIST_COMPONENTS,
+    FavouriteListComponent
   ],
   imports: [
     CommonModule,
