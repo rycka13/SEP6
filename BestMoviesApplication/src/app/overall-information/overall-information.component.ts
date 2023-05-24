@@ -7,13 +7,11 @@ import {Person} from "../../model/person";
 import {ColumnApi, GridApi} from "ag-grid-community";
 import {AgGridAngular} from "ag-grid-angular";
 import {Router} from "@angular/router";
-import {MoviesOverviewSelector} from "src/app/information/movies/movie-overview/movies-overview.selector";
 import {NbToastrService} from "@nebular/theme";
 import {randomNumberFromInterval} from "src/util/utils_functions";
 import {LoadEnum, SearchByEnum} from "src/app/overall-information/constants";
 import {
   OverAllInformationFetchBestMoviesTop,
-  OverAllInformationFetchInfo,
   OverAllInformationFetchMoviesFromSameYear,
   OverAllInformationFetchSameRatingRange,
   OverAllInformationReset
@@ -87,7 +85,6 @@ export class OverallInformationComponent implements OnInit, OnDestroy {
     this.RATING_SEARCHED = this.RANDOMLY_RATING;
     this.moviesByRatingPlaceHolder = `Rating searched ${this.RATING_SEARCHED}`;
     const actionsInParallel = [
-      new OverAllInformationFetchInfo(),
       new OverAllInformationFetchBestMoviesTop(Number(this.TOP_BEST_MOVIES)),
       new OverAllInformationFetchMoviesFromSameYear(Number(this.LIST_MOVIES_YEAR), this.YEAR_NOW),
       new OverAllInformationFetchSameRatingRange(Number(this.LIST_MOVIES_RATING), this.RATING_SEARCHED)

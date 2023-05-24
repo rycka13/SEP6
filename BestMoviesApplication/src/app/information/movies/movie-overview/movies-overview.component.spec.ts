@@ -9,6 +9,12 @@ import {defaultsState} from "./movies-overview.state";
 import {NgxsModule, Store} from "@ngxs/store";
 import {environment} from "../../../../environments/environment";
 import {HttpClientModule} from "@angular/common/http";
+import { of } from "rxjs";
+import { MovieService } from "../../../../api/movie.service";
+
+const movieServiceMock = {
+  getMovieById: jest.fn().mockReturnValue(of([])),
+};
 
 describe('app > information > movies > movies-overview > movies-overview.component.spec.ts', () => {
   let store: Store;
@@ -32,6 +38,10 @@ describe('app > information > movies > movies-overview > movies-overview.compone
       providers: [
         ...PROVIDERS,
         Store,
+        {
+          provide: MovieService,
+          useValue: movieServiceMock
+        },
       ],
     });
 

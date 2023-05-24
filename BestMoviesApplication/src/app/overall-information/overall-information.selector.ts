@@ -1,10 +1,5 @@
 import {Selector} from "@ngxs/store";
 import {OverAllInformationState, OverAllInformationStateModel} from "./overall-information.state";
-import {
-  MovieOverviewStateModel,
-  MoviesOverviewState
-} from "src/app/information/movies/movie-overview/movies-overview.state";
-
 export class OverallInformationSelector {
   @Selector([OverAllInformationState])
   static isFetching(state: OverAllInformationStateModel) {

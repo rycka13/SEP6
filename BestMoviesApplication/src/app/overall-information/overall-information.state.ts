@@ -3,8 +3,7 @@ import {Person} from "../../model/person";
 import {Action, State, StateContext} from "@ngxs/store";
 import {Injectable} from "@angular/core";
 import {
-  OverAllInformationFetchBestMoviesTop,
-  OverAllInformationFetchInfo, OverAllInformationFetchMoviesFromSameYear, OverAllInformationFetchSameRatingRange,
+  OverAllInformationFetchBestMoviesTop, OverAllInformationFetchMoviesFromSameYear, OverAllInformationFetchSameRatingRange,
   OverAllInformationReset
 } from "./overall-information.actions";
 import {current, produce} from "immer";
@@ -50,40 +49,6 @@ export class OverAllInformationState {
     private moviesService: MoviesService,
     //here the services used for getting date from backend are imported
   ) {
-  }
-
-  @Action(OverAllInformationFetchInfo)
-  async overAllInformationFetchInfo(
-    { getState, setState }: StateContext<OverAllInformationStateModel>,
-    action: OverAllInformationFetchInfo) {
-
-    let currentState = getState();
-
-    let newState = produce(currentState, draft => {
-      draft.isFetching = true;
-    })
-
-    setState(newState);
-    currentState = newState;
-
-    // here we will call the API, but for now we have the mocks
-    //TODO implement api call
-    try {
-      this.movies = moviesMock;
-      this.people = peopleMock;
-    }
-    catch (e) {
-      this.nbToastrService.show('Error...', 'Fetching overall information went wrong.', { status: 'danger'});
-    }
-
-    newState = produce(currentState, draft => {
-      draft.isFetching = false;
-      //TODO instead of equal it with mocks, use the apis response
-      draft.movies = this.movies;
-      draft.people = this.people;
-    })
-
-    setState(newState);
   }
 
   @Action(OverAllInformationFetchBestMoviesTop)

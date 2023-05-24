@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`app > user-list > favourite-list > favourite-list.component.spec.ts should match snapshot 1`] = `
+<app-favourite-list
+  __isFetching$__selector={[Function Observable]}
+  __movies$__selector={[Function Observable]}
+  alive={[Function Boolean]}
+  router={[Function Router]}
+  store={[Function Object]}
+>
+  <div
+    class="favourite-list"
+  >
+    <div
+      class="best-movies"
+    >
+      <nb-card>
+        <nb-card-header>
+          <span
+            class="title"
+          >
+             Favourite list of movies 
+          </span>
+        </nb-card-header>
+        <nb-card-body>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+</app-favourite-list>
+`;

@@ -6,12 +6,19 @@ import {NbMenuItem} from "@nebular/theme";
 
 export const PARENT_IDS = {
   OVERALL_INFORMATION_ID: 'overall-information',
+  USER_LIST_ID: 'user-list',
   INFORMATION_ID: 'information',
 }
 export const PAGE_GENERAL_TITLES = {
   //GENERAL MENU
   OVERALL: 'Overall',
   INFORMATION: 'Information'
+}
+
+export const PAGE_USER_LIST_TITLES = {
+  //USER LIST MENU
+  FAVOURITE: 'Favourite movies',
+  TOP: 'Top movies',
 }
 
 export const PAGE_INFORMATION_TITLES = {
@@ -40,6 +47,25 @@ export const INFORMATION_MENU_ITEMS: NbMenuItem[] = [
   }
 ];
 
+export const USER_LIST_MENU_ITEMS: NbMenuItem[] = [
+  {
+    title: PAGE_USER_LIST_TITLES.FAVOURITE,
+    link: 'user-list/favourites',
+    icon: 'star-outline',
+    data: {
+      id: 'user-favourite-list'
+    }
+  },
+  {
+    title: PAGE_USER_LIST_TITLES.TOP,
+    link: 'user-list/top',
+    icon: 'award-outline',
+    data: {
+      id: 'user-top-list'
+    }
+  }
+];
+
 export const GENERAL_MENU_ITEMS: NbMenuItem[] = [
   {
     title: PAGE_GENERAL_TITLES.OVERALL,
@@ -48,6 +74,14 @@ export const GENERAL_MENU_ITEMS: NbMenuItem[] = [
     data: {
       id: PARENT_IDS.OVERALL_INFORMATION_ID
     }
+  },
+  {
+    title: 'My list of movies ',
+    children: USER_LIST_MENU_ITEMS,
+    expanded: true,
+    data: {
+      id: PARENT_IDS.USER_LIST_ID,
+    },
   },
   {
     title: PAGE_GENERAL_TITLES.INFORMATION,

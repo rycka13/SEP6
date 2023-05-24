@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`app > user-list > top-list > top-list.component.spec.ts should match snapshot 1`] = `
+<app-top-list
+  __isFetching$__selector={[Function Observable]}
+  __movies$__selector={[Function Observable]}
+  alive={[Function Boolean]}
+  router={[Function Router]}
+  store={[Function Object]}
+>
+  <div
+    class="top-list"
+  >
+    <div
+      class="best-movies"
+    >
+      <nb-card>
+        <nb-card-header>
+          <span
+            class="title"
+          >
+             Top movies by your favorites 
+          </span>
+        </nb-card-header>
+        <nb-card-body>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+</app-top-list>
+`;

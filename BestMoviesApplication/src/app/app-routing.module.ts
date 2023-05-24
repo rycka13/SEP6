@@ -6,7 +6,6 @@ import {MoviesComponent} from "src/app/information/movies/movies.component";
 import {PeopleComponent} from "src/app/information/people/people.component";
 import {MoviesOverviewComponent} from "src/app/information/movies/movie-overview/movies-overview.component";
 import {PeopleOverviewComponent} from "src/app/information/people/people-overview/people-overview.component";
-import { LoginComponent } from "src/app/auth/login/login.component";
 
 const routes: Routes = [
   {
@@ -44,9 +43,13 @@ const routes: Routes = [
     redirectTo: '/overall-information',
     pathMatch: 'full'
   },
+  //lazy modules
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+  },
+  { path: 'user-list',
+    loadChildren: () => import('./user-list/user-list.module').then(m => m.UserListModule)
   },
   {
     path: '**',
