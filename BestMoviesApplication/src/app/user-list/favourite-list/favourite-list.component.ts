@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Select, Store } from "@ngxs/store";
-import { UserTopListMoviesSelector } from "src/app/user-list/top-list/top-list.selector";
 import { Observable } from "rxjs";
 import { Movie } from "src/model/movie";
 import { Router } from "@angular/router";
 import { UserFavouriteListMoviesFetch, UserFavouriteListMoviesReset } from "src/app/user-list/favourite-list/favourite-list.actions";
+import { UserFavouriteListMoviesSelector } from "src/app/user-list/favourite-list/favourite-list.selector";
 
 @Component({
   selector: 'app-favourite-list',
@@ -14,10 +14,10 @@ import { UserFavouriteListMoviesFetch, UserFavouriteListMoviesReset } from "src/
 export class FavouriteListComponent implements OnInit, OnDestroy {
   alive = true;
 
-  @Select(UserTopListMoviesSelector.isFetching)
+  @Select(UserFavouriteListMoviesSelector.isFetching)
   isFetching$: Observable<boolean>;
 
-  @Select(UserTopListMoviesSelector.movies)
+  @Select(UserFavouriteListMoviesSelector.movies)
   movies$: Observable<Movie[]>;
 
   constructor(private store: Store,

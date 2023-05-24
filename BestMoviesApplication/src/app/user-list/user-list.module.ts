@@ -15,15 +15,9 @@ import {
   NbToastrService
 } from "@nebular/theme";
 import { NgxsModule } from "@ngxs/store";
-import { environment } from "src/environments/environment";
-import { NgxsLoggerPluginModule } from "@ngxs/logger-plugin";
 import { UserTopListMoviesState } from "src/app/user-list/top-list/top-list.state";
-import { BrowserModule } from "@angular/platform-browser";
 import { HttpClientModule } from "@angular/common/http";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { AppRoutingModule } from "src/app/app-routing.module";
 import { AuthService } from "src/core/services/auth.service";
-import { RouterTestingModule } from "@angular/router/testing";
 import { ApiService } from "src/core/services/api.service";
 import { FavouriteListComponent } from './favourite-list/favourite-list.component';
 import { UserFavouriteListMoviesState } from "src/app/user-list/favourite-list/favourite-list.state";
