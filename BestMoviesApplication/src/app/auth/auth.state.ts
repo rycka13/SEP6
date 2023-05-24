@@ -8,10 +8,11 @@ import { catchError, tap } from "rxjs/operators";
 import { Director } from "src/model/director";
 import { throwError } from "rxjs";
 import { PeopleStateModel } from "src/app/information/people/people.state";
-import { AuthLogin, AuthRegister } from "src/app/auth/auth.actions";
+import { AuthIsLoggedIn, AuthLogin, AuthRegister } from "src/app/auth/auth.actions";
 import { HttpErrorResponse } from "@angular/common/http";
 import { User } from "src/model/user";
 import { AuthService } from "src/core/services/auth.service";
+import { Router } from "@angular/router";
 
 export interface AccountStateModel {
   isFetching: boolean;
@@ -32,7 +33,19 @@ export class AuthState {
     private toastrService: NbToastrService,
     private userService: UserService,
     private authService: AuthService,
+    private router: Router
   ) {
+  }
+
+  @Action(AuthIsLoggedIn)
+  authIsLoggedIn(
+    {getState, setState, patchState}: StateContext<AccountStateModel>) {
+    if (this.authService.isLoggedIn$.subscribe(isLoggedIn => {
+      if (isLoggedIn) {
+        this.router.navigate(['overall-information']);
+      }
+    }))
+      return patchState(getState());
   }
 
   @Action(AuthRegister)
@@ -48,7 +61,7 @@ export class AuthState {
 
     setState(newState);
 
-    if(action.repeatedPassword !== action.password) {
+    if (action.repeatedPassword !== action.password) {
       this.toastrService.show("Password does not match", "Repeaed password and password do not match", {status: "warning"});
       let newState = produce(currentState, draft => {
         draft.isFetching = true;
@@ -67,10 +80,10 @@ export class AuthState {
         setState(newState);
       }),
       catchError((error: HttpErrorResponse) => {
-        if(error.status === 401)
-          this.toastrService.show("Password does not match","Cannot register user", {status: 'warning'});
+        if (error.status === 401)
+          this.toastrService.show("Password does not match", "Cannot register user", {status: 'warning'});
         else {
-          this.toastrService.show("Internal server error","Something went wrong", {status: 'danger'});
+          this.toastrService.show("Internal server error", "Something went wrong", {status: 'danger'});
         }
         newState = produce(getState(), draft => {
           draft.isFetching = false;
@@ -93,7 +106,7 @@ export class AuthState {
 
     setState(newState);
 
-    if(action.repeatedPassword !== action.password) {
+    if (action.repeatedPassword !== action.password) {
       this.toastrService.show("Password does not match", "Repeaed password and password do not match", {status: "warning"});
       let newState = produce(getState(), draft => {
         draft.isFetching = true;
@@ -113,10 +126,10 @@ export class AuthState {
         setState(newState);
       }),
       catchError((error: HttpErrorResponse) => {
-        if(error.status === 401)
-          this.toastrService.show("Wrong password or email","Cannot login", {status: 'warning'});
+        if (error.status === 401)
+          this.toastrService.show("Wrong password or email", "Cannot login", {status: 'warning'});
         else {
-          this.toastrService.show("Internal server error","Something went wrong", {status: 'danger'});
+          this.toastrService.show("Internal server error", "Something went wrong", {status: 'danger'});
         }
         newState = produce(getState(), draft => {
           draft.isFetching = false;

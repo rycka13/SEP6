@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from "@ngxs/store";
 import { NbToastrService } from "@nebular/theme";
-import { AuthLogin, AuthRegister } from "src/app/auth/auth.actions";
+import { AuthIsLoggedIn, AuthLogin, AuthRegister } from "src/app/auth/auth.actions";
 import { User } from "src/model/user";
 import { CheckType } from "src/app/auth/constants/constants";
 import { Router } from "@angular/router";
@@ -28,6 +28,7 @@ export class LoginComponent {
   }
 
   ngOnInit() {
+    this.store.dispatch(new AuthIsLoggedIn())
   }
 
   login() {

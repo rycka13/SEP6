@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from "@angular/router";
 import { Store } from "@ngxs/store";
 import { CheckType } from "src/app/auth/constants/constants";
-import { AuthRegister } from "src/app/auth/auth.actions";
+import { AuthIsLoggedIn, AuthRegister } from "src/app/auth/auth.actions";
 
 @Component({
   selector: 'app-account',
@@ -28,6 +28,7 @@ export class RegisterComponent {
   }
 
   ngOnInit() {
+    this.store.dispatch(new AuthIsLoggedIn())
   }
 
   register() {

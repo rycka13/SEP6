@@ -70,6 +70,9 @@ export class AppComponent {
               private router: Router) {
 
     authService.isLoggedIn$.subscribe(isLoggedIn => {
+      if(!isLoggedIn) {
+        this.router.navigate([`/auth/login`]);
+      }
       this.isLoggedIn = isLoggedIn;
     })
 

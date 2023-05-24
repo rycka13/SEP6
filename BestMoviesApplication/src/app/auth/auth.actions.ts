@@ -17,3 +17,9 @@ export class AuthLogin {
               public repeatedPassword: string) {
   }
 }
+
+export class AuthIsLoggedIn {
+  static readonly type = 'Account - Check user is logged in';
+  constructor() {
+  }
+}
