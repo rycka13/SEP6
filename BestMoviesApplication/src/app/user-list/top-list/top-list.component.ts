@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { UserTopListMoviesFetch, UserTopListMoviesReset } from "src/app/user-list/top-list/top-list.actions";
 import { UserTopListMoviesSelector } from "src/app/user-list/top-list/top-list.selector";
 import { Movie } from "src/model/movie";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-top-list',
@@ -19,10 +20,15 @@ export class TopListComponent implements OnInit, OnDestroy{
   @Select(UserTopListMoviesSelector.isFetching)
   movies$: Observable<Movie[]>;
 
-  constructor(private store: Store) {
+  constructor(private store: Store,
+              private router: Router) {
   }
   ngOnInit() {
     this.store.dispatch(new UserTopListMoviesFetch());
+  }
+
+  redirectToMovieOverviewPage(movieId: number) {
+    this.router.navigate([`/information/movies/${movieId}`]);
   }
 
   ngOnDestroy() {
