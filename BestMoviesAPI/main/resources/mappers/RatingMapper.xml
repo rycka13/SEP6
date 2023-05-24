@@ -5,27 +5,48 @@
 <mapper namespace="com.bestmovies.sep6_project.dao.interfaces.IRatingMapper">
 
     <resultMap id="RatingsResultMap" type="Rating">
-        <result property="rating" column="rating" />
-        <result property="votes" column="votes" />
-        <association property="movie" column="movie_id" javaType="Movie" select="com.bestmovies.sep6_project.dao.interfaces.IMovieMapper.getMovieById"/>
+        <result property="rating" column="rating"/>
+        <result property="votes" column="votes"/>
+        <association property="movie" column="movie_id" javaType="Movie"
+                     select="com.bestmovies.sep6_project.dao.interfaces.IMovieMapper.getMovieById"/>
     </resultMap>
 
     <select id="getAll" resultMap="RatingsResultMap">
-        SELECT * FROM ratings;
+        SELECT *
+        FROM ratings;
     </select>
     <select id="getRatingByMovieId" resultMap="RatingsResultMap">
-        SELECT * FROM ratings where movie_id = #{movie_id}
+        SELECT *
+        FROM ratings
+        where movie_id = #{movie_id}
     </select>
-    <insert id = "createRating" parameterType = "Rating">
+    <select id="avgRatingOfStarMovies">
+        SELECT AVG(r.rating)
+        FROM stars s
+                 JOIN movies m ON s.movie_id = m.id
+                 JOIN ratings r ON m.id = r.movie_id
+        WHERE s.person_id = #{id};
+    </select>
+    <select id="avgRatingOfDirectorMovies">
+        SELECT AVG(r.rating)
+        FROM directors d
+                 JOIN movies m ON d.movie_id = m.id
+                 JOIN ratings r ON m.id = r.movie_id
+        WHERE d.person_id = #{id};
+    </select>
+    <insert id="createRating" parameterType="Rating">
         INSERT INTO ratings (rating, votes, movie_id)
         VALUES (#{rating}, #{votes}, #{movie.id});
     </insert>
-    <update id="updateRating" parameterType = "Rating">
+    <update id="updateRating" parameterType="Rating">
         UPDATE ratings
-        SET rating = #{rating}, votes = #{votes}
-        WHERE movie_id=#{movie.id};
+        SET rating = #{rating},
+            votes  = #{votes}
+        WHERE movie_id = #{movie.id};
     </update>
-    <delete id = "deleteRating" parameterType = "long">
-        DELETE FROM ratings WHERE movie_id = #{id}
+    <delete id="deleteRating" parameterType="long">
+        DELETE
+        FROM ratings
+        WHERE movie_id = #{id}
     </delete>
 </mapper>
