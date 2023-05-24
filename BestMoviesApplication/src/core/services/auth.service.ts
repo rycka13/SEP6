@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from "src/model/user";
+import { Router } from "@angular/router";
+import { BehaviorSubject, Subject } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -7,17 +9,18 @@ import { User } from "src/model/user";
 export class AuthService {
   user: User = null;
 
-  constructor() {
+  isLoggedIn$: Subject<boolean> = new BehaviorSubject(false);
+
+  constructor(private router: Router) {
   }
 
-  isLoggedIn() {
-    return this.user !== null;
-  }
   hasLoggedInSuccessfully(user: User) {
+    this.isLoggedIn$.next(true);
     this.user = user;
   }
 
   hasLoggedOut() {
+    this.isLoggedIn$.next(false);
     this.user = null;
   }
 }

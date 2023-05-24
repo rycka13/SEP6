@@ -16,6 +16,7 @@ import { Router } from "@angular/router";
       <nb-layout-header fixed>
         <div class="left-container">
           <button
+            *ngIf="isLoggedIn"
             nbButton
             ghost
             shape="round"
@@ -46,7 +47,7 @@ import { Router } from "@angular/router";
             <nb-icon icon="log-out-outline"></nb-icon>
           </button>
         </div>
-        <a href="#" (click)="toggle()"><i class="nb-menu"></i></a>
+        <a href="#" *ngIf="isLoggedIn" (click)="toggle()"><i class="nb-menu"></i></a>
       </nb-layout-header>
       <nb-sidebar *ngIf="isLoggedIn">
         <nb-menu [items]="GENERAL_MENU_ITEMS"></nb-menu>
@@ -68,8 +69,9 @@ export class AppComponent {
               public authService: AuthService,
               private router: Router) {
 
-    // this.isLoggedIn = authService.isLoggedIn();
-    this.isLoggedIn = false;
+    authService.isLoggedIn$.subscribe(isLoggedIn => {
+      this.isLoggedIn = isLoggedIn;
+    })
 
     let indexOfItem = getIndexOfParent(PARENT_IDS.OVERALL_INFORMATION_ID);
     this.selectedItem = GENERAL_MENU_ITEMS[indexOfItem];

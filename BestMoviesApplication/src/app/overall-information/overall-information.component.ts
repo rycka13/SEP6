@@ -76,9 +76,12 @@ export class OverallInformationComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
 
-    if(!this.authService.isLoggedIn()) {
-      this.router.navigate([`/auth/login`]);
-    }
+    this.authService.isLoggedIn$.subscribe(isLoggedIn => {
+      if(!isLoggedIn) {
+        this.router.navigate([`/auth/login`]);
+      }
+    });
+
    //movies by year
     let date = new Date();
     this.YEAR_NOW = date.getUTCFullYear();
