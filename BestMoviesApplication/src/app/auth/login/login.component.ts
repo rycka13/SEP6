@@ -62,7 +62,7 @@ export class LoginComponent {
     }
   }
 
-  redirectToLoginPage() {
+  redirectToRegisterPage() {
     this.router.navigate([`/auth/register`]);
   }
 
