@@ -9,10 +9,9 @@ import { Injectable } from "@angular/core";
 export class FavoritesService {
 
   PATH_CONTROLLER = 'favorites';
-  ID = 'movieId';
 
   constructor(
-    private apiService: ApiService<Movie>
+    private apiService: ApiService<Movie[]>
   ) {
   }
 
@@ -51,7 +50,7 @@ export class FavoritesService {
     );
   }
 
-  getFavorites(username): Observable<Movie> {
+  getFavorites(username): Observable<Movie[]> {
     return this.apiService.get(`${this.PATH_CONTROLLER}/${username}`);
   }
 }
