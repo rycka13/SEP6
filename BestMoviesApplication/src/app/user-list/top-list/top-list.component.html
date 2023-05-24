@@ -1,3 +1,5 @@
+<ng-container *ngIf="isFetching$ | async; then dataFetching; else dataFetched">
+</ng-container>
 <ng-template #dataFetched>
   <div class="top-list">
     <div class="best-movies">
@@ -45,4 +47,11 @@
       </nb-card>
     </div>
   </div>
+</ng-template>
+
+<ng-template #dataFetching>
+  <nb-spinner
+    status="basic"
+    class="spinner">
+  </nb-spinner>
 </ng-template>

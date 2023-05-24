@@ -17,14 +17,18 @@ export class TopListComponent implements OnInit, OnDestroy{
   @Select(UserTopListMoviesSelector.isFetching)
   isFetching$: Observable<boolean>;
 
-  @Select(UserTopListMoviesSelector.isFetching)
+  @Select(UserTopListMoviesSelector.movies)
   movies$: Observable<Movie[]>;
 
   constructor(private store: Store,
               private router: Router) {
   }
   ngOnInit() {
-    this.store.dispatch(new UserTopListMoviesFetch());
+    this.store.dispatch(new UserTopListMoviesFetch()).subscribe(() => {
+      let movies = this.store.selectSnapshot(UserTopListMoviesSelector.movies);
+      console.log(movies);
+      }
+    );
   }
 
   redirectToMovieOverviewPage(movieId: number) {

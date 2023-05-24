@@ -48,9 +48,13 @@ export class UserTopListMoviesState {
 
     newState = produce(getState(), draft => {
       draft.isFetching = false;
-      draft.movies = [moviesMock[0]];
+      draft.movies = [
+        moviesMock[0], moviesMock[0], moviesMock[0],
+        moviesMock[0], moviesMock[0], moviesMock[0],
+        moviesMock[0], moviesMock[0], moviesMock[0]];
+      console.log(draft.movies);
     })
-    setState(newState);
+    return setState(newState);
 
 
     //TODO api still not implemented
