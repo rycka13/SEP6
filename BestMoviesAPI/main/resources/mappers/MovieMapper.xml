@@ -15,7 +15,9 @@
         FROM movies;
     </select>
     <select id="getMoviesByTitle" resultMap="result">
-        SELECT * FROM movies WHERE title LIKE CONCAT('%', #{title}, '%') LIMIT 10;
+        SELECT *
+        FROM movies
+        WHERE title LIKE CONCAT('%', #{title}, '%') LIMIT 10;
     </select>
     <select id="getMovieById" resultMap="result" parameterType="long">
         SELECT *
@@ -51,11 +53,15 @@
     </select>
 
     <select id="getNMoviesByYear" resultMap="result">
-        SELECT * FROM movies WHERE `year` = #{year} limit #{n};
+        SELECT *
+        FROM movies
+        WHERE `year` = #{year} limit #{n};
     </select>
 
     <select id="getMoviesByYear" resultMap="result">
-        SELECT * FROM movies WHERE `year` = #{year};
+        SELECT *
+        FROM movies
+        WHERE `year` = #{year};
     </select>
     <select id="getNMostPopularMovies" resultMap="result">
         SELECT m.id, m.title, m.`year`
@@ -76,7 +82,7 @@
         FROM movies
         WHERE `year` &lt; 2024
         ORDER BY `year` DESC
-        LIMIT ${(pageNum - 1) * limit}, #{limit}
+            LIMIT ${(pageNum - 1) * limit}, #{limit}
     </select>
 
     <select id="getNMostPopularMoviesByYear" resultMap="result">
@@ -88,6 +94,22 @@
             LIMIT #{n};
     </select>
 
+    <select id="avgRatingOfStarMovies">
+        SELECT AVG(r.rating)
+        FROM stars s
+                 JOIN movies m ON s.movie_id = m.id
+                 JOIN ratings r ON m.id = r.movie_id
+        WHERE s.person_id = #{id};
+    </select>
+
+    <select id="avgRatingOfDirectorMovies">
+        SELECT AVG(r.rating)
+        FROM directors d
+                 JOIN movies m ON d.movie_id = m.id
+                 JOIN ratings r ON m.id = r.movie_id
+        WHERE d.person_id = #{id};
+    </select>
+
     <insert id="createMovie" parameterType="Movie" useGeneratedKeys='true' keyProperty='id'>
         INSERT INTO movies (title, `year`)
         VALUES (#{title}, #{year});
@@ -95,8 +117,8 @@
 
     <update id="updateMovie" parameterType="Movie">
         UPDATE movies
-        SET title = #{title},
-            `year`  = #{year}
+        SET title  = #{title},
+            `year` = #{year}
         WHERE id = #{id};
     </update>
 
@@ -105,4 +127,6 @@
         FROM movies
         WHERE id = #{id}
     </delete>
+
+
 </mapper>

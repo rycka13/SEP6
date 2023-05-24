@@ -13,4 +13,5 @@ public interface IFavoritesMapper {
     void removeRatingFromMovie(long userId, long movieId);
     void removeMovieFromFavorites(long userId, long movieId);
     List<Movie> getFavorites(long userId);
+    Integer getRatingByMovieId(long userId, long movieId);
 }
