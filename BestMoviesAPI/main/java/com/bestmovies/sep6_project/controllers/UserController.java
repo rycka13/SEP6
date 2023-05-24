@@ -24,7 +24,9 @@ public class UserController {
         ResponseMessage responseMessage = userService.registerUser(user);
         switch (responseMessage) {
             case SUCCESS -> setResponse(response, true);
-            case WRONG_PASSWORD -> response.sendError(401, "Wrong password or user name/email");
+            case PASSWORD_ERROR -> response.sendError(401, "Password does not match");
+            case EXISTING_USERNAME -> response.sendError(401, "Account with this username already exists");
+            case EXISTING_EMAIL -> response.sendError(401, "Account with this email already exists");
             default -> response.sendError(500, "Internal server error");
         }
     }
@@ -35,7 +37,6 @@ public class UserController {
         switch (responseMessage) {
             case SUCCESS -> setResponse(response, true);
             case PASSWORD_ERROR -> response.sendError(401, "Make sure the password matches requirements");
-            case EXISTING_USER -> response.sendError(401, "User already exist");
             default -> response.sendError(500, "Internal server error");
         }
     }

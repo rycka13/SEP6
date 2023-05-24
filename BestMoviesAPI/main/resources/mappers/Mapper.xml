@@ -11,5 +11,6 @@
         <mapper resource = "mappers/RatingMapper.xml"/>
         <mapper resource = "mappers/StarMapper.xml"/>
         <mapper resource = "mappers/DirectorMapper.xml"/>
+        <mapper resource = "mappers/UserMapper.xml"/>
     </mappers>
 </configuration>
