@@ -55,7 +55,7 @@ export class AuthState {
       return setState(newState);
     }
 
-    const user: User = this.createUser(action.email, action.userName, action.firstName, action.lastName, action.password);
+    const user: User = this.createRegisterUser(action.email, action.userName, action.firstName, action.lastName, action.password);
     this.userService.register(user)
     .pipe(
       tap((response) => {
@@ -85,15 +85,23 @@ export class AuthState {
     {getState, setState, patchState}: StateContext<AccountStateModel>,
     action: AuthLogin) {
 
-    let currentState = getState();
-
-    let newState = produce(currentState, draft => {
+    let newState = produce(getState(), draft => {
       draft.isFetching = true;
     });
 
     setState(newState);
 
-    this.userService.login(action.user)
+    if(action.repeatedPassword !== action.password) {
+      this.toastrService.show("Password does not match", "Repeaed password and password do not match", {status: "warning"});
+      let newState = produce(getState(), draft => {
+        draft.isFetching = true;
+      });
+
+      return setState(newState);
+    }
+
+    const user: User = this.createLoginUser(action.userName, action.email, action.password);
+    this.userService.login(user)
     .pipe(
       tap((response) => {
         newState = produce(getState(), draft => {
@@ -117,13 +125,21 @@ export class AuthState {
     .subscribe();
   }
 
-  createUser(email: string, userName: string, password: string, firstName: string, lastName: string) {
+  createRegisterUser(email: string, userName: string, password: string, firstName: string, lastName: string) {
     return {
       email: email,
       userName: userName,
       password: password,
       firstName: firstName,
       lastName: lastName,
+    } as User;
+  }
+
+  createLoginUser(userName: string, email: string, password: string) {
+    return {
+      userName: userName,
+      email: email,
+      password: password,
     } as User;
   }
 

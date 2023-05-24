@@ -1,5 +1,3 @@
-import { User } from "src/model/user";
-
 export class AuthRegister {
   static readonly type = 'Account - Register';
   constructor(public email: string,
@@ -13,6 +11,9 @@ export class AuthRegister {
 
 export class AuthLogin {
   static readonly type = 'Account - Login';
-  constructor(public user: User) {
+  constructor(public userName: string,
+              public email: string,
+              public password: string,
+              public repeatedPassword: string) {
   }
 }

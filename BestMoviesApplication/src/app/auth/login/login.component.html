@@ -1,51 +1,39 @@
-<nb-card
-size="small">
-
-<!--  id: string;-->
-<!--  userName: string;-->
-<!--  email: string;-->
-<!--  firstName: string;-->
-<!--  lastName: string;-->
-<!--  password: string;-->
-  <nb-card-header>
-    Register
+<nb-card size="small" class="custom-card">
+  <nb-card-header class="card-header">
+    <h5>Login</h5>
   </nb-card-header>
-  <nb-card-body>
-<!--  [ngModel]="user">-->
-    <div>
-      <nb-icon
-        nbPrefix
-        icon="person-outline"
-        pack="eva">
-      </nb-icon>
-      <input
-        placeholder="username"
-        type="text"
-        [(ngModel)]="userName"
-        nbInput
-        status="primary"
-        fullWidth
-      >
+  <nb-card-body class="card-body">
+    <div class="form-row">
+      <nb-icon nbPrefix icon="person-outline" pack="eva"></nb-icon>
+      <input type="username" [(ngModel)]="userName" nbInput status="primary" placeholder="Username">
     </div>
-    <div>
-      <input [type]="getInputType()" nbInput>
-      <button nbSuffix nbButton ghost (click)="toggleShowPassword()">
-        <nb-icon [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'"
-                 pack="eva"
-                 [attr.aria-label]="showPassword ? 'hide password' : 'show password'">
-        </nb-icon>
-      </button>
+    <div class="form-row">
+      <nb-icon nbPrefix icon="email-outline" pack="eva"></nb-icon>
+      <input type="email" [(ngModel)]="email" nbInput status="primary" placeholder="Email">
     </div>
-
-
-<!--    TODO create inputs, add methods for showing / not showing password, make onSubmit user-->
-<!--    TODO make styling-->
-<!--    <input [type]="getInputType()" nbInput>-->
-<!--    <button nbSuffix nbButton ghost (click)="toggleShowPassword()">-->
-<!--      <nb-icon [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'"-->
-<!--               pack="eva"-->
-<!--               [attr.aria-label]="showPassword ? 'hide password' : 'show password'">-->
-<!--      </nb-icon>-->
-<!--    </button>-->
+    <div class="form-row">
+      <nb-icon nbPrefix icon="shield-outline" pack="eva"></nb-icon>
+      <div class="password">
+        <input [type]="getInputType(getCheckType().PASSWORD)" nbInput [(ngModel)]="password" status="primary" placeholder="Password">
+        <button nbSuffix nbButton ghost (click)="toggleShowPassword(getCheckType().PASSWORD)">
+          <nb-icon [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'" pack="eva" [attr.aria-label]="showPassword ? 'hide password' : 'show password'"></nb-icon>
+        </button>
+      </div>
+    </div>
+    <div class="form-row">
+      <nb-icon nbPrefix icon="shield-outline" pack="eva"></nb-icon>
+      <div class="password">
+        <input [type]="getInputType(getCheckType().REPEATED_PASSWORD)" nbInput [(ngModel)]="repeatPassword" status="primary" placeholder="Repeat password">
+        <button nbSuffix nbButton ghost (click)="toggleShowPassword(getCheckType().REPEATED_PASSWORD)">
+          <nb-icon [icon]="showRepeatedPassword ? 'eye-outline' : 'eye-off-2-outline'" pack="eva" [attr.aria-label]="showPassword ? 'hide password' : 'show password'"></nb-icon>
+        </button>
+      </div>
+    </div>
   </nb-card-body>
+  <nb-card-footer class="card-footer">
+    <button nbButton outline="true" status="control"
+            (click)="login()">
+      Login
+    </button>
+  </nb-card-footer>
 </nb-card>
