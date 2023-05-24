@@ -62,6 +62,10 @@ export class LoginComponent {
     }
   }
 
+  redirectToLoginPage() {
+    this.router.navigate([`/auth/register`]);
+  }
+
   //enums
   getCheckType() : typeof CheckType {
     return CheckType;
