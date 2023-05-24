@@ -83,8 +83,8 @@ public class IMovieMapperTest {
     @Test
     @Order(11)
     void getNMoviesByPageTest() {
-        List<Movie> movies = movieMapper.getNMoviesByPage(2, 2);
-        assertThat(objectToId(movies)).isEqualTo(List.of(3L, 4L));
+        List<Movie> movies = movieMapper.getNMoviesByPage(3, 2);
+        assertThat(objectToId(movies)).isEqualTo(List.of(5L));
     }
     @Test
     @Order(12)

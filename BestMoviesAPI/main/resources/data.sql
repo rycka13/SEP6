@@ -34,3 +34,12 @@ insert into stars(movie_id, person_id) values (3, 7);
 insert into stars(movie_id, person_id) values (4, 8);
 insert into stars(movie_id, person_id) values (5, 9);
 insert into stars(movie_id, person_id) values (5, 10);
+
+INSERT INTO users (username, f_name, l_name, email, password, salt) VALUES ('TestUser1', 'Test1', 'User1', 'test1email@gmail.com', '01205', '01205');
+INSERT INTO users (username, f_name, l_name, email, password, salt) VALUES ('TestUser2', 'Test2', 'User2', 'test2email@gmail.com', '01205', '01205');
+INSERT INTO users (username, f_name, l_name, email, password, salt) VALUES ('TestUser3', 'Test3', 'User3', 'test3email@gmail.com', '01205', '01205');
+
+INSERT INTO favorites (user_id, movie_id, rating) VALUES (1, 1, 10);
+INSERT INTO favorites (user_id, movie_id, rating) VALUES (1, 2, 5);
+INSERT INTO favorites (user_id, movie_id, rating) VALUES (2, 3, 10);
+INSERT INTO favorites (user_id, movie_id, rating) VALUES (2, 4, 7);

@@ -74,8 +74,9 @@
     <select id="getNMoviesByPage" resultMap="result">
         SELECT *
         FROM movies
-        ORDER BY id
-            LIMIT ${(pageNum - 1) * limit}, #{limit}
+        WHERE `year` &lt; 2024
+        ORDER BY `year` DESC
+        LIMIT ${(pageNum - 1) * limit}, #{limit}
     </select>
 
     <select id="getNMostPopularMoviesByYear" resultMap="result">

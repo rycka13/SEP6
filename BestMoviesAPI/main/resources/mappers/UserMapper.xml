@@ -35,7 +35,7 @@
         FROM users
         WHERE email = #{email};
     </select>
-    <insert id="registerUser" parameterType="User">
+    <insert id="registerUser" parameterType="User" useGeneratedKeys='true' keyProperty='id'>
         INSERT INTO users (username, f_name, l_name, email, password, salt)
         VALUES (#{userName}, #{firstName}, #{lastName}, #{email}, #{hashedPassword.hashedString},
                 #{hashedPassword.salt})
