@@ -6,9 +6,9 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface IUserMapper {
 
-    public User getUserByUsername(User user);
-    public User getUserById(User user);
-    public User getUserByEmail(User user);
-    public void registerUser(User user);
+    User getUserByUsername(String userName);
+    User getUserById(User user);
+    User getUserByEmail(User user);
+    void registerUser(User user);
 
 }
