@@ -60,13 +60,13 @@
                  [src]="movieInformation?.movie?.posterImage" [alt]="movieInformation?.movie?.title">
             <img *ngIf="!movieInformation?.movie?.posterImage"
                  src="../../../assets/no-poster-available.jpg" [alt]="movieInformation?.movie?.title">
-            <ng-container *ngIf="movieInformation.movie.description">
-              <p>
+            <ng-container *ngIf="movieInformation.movie">
+              <p *ngIf="movieInformation.movie.description">
                 {{ movieInformation.movie.description }}
               </p>
-            </ng-container>
-            <ng-container *ngIf="!movieInformation.movie.description">
-              There is no description for this movie.
+              <p *ngIf="!movieInformation.movie.description">
+                There is no description for this movie.
+              </p>
             </ng-container>
           </nb-card-body>
         </nb-card>
