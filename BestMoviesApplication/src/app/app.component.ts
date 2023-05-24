@@ -7,6 +7,7 @@ import {
 } from "src/core/helpers/helpers";
 import {GENERAL_MENU_ITEMS, PARENT_IDS} from "src/app/constants";
 import { AuthService } from "src/core/services/auth.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -29,7 +30,7 @@ import { AuthService } from "src/core/services/auth.service";
             nbButton
             ghost
             shape="round"
-            (click)="toggle()"
+            (click)="redirectToLoginPage()"
             nbTooltip="Log in"
           >
             <nb-icon icon="log-in-outline"></nb-icon>
@@ -40,7 +41,7 @@ import { AuthService } from "src/core/services/auth.service";
             ghost
             shape="round"
             nbTooltip="Log out"
-            (click)="toggle()"
+            (click)="logOut()"
           >
             <nb-icon icon="log-out-outline"></nb-icon>
           </button>
@@ -64,10 +65,11 @@ export class AppComponent {
   isLoggedIn: boolean = false;
   constructor(private sideBarService: NbSidebarService,
               private menu: NbMenuService,
-              public authService: AuthService) {
+              public authService: AuthService,
+              private router: Router) {
 
     // this.isLoggedIn = authService.isLoggedIn();
-    this.isLoggedIn = true;
+    this.isLoggedIn = false;
 
     let indexOfItem = getIndexOfParent(PARENT_IDS.OVERALL_INFORMATION_ID);
     this.selectedItem = GENERAL_MENU_ITEMS[indexOfItem];
@@ -91,5 +93,14 @@ export class AppComponent {
   toggle() {
     this.isToggled = !this.isToggled;
     this.sideBarService.toggle(true);
+  }
+
+  redirectToLoginPage() {
+    this.router.navigate([`/auth/login`]);
+  }
+
+  logOut() {
+    this.authService.hasLoggedOut();
+    this.router.navigate([`/auth/login`]);
   }
 }
