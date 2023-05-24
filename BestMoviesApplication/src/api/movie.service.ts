@@ -23,7 +23,7 @@ export class MovieService {
     return this.apiService
     .post(
       `${this.PATH_CONTROLLER}/save`,
-      {movie: {body: movie}}
+    movie
     );
   }
 
@@ -31,7 +31,7 @@ export class MovieService {
     return this.apiService
     .put(
       `${this.PATH_CONTROLLER}/${this.ID}/${movieId}`,
-      {movie: {body: movie}}
+     movie
     );
   }
 

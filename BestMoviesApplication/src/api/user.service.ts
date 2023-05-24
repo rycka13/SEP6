@@ -17,16 +17,16 @@ export class UserService {
   register(user): Observable<User> {
     return this.apiService
     .post(
-      `${this.PATH_CONTROLLER}/regiser`,
-      { user: { body: user } }
+      `${this.PATH_CONTROLLER}/register`,
+      user
     );
   }
 
   login(user): Observable<User> {
     return this.apiService
     .post(
-      `${this.PATH_CONTROLLER}/regiser`,
-      { user: { body: user } }
+      `${this.PATH_CONTROLLER}/login`,
+      user
     );
   }
 }
