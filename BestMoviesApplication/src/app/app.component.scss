@@ -1,0 +1,16 @@
+.left-container {
+  display: flex;
+  align-items: center;
+}
+
+.right-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+.left-container button,
+.right-container button {
+  margin-right: 10px; /* Adjust the margin as per your preference */
+}
