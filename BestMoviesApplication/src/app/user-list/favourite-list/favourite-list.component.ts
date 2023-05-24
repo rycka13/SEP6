@@ -5,6 +5,8 @@ import { Movie } from "src/model/movie";
 import { Router } from "@angular/router";
 import { UserFavouriteListMoviesFetch, UserFavouriteListMoviesReset } from "src/app/user-list/favourite-list/favourite-list.actions";
 import { UserFavouriteListMoviesSelector } from "src/app/user-list/favourite-list/favourite-list.selector";
+import { AuthService } from "src/core/services/auth.service";
+import { User } from "src/model/user";
 
 @Component({
   selector: 'app-favourite-list',
@@ -20,12 +22,20 @@ export class FavouriteListComponent implements OnInit, OnDestroy {
   @Select(UserFavouriteListMoviesSelector.movies)
   movies$: Observable<Movie[]>;
 
+  user: User = null;
+
   constructor(private store: Store,
-              private router: Router) {
+              private router: Router,
+              private authService: AuthService) {
   }
 
   ngOnInit() {
-    this.store.dispatch(new UserFavouriteListMoviesFetch());
+    this.authService.user$.subscribe(user => {
+      this.user = user;
+    })
+    if(this.user !== null) {
+      this.store.dispatch(new UserFavouriteListMoviesFetch(this.user.userName));
+    }
   }
 
   redirectToMovieOverviewPage(movieId: number) {

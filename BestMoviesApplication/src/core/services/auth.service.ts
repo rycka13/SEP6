@@ -22,6 +22,8 @@ export class AuthService {
 
   hasLoggedInSuccessfully(user: User) {
     this.isLoggedInSubject.next(true);
+    //setting password so we are not providing it
+    user.password = '';
     this.userInformation.next(user);
     localStorage.setItem('currentUser', JSON.stringify(user));
   }

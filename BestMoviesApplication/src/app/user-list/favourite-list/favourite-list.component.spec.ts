@@ -48,7 +48,7 @@ describe('app > user-list > favourite-list > favourite-list.component.spec.ts', 
       {
         provide: ApiService,
         useValue: {
-          show: jest.fn(),
+          get: jest.fn(),
         },
       },
       {

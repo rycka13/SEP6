@@ -8,6 +8,9 @@ import { AuthService } from "src/core/services/auth.service";
 import { User } from "src/model/user";
 import { moviesMock } from "src/util/mocks/movies_mock";
 import { UserFavouriteListMoviesFetch, UserFavouriteListMoviesReset } from "src/app/user-list/favourite-list/favourite-list.actions";
+import { catchError, tap } from "rxjs/operators";
+import { throwError } from "rxjs";
+import { FavoritesService } from "src/api/favorites.service";
 
 export interface UserFavouriteListMoviesStateModel {
   isFetching: boolean;
@@ -19,66 +22,48 @@ export const defaultsState: UserFavouriteListMoviesStateModel = {
   movies: [],
 }
 
-@State<UserFavouriteListMoviesStateModel>( {
+@State<UserFavouriteListMoviesStateModel>({
   name: 'userFavouriteListMoviesPage',
   defaults: defaultsState,
 })
 
 @Injectable()
 export class UserFavouriteListMoviesState {
-  user: User = null;
-
   constructor(
     private nbToastrService: NbToastrService,
-    private moviesService: MoviesService,
-    private authService: AuthService
+    private favoritesService: FavoritesService,
     //here the services used for getting date from backend are imported
   ) {
-    this.authService.user$.subscribe(user => {
-      this.user = user;
-    })
   }
 
   @Action(UserFavouriteListMoviesFetch)
   async userFavouriteListMoviesFetch(
-    {getState, setState}: StateContext<UserFavouriteListMoviesStateModel>) {
+    {getState, setState}: StateContext<UserFavouriteListMoviesStateModel>,
+    action: UserFavouriteListMoviesFetch) {
 
     let newState = produce(getState(), draft => {
       draft.isFetching = true;
     })
     setState(newState);
 
-    newState = produce(getState(), draft => {
-      draft.isFetching = false;
-      draft.movies = [
-        moviesMock[0], moviesMock[0], moviesMock[0],
-        moviesMock[0], moviesMock[0], moviesMock[0],
-        moviesMock[0], moviesMock[0], moviesMock[0]];
-      console.log(draft.movies);
-    })
-    return setState(newState);
-
-
-    //TODO api still not implemented
-    // this.moviesService.getNMostPopularMovies(this.user.userName)
-    // .pipe(
-    //   tap((movies: Movie[]) => {
-    //     newState = produce(getState(), draft => {
-    //       draft.movies = movies;
-    //       draft.isFetching = false;
-    //     });
-    //     setState(newState);
-    //   }),
-    //   catchError((error) => {
-    //     newState = produce(getState(), draft => {
-    //       draft.isFetching = false;
-    //     });
-    //     this.nbToastrService.show("API error", "Could not fetch top list of movies for you", { status: "danger"})
-    //     setState(newState);
-    //     return throwError(error);
-    //   })
-    // )
-    // .subscribe();
+    return this.favoritesService.getFavorites(action.userName)
+    .pipe(
+      tap((movies: Movie[]) => {
+        newState = produce(getState(), draft => {
+          draft.movies = movies;
+          draft.isFetching = false;
+        });
+        setState(newState);
+      }),
+      catchError((error) => {
+        newState = produce(getState(), draft => {
+          draft.isFetching = false;
+        });
+        this.nbToastrService.show("API error", "Could not fetch top list of movies for you", {status: "danger"})
+        setState(newState);
+        return throwError(error);
+      })
+    );
   }
 
   @Action(UserFavouriteListMoviesReset)
