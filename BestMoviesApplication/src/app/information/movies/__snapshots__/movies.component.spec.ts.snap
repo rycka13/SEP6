@@ -3,23 +3,90 @@
 exports[`app > information > movies > movies.component.spec.ts should match snapshot 1`] = `
 <app-movies
   __isFetching$__selector={[Function Observable]}
+  __isFiltered$__selector={[Function Observable]}
+  __movies$__selector={[Function Observable]}
   nbToastrService={[Function NbToastrService]}
   placeHolder={[Function String]}
   router={[Function Router]}
   store={[Function Store]}
 >
-  <nb-spinner
-    class="spinner size-medium status-basic"
-    status="basic"
+  <div
+    class="movie-information"
   >
-    <span
-      class="spin-circle"
-    />
-    <span
-      class="message"
-    >
-      Loading...
-    </span>
-  </nb-spinner>
+    <nb-card>
+      <nb-card-body>
+        <div
+          class="movies"
+        >
+          <nb-card>
+            <nb-card-header
+              class="header-information"
+            >
+              <span
+                class="title"
+              >
+                Movies
+              </span>
+              <div
+                class="right-side"
+              >
+                <bm-search />
+              </div>
+            </nb-card-header>
+            <nb-card-body>
+              <nb-list
+                class="movie-container"
+                role="list"
+              >
+              </nb-list>
+            </nb-card-body>
+            <nb-card-footer
+              class="footer-page"
+            >
+              <button
+                aria-disabled="false"
+                class="appearance-filled size-medium shape-rectangle icon-start icon-end status-primary"
+                nbbutton=""
+                nbtooltip="Load more movies"
+                status="primary"
+                tabindex="0"
+              >
+                <nb-icon
+                  icon="arrow-ios-downward-outline"
+                  pack="eva"
+                >
+                  <svg
+                    class="eva eva-arrow-ios-downward-outline"
+                    fill="currentColor"
+                    height="100%"
+                    viewBox="0 0 24 24"
+                    width="100%"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      data-name="Layer 2"
+                    >
+                      <g
+                        data-name="arrow-ios-downward"
+                      >
+                        <rect
+                          height="24"
+                          opacity="0"
+                          width="24"
+                        />
+                        <path
+                          d="M12 16a1 1 0 0 1-.64-.23l-6-5a1 1 0 1 1 1.28-1.54L12 13.71l5.36-4.32a1 1 0 0 1 1.41.15 1 1 0 0 1-.14 1.46l-6 4.83A1 1 0 0 1 12 16z"
+                        />
+                      </g>
+                    </g>
+                  </svg>
+                </nb-icon>
+              </button>
+            </nb-card-footer>
+          </nb-card>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
 </app-movies>
 `;

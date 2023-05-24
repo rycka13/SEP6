@@ -10,9 +10,10 @@ import { NEBULAR_MODULES, PROVIDERS, STATES } from "../../app.module";
 import { HttpClientModule } from "@angular/common/http";
 import { of } from "rxjs";
 import { MovieService } from "../../../api/movie.service";
+import { MoviesService } from "../../../api/movies.service";
 
 const movieServiceMock = {
-  getMovies: jest.fn().mockReturnValue(of([])),
+  getMoviesPerPage: jest.fn().mockReturnValue(of([])),
 };
 
 describe('app > information > movies > movies.component.spec.ts', () => {
@@ -32,7 +33,10 @@ describe('app > information > movies > movies.component.spec.ts', () => {
     providers: [
       ...PROVIDERS,
       Store,
-      { provide: MovieService, useValue: movieServiceMock },
+      {
+        provide: MoviesService,
+        useValue: movieServiceMock
+      },
     ],
   });
 
