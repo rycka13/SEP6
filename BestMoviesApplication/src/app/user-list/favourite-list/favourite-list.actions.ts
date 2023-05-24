@@ -1,6 +1,6 @@
 export class UserFavouriteListMoviesFetch {
   static readonly type = 'Favourite list - Fetching info';
-  constructor() {
+  constructor(public userName: string) {
   }
 }
 export class UserFavouriteListMoviesReset {
