@@ -136,25 +136,25 @@ export class MoviesOverviewState {
       draft.isFetching = true;
     })
     setState(newState);
-    //mock
+    // mock
     // directors.push(peopleMock[1], peopleMock[2]);
 
-    //real data
-    // return this.directorsService.(action.movieId).pipe(
-    //   tap(
-    //     (stars) => {
-    //       let currentState = getState();
-    //       let newState = produce(currentState, (draft) => {
-    //         draft.stars = stars;
-    //         draft.isFetching = false;
-    //       });
-    //       patchState(newState);
-    //     },
-    //     () => {
-    //       this.nbToastrService.show('API Error', 'Stars for movie could not be fetched', {status: 'danger'})
-    //     }
-    //   )
-    // );
+    // real data
+    return this.directorsService.getDirectorsByMovieId(action.movieId).pipe(
+      tap(
+        (directors) => {
+          let currentState = getState();
+          let newState = produce(currentState, (draft) => {
+            draft.directors = directors;
+            draft.isFetching = false;
+          });
+          patchState(newState);
+        },
+        () => {
+          this.nbToastrService.show('API Error', 'Stars for movie could not be fetched', {status: 'danger'})
+        }
+      )
+    );
   }
 
   @Action(MovieOverviewFetchRating)

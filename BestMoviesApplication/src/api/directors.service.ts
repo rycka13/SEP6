@@ -22,6 +22,10 @@ export class DirectorsService {
     return this.apiService.get(`${this.PATH_CONTROLLER}/name/${name}`);
   }
 
+  getDirectorsByMovieId(id): Observable<Director[]> {
+    return this.apiService.get(`${this.PATH_CONTROLLER}/movieId/${id}`);
+  }
+
   getDirectorsPerPage(pageNumber, pageSize): Observable<Director[]> {
     return this.apiService.get(`${this.PATH_CONTROLLER}/page/${pageNumber}/${pageSize}`);
   }
