@@ -17,40 +17,39 @@ public class FavoritesController {
     FavoritesService favoritesService;
 
     @RequestMapping(value = "/add/{username}/{movieId}", method = RequestMethod.POST)
-    public void addMoviesToFavorites(@PathVariable String username, @PathVariable long movieId, HttpServletResponse response){
+    public void addMoviesToFavorites(@PathVariable String username, @PathVariable long movieId, HttpServletResponse response) {
         setResponse(response, favoritesService.addMovieToFavorites(username, movieId));
     }
 
     @RequestMapping(value = "/add/{username}/{movieId}/{rating}", method = RequestMethod.POST)
-    public void addMoviesToFavoritesWithRating(@PathVariable String username, @PathVariable long movieId, @PathVariable int rating, HttpServletResponse response){
+    public void addMoviesToFavoritesWithRating(@PathVariable String username, @PathVariable long movieId, @PathVariable int rating, HttpServletResponse response) {
         setResponse(response, favoritesService.addMoviesToFavoritesWithRating(username, movieId, rating));
     }
 
     @RequestMapping(value = "/add/rating/{username}/{movieId}/{rating}", method = RequestMethod.POST)
-    public void addRatingToMovie(@PathVariable String username, @PathVariable long movieId, @PathVariable int rating, HttpServletResponse response){
+    public void addRatingToMovie(@PathVariable String username, @PathVariable long movieId, @PathVariable int rating, HttpServletResponse response) {
         setResponse(response, favoritesService.addRatingToMovie(username, movieId, rating));
     }
 
     @RequestMapping(value = "/remove/rating/{username}/{movieId}", method = RequestMethod.POST)
-    public void removeRatingFromMovie(@PathVariable String username, @PathVariable long movieId, HttpServletResponse response){
+    public void removeRatingFromMovie(@PathVariable String username, @PathVariable long movieId, HttpServletResponse response) {
         setResponse(response, favoritesService.removeRatingFromMovie(username, movieId));
     }
 
     @RequestMapping(value = "/remove/{username}/{movieId}", method = RequestMethod.POST)
-    public void removeMovieFromFavorites(@PathVariable String username, @PathVariable long movieId, HttpServletResponse response){
+    public void removeMovieFromFavorites(@PathVariable String username, @PathVariable long movieId, HttpServletResponse response) {
         setResponse(response, favoritesService.removeMovieFromFavorites(username, movieId));
     }
 
-    @RequestMapping(value = "/{username}",method = RequestMethod.GET)
-    List<Movie> getFavorites(@PathVariable String username){
+    @RequestMapping(value = "/{username}", method = RequestMethod.GET)
+    List<Movie> getFavorites(@PathVariable String username) {
         return favoritesService.getFavorites(username);
     }
 
-    public void setResponse(HttpServletResponse response, boolean success){
-        if(success){
+    public void setResponse(HttpServletResponse response, boolean success) {
+        if (success) {
             response.setStatus(HttpStatus.SC_OK);
-        }
-        else {
+        } else {
             response.setStatus(HttpStatus.SC_BAD_REQUEST);
         }
     }

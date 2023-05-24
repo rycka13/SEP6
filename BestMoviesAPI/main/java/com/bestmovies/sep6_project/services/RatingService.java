@@ -52,4 +52,16 @@ public class RatingService {
         }
         return null;
     }
+
+    public double avgRatingOfStarMovies(long id) {
+        if (id > 0) {
+            return ratingMapper.avgRatingOfStarMovies(id);
+        } else return -1;
+    }
+
+    public double avgRatingOfDirectorMovies(long id) {
+        if (id > 0) {
+            return ratingMapper.avgRatingOfDirectorMovies(id);
+        } else return -1;
+    }
 }

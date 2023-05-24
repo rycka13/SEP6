@@ -10,22 +10,39 @@
     <select id="getFavorites" resultMap="result">
         SELECT m.id, m.title, m.`year`, f.rating
         FROM favorites f
-        INNER JOIN movies m ON m.id = f.movie_id
+                 INNER JOIN movies m ON m.id = f.movie_id
         WHERE user_id = #{userId};
     </select>
+    <select id="getRatingByMovieId">
+        SELECT rating
+        FROM favorites
+        WHERE user_id = #{userId}
+          AND movie_id = #{movieId};
+    </select>
     <insert id="addMovieToFavorites">
-        INSERT INTO favorites (user_id, movie_id) VALUES (#{userId}, #{movieId});
+        INSERT INTO favorites (user_id, movie_id)
+        VALUES (#{userId}, #{movieId});
     </insert>
     <insert id="addMoviesToFavoritesWithRating">
-        INSERT INTO favorites (user_id, movie_id, rating) VALUES (#{userId}, #{movieId}, #{rating});
+        INSERT INTO favorites (user_id, movie_id, rating)
+        VALUES (#{userId}, #{movieId}, #{rating});
     </insert>
     <update id="addRatingToMovie">
-        UPDATE favorites SET rating = #{rating} WHERE user_id = #{userId} AND movie_id = #{movieId};
+        UPDATE favorites
+        SET rating = #{rating}
+        WHERE user_id = #{userId}
+          AND movie_id = #{movieId};
     </update>
     <update id="removeRatingFromMovie">
-        UPDATE favorites SET rating = NULL WHERE user_id = #{userId} AND movie_id = #{movieId};
+        UPDATE favorites
+        SET rating = NULL
+        WHERE user_id = #{userId}
+          AND movie_id = #{movieId};
     </update>
     <delete id="removeMovieFromFavorites">
-        DELETE FROM favorites WHERE movie_id = #{movieId} AND user_id = #{userId};
+        DELETE
+        FROM favorites
+        WHERE movie_id = #{movieId}
+          AND user_id = #{userId};
     </delete>
 </mapper>

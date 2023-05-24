@@ -15,7 +15,9 @@
         FROM movies;
     </select>
     <select id="getMoviesByTitle" resultMap="result">
-        SELECT * FROM movies WHERE title LIKE CONCAT('%', #{title}, '%') LIMIT 10;
+        SELECT *
+        FROM movies
+        WHERE title LIKE CONCAT('%', #{title}, '%') LIMIT 10;
     </select>
     <select id="getMovieById" resultMap="result" parameterType="long">
         SELECT *
@@ -51,11 +53,15 @@
     </select>
 
     <select id="getNMoviesByYear" resultMap="result">
-        SELECT * FROM movies WHERE `year` = #{year} limit #{n};
+        SELECT *
+        FROM movies
+        WHERE `year` = #{year} limit #{n};
     </select>
 
     <select id="getMoviesByYear" resultMap="result">
-        SELECT * FROM movies WHERE `year` = #{year};
+        SELECT *
+        FROM movies
+        WHERE `year` = #{year};
     </select>
     <select id="getNMostPopularMovies" resultMap="result">
         SELECT m.id, m.title, m.`year`
@@ -76,7 +82,7 @@
         FROM movies
         WHERE `year` &lt; 2024
         ORDER BY `year` DESC
-        LIMIT ${(pageNum - 1) * limit}, #{limit}
+            LIMIT ${(pageNum - 1) * limit}, #{limit}
     </select>
 
     <select id="getNMostPopularMoviesByYear" resultMap="result">
@@ -95,8 +101,8 @@
 
     <update id="updateMovie" parameterType="Movie">
         UPDATE movies
-        SET title = #{title},
-            `year`  = #{year}
+        SET title  = #{title},
+            `year` = #{year}
         WHERE id = #{id};
     </update>
 
@@ -105,4 +111,6 @@
         FROM movies
         WHERE id = #{id}
     </delete>
+
+
 </mapper>

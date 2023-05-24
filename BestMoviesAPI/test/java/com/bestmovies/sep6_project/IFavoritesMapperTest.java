@@ -22,46 +22,58 @@ public class IFavoritesMapperTest {
 
     @Test
     @Order(1)
-    void getFavoritesTest(){
+    void getFavoritesTest() {
         List<Movie> favorites = favoritesMapper.getFavorites(2);
         assertThat(Utils.objectToId(favorites)).isEqualTo(List.of(3L, 4L));
     }
+
     @Test
     @Order(2)
-    void addMoviesToFavoritesWithRatingTest(){
+    void addMoviesToFavoritesWithRatingTest() {
 
         favoritesMapper.addMoviesToFavoritesWithRating(3, 1, 10);
         List<Movie> favorites = favoritesMapper.getFavorites(3);
         assertThat(Utils.objectToId(favorites)).isEqualTo(List.of(1L));
     }
+
     @Test
     @Order(3)
-    void addRatingToMovieTest(){
+    void addRatingToMovieTest() {
 
         favoritesMapper.addRatingToMovie(3, 1, 9);
         List<Movie> favorites = favoritesMapper.getFavorites(3);
         assertThat(favorites.get(0).getUserRating()).isEqualTo(9);
     }
+
     @Test
     @Order(4)
-    void removeRatingFromMovieTest(){
+    void removeRatingFromMovieTest() {
         favoritesMapper.removeRatingFromMovie(3, 1);
         List<Movie> favorites = favoritesMapper.getFavorites(3);
         assertThat(favorites.get(0).getUserRating()).isNull();
     }
+
     @Test
     @Order(5)
-    void removeMovieFromFavoritesTest(){
+    void removeMovieFromFavoritesTest() {
         favoritesMapper.removeMovieFromFavorites(3, 1);
         List<Movie> favorites = favoritesMapper.getFavorites(3);
         assertThat(favorites).isEmpty();
     }
+
     @Test
     @Order(6)
-    void addMoviesToFavoritesTest(){
+    void addMoviesToFavoritesTest() {
         favoritesMapper.addMovieToFavorites(3, 1);
         List<Movie> favorites = favoritesMapper.getFavorites(3);
         assertThat(Utils.objectToId(favorites)).isEqualTo(List.of(1L));
         assertThat(favorites.get(0).getUserRating()).isNull();
+    }
+
+    @Test
+    @Order(7)
+    void getRatingByMovieIdTest() {
+        Integer rating = favoritesMapper.getRatingByMovieId(1, 1);
+        assertThat(rating).isEqualTo(10);
     }
 }

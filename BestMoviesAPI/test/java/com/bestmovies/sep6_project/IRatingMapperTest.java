@@ -64,4 +64,19 @@ public class IRatingMapperTest {
         assertThat(rating.getRating()).isEqualTo(10);
         assertThat(rating.getVotes()).isEqualTo(100);
     }
+    @Test
+    @Order(6)
+    void avgRatingOfStarMoviesTest() {
+        double avg = ratingMapper.avgRatingOfStarMovies(6);
+
+        assertThat(avg).isEqualTo(10);
+    }
+
+    @Test
+    @Order(7)
+    void avgRatingOfDirectorMoviesTest() {
+        double avg = ratingMapper.avgRatingOfDirectorMovies(1);
+
+        assertThat(avg).isEqualTo(10);
+    }
 }
