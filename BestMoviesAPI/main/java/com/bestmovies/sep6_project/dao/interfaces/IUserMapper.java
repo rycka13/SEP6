@@ -9,6 +9,6 @@ public interface IUserMapper {
     public User getUserByUsername(User user);
     public User getUserById(User user);
     public User getUserByEmail(User user);
-    public User registerUser(User user);
+    public void registerUser(User user);
 
 }

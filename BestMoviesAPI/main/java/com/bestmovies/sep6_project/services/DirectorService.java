@@ -75,6 +75,15 @@ public class DirectorService {
         return null;
     }
 
+    public List<Director> getDirectorsByMovieId(long movieId) {
+        if (movieId > 0){
+            List<Director> directors = directorMapper.getByMovieId(movieId);
+            setMultipleDirectorsPictures(directors);
+            return directors;
+        }
+        return null;
+    }
+
     public List<Director> getPageOfDirectors(int pageNr, int n) {
         if(pageNr>0 && n>0){
             List<Director> directors = directorMapper.getNDirectorsByPage(pageNr, n);

@@ -1,8 +1,8 @@
 package com.bestmovies.sep6_project.restclient;
 
 
-import com.bestmovies.sep6_project.model.external.MovieResult;
 import com.bestmovies.sep6_project.model.external.PersonResult;
+import com.bestmovies.sep6_project.model.external.movies.ExternalMovie;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import org.springframework.http.*;
@@ -31,7 +31,6 @@ public class RestClient {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        //Used only for getAllPersonsByName because it refuses API key (problem in tmdb)
         headers = new HttpHeaders();
         headers.add("Authorization","Bearer " + apiKey.getApi_bearer());
         headers.add("Content-Type","application/json");
@@ -46,11 +45,11 @@ public class RestClient {
         return new RestTemplate(factory);
     }
 
-    public MovieResult getAllMoviesByName(String movieName){
-        String uri = "https://api.themoviedb.org/3/search/movie?api_key=" + apiKey.getApi_key() + "&&query=\"" + movieName + "\"";
-        String result = template.getForObject(uri, String.class);
-        if(result != null){
-            return gson.fromJson(result, MovieResult.class);
+    public ExternalMovie getAllMoviesByName(long movieId){
+        String uri = "https://api.themoviedb.org/3/movie/tt" + movieId + "?language=en-US";
+        ResponseEntity<String> result = template.exchange(uri, HttpMethod.GET, httpEntity, String.class);
+        if(result.getStatusCode() == HttpStatus.OK){
+            return gson.fromJson(result.getBody(), ExternalMovie.class);
         }
         return null;
     }

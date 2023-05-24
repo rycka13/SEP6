@@ -36,7 +36,7 @@
           AND d.person_id IS NOT NULL;
     </select>
 
-    <select id="getByMovieId" resultMap="DirectorResultMap">
+    <select id="getByMovieId" resultMap="DirectorResultMapWithoutMovies">
         SELECT p.id as id, p.name, p.birth
         FROM people p
                  JOIN directors d ON p.id = d.person_id
