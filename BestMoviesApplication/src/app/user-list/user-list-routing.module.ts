@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserListComponent } from './user-list.component';
 import { TopListComponent } from "src/app/user-list/top-list/top-list.component";
+import { FavouriteListComponent } from "src/app/user-list/favourite-list/favourite-list.component";
 
 const routes: Routes = [
   {
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path:'top',
     component: TopListComponent,
+  },
+  {
+    path:'favourites',
+    component: FavouriteListComponent,
   }
   ];
 
