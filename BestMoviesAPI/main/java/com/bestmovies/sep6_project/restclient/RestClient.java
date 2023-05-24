@@ -66,9 +66,17 @@ public class RestClient {
 
     public PersonResult getAllPersonsByName(String personName){
         String uri = "https://api.themoviedb.org/3/search/person?query=" + "\"" + personName + "\"" + "&include_adult=false&language=en-US&page=1";
-        ResponseEntity<String> result = template.exchange(uri, HttpMethod.GET, httpEntity, String.class);
-        if(result.getStatusCode() == HttpStatus.OK){
-            return gson.fromJson(result.getBody(), PersonResult.class);
+        ResponseEntity<String> result;
+        try{
+            result = template.exchange(uri, HttpMethod.GET, httpEntity, String.class);
+        }
+        catch (Exception e){
+            result = null;
+        }
+        if(result != null) {
+            if (result.getStatusCode() == HttpStatus.OK) {
+                return gson.fromJson(result.getBody(), PersonResult.class);
+            }
         }
         return null;
     }

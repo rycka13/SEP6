@@ -6,7 +6,7 @@ public class ExternalMovie {
 
     private boolean adult;
     private String backdrop_path = null;
-    private String belongs_to_collection = null;
+    private MovieCollection belongs_to_collection = null;
     private float budget;
     ArrayList < Genre > genres = new ArrayList <> ();
     private String homepage;
@@ -41,7 +41,7 @@ public class ExternalMovie {
         return backdrop_path;
     }
 
-    public String getBelongs_to_collection() {
+    public MovieCollection getBelongs_to_collection() {
         return belongs_to_collection;
     }
 
@@ -127,7 +127,7 @@ public class ExternalMovie {
         this.backdrop_path = backdrop_path;
     }
 
-    public void setBelongs_to_collection(String belongs_to_collection) {
+    public void setBelongs_to_collection(MovieCollection belongs_to_collection) {
         this.belongs_to_collection = belongs_to_collection;
     }
 
