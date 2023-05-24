@@ -7,31 +7,33 @@ import { Injectable } from "@angular/core";
   providedIn: 'root'
 })
 export class AuthService {
-  user: User = null;
-
   private isLoggedInSubject: BehaviorSubject<boolean>;
+  private userInformation: BehaviorSubject<User>;
 
+  user$: Observable<User>;
   isLoggedIn$: Observable<boolean>;
 
   constructor(private router: Router) {
-    this.isLoggedInSubject = new BehaviorSubject<boolean>(this.isLoggedIn());
+    this.isLoggedInSubject = new BehaviorSubject<boolean>(!!this.isLoggedIn());
+    this.userInformation = new BehaviorSubject<User>(this.isLoggedIn());
     this.isLoggedIn$ = this.isLoggedInSubject.asObservable();
+    this.user$ = this.userInformation.asObservable();
   }
 
   hasLoggedInSuccessfully(user: User) {
     this.isLoggedInSubject.next(true);
-    this.user = user;
+    this.userInformation.next(user);
     localStorage.setItem('currentUser', JSON.stringify(user));
   }
 
   hasLoggedOut() {
     this.isLoggedInSubject.next(false);
-    this.user = null;
+    this.userInformation.next(null);
     localStorage.removeItem('currentUser');
   }
 
-  private isLoggedIn(): boolean {
+  private isLoggedIn(): User {
     const currentUser = localStorage.getItem('currentUser');
-    return !!currentUser;
+    return JSON.parse(currentUser);
   }
 }

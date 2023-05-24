@@ -34,7 +34,9 @@ export class UserTopListMoviesState {
     private authService: AuthService
     //here the services used for getting date from backend are imported
   ) {
-    this.user = this.authService.user;
+    this.authService.user$.subscribe(user => {
+      this.user = user;
+    })
   }
 
   @Action(UserTopListMoviesFetch)
