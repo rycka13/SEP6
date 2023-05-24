@@ -1,1 +1,48 @@
-<p>top-list works!</p>
+<ng-template #dataFetched>
+  <div class="overall-information">
+    <div class="best-movies">
+      <nb-card>
+        <nb-card-header>
+         <span class="title">
+            Top movies by your favorites
+         </span>
+        </nb-card-header>
+        <nb-card-body>
+          <nb-list
+            class="movie-container"
+            *ngIf="movies$ | async as movies"
+          >
+            <nb-list-item *ngFor="let movie of movies">
+              <nb-card size="medium" class="poster-movie">
+                <nb-card-header class="header-poster-movie">
+                  <div class="movie-title">{{ movie.title }}</div>
+                </nb-card-header>
+                <nb-card-body class="body-poster-movie">
+                  <div class="show-more-button">
+                    <button
+                      nbButton
+                      status="primary"
+                      (click)="redirectToMovieOverviewPage(movie.id)"
+                    >
+                      <nb-icon icon="film-outline"></nb-icon>
+                      Show more
+                    </button>
+                  </div>
+                  <img *ngIf="movie.posterImage"
+                       [src]="movie.posterImage" [alt]="movie.title">
+                  <img *ngIf="!movie.posterImage"
+                       src="../../../assets/no-poster-available.jpg" [alt]="movie.title">
+                </nb-card-body>
+                <nb-card-footer class="footer-poster-movie">
+                  <div>
+                    <span class="movie-year">Year of publication: {{ movie.year }}</span>
+                  </div>
+                </nb-card-footer>
+              </nb-card>
+            </nb-list-item>
+          </nb-list>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+</ng-template>
