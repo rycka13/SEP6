@@ -65,7 +65,6 @@ export const TOP_LIST_NGXS_CONFIG = [
     CommonModule,
 
     HttpClientModule,
-    RouterTestingModule.withRoutes([]),
     TOP_LIST_NEBULAR_COMPONENTS,
     TOP_LIST_NGXS_CONFIG,
   ],
