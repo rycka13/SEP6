@@ -1,21 +1,12 @@
 package com.bestmovies.sep6_project;
 
-import com.bestmovies.sep6_project.dao.interfaces.IStarMapper;
 import com.bestmovies.sep6_project.dao.interfaces.IUserMapper;
 import com.bestmovies.sep6_project.model.Hash.HashPair;
-import com.bestmovies.sep6_project.model.Movie;
-import com.bestmovies.sep6_project.model.Star;
 import com.bestmovies.sep6_project.model.User.User;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
-
-import static com.bestmovies.sep6_project.Utils.objectToId;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(properties = "spring.config.name=application-test")
