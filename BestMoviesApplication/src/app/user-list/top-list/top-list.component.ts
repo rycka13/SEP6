@@ -24,11 +24,7 @@ export class TopListComponent implements OnInit, OnDestroy{
               private router: Router) {
   }
   ngOnInit() {
-    this.store.dispatch(new UserTopListMoviesFetch()).subscribe(() => {
-      let movies = this.store.selectSnapshot(UserTopListMoviesSelector.movies);
-      console.log(movies);
-      }
-    );
+    this.store.dispatch(new UserTopListMoviesFetch());
   }
 
   redirectToMovieOverviewPage(movieId: number) {
