@@ -16,7 +16,8 @@ export const PAGE_GENERAL_TITLES = {
 }
 
 export const PAGE_USER_LIST_TITLES = {
-  //GENERAL MENU
+  //USER LIST MENU
+  FAVOURITE: 'Favourite movies',
   TOP: 'Top movies',
 }
 
@@ -48,9 +49,17 @@ export const INFORMATION_MENU_ITEMS: NbMenuItem[] = [
 
 export const USER_LIST_MENU_ITEMS: NbMenuItem[] = [
   {
+    title: PAGE_USER_LIST_TITLES.FAVOURITE,
+    link: 'user-list/favourites',
+    icon: 'star-outline',
+    data: {
+      id: 'user-favourite-list'
+    }
+  },
+  {
     title: PAGE_USER_LIST_TITLES.TOP,
     link: 'user-list/top',
-    icon: '',
+    icon: 'award-outline',
     data: {
       id: 'user-top-list'
     }
