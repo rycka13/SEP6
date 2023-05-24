@@ -7,7 +7,6 @@ import {Person} from "../../model/person";
 import {ColumnApi, GridApi} from "ag-grid-community";
 import {AgGridAngular} from "ag-grid-angular";
 import {Router} from "@angular/router";
-import {MoviesOverviewSelector} from "src/app/information/movies/movie-overview/movies-overview.selector";
 import {NbToastrService} from "@nebular/theme";
 import {randomNumberFromInterval} from "src/util/utils_functions";
 import {LoadEnum, SearchByEnum} from "src/app/overall-information/constants";
