@@ -1,1 +1,51 @@
-<strong>Hello</strong>
+<nb-card
+size="small">
+
+<!--  id: string;-->
+<!--  userName: string;-->
+<!--  email: string;-->
+<!--  firstName: string;-->
+<!--  lastName: string;-->
+<!--  password: string;-->
+  <nb-card-header>
+    Register
+  </nb-card-header>
+  <nb-card-body>
+<!--  [ngModel]="user">-->
+    <div>
+      <nb-icon
+        nbPrefix
+        icon="person-outline"
+        pack="eva">
+      </nb-icon>
+      <input
+        placeholder="username"
+        type="text"
+        [(ngModel)]="userName"
+        nbInput
+        status="primary"
+        fullWidth
+      >
+    </div>
+    <div>
+      <input [type]="getInputType()" nbInput>
+      <button nbSuffix nbButton ghost (click)="toggleShowPassword()">
+        <nb-icon [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'"
+                 pack="eva"
+                 [attr.aria-label]="showPassword ? 'hide password' : 'show password'">
+        </nb-icon>
+      </button>
+    </div>
+
+
+<!--    TODO create inputs, add methods for showing / not showing password, make onSubmit user-->
+<!--    TODO make styling-->
+<!--    <input [type]="getInputType()" nbInput>-->
+<!--    <button nbSuffix nbButton ghost (click)="toggleShowPassword()">-->
+<!--      <nb-icon [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'"-->
+<!--               pack="eva"-->
+<!--               [attr.aria-label]="showPassword ? 'hide password' : 'show password'">-->
+<!--      </nb-icon>-->
+<!--    </button>-->
+  </nb-card-body>
+</nb-card>

@@ -8,7 +8,7 @@ import { catchError, tap } from "rxjs/operators";
 import { Director } from "src/model/director";
 import { throwError } from "rxjs";
 import { PeopleStateModel } from "src/app/information/people/people.state";
-import { AccountLogin, AccountRegister } from "src/app/auth/account.actions";
+import { AuthLogin, AuthRegister } from "src/app/auth/auth.actions";
 import { HttpErrorResponse } from "@angular/common/http";
 
 export interface AccountStateModel {
@@ -32,10 +32,10 @@ export class MoviesState {
   ) {
   }
 
-  @Action(AccountRegister)
-  accountRegister(
+  @Action(AuthRegister)
+  authRegister(
     {getState, setState, patchState}: StateContext<AccountStateModel>,
-    action: AccountRegister) {
+    action: AuthRegister) {
 
     let currentState = getState();
 
@@ -69,10 +69,10 @@ export class MoviesState {
     .subscribe();
   }
 
-  @Action(AccountLogin)
-  accountLogin(
+  @Action(AuthLogin)
+  authLogin(
     {getState, setState, patchState}: StateContext<AccountStateModel>,
-    action: AccountLogin) {
+    action: AuthLogin) {
 
     let currentState = getState();
 

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Store } from "@ngxs/store";
 import { NbToastrService } from "@nebular/theme";
 import { AccountType, getAccountType } from "src/app/auth/constants/constants";
-import { AccountLogin, AccountRegister } from "src/app/auth/account.actions";
+import { AuthLogin, AuthRegister } from "src/app/auth/auth.actions";
 import { User } from "src/model/user";
 
 @Component({
@@ -12,31 +12,43 @@ import { User } from "src/model/user";
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
+  userName: string;
+  email: string;
+  firstName: string;
+  lastName: string;
 
-  accountType: AccountType;
+  password: string;
+  showPassword: boolean = false;
+
   constructor(
-    private route: ActivatedRoute,
     private store: Store,
-    private nbToastrService: NbToastrService,
     private router: Router) {
 
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      const accountType = params['type'];
-      this.accountType = getAccountType(accountType);
-    });
   }
 
-  doAction(accountType: AccountType) {
-    let user: User;
-    if(accountType === AccountType.REGISTER) {
-      this.store.dispatch(new AccountRegister(user));
+  register() {
+    let user: User = {
+      email: this.email,
+    userName: this.userName,
+    password: this.password,
+    firstName: this.firstName,
+    lastName: this.lastName,
+    };
+      this.store.dispatch(new AuthRegister(user));
+  }
+
+  getInputType() {
+    if(this.showPassword) {
+      return 'text';
     }
-    else if(accountType === AccountType.LOGIN) {
-      this.store.dispatch(new AccountLogin(user));
-    }
+    return 'password';
+  }
+
+  toggleShowPassword() {
+    this.showPassword = !this.showPassword;
   }
 
   createUser() {

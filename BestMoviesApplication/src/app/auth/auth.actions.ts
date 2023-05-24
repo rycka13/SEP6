@@ -1,12 +1,12 @@
 import { User } from "src/model/user";
 
-export class AccountRegister {
+export class AuthRegister {
   static readonly type = 'Account - Register';
   constructor(public user: User) {
   }
 }
 
-export class AccountLogin {
+export class AuthLogin {
   static readonly type = 'Account - Login';
   constructor(public user: User) {
   }
