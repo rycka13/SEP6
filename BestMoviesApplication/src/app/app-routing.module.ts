@@ -44,9 +44,13 @@ const routes: Routes = [
     redirectTo: '/overall-information',
     pathMatch: 'full'
   },
+  //lazy modules
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+  },
+  { path: 'user-list',
+    loadChildren: () => import('./user-list/user-list.module').then(m => m.UserListModule)
   },
   {
     path: '**',
