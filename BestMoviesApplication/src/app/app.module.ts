@@ -16,7 +16,7 @@ import {
   NbButtonModule,
   NbSpinnerModule,
   NbListModule,
-  NbSearchModule, NbInputModule, NbFormFieldModule, NbTooltipModule, NbSelectModule, NbTabsetModule
+  NbSearchModule, NbInputModule, NbFormFieldModule, NbTooltipModule, NbSelectModule, NbTabsetModule, NbPopoverModule
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { OverallInformationComponent } from './overall-information/overall-information.component';
@@ -132,6 +132,7 @@ export const NEBULAR_MODULES = [
     }),
     NgxsLoggerPluginModule.forRoot({disabled: environment.production}),
     NEBULAR_MODULES,
+    NbPopoverModule,
   ],
   providers: PROVIDERS,
   exports: [

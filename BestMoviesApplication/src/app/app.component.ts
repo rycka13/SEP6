@@ -8,6 +8,7 @@ import {
 import {GENERAL_MENU_ITEMS, PARENT_IDS} from "src/app/constants";
 import { AuthService } from "src/core/services/auth.service";
 import { Router } from "@angular/router";
+import { User } from "src/model/user";
 
 @Component({
   selector: 'app-root',
@@ -39,6 +40,22 @@ import { Router } from "@angular/router";
           <button
             *ngIf="isLoggedIn"
             nbButton
+          status="primary"
+          disabled>
+            <nb-icon
+              icon="person-outline"
+              pack="eva"
+            ></nb-icon>
+            <span *ngIf="user.userName">
+              {{ user.userName }}
+            </span>
+            <span *ngIf="user.email">
+              {{ user.email }}
+            </span>
+          </button>
+          <button
+            *ngIf="isLoggedIn"
+            nbButton
             ghost
             shape="round"
             nbTooltip="Log out"
@@ -64,16 +81,21 @@ export class AppComponent {
   selectedItem: any;
   isToggled = false;
   isLoggedIn: boolean = false;
+  user: User;
   constructor(private sideBarService: NbSidebarService,
               private menu: NbMenuService,
               public authService: AuthService,
               private router: Router) {
 
-    authService.isLoggedIn$.subscribe(isLoggedIn => {
+    this.authService.isLoggedIn$.subscribe(isLoggedIn => {
       if(!isLoggedIn) {
         this.router.navigate([`/auth/login`]);
       }
       this.isLoggedIn = isLoggedIn;
+    })
+
+    this.authService.user$.subscribe(user => {
+      this.user = user;
     })
 
     let indexOfItem = getIndexOfParent(PARENT_IDS.OVERALL_INFORMATION_ID);
