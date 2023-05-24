@@ -23,7 +23,7 @@ export const defaultsState: AccountStateModel = {
 }
 
 @State<AccountStateModel>({
-  name: 'accountPage',
+  name: 'authPage',
   defaults: defaultsState,
 })
 
