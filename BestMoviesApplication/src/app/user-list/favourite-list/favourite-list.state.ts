@@ -54,11 +54,12 @@ export class UserFavouriteListMoviesState {
       tap((movies: Movie[]) => {
         newState = produce(getState(), draft => {
           draft.movies = movies;
-          if(!action.isFilteringAction) {
-            this.movies = movies;
-          }
-          {
+          if(action.isFilteringAction) {
             draft.isFiltered = true;
+            console.log("xd")
+          }
+          else {
+            this.movies = movies;
           }
           draft.isFetching = false;
         });

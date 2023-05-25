@@ -54,7 +54,7 @@ export class FavouriteListComponent implements OnInit, OnDestroy {
   onSearch(event) {
     this.usersFavouriteMoviesPlaceholder = `You searched for ${event}'s favourite list`;
 
-    const isFilteringAction = event === this.user.userName;
+    const isFilteringAction = event !== this.user.userName;
     this.store.dispatch(new UserFavouriteListMoviesFetch(event, isFilteringAction))
   }
 
