@@ -80,6 +80,10 @@ nb-card {
       border-color: var(--menu-item-hover-text-color);
       border-width: 0px 0px 2px 0px;
       margin: 0px 0px 22px 0px;
+
+      h3 span {
+        color: var(--color-warning-300);
+      }
     }
 
     .movies {

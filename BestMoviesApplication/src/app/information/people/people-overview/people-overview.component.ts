@@ -2,13 +2,10 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Select, Store} from "@ngxs/store";
 import {NbToastrService} from "@nebular/theme";
-import {switchMap} from "rxjs/operators";
 import {Observable} from "rxjs";
 import {PeopleOverviewSelector} from "src/app/information/people/people-overview/people-overview.selector";
-import {Star} from "src/model/star";
-import {Director} from "src/model/director";
-import {Movie} from "src/model/movie";
 import {
+  PeopleOverviewFetchAverageRatingMovies,
   PeopleOverviewFetchInfo,
   PeopleOverviewReset
 } from "src/app/information/people/people-overview/people-overview.actions";
@@ -25,6 +22,9 @@ export class PeopleOverviewComponent implements OnInit, OnDestroy{
   //selectors observable ngxs
   @Select(PeopleOverviewSelector.isFetching)
   isFetching$: Observable<boolean>;
+
+  @Select(PeopleOverviewSelector.averageRatingOfMovies)
+  averageRatingOfMovies$: Observable<string>
 
   @Select(PeopleOverviewSelector.person)
   person$: Observable<Person>;
@@ -45,7 +45,12 @@ export class PeopleOverviewComponent implements OnInit, OnDestroy{
       const peopleType = params['peopleType'];
       const personId = params['personId'];
       this.peopleType = getPeopleType(peopleType);
-      this.store.dispatch(new PeopleOverviewFetchInfo(this.peopleType, Number(personId)));
+
+      let actionsInParallel = [
+        new PeopleOverviewFetchInfo(this.peopleType, Number(personId)),
+        new PeopleOverviewFetchAverageRatingMovies(this.peopleType, Number(personId))
+      ];
+      this.store.dispatch([...actionsInParallel]);
     });
   }
 

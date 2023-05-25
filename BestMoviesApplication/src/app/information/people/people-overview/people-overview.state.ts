@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { NbToastrService } from "@nebular/theme";
 import { produce } from "immer";
 import {
+  PeopleOverviewFetchAverageRatingMovies,
   PeopleOverviewFetchInfo,
   PeopleOverviewReset
 } from "src/app/information/people/people-overview/people-overview.actions";
@@ -14,14 +15,17 @@ import { Observable, throwError } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
 import { MoviesService } from "src/api/movies.service";
 import { Movie } from "src/model/movie";
+import {RatingService} from "src/api/rating.service";
 
 export interface PeopleOverviewStateModel {
   isFetching: boolean;
+  averageRatingOfMovies: string;
   person: Person;
 }
 
 export const defaultsState: PeopleOverviewStateModel = {
   isFetching: false,
+  averageRatingOfMovies: null,
   person: null,
 }
 
@@ -37,6 +41,7 @@ export class PeopleOverviewState {
     private directorService: DirectorService,
     private starService: StarService,
     private moviesService: MoviesService,
+    private ratingService: RatingService,
   ) {
   }
 
@@ -96,6 +101,47 @@ export class PeopleOverviewState {
     )
     .subscribe();
   }
+
+  @Action(PeopleOverviewFetchAverageRatingMovies)
+  async peopleOverviewFetchAverageRatingMovies(
+    {getState, setState}: StateContext<PeopleOverviewStateModel>,
+    action: PeopleOverviewFetchAverageRatingMovies
+  ) {
+    let newState = produce(getState(), (draft) => {
+      draft.isFetching = false;
+    });
+    setState(newState);
+
+    let number$: Observable<number>;
+
+    if (action.peopleType === PeopleType.STAR) {
+      number$ = this.ratingService.avgRatingOfStarMovies(action.personId);
+    } else if (action.peopleType === PeopleType.DIRECTOR) {
+      number$ = this.ratingService.avgRatingOfDirectorMovies(action.personId);
+    }
+
+    number$
+      .pipe(
+        tap((averageRating: number) => {
+          let fixedAverageRating = averageRating.toFixed(2);
+          newState = produce(getState(), (draft) => {
+            draft.isFetching = false;
+            draft.averageRatingOfMovies = fixedAverageRating;
+          });
+          setState(newState);
+        }),
+        catchError((error) => {
+          this.toastrService.show('danger', 'Fetching person information went wrong.');
+          newState = produce(getState(), (draft) => {
+            draft.isFetching = false;
+          });
+          setState(newState);
+          return throwError(error);
+        })
+      )
+      .subscribe();
+  }
+
 
   @Action(PeopleOverviewReset)
   async peopleReset(

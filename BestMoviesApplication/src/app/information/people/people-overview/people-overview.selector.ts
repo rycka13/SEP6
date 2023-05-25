@@ -11,6 +11,11 @@ export class PeopleOverviewSelector {
   }
 
   @Selector([PeopleOverviewState])
+  static averageRatingOfMovies(state: PeopleOverviewStateModel) {
+    return state.averageRatingOfMovies;
+  }
+
+  @Selector([PeopleOverviewState])
   static person(state: PeopleOverviewStateModel) {
     return state.person;
   }
