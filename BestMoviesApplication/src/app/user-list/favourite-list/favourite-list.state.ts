@@ -36,7 +36,7 @@ export class UserFavouriteListMoviesState {
   movies: Movie[] = [];
   constructor(
     private nbToastrService: NbToastrService,
-    private favoritesService: FavoritesService,
+    private favouritesService: FavoritesService,
   ) {
   }
 
@@ -50,7 +50,7 @@ export class UserFavouriteListMoviesState {
     })
     setState(newState);
 
-    return this.favoritesService.getFavorites(action.userName)
+    return this.favouritesService.getFavorites(action.userName)
     .pipe(
       tap((movies: Movie[]) => {
         newState = produce(getState(), draft => {
@@ -87,7 +87,7 @@ export class UserFavouriteListMoviesState {
     })
     setState(newState);
 
-    this.favoritesService.removeMovieFromFavorites(action.userName, action.movieId)
+    this.favouritesService.removeMovieFromFavorites(action.userName, action.movieId)
       .pipe(
         tap(() => {
           newState = produce(getState(), draft => {

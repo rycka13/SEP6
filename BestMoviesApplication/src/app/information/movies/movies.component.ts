@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Movie } from 'src/model/movie';
 import {
+  MoviesAddMovieToFavourites,
   MoviesFetchNextPage,
   MoviesReset,
   MoviesSearchReset,
@@ -11,6 +12,8 @@ import { MoviesSelector } from 'src/app/information/movies/movies.selector';
 import {Select, Store} from '@ngxs/store';
 import {Router} from "@angular/router";
 import { MoviePlaceHolderEnum } from "src/app/information/movies/constants/constants";
+import {AuthService} from "src/core/services/auth.service";
+import {User} from "src/model/user";
 
 @Component({
   selector: 'app-movies',
@@ -32,13 +35,21 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
   placeHolder = "Search title"
 
+  user: User = null;
+
   constructor(
     private store: Store,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
   ) {
   }
 
   ngOnInit() {
+
+    this.authService.user$.subscribe(user => {
+      this.user = user;
+    });
+
     this.placeHolder = MoviePlaceHolderEnum.MOVIE_PLACEHOLDER;
     this.store.dispatch(new MoviesFetchNextPage());
   }
@@ -59,6 +70,10 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
   redirectToMovieOverviewPage(movieId: number) {
     this.router.navigate([`/information/movies/${movieId}`]);
+  }
+
+  addMovieToFavourites(movieId: number) {
+    this.store.dispatch(new MoviesAddMovieToFavourites(this.user?.userName, movieId));
   }
 
   ngOnDestroy() {

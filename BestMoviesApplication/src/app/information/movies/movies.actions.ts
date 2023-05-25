@@ -4,6 +4,14 @@ export class MoviesFetchNextPage {
   }
 }
 
+export class MoviesAddMovieToFavourites {
+  static readonly type = 'Movies - Add movie to favourites';
+
+  constructor(public userName: string,
+              public movieId: number) {
+  }
+}
+
 export class MoviesReset {
   static readonly type = 'Movies - Reset';
   constructor() {

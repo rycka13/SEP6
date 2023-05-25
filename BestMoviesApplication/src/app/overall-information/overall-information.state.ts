@@ -50,7 +50,7 @@ export class OverAllInformationState {
   constructor(
     private nbToastrService: NbToastrService,
     private moviesService: MoviesService,
-    private favoritesService: FavoritesService,
+    private favouritesService: FavoritesService,
   ) {
   }
 
@@ -94,7 +94,7 @@ export class OverAllInformationState {
     })
     setState(newState);
 
-    this.favoritesService.addMoviesToFavorites(action.userName, action.movieId)
+    this.favouritesService.addMoviesToFavorites(action.userName, action.movieId)
       .pipe(
         tap(() => {
           newState = produce(getState(), draft => {
