@@ -47,7 +47,7 @@ nb-card-header {
           transition: opacity 0.3s ease;
           display: inline;
           text-align: center;
-          z-index: 1; /* Ensure the button is above the image */
+          z-index: 1;
 
           button {
             margin: 5px;

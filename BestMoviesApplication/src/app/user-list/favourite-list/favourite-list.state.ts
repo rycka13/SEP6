@@ -4,12 +4,14 @@ import { Injectable } from "@angular/core";
 import { NbToastrService } from "@nebular/theme";
 import { produce } from "immer";
 import {
+  UserFavouriteListMoviesRemoveMovieFromFavourites,
   UserFavouriteListMoviesFetch,
   UserFavouriteListMoviesReset, UserFavouriteListMoviesResetFiltering
 } from "src/app/user-list/favourite-list/favourite-list.actions";
 import { catchError, tap } from "rxjs/operators";
 import { throwError } from "rxjs";
 import { FavoritesService } from "src/api/favorites.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 export interface UserFavouriteListMoviesStateModel {
   isFetching: boolean;
@@ -35,7 +37,6 @@ export class UserFavouriteListMoviesState {
   constructor(
     private nbToastrService: NbToastrService,
     private favoritesService: FavoritesService,
-    //here the services used for getting date from backend are imported
   ) {
   }
 
@@ -74,6 +75,36 @@ export class UserFavouriteListMoviesState {
         return throwError(error);
       })
     );
+  }
+
+  @Action(UserFavouriteListMoviesRemoveMovieFromFavourites)
+  userFavouriteListMoviesAddMovieToFavourites(
+    {getState, setState}: StateContext<UserFavouriteListMoviesStateModel>,
+    action: UserFavouriteListMoviesRemoveMovieFromFavourites) {
+
+    let newState = produce(getState(), draft => {
+      draft.isFetching = true;
+    })
+    setState(newState);
+
+    this.favoritesService.removeMovieFromFavorites(action.userName, action.movieId)
+      .pipe(
+        tap(() => {
+          newState = produce(getState(), draft => {
+            draft.isFetching = false;
+          });
+          setState(newState);
+          window.location.reload();
+        }),
+        catchError((error: HttpErrorResponse) => {
+          newState = produce(getState(), draft => {
+            draft.isFetching = false;
+          });
+          setState(newState);
+          return throwError(error);
+        })
+      )
+      .subscribe();
   }
 
   @Action(UserFavouriteListMoviesResetFiltering)
