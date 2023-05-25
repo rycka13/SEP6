@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { NbToastrService } from "@nebular/theme";
 import { produce } from "immer";
 import {
+  PeopleOverviewFetchAverageRatingMovies,
   PeopleOverviewFetchInfo,
   PeopleOverviewReset
 } from "src/app/information/people/people-overview/people-overview.actions";
@@ -100,6 +101,46 @@ export class PeopleOverviewState {
     )
     .subscribe();
   }
+
+  @Action(PeopleOverviewFetchAverageRatingMovies)
+  async peopleOverviewFetchAverageRatingMovies(
+    {getState, setState}: StateContext<PeopleOverviewStateModel>,
+    action: PeopleOverviewFetchInfo
+  ) {
+    let newState = produce(getState(), (draft) => {
+      draft.isFetching = false;
+    });
+    setState(newState);
+
+    let number$: Observable<number>;
+
+    if (action.peopleType === PeopleType.STAR) {
+      number$ = this.ratingService.avgRatingOfStarMovies(action.personId);
+    } else if (action.peopleType === PeopleType.DIRECTOR) {
+      number$ = this.ratingService.avgRatingOfDirectorMovies(action.personId);
+    }
+
+    number$
+      .pipe(
+        tap((averageRating: number) => {
+          newState = produce(getState(), (draft) => {
+            draft.isFetching = false;
+            draft.averageRatingOfMovies = averageRating;
+          });
+          setState(newState);
+        }),
+        catchError((error) => {
+          this.toastrService.show('danger', 'Fetching person information went wrong.');
+          newState = produce(getState(), (draft) => {
+            draft.isFetching = false;
+          });
+          setState(newState);
+          return throwError(error);
+        })
+      )
+      .subscribe();
+  }
+
 
   @Action(PeopleOverviewReset)
   async peopleReset(
