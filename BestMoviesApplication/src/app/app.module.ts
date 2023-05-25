@@ -16,7 +16,7 @@ import {
   NbButtonModule,
   NbSpinnerModule,
   NbListModule,
-  NbSearchModule, NbInputModule, NbFormFieldModule, NbTooltipModule, NbSelectModule, NbTabsetModule, NbPopoverModule
+  NbSearchModule, NbInputModule, NbFormFieldModule, NbTooltipModule, NbSelectModule, NbTabsetModule, NbPopoverModule, NbDialogModule
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { OverallInformationComponent } from './overall-information/overall-information.component';
@@ -48,6 +48,7 @@ import { StarsService } from "src/api/stars.service";
 import { UserService } from "src/api/user.service";
 import { AuthService } from "src/core/services/auth.service";
 import { FavoritesService } from "src/api/favorites.service";
+import { FormsModule } from "@angular/forms";
 
 
 export const STATES = [
@@ -100,6 +101,7 @@ export const NEBULAR_MODULES = [
   NbSidebarModule.forRoot(),
   NbToastrModule.forRoot(),
   NbLayoutModule,
+  NbDialogModule.forRoot(),
   NbButtonModule,
   NbEvaIconsModule,
   NbActionsModule,
@@ -135,6 +137,7 @@ export const NEBULAR_MODULES = [
     }),
     NgxsLoggerPluginModule.forRoot({disabled: environment.production}),
     NEBULAR_MODULES,
+    FormsModule,
   ],
   providers: PROVIDERS,
   exports: [

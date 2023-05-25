@@ -17,8 +17,6 @@
           </li>
         </ul>
       </div>
-
-      <!--      TODO do rating with stars-->
       <div class="rating"
       *ngIf="movieInformation.movie !== null">
         <div class="item-in-rating"
@@ -45,7 +43,8 @@
 
         <div class="item-in-rating"
         *ngIf="movieInformation.movie.userRating"
-        nbTooltip="Click to change or remove rating">
+        nbTooltip="Click to change or remove rating"
+             (click)="open(dialogUserRating, getActionUserRatingEnum().REMOVE)">
           <p class="title-rating">Your rating</p>
           <p class="info-rating info-your-rating">
             <nb-icon
@@ -57,7 +56,8 @@
         </div>
         <div class="item-in-rating"
              *ngIf="!movieInformation.movie.userRating"
-        nbTooltip="Click to add rating">
+        nbTooltip="Click to add rating"
+             (click)="open(dialogUserRating, getActionUserRatingEnum().ADD)">
           <p class="title-rating">Your rating</p>
           <p class="info-rating info-your-rating">
             No rating given
@@ -163,8 +163,58 @@
       </nb-card>
     </nb-card-body>
   </nb-card>
-  <!--  TODO to be implemented-->
 </ng-template>
+
+<ng-template #dialogUserRating let-data let-ref="dialogRef">
+  <nb-card *ngIf="data.actionUserRating === getActionUserRatingEnum().REMOVE">
+    <nb-card-header>Change or remove rating</nb-card-header>
+    <nb-card-body *ngIf="movie$ | async as movie">
+      <div class="item-in-rating"
+           *ngIf="movie.userRating">
+        <p class="title-rating">Your rating</p>
+        <p class="info-rating info-your-rating">
+          <nb-icon
+            icon="star"
+            pack="eva"
+            status="info">
+          </nb-icon>
+          {{movie.userRating}} <span> / 10</span></p>
+      </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <button
+        nbButton
+        (click)="removeUserRating(ref)"
+      status="danger">
+        Remove
+      </button>
+    </nb-card-footer>
+  </nb-card>
+  <nb-card *ngIf="data.actionUserRating === getActionUserRatingEnum().ADD">
+    <nb-card-header>Change or remove rating</nb-card-header>
+    <nb-card-body *ngIf="movie$ | async as movie">
+      <div class="item-in-rating"
+           *ngIf="!movie.userRating">
+        <p class="title-rating">Your rating</p>
+        <p class="info-rating info-your-rating">
+          No rating given
+        </p>
+      </div>
+      <input
+        nbInput
+        [(ngModel)]="newMovieUserRating">
+    </nb-card-body>
+    <nb-card-footer>
+      <button
+        nbButton
+        (click)="addUserRating(ref)"
+        status="success">
+        Add
+      </button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+
 <ng-template #dataFetching>
   <nb-spinner
     status="basic"

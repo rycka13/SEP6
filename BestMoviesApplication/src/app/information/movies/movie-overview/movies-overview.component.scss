@@ -55,27 +55,16 @@ nb-card {
     .rating {
       display: inline-flex;
       gap: 20px;
-      .item-in-rating {
-        cursor: pointer;
-        .title-rating {
-          font-weight: bold;
-          margin-bottom: 0px;
-        }
 
-        .info-rating {
-          margin-top: 0px;
-          margin-bottom:0px;
-        }
+      .votes-rating {
+        margin-top: 0px;
+        font-style: italic;
+        font-weight: lighter;
+        text-align: center;
+      }
 
-        .votes-rating {
-          margin-top: 0px;
-          font-style: italic;
-          font-weight: lighter;
-          text-align: center;
-        }
-        .info-your-rating {
-          text-align: center;
-        }
+      .info-your-rating {
+        text-align: center;
       }
     }
   }
@@ -133,8 +122,10 @@ nb-card {
         border-color: var(--menu-item-hover-text-color);
         border-width: 0px 0px 2px 0px;
       }
+
       nb-card-body {
-        display:contents;
+        display: contents;
+
         nb-list {
           nb-list-item:hover {
             color: var(--color-info-300);
@@ -159,11 +150,12 @@ nb-card {
         padding-top: 22px;
         padding-bottom: 22px;
       }
+
       nb-list {
         nb-list-item:hover {
-            color: var(--color-info-300);
-            cursor: pointer;
-            text-decoration: underline;
+          color: var(--color-info-300);
+          cursor: pointer;
+          text-decoration: underline;
         }
       }
     }
@@ -198,11 +190,25 @@ nb-card {
       grid-area: right-content;
     }
     .grid-container {
-      grid-template-columns: repeat(2,400px);
+      grid-template-columns: repeat(2, 400px);
       grid-template-areas:
     "left-content left-content"
       "right-content right-content"
     }
+  }
+}
+
+.item-in-rating {
+  cursor: pointer;
+
+  .title-rating {
+    font-weight: bold;
+    margin-bottom: 0px;
+  }
+
+  .info-rating {
+    margin-top: 0px;
+    margin-bottom: 0px;
   }
 }
 

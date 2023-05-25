@@ -3,13 +3,14 @@ import { Action, State, StateContext } from "@ngxs/store";
 import { Injectable } from "@angular/core";
 import { NbToastrService } from "@nebular/theme";
 import {
+  MovieOverviewAddUserRating,
   MovieOverviewFetchBestMoviesTop,
   MovieOverviewFetchDirectors,
   MovieOverviewFetchInfo,
   MovieOverviewFetchMoviesFromSameYear,
   MovieOverviewFetchRating,
   MovieOverviewFetchSameRatingRange,
-  MovieOverviewFetchStars,
+  MovieOverviewFetchStars, MovieOverviewRemoveUserRating,
   MovieOverviewReset
 } from "src/app/information/movies/movie-overview/movies-overview.actions";
 import { produce } from "immer";
@@ -25,12 +26,15 @@ import { DirectorsService } from "src/api/directors.service";
 import { DirectorService } from "src/api/director.service";
 import { RatingsService } from "src/api/ratings.service";
 import { RatingService } from "src/api/rating.service";
-import { tap } from "rxjs/operators";
+import { catchError, tap } from "rxjs/operators";
 import { moviesMock } from "src/util/mocks/movies_mock";
 import { ratingsMock } from "src/util/mocks/ratings_mock";
+import { FavoritesService } from "src/api/favorites.service";
+import { throwError } from "rxjs";
 
 export interface MovieOverviewStateModel {
   isFetching: boolean;
+  isFetchingUserRatingAction: boolean;
   movie: Movie;
   rating: Rating;
   topMovies: Movie[];
@@ -42,6 +46,7 @@ export interface MovieOverviewStateModel {
 
 export const defaultsState: MovieOverviewStateModel = {
   isFetching: false,
+  isFetchingUserRatingAction: false,
   movie: null,
   rating: null,
   topMovies: [],
@@ -65,6 +70,7 @@ export class MoviesOverviewState {
     private starsService: StarsService,
     private starService: StarService,
     private directorsService: DirectorsService,
+    private favoritesService: FavoritesService,
     private directorService: DirectorService,
     private ratingsService: RatingsService,
     private ratingService: RatingService,
@@ -124,6 +130,75 @@ export class MoviesOverviewState {
    //     )
    //   );
    // }
+  }
+
+  @Action(MovieOverviewAddUserRating)
+  async movieOverviewAddUserRating(
+    {getState, setState, patchState}: StateContext<MovieOverviewStateModel>,
+    action: MovieOverviewAddUserRating) {
+
+    if(action.rating < 1 || action.rating > 10)
+    {
+      this.nbToastrService.show("Wrong rating", "Add rating between 0 and 10", { status:'warning'});
+      return;
+    }
+    let newState = produce(getState(), draft => {
+      draft.isFetching = true;
+    })
+    setState(newState);
+
+    return this.favoritesService.addRatingToMovie(action.userName, action.movieId, action.rating).
+    pipe(
+      tap(
+        (stars) => {
+          newState = produce(getState, (draft) => {
+            draft.isFetching = false;
+            draft.movie = { ...draft.movie, userRating: action.rating };
+          });
+          patchState(newState);
+        }),
+        catchError(error => {
+          this.nbToastrService.show('API Error', 'Could not update user rating for movie', {status: 'danger'})
+          newState = produce(getState, (draft) => {
+            draft.isFetching = false;
+          });
+          patchState(newState);
+          return throwError(error);
+        }
+      )
+    )
+  }
+
+  @Action(MovieOverviewRemoveUserRating)
+  async movieOverviewRemoveUserRating(
+    {getState, setState, patchState}: StateContext<MovieOverviewStateModel>,
+    action: MovieOverviewAddUserRating) {
+
+    let newState = produce(getState(), draft => {
+      draft.isFetching = true;
+    })
+    setState(newState);
+
+    return this.favoritesService.removeRatingFromMovie(action.userName, action.movieId).
+    pipe(
+      tap(
+        (stars) => {
+          newState = produce(getState, (draft) => {
+            draft.isFetching = false;
+            draft.movie = { ...draft.movie, userRating: null };
+          });
+          patchState(newState);
+        }),
+      catchError(error => {
+          this.nbToastrService.show('API Error', 'Could not remove user rating for movie', {status: 'danger'})
+          newState = produce(getState, (draft) => {
+            draft.isFetching = false;
+          });
+          patchState(newState);
+          return throwError(error);
+        }
+      )
+    )
   }
 
 
