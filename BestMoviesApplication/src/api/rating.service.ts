@@ -9,7 +9,8 @@ import { Observable } from "rxjs";
 export class RatingService {
 
   constructor (
-    private apiService: ApiService<Rating>
+    private apiService: ApiService<Rating>,
+    private apiServiceWithNumbers: ApiService<number>
   ) {}
 
   PATH_CONTROLLER = 'rating';
@@ -42,5 +43,13 @@ export class RatingService {
   deleteRating(ratingId): Observable<Rating>{
     return this.apiService
     .delete(`${this.PATH_CONTROLLER}/${ratingId}`);
+  }
+
+  avgRatingOfStarMovies(starId): Observable<number> {
+    return this.apiServiceWithNumbers.get(`${this.PATH_CONTROLLER}/star/avg/${starId}`);
+  }
+
+  avgRatingOfDirectorMovies(starId): Observable<number> {
+    return this.apiServiceWithNumbers.get(`${this.PATH_CONTROLLER}/director/avg/${starId}`);
   }
 }
