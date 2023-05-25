@@ -77,6 +77,7 @@ export const GENERAL_MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'My list of movies ',
+    icon: 'list-outline',
     children: USER_LIST_MENU_ITEMS,
     expanded: true,
     data: {
