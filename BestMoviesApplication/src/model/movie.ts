@@ -5,4 +5,5 @@ export interface Movie {
   posterImage: string;
   backgroundImage: string;
   description: string;
+  userRating: number;
 }
