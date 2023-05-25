@@ -106,6 +106,16 @@ public class MovieService {
         return null;
     }
 
+    public List<Movie> getTopFiveMoviesForPerson(long id) {
+        if (id > 0) {
+            List<Movie> movies = movieMapper.getTopFiveMoviesForPerson(id);
+            setMultipleMoviesImages(movies);
+            setMultipleMoviesDescriptions(movies);
+            return movies;
+        }
+        return null;
+    }
+
     public List<Movie> getNMoviesByYear(int year, int n) {
         if (year > 0 && n > 0) {
             List<Movie> movies = movieMapper.getNMoviesByYear(year, n);
