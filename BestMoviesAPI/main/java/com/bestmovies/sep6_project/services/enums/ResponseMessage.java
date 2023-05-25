@@ -8,5 +8,6 @@ public enum ResponseMessage {
     WRONG_USERNAME,
     WRONG_PASSWORD,
     INTERNAL_ERROR,
+    CREDENTIALS_ERROR,
     SUCCESS
 }

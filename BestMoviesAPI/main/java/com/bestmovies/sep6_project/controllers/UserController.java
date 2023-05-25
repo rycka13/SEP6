@@ -36,7 +36,7 @@ public class UserController {
         ResponseMessage responseMessage = userService.loginUser(user);
         switch (responseMessage) {
             case SUCCESS -> setResponse(response, true);
-            case PASSWORD_ERROR -> response.sendError(401, "Make sure the password matches requirements");
+            case CREDENTIALS_ERROR -> response.sendError(401, "Make sure the password matches requirements");
             default -> response.sendError(500, "Internal server error");
         }
     }
