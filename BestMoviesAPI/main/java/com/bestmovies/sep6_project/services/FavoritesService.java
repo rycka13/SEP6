@@ -31,8 +31,11 @@ public class FavoritesService {
         if (userName != null) {
             long userId = userMapper.getUserByUsername(userName).getId();
             if (userId > 0 && rating > 0 && rating < 11) {
-                favoritesMapper.addMoviesToFavoritesWithRating(userId, movieId, rating);
-                return true;
+                List<Movie> existingMovies = favoritesMapper.getFavorites(userId);
+                if (existingMovies.stream().noneMatch(m -> m.getId() == movieId)) {
+                    favoritesMapper.addMoviesToFavoritesWithRating(userId, movieId, rating);
+                    return true;
+                } else return addRatingToMovie(userName, movieId, rating);
             }
         }
         return false;
@@ -74,7 +77,7 @@ public class FavoritesService {
     public List<Movie> getFavorites(String userName) {
         if (userName != null) {
             User user = userMapper.getUserByUsername(userName);
-            if(user == null){
+            if (user == null) {
                 return null;
             }
             long userId = user.getId();
