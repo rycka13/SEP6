@@ -1,9 +1,3 @@
-export class PeopleFetchInfoFirstPage {
-  static readonly type = 'People - Fetching info for first page';
-  constructor() {
-  }
-}
-
 export class PeopleFetchStarsNextPage {
   static readonly type = 'People - Fetching stars for next page';
   constructor() {
