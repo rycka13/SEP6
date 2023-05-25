@@ -128,20 +128,13 @@ export class MoviesOverviewComponent implements OnInit, OnDestroy{
   }
 
   removeUserRating(ref: any) {
-    this.store.dispatch(new MovieOverviewRemoveUserRating(this.movieId, this.user?.userName)).pipe(
-        tap(() => {
-        ref.close();
-      })
-    );
+    this.store.dispatch(new MovieOverviewRemoveUserRating(this.movieId, this.user?.userName));
+    ref.close();
   }
 
   addUserRating(ref: any) {
-    this.store.dispatch(new MovieOverviewAddUserRating(this.movieId, this.user?.userName, this.newMovieUserRating))
-    .pipe(
-      tap(() => {
-        ref.close;
-      })
-    );
+    this.store.dispatch(new MovieOverviewAddUserRating(this.movieId, this.user?.userName, this.newMovieUserRating));
+    ref.close();
   }
 
   ngOnDestroy() {
