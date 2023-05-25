@@ -2,8 +2,6 @@ package com.bestmovies.sep6_project.services;
 
 import com.bestmovies.sep6_project.dao.interfaces.IDirectorMapper;
 import com.bestmovies.sep6_project.model.Director;
-import com.bestmovies.sep6_project.model.external.PersonResult;
-import com.bestmovies.sep6_project.restclient.RestClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,21 +12,18 @@ public class DirectorService {
 
     @Autowired
     private IDirectorMapper directorMapper;
-
     @Autowired
-    private RestClient restClient;
-
-    private final String pictureUrl = "https://image.tmdb.org/t/p/original";
+    private ServiceUtils utils;
 
     public List<Director> getAllDirectors() {
         List<Director> directors = directorMapper.getAll();
-        setMultipleDirectorsPictures(directors);
+        utils.setMultipleDirectorsPictures(directors);
         return directors;
     }
 
     public Director getDirectorById(long id) {
         Director director = directorMapper.getDirectorById(id);
-        setDirectorPicture(director);
+        utils.setDirectorPicture(director);
         return director;
     }
 
@@ -60,7 +55,7 @@ public class DirectorService {
     public List<Director> getDirectorsByBirth(int birth) {
         if (birth > 0){
             List<Director> directors = directorMapper.getDirectorsByBirth(birth);
-            setMultipleDirectorsPictures(directors);
+            utils.setMultipleDirectorsPictures(directors);
             return directors;
         }
         return null;
@@ -69,7 +64,7 @@ public class DirectorService {
     public List<Director> getDirectorsByName(String name) {
         if (name != null){
             List<Director> directors = directorMapper.getDirectorsByName(name);
-            setMultipleDirectorsPictures(directors);
+            utils.setMultipleDirectorsPictures(directors);
             return directors;
         }
         return null;
@@ -78,7 +73,7 @@ public class DirectorService {
     public List<Director> getDirectorsByMovieId(long movieId) {
         if (movieId > 0){
             List<Director> directors = directorMapper.getByMovieId(movieId);
-            setMultipleDirectorsPictures(directors);
+            utils.setMultipleDirectorsPictures(directors);
             return directors;
         }
         return null;
@@ -87,25 +82,9 @@ public class DirectorService {
     public List<Director> getPageOfDirectors(int pageNr, int n) {
         if(pageNr>0 && n>0){
             List<Director> directors = directorMapper.getNDirectorsByPage(pageNr, n);
-            setMultipleDirectorsPictures(directors);
+            utils.setMultipleDirectorsPictures(directors);
             return directors;
         }
         return null;
-    }
-
-    private void setDirectorPicture(Director director){
-        PersonResult personResult = restClient.getAllPersonsByName(director.getName());
-        if(personResult != null && !personResult.getResults().isEmpty()){
-            director.setProfilePicture(pictureUrl + personResult.getResults().get(0).getProfile_path());
-        }
-        else {
-            director.setProfilePicture(null);
-        }
-    }
-
-    private void setMultipleDirectorsPictures(List<Director> allDirectors){
-        for (Director d : allDirectors) {
-            setDirectorPicture(d);
-        }
     }
 }

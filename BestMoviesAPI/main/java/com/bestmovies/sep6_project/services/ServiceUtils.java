@@ -1,6 +1,9 @@
 package com.bestmovies.sep6_project.services;
 
+import com.bestmovies.sep6_project.model.Director;
 import com.bestmovies.sep6_project.model.Movie;
+import com.bestmovies.sep6_project.model.Star;
+import com.bestmovies.sep6_project.model.external.PersonResult;
 import com.bestmovies.sep6_project.model.external.movies.ExternalMovie;
 import com.bestmovies.sep6_project.restclient.RestClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +66,38 @@ public class ServiceUtils {
     public void setMultipleMoviesDescriptions(List<Movie> allMovies) {
         for (Movie m : allMovies) {
             setMovieDescription(m);
+        }
+    }
+
+    public void setDirectorPicture(Director director){
+        PersonResult personResult = restClient.getAllPersonsByName(director.getName());
+        if(personResult != null && !personResult.getResults().isEmpty()){
+            director.setProfilePicture(pictureUrl + personResult.getResults().get(0).getProfile_path());
+        }
+        else {
+            director.setProfilePicture(null);
+        }
+    }
+
+    public void setMultipleDirectorsPictures(List<Director> allDirectors){
+        for (Director d : allDirectors) {
+            setDirectorPicture(d);
+        }
+    }
+
+    public void setStarPicture(Star star){
+        PersonResult personResult = restClient.getAllPersonsByName(star.getName());
+        if(personResult != null && !personResult.getResults().isEmpty()){
+            star.setProfilePicture(pictureUrl + personResult.getResults().get(0).getProfile_path());
+        }
+        else {
+            star.setProfilePicture(null);
+        }
+    }
+
+    public void setMultipleStarsPictures(List<Star> allStars){
+        for (Star s : allStars) {
+            setStarPicture(s);
         }
     }
 }

@@ -1,9 +1,7 @@
 package com.bestmovies.sep6_project.services;
 
 import com.bestmovies.sep6_project.dao.interfaces.IStarMapper;
-import com.bestmovies.sep6_project.model.external.PersonResult;
 import com.bestmovies.sep6_project.model.Star;
-import com.bestmovies.sep6_project.restclient.RestClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,19 +13,17 @@ public class StarService {
     private IStarMapper starMapper;
 
     @Autowired
-    private RestClient restClient;
-
-    private final String pictureUrl = "https://image.tmdb.org/t/p/original";
+    private ServiceUtils utils;
 
     public List<Star> getAllStars(){
         List<Star> stars = starMapper.getAll();
-        setMultipleStarsPictures(stars);
+        utils.setMultipleStarsPictures(stars);
         return stars;
     }
 
     public Star getStarById(long id) {
         Star star = starMapper.getStarById(id);
-        setStarPicture(star);
+        utils.setStarPicture(star);
         return star;
     }
 
@@ -59,7 +55,7 @@ public class StarService {
     public List<Star> getByMovieId(long movieId){
         if(movieId > 0){
             List<Star> stars = starMapper.getByMovieId(movieId);
-            setMultipleStarsPictures(stars);
+            utils.setMultipleStarsPictures(stars);
             return stars;
         }
         return null;
@@ -68,7 +64,7 @@ public class StarService {
     public List<Star> getStarsByBirth(int birth){
         if(birth > 0){
             List<Star> stars = starMapper.getStarsByBirth(birth);
-            setMultipleStarsPictures(stars);
+            utils.setMultipleStarsPictures(stars);
             return stars;
         }
         return null;
@@ -77,7 +73,7 @@ public class StarService {
     public List<Star> getStarsByName(String name){
         if(name != null){
             List<Star> stars = starMapper.getStarsByName(name);
-            setMultipleStarsPictures(stars);
+            utils.setMultipleStarsPictures(stars);
             return stars;
         }
         return null;
@@ -94,25 +90,9 @@ public class StarService {
     public List<Star> getPageOfStars(int pageNr, int n) {
         if(pageNr>0 && n>0){
             List<Star> stars = starMapper.getNStarsByPage(pageNr, n);
-            setMultipleStarsPictures(stars);
+            utils.setMultipleStarsPictures(stars);
             return stars;
         }
         return null;
-    }
-
-    private void setStarPicture(Star star){
-        PersonResult personResult = restClient.getAllPersonsByName(star.getName());
-        if(personResult != null && !personResult.getResults().isEmpty()){
-            star.setProfilePicture(pictureUrl + personResult.getResults().get(0).getProfile_path());
-        }
-        else {
-            star.setProfilePicture(null);
-        }
-    }
-
-    private void setMultipleStarsPictures(List<Star> allStars){
-        for (Star s : allStars) {
-            setStarPicture(s);
-        }
     }
 }
