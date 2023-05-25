@@ -5,10 +5,12 @@ exports[`app > information > movies > movies-overview > movies-overview.componen
   TOP_SIZE_LIST={[Function Number]}
   __isFetching$__selector={[Function Observable]}
   alive={[Function Boolean]}
+  authService={[Function AuthService]}
   nbToastrService={[Function NbToastrService]}
   route={[Function ActivatedRoute]}
   router={[Function Router]}
   store={[Function Store]}
+  user="null"
 >
   <nb-spinner
     class="spinner size-medium status-basic"

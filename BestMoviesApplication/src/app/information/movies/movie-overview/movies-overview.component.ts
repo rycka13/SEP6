@@ -70,12 +70,13 @@ export class MoviesOverviewComponent implements OnInit, OnDestroy{
     this.authService.user$.subscribe(user => {
       this.user = user;
     });
+
     this.route.params
       .pipe(
         switchMap(params => {
           const movieId = params['movieId'];
           const initialActions = [
-            new MovieOverviewFetchInfo(movieId, this.user.userName),
+            new MovieOverviewFetchInfo(movieId, this.user?.userName),
             new MovieOverviewFetchRating(movieId),
             new MovieOverviewFetchDirectors(movieId),
             new MovieOverviewFetchStars(movieId),
