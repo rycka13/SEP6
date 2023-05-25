@@ -140,7 +140,7 @@ export class MoviesOverviewState {
     let rating = Number(action.rating);
     if(action.rating < 1 || action.rating > 10)
     {
-      this.nbToastrService.show("Wrong rating", "Add rating between 0 and 10", { status:'warning'});
+      this.nbToastrService.show("Wrong rating", "Add rating between 1 and 10", { status:'warning'});
       return;
     }
     else if(action.rating === undefined) {
