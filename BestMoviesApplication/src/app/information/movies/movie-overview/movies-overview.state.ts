@@ -17,7 +17,6 @@ import { produce } from "immer";
 import { Star } from "src/model/star";
 import { Director } from "src/model/director";
 import { Rating } from "src/model/rating";
-import { peopleMock } from "src/util/mocks/people_mock";
 import { MoviesService } from "src/api/movies.service";
 import { MovieService } from "src/api/movie.service";
 import { StarsService } from "src/api/stars.service";
@@ -27,7 +26,6 @@ import { DirectorService } from "src/api/director.service";
 import { RatingsService } from "src/api/ratings.service";
 import { RatingService } from "src/api/rating.service";
 import { catchError, tap } from "rxjs/operators";
-import { moviesMock } from "src/util/mocks/movies_mock";
 import { ratingsMock } from "src/util/mocks/ratings_mock";
 import { FavoritesService } from "src/api/favorites.service";
 import { throwError } from "rxjs";
@@ -79,57 +77,52 @@ export class MoviesOverviewState {
 
   @Action(MovieOverviewFetchInfo)
   movieOverviewFetchInfo(
-    {getState, patchState}: StateContext<MovieOverviewStateModel>,
+    {getState, setState}: StateContext<MovieOverviewStateModel>,
     action: MovieOverviewFetchInfo
   ) {
     let newState = produce(getState(), (draft) => {
-      //TODO uncomment when the api is working
-      // draft.isFetching = true;
-      draft.movie = moviesMock[0];
-      draft.rating = ratingsMock[0];
+      draft.isFetching = true;
     });
-    patchState(newState);
+    setState(newState);
 
-    //TODO uncomment when the api is working
-   // if(action.userName !== undefined) {
-   //   return this.movieService.getMovieByIdWithUserRating(action.movieId, action.userName).pipe(
-   //     tap(
-   //       (movie) => {
-   //         let currentState = getState();
-   //         let newState = produce(currentState, (draft) => {
-   //           draft.movie = movie;
-   //           draft.isFetching = false;
-   //         });
-   //         patchState(newState);
-   //       },
-   //       () => {
-   //         let newState = produce(getState(), (draft )=> {
-   //           //TODO will be removed
-   //           draft.movie = moviesMock[0];
-   //           draft.isFetching = false;
-   //         })
-   //         this.nbToastrService.show('API Error', 'Could not fetch movie with user rating', {status: "danger"})
-   //       }
-   //     )
-   //   );
-   // }
-   // else {
-   //   return this.movieService.getMovieById(action.movieId).pipe(
-   //     tap(
-   //       (movie) => {
-   //         let currentState = getState();
-   //         let newState = produce(currentState, (draft) => {
-   //           draft.movie = movie;
-   //           draft.isFetching = false;
-   //         });
-   //         patchState(newState);
-   //       },
-   //       () => {
-   //         this.nbToastrService.show('API Error', 'Could not fetch movie', {status: "danger"})
-   //       }
-   //     )
-   //   );
-   // }
+   if(action.userName !== undefined) {
+     return this.movieService.getMovieByIdWithUserRating(action.movieId, action.userName).pipe(
+       tap(
+         (movie) => {
+           let currentState = getState();
+           newState = produce(currentState, (draft) => {
+             draft.movie = movie;
+             draft.isFetching = false;
+           });
+           setState(newState);
+         },
+         () => {
+           newState = produce(getState(), (draft )=> {
+             draft.isFetching = false;
+           })
+           setState(newState);
+           this.nbToastrService.show('API Error', 'Could not fetch movie with user rating', {status: "danger"})
+         }
+       )
+     );
+   }
+   else {
+     return this.movieService.getMovieById(action.movieId).pipe(
+       tap(
+         (movie) => {
+           let currentState = getState();
+           newState = produce(currentState, (draft) => {
+             draft.movie = movie;
+             draft.isFetching = false;
+           });
+           setState(newState);
+         },
+         () => {
+           this.nbToastrService.show('API Error', 'Could not fetch movie', {status: "danger"})
+         }
+       )
+     );
+   }
   }
 
   @Action(MovieOverviewAddUserRating)
@@ -156,22 +149,29 @@ export class MoviesOverviewState {
     })
     setState(newState);
 
-    return this.favoritesService.addRatingToMovie(action.userName, action.movieId, action.rating).
+    return this.favoritesService.addMoviesToFavoritesWithRating(action.userName, action.movieId, action.rating).
     pipe(
       tap(
-        (stars) => {
-          newState = produce(getState, (draft) => {
+        () => {
+          newState = produce(getState(), (draft) => {
             draft.isFetching = false;
-            draft.movie = { ...draft.movie, userRating: action.rating };
           });
-          patchState(newState);
+          this.nbToastrService.show(
+            'If it was the time rated by you, it has been added in favourites list',
+            'Rating has been added successfully!',
+            {
+              status: "success"
+            }
+          )
+          setState(newState);
+          window.location.reload();
         }),
         catchError(error => {
           this.nbToastrService.show('API Error', 'Could not update user rating for movie', {status: 'danger'})
           newState = produce(getState, (draft) => {
             draft.isFetching = false;
           });
-          patchState(newState);
+          setState(newState);
           return throwError(error);
         }
       )
@@ -191,19 +191,26 @@ export class MoviesOverviewState {
     return this.favoritesService.removeRatingFromMovie(action.userName, action.movieId).
     pipe(
       tap(
-        (stars) => {
-          newState = produce(getState, (draft) => {
+        () => {
+          newState = produce(getState(), (draft) => {
             draft.isFetching = false;
-            draft.movie = { ...draft.movie, userRating: null };
           });
-          patchState(newState);
+          this.nbToastrService.show(
+            'You can still see the movie in the favourites list',
+            'Rating has been removed successfully!',
+            {
+              status: "success"
+            }
+          )
+          setState(newState);
+          window.location.reload();
         }),
       catchError(error => {
           this.nbToastrService.show('API Error', 'Could not remove user rating for movie', {status: 'danger'})
           newState = produce(getState, (draft) => {
             draft.isFetching = false;
           });
-          patchState(newState);
+          setState(newState);
           return throwError(error);
         }
       )
@@ -215,11 +222,6 @@ export class MoviesOverviewState {
   async movieOverviewFetchStars(
     {getState, setState, patchState}: StateContext<MovieOverviewStateModel>,
     action: MovieOverviewFetchStars) {
-
-    let newState = produce(getState(), draft => {
-      draft.isFetching = true;
-    })
-    setState(newState);
     //mock
     // stars.push(peopleMock[1], peopleMock[2], peopleMock[3]);
     //
@@ -230,7 +232,6 @@ export class MoviesOverviewState {
           let currentState = getState();
           let newState = produce(currentState, (draft) => {
             draft.stars = stars;
-            draft.isFetching = false;
           });
           patchState(newState);
         },
@@ -245,11 +246,6 @@ export class MoviesOverviewState {
   async movieOverviewFetchDirectors(
     {getState, setState, patchState}: StateContext<MovieOverviewStateModel>,
     action: MovieOverviewFetchDirectors) {
-
-    let newState = produce(getState(), draft => {
-      draft.isFetching = true;
-    })
-    setState(newState);
     // mock
     // directors.push(peopleMock[1], peopleMock[2]);
 
@@ -260,7 +256,6 @@ export class MoviesOverviewState {
           let currentState = getState();
           let newState = produce(currentState, (draft) => {
             draft.directors = directors;
-            draft.isFetching = false;
           });
           patchState(newState);
         },
@@ -277,28 +272,26 @@ export class MoviesOverviewState {
     action: MovieOverviewFetchRating) {
 
     const newState = produce(getState(), (draft) => {
-      //TODO un comment when api is working
-      // draft.isFetching = true;
+      draft.isFetching = true;
       draft.rating = ratingsMock[0];
     });
     patchState(newState);
 
-    //TODO uncomment when api is working
-    // return this.ratingService.getRatingByMovieId(action.movieId).pipe(
-    //   tap(
-    //     (rating) => {
-    //       let currentState = getState();
-    //       let newState = produce(currentState, (draft) => {
-    //         draft.rating = rating;
-    //         draft.isFetching = false;
-    //       });
-    //       patchState(newState);
-    //     },
-    //     () => {
-    //       this.nbToastrService.show('API Error', 'Getting rating for movie could not be fetched', {status: 'danger'})
-    //     }
-    //   )
-    // );
+    return this.ratingService.getRatingByMovieId(action.movieId).pipe(
+      tap(
+        (rating) => {
+          let currentState = getState();
+          let newState = produce(currentState, (draft) => {
+            draft.rating = rating;
+            draft.isFetching = false;
+          });
+          patchState(newState);
+        },
+        () => {
+          this.nbToastrService.show('API Error', 'Getting rating for movie could not be fetched', {status: 'danger'})
+        }
+      )
+    );
   }
 
   @Action(MovieOverviewFetchBestMoviesTop)
@@ -306,18 +299,12 @@ export class MoviesOverviewState {
     {getState, setState, patchState}: StateContext<MovieOverviewStateModel>,
     action: MovieOverviewFetchBestMoviesTop) {
 
-    const newState = produce(getState(), (draft) => {
-      draft.isFetching = true;
-    });
-    patchState(newState);
-
     return this.moviesService.getNMostPopularMovies(action.top).pipe(
       tap(
         (topMovies) => {
           let currentState = getState();
           let newState = produce(currentState, (draft) => {
             draft.topMovies = topMovies;
-            draft.isFetching = false;
           });
           patchState(newState);
         },
@@ -333,18 +320,12 @@ export class MoviesOverviewState {
     {getState, setState, patchState}: StateContext<MovieOverviewStateModel>,
     action: MovieOverviewFetchSameRatingRange) {
 
-    const newState = produce(getState(), (draft) => {
-      draft.isFetching = true;
-    });
-    patchState(newState);
-
     return this.moviesService.getNMoviesByRating(action.rating, action.listSize).pipe(
       tap(
         (topMoviesByRating) => {
           let currentState = getState();
           let newState = produce(currentState, (draft) => {
             draft.topMoviesByRating = topMoviesByRating;
-            draft.isFetching = false;
           });
           patchState(newState);
         },
@@ -360,18 +341,12 @@ export class MoviesOverviewState {
     {getState, setState, patchState}: StateContext<MovieOverviewStateModel>,
     action: MovieOverviewFetchMoviesFromSameYear) {
 
-    const newState = produce(getState(), (draft) => {
-      draft.isFetching = true;
-    });
-    patchState(newState);
-
     return this.moviesService.getNMoviesByYear(action.year, action.listSize).pipe(
       tap(
         (topMoviesByYear) => {
           let currentState = getState();
           let newState = produce(currentState, (draft) => {
             draft.topMoviesByYear = topMoviesByYear;
-            draft.isFetching = false;
           });
           patchState(newState);
         },
