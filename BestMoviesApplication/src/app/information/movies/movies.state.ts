@@ -2,7 +2,7 @@ import {Movie} from "../../../model/movie";
 import {Action, State, StateContext} from "@ngxs/store";
 import {Injectable} from "@angular/core";
 import {
-  MoviesFetchInfo, MoviesFetchNextPage,
+  MoviesFetchNextPage,
   MoviesReset, MoviesSearchReset, MoviesSearchTitle
 } from "./movies.actions";
 import {produce} from "immer";
@@ -39,44 +39,6 @@ export class MoviesState {
     private toastrService: NbToastrService,
     private moviesService: MoviesService,
   ) {
-  }
-
-  @Action(MoviesFetchInfo)
-  async moviesFetchInfo(
-    {getState, setState}: StateContext<MoviesStateModel>) {
-
-    let pageNumber = getState().pageNumber;
-
-    let newState = produce(getState(), draft => {
-      draft.isFetching = true;
-    });
-
-    setState(newState);
-
-    this.moviesService.getMoviesPerPage(pageNumber, this.initialPageSize)
-    .pipe(
-      tap(movies => {
-        newState = produce(getState(), draft => {
-          draft.movies = movies;
-          this.currentMovies = movies;
-          draft.isFetching = false;
-        });
-        setState(newState);
-      }),
-      catchError(error => {
-        this.toastrService.show(error, 'Fetching movies went wrong.', {status: 'danger'});
-        newState = produce(getState(), draft => {
-          draft.isFetching = false;
-        });
-        setState(newState);
-        return throwError(error);
-      })
-    )
-    .subscribe();
-
-    newState = produce(getState(), draft => {
-      draft.isFetching = false;
-    });
   }
 
   @Action(MoviesFetchNextPage)

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NbSearchService, NbTabComponent } from "@nebular/theme";
+import { NbTabComponent } from "@nebular/theme";
 import { Select, Store } from "@ngxs/store";
 import { Observable } from "rxjs";
 import { PeopleSelector } from "src/app/information/people/people.selector";
@@ -53,8 +53,7 @@ export class PeopleComponent implements OnInit, OnDestroy {
   alive: boolean = true;
 
   constructor(private store: Store,
-              private router: Router,
-              private searchService: NbSearchService) {
+              private router: Router) {
   }
 
   ngOnInit() {

@@ -7,7 +7,6 @@ exports[`app > information > people > people.component.spec.ts should match snap
   currentTabSelected="null"
   directorsPlaceholder={[Function String]}
   router={[Function Router]}
-  searchService={[Function NbSearchService]}
   starsPlaceholder={[Function String]}
   store={[Function Store]}
 >
