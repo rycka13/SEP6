@@ -10,6 +10,12 @@ export class PeopleFetchStarsNextPage {
   }
 }
 
+export class PeopleFetchAverageRatingMovies {
+  static readonly type = "People - Fetching average ratings on person's movies";
+  constructor() {
+  }
+}
+
 export class PeopleFetchDirectorsNextPage {
   static readonly type = 'People - Fetching directors for next page';
   constructor() {
