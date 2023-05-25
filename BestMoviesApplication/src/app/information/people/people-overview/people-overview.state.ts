@@ -51,7 +51,7 @@ export class PeopleOverviewState {
     action: PeopleOverviewFetchInfo
   ) {
     let newState = produce(getState(), (draft) => {
-      draft.isFetching = false;
+      draft.isFetching = true;
     });
     setState(newState);
 
@@ -108,7 +108,7 @@ export class PeopleOverviewState {
     action: PeopleOverviewFetchAverageRatingMovies
   ) {
     let newState = produce(getState(), (draft) => {
-      draft.isFetching = false;
+      draft.isFetching = true;
     });
     setState(newState);
 
