@@ -3,6 +3,7 @@ package com.bestmovies.sep6_project.services;
 import com.bestmovies.sep6_project.dao.interfaces.IFavoritesMapper;
 import com.bestmovies.sep6_project.dao.interfaces.IUserMapper;
 import com.bestmovies.sep6_project.model.Movie;
+import com.bestmovies.sep6_project.model.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -72,7 +73,11 @@ public class FavoritesService {
 
     public List<Movie> getFavorites(String userName) {
         if (userName != null) {
-            long userId = userMapper.getUserByUsername(userName).getId();
+            User user = userMapper.getUserByUsername(userName);
+            if(user == null){
+                return null;
+            }
+            long userId = user.getId();
             if (userId > 0) {
                 return favoritesMapper.getFavorites(userId);
             }
