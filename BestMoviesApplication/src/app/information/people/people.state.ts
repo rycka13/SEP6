@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { NbToastrService } from "@nebular/theme";
 import { produce } from "immer";
 import {
-  PeopleFetchDirectorsNextPage, PeopleFetchInfoFirstPage, PeopleFetchStarsNextPage,
+  PeopleFetchDirectorsNextPage, PeopleFetchStarsNextPage,
   PeopleReset, PeopleSearchDirectorsByName, PeopleSearchDirectorsReset,
   PeopleSearchStarsByName,
   PeopleSearchStarsReset
@@ -51,66 +51,6 @@ export class PeopleState {
     private starsService: StarsService,
     private directorsService: DirectorsService,
   ) {
-  }
-
-  @Action(PeopleFetchInfoFirstPage)
-  peopleFetchInfoFirstPage(
-    {getState, setState}: StateContext<PeopleStateModel>
-  ) {
-    let currentPageNumberStars = getState().pageNumberStars;
-    let currentPageNumberDirectors = getState().pageNumberDirectors;
-
-    let newState = produce(getState(), draft => {
-      draft.isFetching = true;
-    });
-
-    setState(newState);
-
-    this.starsService.getStarsPerPage(currentPageNumberStars, this.initialPageSize)
-    .pipe(
-      tap(stars => {
-        newState = produce(getState(), draft => {
-          draft.stars = stars;
-          this.currentStars = stars;
-        });
-        setState(newState);
-      }),
-      catchError(error => {
-        this.toastrService.show(error, 'Fetching stars went wrong.', {status: 'danger'});
-        newState = produce(getState(), draft => {
-          draft.isFetching = false;
-        });
-        setState(newState);
-        return throwError(error);
-      })
-    )
-    .subscribe();
-
-    this.directorsService.getDirectorsPerPage(currentPageNumberDirectors, this.initialPageSize)
-    .pipe(
-      tap(directors => {
-        newState = produce(getState(), draft => {
-          draft.directors = directors;
-          this.currentDirectors = directors;
-        });
-        setState(newState);
-      }),
-      catchError(error => {
-        this.toastrService.show(error, 'Fetching directors went wrong.', {status: 'danger'});
-        newState = produce(getState(), draft => {
-          draft.isFetching = false;
-        });
-        setState(newState);
-        return throwError(error);
-      })
-    )
-    .subscribe();
-
-    newState = produce(getState(), draft => {
-      draft.isFetching = false;
-    });
-
-    setState(newState);
   }
 
 
@@ -166,7 +106,7 @@ export class PeopleState {
     .pipe(
       tap(directors => {
         newState = produce(getState(), draft => {
-          let currentDirectors = draft.stars;
+          let currentDirectors = draft.directors;
           draft.directors = [...currentDirectors, ...directors];
           this.currentDirectors = draft.directors;
           draft.isFetching = false;
@@ -248,14 +188,20 @@ export class PeopleState {
     .pipe(
       tap((filteredDirectors: Director[]) => {
         if (!filteredDirectors || filteredDirectors.length === 0) {
+          newState = produce(getState(), draft => {
+            draft.isFetching = false;
+          });
+          setState(newState);
           this.toastrService.show('', 'There are no people that contain name ' + action.directorName, {status: 'info'});
         }
-        newState = produce(getState(), draft => {
-          draft.isFetching = false;
-          draft.directorsAreFiltered = true;
-          draft.directors = filteredDirectors;
-        });
-        setState(newState);
+        else {
+          newState = produce(getState(), draft => {
+            draft.isFetching = false;
+            draft.directorsAreFiltered = true;
+            draft.directors = filteredDirectors;
+          });
+          setState(newState);
+        }
       }),
       catchError(error => {
         this.toastrService.show(error, 'Fetching directors went wrong.', {status: 'danger'});

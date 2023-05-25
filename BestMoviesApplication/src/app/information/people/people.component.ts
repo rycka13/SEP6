@@ -1,13 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NbSearchService, NbTabComponent } from "@nebular/theme";
+import { NbTabComponent } from "@nebular/theme";
 import { Select, Store } from "@ngxs/store";
 import { Observable } from "rxjs";
 import { PeopleSelector } from "src/app/information/people/people.selector";
 import {
   PeopleFetchDirectorsNextPage,
-  PeopleFetchInfoFirstPage,
   PeopleFetchStarsNextPage,
-  PeopleReset,
+  PeopleReset, PeopleSearchDirectorsByName,
   PeopleSearchDirectorsReset,
   PeopleSearchStarsByName,
   PeopleSearchStarsReset
@@ -31,7 +30,7 @@ export class PeopleComponent implements OnInit, OnDestroy {
   @Select(PeopleSelector.starsAreFiltered)
   starsAreFiltered$: Observable<boolean>;
 
-  @Select(PeopleSelector.starsAreFiltered)
+  @Select(PeopleSelector.directorsAreFiltered)
   directorsAreFiltered$: Observable<boolean>;
 
   @Select(PeopleSelector.starsSize)
@@ -54,15 +53,18 @@ export class PeopleComponent implements OnInit, OnDestroy {
   alive: boolean = true;
 
   constructor(private store: Store,
-              private router: Router,
-              private searchService: NbSearchService) {
+              private router: Router) {
   }
 
   ngOnInit() {
     this.starsPlaceholder = PeoplePlaceHolderEnum.STARS_PLACEHOLDER;
     this.directorsPlaceholder = PeoplePlaceHolderEnum.DIRECTORS_PLACEHOLDER;
 
-    this.store.dispatch(new PeopleFetchInfoFirstPage());
+    let actionsInParallel = [
+      new PeopleFetchStarsNextPage(),
+      new PeopleFetchDirectorsNextPage(),
+    ]
+    this.store.dispatch([...actionsInParallel]);
   }
 
   onSearch(peopleType: PeopleType, event) {
@@ -71,7 +73,7 @@ export class PeopleComponent implements OnInit, OnDestroy {
       this.store.dispatch(new PeopleSearchStarsByName(event))
     } else if (peopleType === PeopleType.DIRECTOR) {
       this.directorsPlaceholder = event;
-      this.store.dispatch(new PeopleSearchStarsByName(event))
+      this.store.dispatch(new PeopleSearchDirectorsByName(event))
     }
   }
 

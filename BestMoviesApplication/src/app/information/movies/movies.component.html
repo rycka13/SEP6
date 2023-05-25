@@ -61,7 +61,7 @@
               </nb-list>
             </nb-card-body>
             <nb-card-footer class="footer-page">
-              <button nbButton status="primary" nbTooltip="Load more movies" (click)="loadNext()">
+              <button *ngIf="!(isFiltered$ | async)" nbButton status="primary" nbTooltip="Load more movies" (click)="loadNext()">
                 <nb-icon icon="arrow-ios-downward-outline" pack="eva"></nb-icon>
               </button>
             </nb-card-footer>

@@ -1,9 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NbSearchService, NbToastrService } from '@nebular/theme';
 import { Observable } from 'rxjs';
 import { Movie } from 'src/model/movie';
 import {
-  MoviesFetchInfo,
   MoviesFetchNextPage,
   MoviesReset,
   MoviesSearchReset,
@@ -36,14 +34,13 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store,
-    private router: Router,
-    private nbToastrService: NbToastrService
+    private router: Router
   ) {
   }
 
   ngOnInit() {
     this.placeHolder = MoviePlaceHolderEnum.MOVIE_PLACEHOLDER;
-    this.store.dispatch(new MoviesFetchInfo());
+    this.store.dispatch(new MoviesFetchNextPage());
   }
 
   loadNext() {
