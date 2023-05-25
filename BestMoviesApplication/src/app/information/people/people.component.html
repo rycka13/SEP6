@@ -62,7 +62,7 @@
                   </nb-list>
                 </nb-card-body>
                 <nb-card-footer class="footer-page">
-                  <button nbButton status="primary" nbTooltip="Load more stars" (click)="loadNext(getPeopleType().STAR)">
+                  <button *ngIf="!(starsAreFiltered$ | async)" nbButton status="primary" nbTooltip="Load more stars" (click)="loadNext(getPeopleType().STAR)">
                     <nb-icon icon="arrow-ios-downward-outline" pack="eva"></nb-icon>
                   </button>
                 </nb-card-footer>
@@ -126,7 +126,7 @@
                   </nb-list>
                 </nb-card-body>
                 <nb-card-footer class="footer-page">
-                  <button nbButton status="primary" nbTooltip="Load more directors" (click)="loadNext(getPeopleType().DIRECTOR)">
+                  <button *ngIf="!(directorsAreFiltered$ | async)" nbButton status="primary" nbTooltip="Load more directors" (click)="loadNext(getPeopleType().DIRECTOR)">
                     <nb-icon icon="arrow-ios-downward-outline" pack="eva"></nb-icon>
                   </button>
                 </nb-card-footer>
