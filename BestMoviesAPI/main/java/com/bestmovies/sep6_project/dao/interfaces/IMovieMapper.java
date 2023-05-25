@@ -19,6 +19,8 @@ public interface IMovieMapper {
 
     List<Movie> getAllMoviesForStar(long id);
 
+    List<Movie> getTopFiveMoviesForPerson(long id);
+
     List<Movie> getNMoviesByYear(int year, int n);
 
     List<Movie> getMoviesByYear(int year);
