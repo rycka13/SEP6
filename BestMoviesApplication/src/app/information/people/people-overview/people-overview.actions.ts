@@ -9,7 +9,8 @@ export class PeopleOverviewFetchInfo {
 
 export class PeopleOverviewFetchAverageRatingMovies {
   static readonly type = "People - Fetching average ratings on person's movies";
-  constructor() {
+  constructor(public peopleType: PeopleType,
+              public personId: number) {
   }
 }
 

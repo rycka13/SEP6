@@ -35,10 +35,10 @@
 
       <div class="border">
         <h3 *ngIf="this.peopleType === getPeopleTypeEnum().DIRECTOR">
-          Movies {{ person.name }} directed
+          Movies {{ person.name }} directed in, with average rating of <span *ngIf="averageRatingOfMovies$ | async as averageRating"> {{ averageRating }}</span>
         </h3>
         <h3 *ngIf="this.peopleType === getPeopleTypeEnum().STAR">
-          Movies {{ person.name }} played in
+          Movies {{ person.name }} played in, with average rating of <span *ngIf="averageRatingOfMovies$ | async as averageRating"> {{ averageRating }}</span>
         </h3>
       </div>
 

@@ -19,13 +19,13 @@ import {RatingService} from "src/api/rating.service";
 
 export interface PeopleOverviewStateModel {
   isFetching: boolean;
-  averageRatingOfMovies: number;
+  averageRatingOfMovies: string;
   person: Person;
 }
 
 export const defaultsState: PeopleOverviewStateModel = {
   isFetching: false,
-  averageRatingOfMovies: -1,
+  averageRatingOfMovies: null,
   person: null,
 }
 
@@ -105,7 +105,7 @@ export class PeopleOverviewState {
   @Action(PeopleOverviewFetchAverageRatingMovies)
   async peopleOverviewFetchAverageRatingMovies(
     {getState, setState}: StateContext<PeopleOverviewStateModel>,
-    action: PeopleOverviewFetchInfo
+    action: PeopleOverviewFetchAverageRatingMovies
   ) {
     let newState = produce(getState(), (draft) => {
       draft.isFetching = false;
@@ -123,9 +123,10 @@ export class PeopleOverviewState {
     number$
       .pipe(
         tap((averageRating: number) => {
+          let fixedAverageRating = averageRating.toFixed(2);
           newState = produce(getState(), (draft) => {
             draft.isFetching = false;
-            draft.averageRatingOfMovies = averageRating;
+            draft.averageRatingOfMovies = fixedAverageRating;
           });
           setState(newState);
         }),
