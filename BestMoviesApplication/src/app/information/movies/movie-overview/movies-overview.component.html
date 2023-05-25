@@ -18,16 +18,16 @@
         </ul>
       </div>
       <div class="rating"
-      *ngIf="movieInformation.movie !== null">
+           *ngIf="movieInformation.movie !== null">
         <div class="item-in-rating"
-        nbTooltip="Best movies rating"
+             nbTooltip="Best movies rating"
              *ngIf="movieInformation.rating">
           <p class="title-rating">BM Rating</p>
           <p class="info-rating">
             <nb-icon
               icon="star"
               pack="eva"
-            status="warning">
+              status="warning">
             </nb-icon>
             {{movieInformation.rating.rating}} <span>/ 10</span></p>
           <p class="votes-rating"> {{ movieInformation.rating.votes }} votes</p>
@@ -42,21 +42,21 @@
         </div>
 
         <div class="item-in-rating"
-        *ngIf="movieInformation.movie.userRating"
-        nbTooltip="Click to change or remove rating"
+             *ngIf="movieInformation.movie.userRating"
+             nbTooltip="Click to change or remove rating"
              (click)="open(dialogUserRating, getActionUserRatingEnum().REMOVE)">
           <p class="title-rating">Your rating</p>
           <p class="info-rating info-your-rating">
             <nb-icon
               icon="star"
               pack="eva"
-            status="info">
+              status="info">
             </nb-icon>
             {{movieInformation.movie.userRating}} <span>/ 10</span></p>
         </div>
         <div class="item-in-rating"
              *ngIf="!movieInformation.movie.userRating"
-        nbTooltip="Click to add rating"
+             nbTooltip="Click to add rating"
              (click)="open(dialogUserRating, getActionUserRatingEnum().ADD)">
           <p class="title-rating">Your rating</p>
           <p class="info-rating info-your-rating">
@@ -167,9 +167,15 @@
 
 <ng-template #dialogUserRating let-data let-ref="dialogRef">
   <nb-card *ngIf="data.actionUserRating === getActionUserRatingEnum().REMOVE">
-    <nb-card-header>Change or remove rating</nb-card-header>
-    <nb-card-body *ngIf="movie$ | async as movie">
-      <div class="item-in-rating"
+    <nb-card-header class="header-dialog">
+      <h6> Change or remove rating</h6>
+    </nb-card-header>
+    <nb-card-body
+      class="body-dialog"
+    *ngIf="movie$ | async as movie">
+      <div
+        style="cursor: default;"
+        class="item-in-rating"
            *ngIf="movie.userRating">
         <p class="title-rating">Your rating</p>
         <p class="info-rating info-your-rating">
@@ -181,30 +187,36 @@
           {{movie.userRating}} <span> / 10</span></p>
       </div>
     </nb-card-body>
-    <nb-card-footer>
+    <nb-card-footer
+    class="footer-dialog">
       <button
         nbButton
         (click)="removeUserRating(ref)"
-      status="danger">
+        status="danger">
         Remove
       </button>
     </nb-card-footer>
   </nb-card>
   <nb-card *ngIf="data.actionUserRating === getActionUserRatingEnum().ADD">
-    <nb-card-header>Change or remove rating</nb-card-header>
-    <nb-card-body *ngIf="movie$ | async as movie">
-      <div class="item-in-rating"
+    <nb-card-header class="header-dialog">
+      <h6>Add rating</h6>
+    </nb-card-header>
+    <nb-card-body
+      class="body-dialog"
+      *ngIf="movie$ | async as movie">
+      <div
+        style="cursor: default;"
+        class="item-in-rating"
            *ngIf="!movie.userRating">
-        <p class="title-rating">Your rating</p>
-        <p class="info-rating info-your-rating">
-          No rating given
-        </p>
+        <p class="title-rating">No rating given</p>
       </div>
-      <input
+      <input class="dialog-input-add-rating"
         nbInput
+             placeholder="Add rating 1-10"
         [(ngModel)]="newMovieUserRating">
     </nb-card-body>
-    <nb-card-footer>
+    <nb-card-footer
+    class="footer-dialog">
       <button
         nbButton
         (click)="addUserRating(ref)"

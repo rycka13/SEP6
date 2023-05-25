@@ -212,6 +212,27 @@ nb-card {
   }
 }
 
+.header-dialog {
+  align-self: center;
+  h6 {
+    margin-bottom: 10px;
+  }
+}
+
+.body-dialog {
+  align-self: center;
+  text-align: center;
+  padding: 5px;
+
+  .dialog-input-add-rating {
+    margin: 10px;
+  }
+}
+
+.footer-dialog {
+  align-self: center;
+}
+
 .undefined-item {
   list-style-type: none;
 }

@@ -137,9 +137,18 @@ export class MoviesOverviewState {
     {getState, setState, patchState}: StateContext<MovieOverviewStateModel>,
     action: MovieOverviewAddUserRating) {
 
+    let rating = Number(action.rating);
     if(action.rating < 1 || action.rating > 10)
     {
       this.nbToastrService.show("Wrong rating", "Add rating between 0 and 10", { status:'warning'});
+      return;
+    }
+    else if(action.rating === undefined) {
+      this.nbToastrService.show("Wrong rating", "You didn't add any rating", { status:'warning'});
+      return;
+    }
+    else if(isNaN(rating)) {
+      this.nbToastrService.show("Wrong rating", "Please add a number", { status:'warning'});
       return;
     }
     let newState = produce(getState(), draft => {

@@ -6,6 +6,8 @@ exports[`app > information > movies > movies-overview > movies-overview.componen
   __isFetching$__selector={[Function Observable]}
   alive={[Function Boolean]}
   authService={[Function AuthService]}
+  movieId="undefined"
+  nbDialogService={[Function NbDialogService]}
   nbToastrService={[Function NbToastrService]}
   route={[Function ActivatedRoute]}
   router={[Function Router]}
