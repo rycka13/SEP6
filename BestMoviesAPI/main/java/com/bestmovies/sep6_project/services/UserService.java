@@ -27,7 +27,7 @@ public class UserService {
                     return ResponseMessage.SUCCESS;
                 }
                 else{
-                    return ResponseMessage.WRONG_PASSWORD;
+                    return ResponseMessage.CREDENTIALS_ERROR;
                 }
             }
             if(user.getEmail() != null){
@@ -37,7 +37,7 @@ public class UserService {
                     return ResponseMessage.SUCCESS;
                 }
                 else{
-                    return ResponseMessage.WRONG_PASSWORD;
+                    return ResponseMessage.CREDENTIALS_ERROR;
                 }
             }
         }
