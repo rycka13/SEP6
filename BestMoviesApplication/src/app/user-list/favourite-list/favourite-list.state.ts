@@ -2,23 +2,24 @@ import { Movie } from "src/model/movie";
 import { Action, State, StateContext } from "@ngxs/store";
 import { Injectable } from "@angular/core";
 import { NbToastrService } from "@nebular/theme";
-import { MoviesService } from "src/api/movies.service";
 import { produce } from "immer";
-import { AuthService } from "src/core/services/auth.service";
-import { User } from "src/model/user";
-import { moviesMock } from "src/util/mocks/movies_mock";
-import { UserFavouriteListMoviesFetch, UserFavouriteListMoviesReset } from "src/app/user-list/favourite-list/favourite-list.actions";
+import {
+  UserFavouriteListMoviesFetch,
+  UserFavouriteListMoviesReset, UserFavouriteListMoviesResetFiltering
+} from "src/app/user-list/favourite-list/favourite-list.actions";
 import { catchError, tap } from "rxjs/operators";
 import { throwError } from "rxjs";
 import { FavoritesService } from "src/api/favorites.service";
 
 export interface UserFavouriteListMoviesStateModel {
   isFetching: boolean;
+  isFiltered: boolean;
   movies: Movie[];
 }
 
 export const defaultsState: UserFavouriteListMoviesStateModel = {
   isFetching: false,
+  isFiltered: false,
   movies: [],
 }
 
@@ -29,6 +30,8 @@ export const defaultsState: UserFavouriteListMoviesStateModel = {
 
 @Injectable()
 export class UserFavouriteListMoviesState {
+
+  movies: Movie[] = [];
   constructor(
     private nbToastrService: NbToastrService,
     private favoritesService: FavoritesService,
@@ -51,6 +54,13 @@ export class UserFavouriteListMoviesState {
       tap((movies: Movie[]) => {
         newState = produce(getState(), draft => {
           draft.movies = movies;
+          if(action.isFilteringAction) {
+            draft.isFiltered = true;
+            console.log("xd")
+          }
+          else {
+            this.movies = movies;
+          }
           draft.isFetching = false;
         });
         setState(newState);
@@ -65,6 +75,24 @@ export class UserFavouriteListMoviesState {
       })
     );
   }
+
+  @Action(UserFavouriteListMoviesResetFiltering)
+  async userFavouriteListMoviesResetFiltering(
+    {getState, setState}: StateContext<UserFavouriteListMoviesStateModel>) {
+
+    let newState = produce(getState(), draft => {
+      draft.isFetching = true;
+    })
+    setState(newState);
+
+    newState = produce(getState(), draft => {
+      draft.isFetching = false;
+      draft.isFiltered = false;
+      draft.movies = this.movies;
+    });
+    setState(newState);
+  }
+
 
   @Action(UserFavouriteListMoviesReset)
   async userFavouriteListMoviesReset(

@@ -8,6 +8,15 @@
          <span class="title">
              Favourite list of movies
          </span>
+          <div class="right-side">
+            <bm-search
+              (searchEvent)="onSearch($event)"
+              (resetSearch)="resetSearch()"
+              [isFiltered]="isFiltered$ | async"
+              [placeHolder]="usersFavouriteMoviesPlaceholder"
+            >
+            </bm-search>
+          </div>
         </nb-card-header>
         <nb-card-body>
           <nb-list

@@ -8,6 +8,11 @@ export class UserFavouriteListMoviesSelector {
   }
 
   @Selector([UserFavouriteListMoviesState])
+  static isFiltered(state: UserFavouriteListMoviesStateModel) {
+    return state.isFiltered;
+  }
+
+  @Selector([UserFavouriteListMoviesState])
   static movies(state: UserFavouriteListMoviesStateModel) {
     return state.movies;
   }

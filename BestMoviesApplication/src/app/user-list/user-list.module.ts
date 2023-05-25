@@ -21,11 +21,13 @@ import { AuthService } from "src/core/services/auth.service";
 import { ApiService } from "src/core/services/api.service";
 import { FavouriteListComponent } from './favourite-list/favourite-list.component';
 import { UserFavouriteListMoviesState } from "src/app/user-list/favourite-list/favourite-list.state";
-
+import { RouterModule } from "@angular/router";
+import { SharedModule } from "src/app/shared/shared.module";
 
 export const TOP_LIST_COMPONENTS = [
   UserListComponent,
-  TopListComponent
+  TopListComponent,
+  FavouriteListComponent,
 ]
 
 export const TOP_LIST_NEBULAR_COMPONENTS = [
@@ -57,11 +59,11 @@ export const TOP_LIST_NGXS_CONFIG = [
 @NgModule({
   declarations: [
     TOP_LIST_COMPONENTS,
-    FavouriteListComponent
   ],
   imports: [
     CommonModule,
-
+    SharedModule,
+    RouterModule,
     HttpClientModule,
     TOP_LIST_NEBULAR_COMPONENTS,
     TOP_LIST_NGXS_CONFIG,
