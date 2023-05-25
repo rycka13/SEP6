@@ -19,6 +19,10 @@ export class MovieService {
     return this.apiService.get(`${this.PATH_CONTROLLER}/${movieId}`);
   }
 
+  getMovieByIdWithUserRating(movieId, username): Observable<Movie> {
+    return this.apiService.get(`${this.PATH_CONTROLLER}/${movieId}/${username}`);
+  }
+
   addMovie(movie): Observable<Movie> {
     return this.apiService
     .post(

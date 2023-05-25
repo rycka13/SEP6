@@ -2,7 +2,8 @@ import {Rating} from "src/model/rating";
 
 export class MovieOverviewFetchInfo {
   static readonly type = 'Movie Overview - Fetching info';
-  constructor(public movieId: number) {
+  constructor(public movieId: number,
+              public userName?: string) {
   }
 }
 
