@@ -2,225 +2,27 @@
 
 exports[`app > information > people > people.component.spec.ts should match snapshot 1`] = `
 <app-people
-  __directors$__selector={[Function Observable]}
-  __directorsAreFiltered$__selector={[Function Observable]}
-  __directorsSize$__selector={[Function Observable]}
   __isFetching$__selector={[Function Observable]}
-  __stars$__selector={[Function Observable]}
-  __starsAreFiltered$__selector={[Function Observable]}
-  __starsSize$__selector={[Function Observable]}
   alive={[Function Boolean]}
-  currentTabSelected={[Function NbTabComponent]}
+  currentTabSelected="null"
   directorsPlaceholder={[Function String]}
   router={[Function Router]}
   searchService={[Function NbSearchService]}
   starsPlaceholder={[Function String]}
   store={[Function Store]}
 >
-  <div
-    class="people-information"
+  <nb-spinner
+    class="spinner size-medium status-basic"
+    status="basic"
   >
-    <nb-card>
-      <nb-card-body>
-        <nb-tabset>
-          <ul
-            class="tabset"
-          >
-            <li
-              class="tab active"
-              tabindex="0"
-            >
-              <a
-                class="tab-link"
-                href=""
-                tabindex="-1"
-              >
-                <span
-                  class="tab-text"
-                >
-                  star
-                </span>
-              </a>
-              <nb-badge
-                class="status-success position-top position-right"
-              >
-                0
-              </nb-badge>
-            </li>
-            <li
-              class="tab"
-              tabindex="0"
-            >
-              <a
-                class="tab-link"
-                href=""
-                tabindex="-1"
-              >
-                <span
-                  class="tab-text"
-                >
-                  director
-                </span>
-              </a>
-              <nb-badge
-                class="status-basic position-top position-right"
-              >
-                0
-              </nb-badge>
-            </li>
-          </ul>
-          <nb-tab
-            badgestatus="success"
-            class="content-active"
-          >
-            <div
-              class="stars"
-            >
-              <nb-card>
-                <nb-card-header
-                  class="header-information"
-                >
-                  <span
-                    class="title"
-                  >
-                    Stars
-                  </span>
-                  <div
-                    class="right-side"
-                  >
-                    <bm-search />
-                  </div>
-                </nb-card-header>
-                <nb-card-body>
-                  <nb-list
-                    class="movie-container"
-                    role="list"
-                  >
-                  </nb-list>
-                </nb-card-body>
-                <nb-card-footer
-                  class="footer-page"
-                >
-                  <button
-                    aria-disabled="false"
-                    class="appearance-filled size-medium shape-rectangle icon-start icon-end status-primary"
-                    nbbutton=""
-                    nbtooltip="Load more stars"
-                    status="primary"
-                    tabindex="0"
-                  >
-                    <nb-icon
-                      icon="arrow-ios-downward-outline"
-                      pack="eva"
-                    >
-                      <svg
-                        class="eva eva-arrow-ios-downward-outline"
-                        fill="currentColor"
-                        height="100%"
-                        viewBox="0 0 24 24"
-                        width="100%"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g
-                          data-name="Layer 2"
-                        >
-                          <g
-                            data-name="arrow-ios-downward"
-                          >
-                            <rect
-                              height="24"
-                              opacity="0"
-                              width="24"
-                            />
-                            <path
-                              d="M12 16a1 1 0 0 1-.64-.23l-6-5a1 1 0 1 1 1.28-1.54L12 13.71l5.36-4.32a1 1 0 0 1 1.41.15 1 1 0 0 1-.14 1.46l-6 4.83A1 1 0 0 1 12 16z"
-                            />
-                          </g>
-                        </g>
-                      </svg>
-                    </nb-icon>
-                  </button>
-                </nb-card-footer>
-              </nb-card>
-            </div>
-          </nb-tab>
-          <nb-tab
-            tabtitle="Directors"
-          >
-            <div
-              class="directors"
-            >
-              <nb-card>
-                <nb-card-header
-                  class="header-information"
-                >
-                  <span
-                    class="title"
-                  >
-                    Directors
-                  </span>
-                  <div
-                    class="right-side"
-                  >
-                    <bm-search />
-                  </div>
-                </nb-card-header>
-                <nb-card-body>
-                  <nb-list
-                    class="movie-container"
-                    role="list"
-                  >
-                  </nb-list>
-                </nb-card-body>
-                <nb-card-footer
-                  class="footer-page"
-                >
-                  <button
-                    aria-disabled="false"
-                    class="appearance-filled size-medium shape-rectangle icon-start icon-end status-primary"
-                    nbbutton=""
-                    nbtooltip="Load more directors"
-                    status="primary"
-                    tabindex="0"
-                  >
-                    <nb-icon
-                      icon="arrow-ios-downward-outline"
-                      pack="eva"
-                    >
-                      <svg
-                        class="eva eva-arrow-ios-downward-outline"
-                        fill="currentColor"
-                        height="100%"
-                        viewBox="0 0 24 24"
-                        width="100%"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g
-                          data-name="Layer 2"
-                        >
-                          <g
-                            data-name="arrow-ios-downward"
-                          >
-                            <rect
-                              height="24"
-                              opacity="0"
-                              width="24"
-                            />
-                            <path
-                              d="M12 16a1 1 0 0 1-.64-.23l-6-5a1 1 0 1 1 1.28-1.54L12 13.71l5.36-4.32a1 1 0 0 1 1.41.15 1 1 0 0 1-.14 1.46l-6 4.83A1 1 0 0 1 12 16z"
-                            />
-                          </g>
-                        </g>
-                      </svg>
-                    </nb-icon>
-                  </button>
-                </nb-card-footer>
-              </nb-card>
-            </div>
-          </nb-tab>
-        </nb-tabset>
-      </nb-card-body>
-    </nb-card>
-  </div>
+    <span
+      class="spin-circle"
+    />
+    <span
+      class="message"
+    >
+      Loading...
+    </span>
+  </nb-spinner>
 </app-people>
 `;
