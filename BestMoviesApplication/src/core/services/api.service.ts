@@ -28,21 +28,10 @@ export class ApiService<T> {
     return this.http.put<T>(`${environment.api_url}${path}`, JSON.stringify(body), { headers });
   }
 
-  putWithoutBody(path: string): Observable<T> {
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.put<T>(`${environment.api_url}${path}`, { headers });
-  }
-
   post<T>(path: string, body: Object = {}): Observable<T> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http.post<T>(`${environment.api_url}${path}`, JSON.stringify(body), { headers });
   }
-
-  postWithoutBody<T>(path: string): Observable<T> {
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.post<T>(`${environment.api_url}${path}`, { headers });
-  }
-
 
   delete(path: string): Observable<T> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');

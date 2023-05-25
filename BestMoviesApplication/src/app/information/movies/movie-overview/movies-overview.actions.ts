@@ -7,6 +7,21 @@ export class MovieOverviewFetchInfo {
   }
 }
 
+export class MovieOverviewRemoveUserRating {
+  static readonly type = 'Movie Overview - Remove user rating';
+  constructor(public movieId: number,
+              public userName?: string) {
+  }
+}
+
+export class MovieOverviewAddUserRating {
+  static readonly type = 'Movie Overview - Add user rating';
+  constructor(public movieId: number,
+              public userName: string,
+              public rating: number) {
+  }
+}
+
 export class MovieOverviewFetchStars {
   static readonly type = 'Movie Overview - Fetching stars';
   constructor(public movieId: number) {

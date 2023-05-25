@@ -29,7 +29,7 @@ export class FavoritesService {
     );
   }
 
-  addRatingToMovie(username, movieId, rating): Observable<void> {
+  addRatingToMovie(username, movieId, rating): Observable<Movie[]> {
     return this.apiService
     .post(
       `${this.PATH_CONTROLLER}/add/rating/${username}/${movieId}/${rating}`,
