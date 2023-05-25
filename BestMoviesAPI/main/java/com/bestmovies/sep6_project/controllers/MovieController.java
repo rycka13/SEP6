@@ -92,6 +92,11 @@ public class MovieController {
         return movieService.getPageOfMovies(pageNr, n);
     }
 
+    @RequestMapping(value = "/{id}/{username}", method = RequestMethod.GET)
+    Movie getMovieById(@PathVariable int id, @PathVariable String username) {
+        return movieService.getMovieByIdWithUserRating(id, username);
+    }
+
     public void setResponse(HttpServletResponse response, boolean success) {
         if (success) {
             response.setStatus(HttpStatus.SC_OK);
