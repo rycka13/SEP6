@@ -66,8 +66,6 @@ export class PeopleState {
 
     setState(newState);
 
-    console.log(newState.isFetching);
-
     this.starsService.getStarsPerPage(currentPageNumberStars, this.initialPageSize)
     .pipe(
       tap(stars => {

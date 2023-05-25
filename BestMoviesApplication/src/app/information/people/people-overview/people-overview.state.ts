@@ -14,14 +14,17 @@ import { Observable, throwError } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
 import { MoviesService } from "src/api/movies.service";
 import { Movie } from "src/model/movie";
+import {RatingService} from "src/api/rating.service";
 
 export interface PeopleOverviewStateModel {
   isFetching: boolean;
+  averageRatingOfMovies: number;
   person: Person;
 }
 
 export const defaultsState: PeopleOverviewStateModel = {
   isFetching: false,
+  averageRatingOfMovies: -1,
   person: null,
 }
 
@@ -37,6 +40,7 @@ export class PeopleOverviewState {
     private directorService: DirectorService,
     private starService: StarService,
     private moviesService: MoviesService,
+    private ratingService: RatingService,
   ) {
   }
 
