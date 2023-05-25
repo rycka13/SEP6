@@ -30,7 +30,6 @@ import { MoviesState } from "src/app/information/movies/movies.state";
 import { PeopleComponent } from "src/app/information/people/people.component";
 import { PeopleState } from "src/app/information/people/people.state";
 import { environment } from "src/environments/environment";
-import { BmSearchComponent } from '../core/components/bm-search/bm-search.component';
 import { MoviesOverviewComponent } from './information/movies/movie-overview/movies-overview.component';
 import { MoviesOverviewState } from "src/app/information/movies/movie-overview/movies-overview.state";
 import { PeopleOverviewComponent } from './information/people/people-overview/people-overview.component';
@@ -49,6 +48,8 @@ import { UserService } from "src/api/user.service";
 import { AuthService } from "src/core/services/auth.service";
 import { FavoritesService } from "src/api/favorites.service";
 import { FormsModule } from "@angular/forms";
+import { SharedModule } from "src/app/shared/shared.module";
+import { BmSearchComponent } from "src/core/components/bm-search/bm-search.component";
 
 
 export const STATES = [
@@ -63,9 +64,6 @@ export const CELL_RENDERERS = []
 
 export const COMPONENTS = [
   AppComponent,
-
-  //components
-  BmSearchComponent,
 
   //overall information page
   OverallInformationComponent,
@@ -132,6 +130,7 @@ export const NEBULAR_MODULES = [
     HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    SharedModule,
     NgxsModule.forRoot(STATES, {
       developmentMode: !environment.production,
     }),
