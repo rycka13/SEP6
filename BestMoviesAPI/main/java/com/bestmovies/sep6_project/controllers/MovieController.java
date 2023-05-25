@@ -62,6 +62,11 @@ public class MovieController {
         return movieService.getAllMoviesForStar(personId);
     }
 
+    @RequestMapping(value = "/top/{personId}", method = RequestMethod.GET)
+    public List<Movie> getTopFiveMoviesForPerson(@PathVariable int personId) {
+        return movieService.getTopFiveMoviesForPerson(personId);
+    }
+
     @RequestMapping(value = "/year/{year}/{n}", method = RequestMethod.GET)
     public List<Movie> getNMoviesByYear(@PathVariable int year, @PathVariable int n) {
         return movieService.getNMoviesByYear(year, n);

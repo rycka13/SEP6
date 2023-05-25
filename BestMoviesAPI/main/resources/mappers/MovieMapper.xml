@@ -38,6 +38,19 @@
         WHERE s.person_id = #{id}
     </select>
 
+    <select id="getTopFiveMoviesForPerson" resultMap="result">
+        SELECT m.id, m.title, m.`year`
+        FROM(
+            SELECT DISTINCT m.id, m.title, m.`year`, r.rating
+            FROM movies m
+                     JOIN ratings r ON m.id = r.movie_id
+                     JOIN directors d ON m.id = d.movie_id
+                     JOIN stars s ON m.id = s.movie_id
+            WHERE s.person_id = #{id} OR d.person_id = #{id}
+            ORDER BY r.rating DESC
+            LIMIT 5) m
+    </select>
+
     <select id="getNMoviesByRating" resultMap="result">
         SELECT m.id as id, m.title, m.`year`
         FROM movies m
