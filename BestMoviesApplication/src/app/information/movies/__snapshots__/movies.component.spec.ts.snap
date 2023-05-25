@@ -5,9 +5,11 @@ exports[`app > information > movies > movies.component.spec.ts should match snap
   __isFetching$__selector={[Function Observable]}
   __isFiltered$__selector={[Function Observable]}
   __movies$__selector={[Function Observable]}
+  authService={[Function AuthService]}
   placeHolder={[Function String]}
   router={[Function Router]}
   store={[Function Store]}
+  user="null"
 >
   <div
     class="movie-information"
