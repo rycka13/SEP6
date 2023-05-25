@@ -40,6 +40,13 @@
                       <nb-icon icon="film-outline"></nb-icon>
                       Show more
                     </button>
+                    <button
+                      nbButton
+                      status="warning"
+                      (click)="addMovieToFavourites(movie.id)"
+                    >
+                      <nb-icon icon="star-outline"></nb-icon>
+                    </button>
                   </div>
                   <img *ngIf="movie.posterImage"
                        [src]="movie.posterImage" [alt]="movie.title">
@@ -106,6 +113,13 @@
                       <nb-icon icon="film-outline"></nb-icon>
                       Show more
                     </button>
+                    <button
+                      nbButton
+                      status="warning"
+                      (click)="addMovieToFavourites(movie.id)"
+                    >
+                      <nb-icon icon="star-outline"></nb-icon>
+                    </button>
                   </div>
                   <img *ngIf="movie.posterImage"
                        [src]="movie.posterImage" [alt]="movie.title">
@@ -171,6 +185,13 @@
                       >
                         <nb-icon icon="film-outline"></nb-icon>
                         Show more
+                      </button>
+                      <button
+                        nbButton
+                        status="warning"
+                        (click)="addMovieToFavourites(movie.id)"
+                      >
+                        <nb-icon icon="star-outline"></nb-icon>
                       </button>
                     </div>
                     <img *ngIf="movie.posterImage"
