@@ -1,6 +1,7 @@
 package com.bestmovies.sep6_project.services;
 
 import com.bestmovies.sep6_project.dao.interfaces.IFavoritesMapper;
+import com.bestmovies.sep6_project.dao.interfaces.IMovieMapper;
 import com.bestmovies.sep6_project.dao.interfaces.IUserMapper;
 import com.bestmovies.sep6_project.model.Movie;
 import com.bestmovies.sep6_project.model.User.User;
@@ -15,19 +16,32 @@ public class FavoritesService {
     private IFavoritesMapper favoritesMapper;
     @Autowired
     private IUserMapper userMapper;
+    @Autowired
+    private IMovieMapper movieMapper;
+    @Autowired
+    private ServiceUtils utils;
 
     public boolean addMovieToFavorites(String userName, long movieId) {
+        if(movieMapper.getMovieById(movieId) == null){
+            return false;
+        }
         if (userName != null) {
             long userId = userMapper.getUserByUsername(userName).getId();
             if (userId > 0) {
-                favoritesMapper.addMovieToFavorites(userId, movieId);
-                return true;
+                List<Movie> existingMovies = favoritesMapper.getFavorites(userId);
+                if (existingMovies.stream().noneMatch(m -> m.getId() == movieId)) {
+                    favoritesMapper.addMovieToFavorites(userId, movieId);
+                    return true;
+                } else return false;
             }
         }
         return false;
     }
 
     public boolean addMoviesToFavoritesWithRating(String userName, long movieId, int rating) {
+        if(movieMapper.getMovieById(movieId) == null){
+            return false;
+        }
         if (userName != null) {
             long userId = userMapper.getUserByUsername(userName).getId();
             if (userId > 0 && rating > 0 && rating < 11) {
@@ -82,7 +96,9 @@ public class FavoritesService {
             }
             long userId = user.getId();
             if (userId > 0) {
-                return favoritesMapper.getFavorites(userId);
+                List<Movie> movies = favoritesMapper.getFavorites(userId);
+                utils.setMultipleMoviesImages(movies);
+                return movies;
             }
         }
         return null;
