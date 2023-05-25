@@ -26,6 +26,8 @@ import { DirectorService } from "src/api/director.service";
 import { RatingsService } from "src/api/ratings.service";
 import { RatingService } from "src/api/rating.service";
 import { tap } from "rxjs/operators";
+import { moviesMock } from "src/util/mocks/movies_mock";
+import { ratingsMock } from "src/util/mocks/ratings_mock";
 
 export interface MovieOverviewStateModel {
   isFetching: boolean;
@@ -74,26 +76,54 @@ export class MoviesOverviewState {
     {getState, patchState}: StateContext<MovieOverviewStateModel>,
     action: MovieOverviewFetchInfo
   ) {
-    const newState = produce(getState(), (draft) => {
-      draft.isFetching = true;
+    let newState = produce(getState(), (draft) => {
+      //TODO uncomment when the api is working
+      // draft.isFetching = true;
+      draft.movie = moviesMock[0];
+      draft.rating = ratingsMock[0];
     });
     patchState(newState);
 
-    return this.movieService.getMovieById(action.movieId).pipe(
-      tap(
-        (movie) => {
-          let currentState = getState();
-          let newState = produce(currentState, (draft) => {
-            draft.movie = movie;
-            draft.isFetching = false;
-          });
-          patchState(newState);
-        },
-        () => {
-          // handle error here if you need to
-        }
-      )
-    );
+    //TODO uncomment when the api is working
+   // if(action.userName !== undefined) {
+   //   return this.movieService.getMovieByIdWithUserRating(action.movieId, action.userName).pipe(
+   //     tap(
+   //       (movie) => {
+   //         let currentState = getState();
+   //         let newState = produce(currentState, (draft) => {
+   //           draft.movie = movie;
+   //           draft.isFetching = false;
+   //         });
+   //         patchState(newState);
+   //       },
+   //       () => {
+   //         let newState = produce(getState(), (draft )=> {
+   //           //TODO will be removed
+   //           draft.movie = moviesMock[0];
+   //           draft.isFetching = false;
+   //         })
+   //         this.nbToastrService.show('API Error', 'Could not fetch movie with user rating', {status: "danger"})
+   //       }
+   //     )
+   //   );
+   // }
+   // else {
+   //   return this.movieService.getMovieById(action.movieId).pipe(
+   //     tap(
+   //       (movie) => {
+   //         let currentState = getState();
+   //         let newState = produce(currentState, (draft) => {
+   //           draft.movie = movie;
+   //           draft.isFetching = false;
+   //         });
+   //         patchState(newState);
+   //       },
+   //       () => {
+   //         this.nbToastrService.show('API Error', 'Could not fetch movie', {status: "danger"})
+   //       }
+   //     )
+   //   );
+   // }
   }
 
 
@@ -163,25 +193,28 @@ export class MoviesOverviewState {
     action: MovieOverviewFetchRating) {
 
     const newState = produce(getState(), (draft) => {
-      draft.isFetching = true;
+      //TODO un comment when api is working
+      // draft.isFetching = true;
+      draft.rating = ratingsMock[0];
     });
     patchState(newState);
 
-    return this.ratingService.getRatingByMovieId(action.movieId).pipe(
-      tap(
-        (rating) => {
-          let currentState = getState();
-          let newState = produce(currentState, (draft) => {
-            draft.rating = rating;
-            draft.isFetching = false;
-          });
-          patchState(newState);
-        },
-        () => {
-          this.nbToastrService.show('API Error', 'Getting rating for movie could not be fetched', {status: 'danger'})
-        }
-      )
-    );
+    //TODO uncomment when api is working
+    // return this.ratingService.getRatingByMovieId(action.movieId).pipe(
+    //   tap(
+    //     (rating) => {
+    //       let currentState = getState();
+    //       let newState = produce(currentState, (draft) => {
+    //         draft.rating = rating;
+    //         draft.isFetching = false;
+    //       });
+    //       patchState(newState);
+    //     },
+    //     () => {
+    //       this.nbToastrService.show('API Error', 'Getting rating for movie could not be fetched', {status: 'danger'})
+    //     }
+    //   )
+    // );
   }
 
   @Action(MovieOverviewFetchBestMoviesTop)

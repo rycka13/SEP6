@@ -20,9 +20,10 @@
 
       <!--      TODO do rating with stars-->
       <div class="rating"
-           *ngIf="movieInformation.rating">
+      *ngIf="movieInformation.movie !== null">
         <div class="item-in-rating"
-        nbTooltip="Best movies rating">
+        nbTooltip="Best movies rating"
+             *ngIf="movieInformation.rating">
           <p class="title-rating">BM Rating</p>
           <p class="info-rating">
             <nb-icon
@@ -33,9 +34,18 @@
             {{movieInformation.rating.rating}} <span>/ 10</span></p>
           <p class="votes-rating"> {{ movieInformation.rating.votes }} votes</p>
         </div>
+        <div class="item-in-rating"
+             nbTooltip="Best movies rating"
+             *ngIf="!movieInformation.rating">
+          <p class="title-rating">BM Rating</p>
+          <p class="info-rating">
+            No rating available for this movie
+          </p>
+        </div>
 
-<!--        TODO implement modal here-->
-        <div class="item-in-rating">
+        <div class="item-in-rating"
+        *ngIf="movieInformation.movie.userRating"
+        nbTooltip="Click to change or remove rating">
           <p class="title-rating">Your rating</p>
           <p class="info-rating info-your-rating">
             <nb-icon
@@ -43,13 +53,16 @@
               pack="eva"
             status="info">
             </nb-icon>
+            {{movieInformation.movie.userRating}} <span>/ 10</span></p>
         </div>
-      </div>
-      <div class="rating"
-           *ngIf="!movieInformation.rating">
-        <h3>
-          No rating for this movie
-        </h3>
+        <div class="item-in-rating"
+             *ngIf="!movieInformation.movie.userRating"
+        nbTooltip="Click to add rating">
+          <p class="title-rating">Your rating</p>
+          <p class="info-rating info-your-rating">
+            No rating given
+          </p>
+        </div>
       </div>
     </nb-card-header>
     <nb-card-body class="grid-container">

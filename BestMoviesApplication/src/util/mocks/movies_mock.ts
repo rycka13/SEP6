@@ -8,5 +8,6 @@ export const moviesMock: Movie[] = [
     posterImage: 'https://image.tmdb.org/t/p/original/dB0CxRwLXJoOrRPUvsJjb2hnPtq.jpg',
     backgroundImage: 'https://image.tmdb.org/t/p/original/dB0CxRwLXJoOrRPUvsJjb2hnPtq.jpg',
     description: "",
+    userRating: 8.0,
   },
 ];

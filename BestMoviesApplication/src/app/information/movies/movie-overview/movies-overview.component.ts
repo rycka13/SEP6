@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Route, Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Select, Store} from "@ngxs/store";
 import {Observable} from "rxjs";
 import {MoviesOverviewSelector} from "src/app/information/movies/movie-overview/movies-overview.selector";
@@ -16,10 +16,10 @@ import {
 import {Rating} from "src/model/rating";
 import {Director} from "src/model/director";
 import {Star} from "src/model/star";
-import {MoviesFetchInfo} from "src/app/information/movies/movies.actions";
 import {NbToastrService} from "@nebular/theme";
 import {switchMap} from "rxjs/operators";
-import {PeopleType} from "src/app/information/people/people-overview/constants/constants";
+import { AuthService } from "src/core/services/auth.service";
+import { User } from "src/model/user";
 
 @Component({
   selector: 'app-movies-overview',
@@ -54,22 +54,28 @@ export class MoviesOverviewComponent implements OnInit, OnDestroy{
 
   TOP_SIZE_LIST: number = 5;
 
+  user: User = null;
   alive: boolean = true;
   constructor(
     private route: ActivatedRoute,
     private store: Store,
     private nbToastrService: NbToastrService,
     private router: Router,
+    private authService: AuthService,
   ) {
   }
 
   ngOnInit() {
+
+    this.authService.user$.subscribe(user => {
+      this.user = user;
+    });
     this.route.params
       .pipe(
         switchMap(params => {
           const movieId = params['movieId'];
           const initialActions = [
-            new MovieOverviewFetchInfo(movieId),
+            new MovieOverviewFetchInfo(movieId, this.user.userName),
             new MovieOverviewFetchRating(movieId),
             new MovieOverviewFetchDirectors(movieId),
             new MovieOverviewFetchStars(movieId),
