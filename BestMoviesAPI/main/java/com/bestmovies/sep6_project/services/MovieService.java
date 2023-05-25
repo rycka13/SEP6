@@ -109,8 +109,7 @@ public class MovieService {
     public List<Movie> getTopFiveMoviesForPerson(long id) {
         if (id > 0) {
             List<Movie> movies = movieMapper.getTopFiveMoviesForPerson(id);
-            setMultipleMoviesImages(movies);
-            setMultipleMoviesDescriptions(movies);
+            utils.setParametersForMultipleMovies(movies);
             return movies;
         }
         return null;
