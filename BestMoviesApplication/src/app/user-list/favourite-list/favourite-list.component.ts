@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { Movie } from "src/model/movie";
 import { Router } from "@angular/router";
 import {
+  UserFavouriteListMoviesRemoveMovieFromFavourites,
   UserFavouriteListMoviesFetch,
   UserFavouriteListMoviesReset,
   UserFavouriteListMoviesResetFiltering
@@ -49,6 +50,10 @@ export class FavouriteListComponent implements OnInit, OnDestroy {
 
   redirectToMovieOverviewPage(movieId: number) {
     this.router.navigate([`/information/movies/${movieId}`]);
+  }
+
+  removeMovieToFavourites(movieId: number) {
+    this.store.dispatch(new UserFavouriteListMoviesRemoveMovieFromFavourites(this.user?.userName, movieId))
   }
 
   onSearch(event) {

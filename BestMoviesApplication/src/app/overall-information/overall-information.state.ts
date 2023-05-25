@@ -3,16 +3,19 @@ import {Person} from "../../model/person";
 import {Action, State, StateContext} from "@ngxs/store";
 import {Injectable} from "@angular/core";
 import {
-  OverAllInformationFetchBestMoviesTop, OverAllInformationFetchMoviesFromSameYear, OverAllInformationFetchSameRatingRange,
+  OverAllInformationAddMovieToFavourites,
+  OverAllInformationFetchBestMoviesTop,
+  OverAllInformationFetchMoviesFromSameYear,
+  OverAllInformationFetchSameRatingRange,
   OverAllInformationReset
 } from "./overall-information.actions";
-import {current, produce} from "immer";
-import {moviesMock} from "../../util/mocks/movies_mock";
-import {peopleMock} from "../../util/mocks/people_mock";
+import {produce} from "immer";
 import {NbToastrService} from "@nebular/theme";
 import { MoviesService } from "src/api/movies.service";
 import { throwError } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
+import {FavoritesService} from "src/api/favorites.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 export interface OverAllInformationStateModel {
   isFetching: boolean;
@@ -47,7 +50,7 @@ export class OverAllInformationState {
   constructor(
     private nbToastrService: NbToastrService,
     private moviesService: MoviesService,
-    //here the services used for getting date from backend are imported
+    private favouritesService: FavoritesService,
   ) {
   }
 
@@ -79,6 +82,38 @@ export class OverAllInformationState {
       })
     )
     .subscribe();
+  }
+
+  @Action(OverAllInformationAddMovieToFavourites)
+  overAllInformationAddMovieToFavourites(
+    {getState, setState}: StateContext<OverAllInformationStateModel>,
+    action: OverAllInformationAddMovieToFavourites) {
+
+    let newState = produce(getState(), draft => {
+      draft.isFetching = true;
+    })
+    setState(newState);
+
+    this.favouritesService.addMoviesToFavorites(action.userName, action.movieId)
+      .pipe(
+        tap(() => {
+          newState = produce(getState(), draft => {
+            draft.isFetching = false;
+          });
+          setState(newState);
+        }),
+        catchError((error: HttpErrorResponse) => {
+          if(error.status === 400) {
+            this.nbToastrService.show('Movie already existing in favourite list', 'You cannot add this movie in favourite list', { status: 'warning'})
+          }
+          newState = produce(getState(), draft => {
+            draft.isFetching = false;
+          });
+          setState(newState);
+          return throwError(error);
+        })
+      )
+      .subscribe();
   }
 
 

@@ -10,7 +10,6 @@ exports[`app > overall-information > overall-information.component.spec.ts shoul
   YEAR_NOW={[Function Number]}
   YEAR_SEARCHED={[Function Number]}
   __isFetching$__selector={[Function Observable]}
-  agGrid="undefined"
   alive={[Function Boolean]}
   authService={[Function AuthService]}
   moviesByRatingIsFiltered="false"
@@ -20,6 +19,7 @@ exports[`app > overall-information > overall-information.component.spec.ts shoul
   nbToastrService={[Function NbToastrService]}
   router={[Function Router]}
   store={[Function Store]}
+  user="null"
 >
   <nb-spinner
     class="spinner size-medium status-basic"

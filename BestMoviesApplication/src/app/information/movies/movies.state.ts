@@ -2,6 +2,7 @@ import {Movie} from "../../../model/movie";
 import {Action, State, StateContext} from "@ngxs/store";
 import {Injectable} from "@angular/core";
 import {
+  MoviesAddMovieToFavourites,
   MoviesFetchNextPage,
   MoviesReset, MoviesSearchReset, MoviesSearchTitle
 } from "./movies.actions";
@@ -10,6 +11,8 @@ import {NbToastrService} from "@nebular/theme";
 import { MoviesService } from "src/api/movies.service";
 import { catchError, tap } from "rxjs/operators";
 import { throwError } from "rxjs";
+import {HttpErrorResponse} from "@angular/common/http";
+import {FavoritesService} from "src/api/favorites.service";
 
 export interface MoviesStateModel {
   isFetching: boolean;
@@ -38,6 +41,7 @@ export class MoviesState {
   constructor(
     private toastrService: NbToastrService,
     private moviesService: MoviesService,
+    private favouritesService: FavoritesService,
   ) {
   }
 
@@ -119,6 +123,35 @@ export class MoviesState {
       })
     )
     .subscribe();
+  }
+
+  @Action(MoviesAddMovieToFavourites)
+  async moviesAddMovieToFavourites(
+    {getState, setState}: StateContext<MoviesStateModel>,
+    action: MoviesAddMovieToFavourites) {
+    let newState = produce(getState(), draft => {
+      draft.isFetching = true;
+    })
+    setState(newState);
+
+    this.favouritesService.addMoviesToFavorites(action.userName, action.movieId)
+      .pipe(
+        tap(() => {
+          newState = produce(getState(), draft => {
+            draft.isFetching = false;
+          });
+          setState(newState);
+          window.location.reload();
+        }),
+        catchError((error: HttpErrorResponse) => {
+          newState = produce(getState(), draft => {
+            draft.isFetching = false;
+          });
+          setState(newState);
+          return throwError(error);
+        })
+      )
+      .subscribe();
   }
 
   @Action(MoviesSearchReset)
