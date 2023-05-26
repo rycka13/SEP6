@@ -36,7 +36,6 @@ export const AUTH_NEBULAR_COMPONENTS = [
   NbInputModule,
   NbFormFieldModule,
   NbButtonModule,
-  NbToastrModule.forRoot(),
   NbOverlayModule.forRoot(),
   NbLayoutModule,
 ]

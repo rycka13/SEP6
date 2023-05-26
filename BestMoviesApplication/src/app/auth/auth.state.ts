@@ -62,7 +62,7 @@ export class AuthState {
     setState(newState);
 
     if (action.repeatedPassword !== action.password) {
-      this.toastrService.show("Password does not match", "Repeaed password and password do not match", {status: "warning"});
+      this.toastrService.show("Password does not match", "Repeated password and password do not match", {status: "warning"});
       let newState = produce(currentState, draft => {
         draft.isFetching = true;
       });
@@ -79,7 +79,7 @@ export class AuthState {
         });
         setState(newState);
         this.router.navigate(['auth/login']);
-
+        this.toastrService.show('Account has been registered!', 'Welcome!', { status: "success"});
       }),
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401)
@@ -109,7 +109,7 @@ export class AuthState {
     setState(newState);
 
     if (action.repeatedPassword !== action.password) {
-      this.toastrService.show("Password does not match", "Repeaed password and password do not match", {status: "warning"});
+      this.toastrService.show("Password does not match", "Repeated password and password do not match", {status: "warning"});
       let newState = produce(getState(), draft => {
         draft.isFetching = true;
       });
@@ -129,7 +129,7 @@ export class AuthState {
       }),
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401)
-          this.toastrService.show("Wrong password or email", "Cannot login", {status: 'warning'});
+          this.toastrService.show("Wrong password", "Cannot login", {status: 'warning'});
         else {
           this.toastrService.show("Internal server error", "Something went wrong", {status: 'danger'});
         }
@@ -168,5 +168,6 @@ export class AuthState {
     }
 
   }
+
 
 }
