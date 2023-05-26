@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from "@angular/router";
-import { Store } from "@ngxs/store";
+import {Select, Store} from "@ngxs/store";
 import { CheckType } from "src/app/auth/constants/constants";
 import { AuthIsLoggedIn, AuthRegister } from "src/app/auth/auth.actions";
+import {AuthSelector} from "src/app/auth/auth.selector";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-account',
@@ -10,6 +12,11 @@ import { AuthIsLoggedIn, AuthRegister } from "src/app/auth/auth.actions";
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
+
+  @Select(AuthSelector.isFetching)
+  isFetching$: Observable<boolean>;
+
+
   userName: string;
   email: string;
   firstName: string;
@@ -43,16 +50,11 @@ export class RegisterComponent {
 
   getInputType(checkType: CheckType) {
     if(checkType === CheckType.PASSWORD) {
-      if(this.showPassword) {
-        return 'text';
-      }
-      return 'password';
+      return this.showPassword ? 'text' : 'password';
     }
+
     else if(checkType === CheckType.REPEATED_PASSWORD) {
-      if(this.showRepeatedPassword) {
-        return 'text';
-      }
-      return 'password';
+     return this.showRepeatedPassword ? 'text': 'password';
     }
   }
 

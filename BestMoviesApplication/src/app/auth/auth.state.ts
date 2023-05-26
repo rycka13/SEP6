@@ -13,16 +13,17 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { User } from "src/model/user";
 import { AuthService } from "src/core/services/auth.service";
 import { Router } from "@angular/router";
+import {validatePassword} from "src/app/auth/constants/constants";
 
-export interface AccountStateModel {
+export interface AuthStateModel {
   isFetching: boolean;
 }
 
-export const defaultsState: AccountStateModel = {
+export const defaultsState: AuthStateModel = {
   isFetching: false,
 }
 
-@State<AccountStateModel>({
+@State<AuthStateModel>({
   name: 'authPage',
   defaults: defaultsState,
 })
@@ -39,7 +40,7 @@ export class AuthState {
 
   @Action(AuthIsLoggedIn)
   authIsLoggedIn(
-    {getState, setState, patchState}: StateContext<AccountStateModel>) {
+    {getState, setState, patchState}: StateContext<AuthStateModel>) {
     if (this.authService.isLoggedIn$.subscribe(isLoggedIn => {
       if (isLoggedIn) {
         this.router.navigate(['overall-information']);
@@ -50,7 +51,7 @@ export class AuthState {
 
   @Action(AuthRegister)
   authRegister(
-    {getState, setState, patchState}: StateContext<AccountStateModel>,
+    {getState, setState, patchState}: StateContext<AuthStateModel>,
     action: AuthRegister) {
 
     let currentState = getState();
@@ -61,16 +62,29 @@ export class AuthState {
 
     setState(newState);
 
-    if (action.repeatedPassword !== action.password) {
-      this.toastrService.show("Password does not match", "Repeaed password and password do not match", {status: "warning"});
-      let newState = produce(currentState, draft => {
-        draft.isFetching = true;
-      });
+    //checking credentials
+    let errorState = produce(currentState, draft => {
+      draft.isFetching = false;
+    });
 
-      return setState(newState);
+    if (action.userName === undefined) {
+      this.toastrService.show("Please insert an username", "Username is empty", {status: "warning"});
+      return setState(errorState);
+    }
+    else if(action.email === undefined) {
+      this.toastrService.show("Please insert an email", "Email is empty", {status: "warning"});
+      return setState(errorState);
+    }
+    else if(!validatePassword(action.password)) {
+      this.toastrService.show("It should include minimum one uppercase, lowercase letter, one number and one special character", "Password does not meet criteria", {status: "warning"});
+      return setState(errorState);
+    }
+    else if (action.repeatedPassword !== action.password) {
+      this.toastrService.show("Password does not match", "Repeated password and password do not match", {status: "warning"});
+      return setState(errorState);
     }
 
-    const user: User = this.createRegisterUser(action.email, action.userName, action.firstName, action.lastName, action.password);
+    const user: User = this.createRegisterUser(action.email, action.userName, action.password, action.firstName, action.lastName);
     this.userService.register(user)
     .pipe(
       tap((response) => {
@@ -78,6 +92,8 @@ export class AuthState {
           draft.isFetching = false;
         });
         setState(newState);
+        this.router.navigate(['auth/login']);
+        this.toastrService.show('Account has been registered!', 'Welcome!', { status: "success"});
       }),
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401)
@@ -97,7 +113,7 @@ export class AuthState {
 
   @Action(AuthLogin)
   authLogin(
-    {getState, setState, patchState}: StateContext<AccountStateModel>,
+    {getState, setState, patchState}: StateContext<AuthStateModel>,
     action: AuthLogin) {
 
     let newState = produce(getState(), draft => {
@@ -105,15 +121,6 @@ export class AuthState {
     });
 
     setState(newState);
-
-    if (action.repeatedPassword !== action.password) {
-      this.toastrService.show("Password does not match", "Repeaed password and password do not match", {status: "warning"});
-      let newState = produce(getState(), draft => {
-        draft.isFetching = true;
-      });
-
-      return setState(newState);
-    }
 
     const user: User = this.createLoginUser(action.userName, action.email, action.password);
     this.userService.login(user)
@@ -126,8 +133,13 @@ export class AuthState {
         setState(newState);
       }),
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 401)
-          this.toastrService.show("Wrong password or email", "Cannot login", {status: 'warning'});
+        if (error.status === 401) {
+          if (action.userName === undefined) {
+            this.toastrService.show("Wrong password or email", "Cannot login", {status: 'warning'});
+          } else if (action.email === undefined) {
+            this.toastrService.show("Wrong password or username", "Cannot login", {status: 'warning'});
+          }
+        }
         else {
           this.toastrService.show("Internal server error", "Something went wrong", {status: 'danger'});
         }
@@ -166,5 +178,6 @@ export class AuthState {
     }
 
   }
+
 
 }

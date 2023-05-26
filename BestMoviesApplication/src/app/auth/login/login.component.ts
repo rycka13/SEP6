@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { Store } from "@ngxs/store";
-import { NbToastrService } from "@nebular/theme";
-import { AuthIsLoggedIn, AuthLogin, AuthRegister } from "src/app/auth/auth.actions";
-import { User } from "src/model/user";
+import {Select, Store} from "@ngxs/store";
+import { AuthIsLoggedIn, AuthLogin } from "src/app/auth/auth.actions";
 import { CheckType } from "src/app/auth/constants/constants";
 import { Router } from "@angular/router";
+import {AuthSelector} from "src/app/auth/auth.selector";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -13,13 +13,15 @@ import { Router } from "@angular/router";
 })
 export class LoginComponent {
 
+  @Select(AuthSelector.isFetching)
+  isFetching$: Observable<boolean>;
+
+
   userName: string;
   email: string;
   password: string;
-  repeatPassword: string;
 
   showPassword: boolean = false;
-  showRepeatedPassword: boolean = false;
 
   loginWithEmailActivated: boolean = false;
   loginWithUserNameActivated: boolean = true;
@@ -38,32 +40,15 @@ export class LoginComponent {
     this.store.dispatch(new AuthLogin(
       this.userName,
       this.email,
-      this.password,
-      this.repeatPassword));
+      this.password));
   }
 
   getInputType(checkType: CheckType) {
-    if(checkType === CheckType.PASSWORD) {
-      if(this.showPassword) {
-        return 'text';
-      }
-      return 'password';
-    }
-    else if(checkType === CheckType.REPEATED_PASSWORD) {
-      if(this.showRepeatedPassword) {
-        return 'text';
-      }
-      return 'password';
-    }
+    return this.showPassword ? 'text' : 'password';
   }
 
   toggleShowPassword(checkType: CheckType) {
-    if(checkType === CheckType.PASSWORD) {
       this.showPassword = !this.showPassword;
-    }
-    else if(checkType === CheckType.REPEATED_PASSWORD) {
-      this.showRepeatedPassword = !this.showRepeatedPassword;
-    }
   }
 
   redirectToRegisterPage() {
@@ -72,14 +57,14 @@ export class LoginComponent {
 
   changeLoginType() {
     if(this.loginWithEmailActivated) {
+      this.email = undefined;
       this.loginWithEmailActivated = false;
       this.loginWithUserNameActivated = true;
     }
-    else {
-      if(this.loginWithUserNameActivated) {
+    else if(this.loginWithUserNameActivated) {
+        this.userName = undefined;
         this.loginWithEmailActivated = true;
         this.loginWithUserNameActivated = false;
-      }
     }
   }
 

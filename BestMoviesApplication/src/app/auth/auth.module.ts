@@ -11,8 +11,7 @@ import {
   NbFormFieldModule,
   NbIconModule,
   NbInputModule, NbLayoutModule,
-  NbOverlayModule,
-  NbToastrModule
+  NbOverlayModule, NbSpinnerModule,
 } from "@nebular/theme";
 import { FormsModule } from "@angular/forms";
 import { NgxsModule } from "@ngxs/store";
@@ -36,7 +35,6 @@ export const AUTH_NEBULAR_COMPONENTS = [
   NbInputModule,
   NbFormFieldModule,
   NbButtonModule,
-  NbToastrModule.forRoot(),
   NbOverlayModule.forRoot(),
   NbLayoutModule,
 ]
@@ -56,6 +54,7 @@ export const AUTH_NGXS_CONFIG = [
   imports: [
     AUTH_NEBULAR_COMPONENTS,
     AUTH_NGXS_CONFIG,
+    NbSpinnerModule,
   ]
 })
 export class AuthModule { }
