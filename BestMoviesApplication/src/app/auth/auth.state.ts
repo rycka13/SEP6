@@ -108,15 +108,6 @@ export class AuthState {
 
     setState(newState);
 
-    if (action.repeatedPassword !== action.password) {
-      this.toastrService.show("Password does not match", "Repeated password and password do not match", {status: "warning"});
-      let newState = produce(getState(), draft => {
-        draft.isFetching = true;
-      });
-
-      return setState(newState);
-    }
-
     const user: User = this.createLoginUser(action.userName, action.email, action.password);
     this.userService.login(user)
     .pipe(
@@ -128,8 +119,13 @@ export class AuthState {
         setState(newState);
       }),
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 401)
-          this.toastrService.show("Wrong password", "Cannot login", {status: 'warning'});
+        if (error.status === 401) {
+          if (action.userName === undefined) {
+            this.toastrService.show("Wrong password or email", "Cannot login", {status: 'warning'});
+          } else if (action.email === undefined) {
+            this.toastrService.show("Wrong password or username", "Cannot login", {status: 'warning'});
+          }
+        }
         else {
           this.toastrService.show("Internal server error", "Something went wrong", {status: 'danger'});
         }

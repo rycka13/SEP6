@@ -43,16 +43,11 @@ export class RegisterComponent {
 
   getInputType(checkType: CheckType) {
     if(checkType === CheckType.PASSWORD) {
-      if(this.showPassword) {
-        return 'text';
-      }
-      return 'password';
+      return this.showPassword ? 'text' : 'password';
     }
+
     else if(checkType === CheckType.REPEATED_PASSWORD) {
-      if(this.showRepeatedPassword) {
-        return 'text';
-      }
-      return 'password';
+     return this.showRepeatedPassword ? 'text': 'password';
     }
   }
 

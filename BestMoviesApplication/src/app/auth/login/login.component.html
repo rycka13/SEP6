@@ -21,15 +21,6 @@
       </div>
     </div>
     <div class="form-row">
-      <nb-icon nbPrefix icon="shield-outline" pack="eva"></nb-icon>
-      <div class="password">
-        <input [type]="getInputType(getCheckType().REPEATED_PASSWORD)" nbInput [(ngModel)]="repeatPassword" status="primary" placeholder="Repeat password">
-        <button nbSuffix nbButton ghost (click)="toggleShowPassword(getCheckType().REPEATED_PASSWORD)">
-          <nb-icon [icon]="showRepeatedPassword ? 'eye-outline' : 'eye-off-2-outline'" pack="eva" [attr.aria-label]="showPassword ? 'hide password' : 'show password'"></nb-icon>
-        </button>
-      </div>
-    </div>
-    <div class="form-row">
       <p>Don't have an account? <span (click)="redirectToRegisterPage()">Register</span></p>
     </div>
   </nb-card-body>

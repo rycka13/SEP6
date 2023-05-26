@@ -13,8 +13,7 @@ export class AuthLogin {
   static readonly type = 'Account - Login';
   constructor(public userName: string,
               public email: string,
-              public password: string,
-              public repeatedPassword: string) {
+              public password: string) {
   }
 }
 
