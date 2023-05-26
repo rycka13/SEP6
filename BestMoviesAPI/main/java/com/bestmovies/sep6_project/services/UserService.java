@@ -22,6 +22,9 @@ public class UserService {
         if(user != null){
             if(user.getUserName() != null){
                 User dbUser = userMapper.getUserByUsername(user.getUserName());
+                if(dbUser == null){
+                    return ResponseMessage.CREDENTIALS_ERROR;
+                }
                 if(Arrays.equals(hashUtil.hash(user.getPassword(), dbUser.getHashedPassword().getSalt()).getHashedString(),
                         dbUser.getHashedPassword().getHashedString())){
                     return ResponseMessage.SUCCESS;
@@ -32,6 +35,9 @@ public class UserService {
             }
             if(user.getEmail() != null){
                 User dbUser = userMapper.getUserByEmail(user.getEmail());
+                if(dbUser == null){
+                    return ResponseMessage.CREDENTIALS_ERROR;
+                }
                 if(Arrays.equals(hashUtil.hash(user.getPassword(), dbUser.getHashedPassword().getSalt()).getHashedString(),
                         dbUser.getHashedPassword().getHashedString())){
                     return ResponseMessage.SUCCESS;
