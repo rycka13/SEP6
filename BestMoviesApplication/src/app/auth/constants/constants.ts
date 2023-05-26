@@ -20,3 +20,10 @@ export function getAccountType(accountType: string) {
     default: return AccountType.UNKNOWN;
   }
 }
+
+const passPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+export function validatePassword(password: string): boolean {
+  return passPattern.test(password);
+}
+

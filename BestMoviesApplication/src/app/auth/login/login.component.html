@@ -5,7 +5,7 @@
   <nb-card-body class="card-body">
     <div *ngIf="loginWithUserNameActivated" class="form-row">
       <nb-icon nbPrefix icon="person-outline" pack="eva"></nb-icon>
-      <input type="username" [(ngModel)]="userName" nbInput status="primary" placeholder="Username">
+      <input type="text" [(ngModel)]="userName" nbInput status="primary" placeholder="Username">
     </div>
     <div *ngIf="loginWithEmailActivated" class="form-row">
       <nb-icon nbPrefix icon="email-outline" pack="eva"></nb-icon>
@@ -25,11 +25,13 @@
     </div>
   </nb-card-body>
   <nb-card-footer class="card-footer">
-    <button nbButton outline="true" status="control"
+    <button [nbSpinner]="isFetching$ | async" nbSpinnerStatus="control " nbButton outline="true" status="control"
             (click)="login()">
-      Login
+        <ng-container *ngIf="!(isFetching$ | async)">
+          Login
+        </ng-container>
     </button>
-    <button nbButton outline="true" status="control"
+    <button *ngIf="!(isFetching$ | async)" nbButton outline="true" status="control"
             (click)="changeLoginType()">
       <ng-container *ngIf="loginWithUserNameActivated">
         Login with email

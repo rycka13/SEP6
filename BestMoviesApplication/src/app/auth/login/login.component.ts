@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { Store } from "@ngxs/store";
+import {Select, Store} from "@ngxs/store";
 import { AuthIsLoggedIn, AuthLogin } from "src/app/auth/auth.actions";
 import { CheckType } from "src/app/auth/constants/constants";
 import { Router } from "@angular/router";
+import {AuthSelector} from "src/app/auth/auth.selector";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -10,6 +12,10 @@ import { Router } from "@angular/router";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+
+  @Select(AuthSelector.isFetching)
+  isFetching$: Observable<boolean>;
+
 
   userName: string;
   email: string;

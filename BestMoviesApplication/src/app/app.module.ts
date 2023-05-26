@@ -49,8 +49,6 @@ import { AuthService } from "src/core/services/auth.service";
 import { FavoritesService } from "src/api/favorites.service";
 import { FormsModule } from "@angular/forms";
 import { SharedModule } from "src/app/shared/shared.module";
-import { BmSearchComponent } from "src/core/components/bm-search/bm-search.component";
-
 
 export const STATES = [
   OverAllInformationState,
