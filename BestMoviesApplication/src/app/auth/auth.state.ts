@@ -70,7 +70,7 @@ export class AuthState {
       return setState(newState);
     }
 
-    const user: User = this.createRegisterUser(action.email, action.userName, action.firstName, action.lastName, action.password);
+    const user: User = this.createRegisterUser(action.email, action.userName, action.password, action.firstName, action.lastName);
     this.userService.register(user)
     .pipe(
       tap((response) => {
@@ -78,6 +78,8 @@ export class AuthState {
           draft.isFetching = false;
         });
         setState(newState);
+        this.router.navigate(['auth/login']);
+
       }),
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401)
