@@ -11,12 +11,14 @@ import {NbToastrService} from "@nebular/theme";
 import {randomNumberFromInterval} from "src/util/utils_functions";
 import {LoadEnum, SearchByEnum} from "src/app/overall-information/constants";
 import {
+  OverAllInformationAddMovieToFavourites,
   OverAllInformationFetchBestMoviesTop,
   OverAllInformationFetchMoviesFromSameYear,
   OverAllInformationFetchSameRatingRange,
   OverAllInformationReset
 } from "src/app/overall-information/overall-information.actions";
 import { AuthService } from "src/core/services/auth.service";
+import {User} from "src/model/user";
 
 @Component({
   selector: 'app-overall-information',
@@ -45,10 +47,6 @@ export class OverallInformationComponent implements OnInit, OnDestroy {
   @Select(OverallInformationSelector.topMoviesByRating)
   bestMoviesByRating$: Observable<Movie[]>;
 
-  gridApi: GridApi;
-  gridColumnApi: ColumnApi;
-  @ViewChild('agGridAngular') agGrid!: AgGridAngular;
-
   TOP_BEST_MOVIES: string = '5';
 
   //movies by year
@@ -65,6 +63,7 @@ export class OverallInformationComponent implements OnInit, OnDestroy {
   moviesByRatingIsFiltered: boolean = false;
   moviesByRatingPlaceHolder: string;
 
+  user: User = null;
 
   constructor(private store: Store,
               private router: Router,
@@ -73,6 +72,10 @@ export class OverallInformationComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
+
+    this.authService.user$.subscribe(user => {
+      this.user = user;
+    });
 
    //movies by year
     let date = new Date();
@@ -136,6 +139,10 @@ export class OverallInformationComponent implements OnInit, OnDestroy {
       this.moviesByRatingPlaceHolder = `Rating searched ${this.RANDOMLY_RATING}`;
       this.store.dispatch(new OverAllInformationFetchSameRatingRange(Number(this.LIST_MOVIES_RATING), this.RANDOMLY_RATING));
     }
+  }
+
+  addMovieToFavourites(movieId: number) {
+    this.store.dispatch(new OverAllInformationAddMovieToFavourites(this.user?.userName, movieId))
   }
 
   redirectToMovieOverviewPage(movieId: number) {

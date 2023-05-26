@@ -5,6 +5,14 @@ export class UserFavouriteListMoviesFetch {
   }
 }
 
+export class UserFavouriteListMoviesRemoveMovieFromFavourites {
+  static readonly type = 'Favourite list - Add movie to favourites';
+
+  constructor(public userName: string,
+              public movieId: number) {
+  }
+}
+
 export class UserFavouriteListMoviesResetFiltering {
   static readonly type = 'Favourite list - search by username';
   constructor() {

@@ -11,10 +11,12 @@ const routes: Routes = [
   },
   {
     path:'top',
+    title: 'Top movies list',
     component: TopListComponent,
   },
   {
     path:'favourites',
+    title: 'Favourite movies',
     component: FavouriteListComponent,
   }
   ];

@@ -4,6 +4,14 @@ export class OverAllInformationFetchBestMoviesTop{
   }
 }
 
+export class OverAllInformationAddMovieToFavourites {
+  static readonly type = 'Overall information - Add movie to favourites';
+
+  constructor(public userName: string,
+              public movieId: number) {
+  }
+}
+
 export class OverAllInformationFetchMoviesFromSameYear{
   static readonly type = 'Overall information - Fetching movies from the same year';
   constructor(public listSize: number,
