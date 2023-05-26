@@ -3,7 +3,7 @@ steps:
     args:
       - build
       - '-t'
-      - '$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME:$COMMIT-SHA'
+      - '$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA'
       - .
   - name: gcr.io/cloud-builders/docker
     args:
@@ -22,4 +22,4 @@ steps:
     entrypoint: gcloud
 timeout: 1200s
 images:
-    - '$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA'
+  - '$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA'
