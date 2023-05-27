@@ -13,7 +13,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://best-movies-application-oppd2xaljq-uc.a.run.app/")
 @RequestMapping("/user")
 public class UserController {
     @Autowired
